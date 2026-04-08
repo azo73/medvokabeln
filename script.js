@@ -12,7 +12,44 @@ let currentIndex = 0;
 let learnedIds = JSON.parse(localStorage.getItem('medVokabeln_learned')) || [];
 let currentQuizCorrectWord = null; 
 
-window.onload = () => { updateCard(); };
+// SAYFA YÜKLENDİĞİNDE ÇALIŞANLAR
+window.onload = () => { 
+    updateCard(); 
+    displayStreak(); // Ekran açıldığında hafızadaki alevi göster
+};
+
+// --- YENİ EKLENEN: GÜNLÜK SERİ (STREAK) MANTIĞI ---
+function displayStreak() {
+    let streakCount = parseInt(localStorage.getItem('medVokabeln_streak')) || 0;
+    document.getElementById('streakText').innerText = `🔥 ${streakCount}`;
+}
+
+function checkAndUpdateStreak() {
+    let streakCount = parseInt(localStorage.getItem('medVokabeln_streak')) || 0;
+    let lastActiveDate = localStorage.getItem('medVokabeln_lastActive') || "";
+    
+    // Bugünün tarihini al (Örn: 2024-05-20)
+    const today = new Date().toISOString().split('T')[0];
+
+    if (lastActiveDate === today) return; // Bugün zaten kelime öğrendiyse seriyi artırma (günde 1 kez artar)
+
+    // Dünün tarihini bul
+    const yesterdayDate = new Date();
+    yesterdayDate.setDate(yesterdayDate.getDate() - 1);
+    const yesterday = yesterdayDate.toISOString().split('T')[0];
+
+    if (lastActiveDate === yesterday) {
+        streakCount++; // Dün girmiş, seriyi artır!
+    } else {
+        streakCount = 1; // Dün girmemiş, seri sıfırlandı! (1'den başlar)
+    }
+
+    // Yeni verileri kalıcı olarak kaydet
+    localStorage.setItem('medVokabeln_streak', streakCount);
+    localStorage.setItem('medVokabeln_lastActive', today);
+    displayStreak();
+}
+// --------------------------------------------------
 
 function speakWord(event) {
     event.stopPropagation(); 
@@ -86,8 +123,13 @@ function checkLearnedStatus(wordId) {
 
 function toggleLearned() {
     const currentWordId = currentCards[currentIndex].id;
-    if (learnedIds.includes(currentWordId)) { learnedIds = learnedIds.filter(id => id !== currentWordId); } 
-    else { learnedIds.push(currentWordId); }
+    if (learnedIds.includes(currentWordId)) { 
+        learnedIds = learnedIds.filter(id => id !== currentWordId); 
+    } else { 
+        learnedIds.push(currentWordId); 
+        // Kullanıcı kelimeyi öğrendiği an günlük serisini kontrol et ve artır!
+        checkAndUpdateStreak(); 
+    }
     localStorage.setItem('medVokabeln_learned', JSON.stringify(learnedIds));
     checkLearnedStatus(currentWordId);
 }
@@ -133,6 +175,9 @@ function checkAnswer(clickedButton, selectedId, correctId) {
         clickedButton.classList.add("correct");
         feedbackEl.innerText = "Richtig! (Doğru!) 🎉";
         feedbackEl.style.color = "var(--success)";
+        
+        // Kullanıcı sınavı doğru bildiği an serisini artır!
+        checkAndUpdateStreak();
     } else {
         clickedButton.classList.add("wrong");
         feedbackEl.innerText = "Falsch! (Yanlış!) ❌";
