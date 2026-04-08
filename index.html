@@ -9,7 +9,9 @@
     <style>
         :root {
             --primary: #0284c7; 
-            --success: #10b981; /* Öğrendim butonu için yeşil */
+            --primary-dark: #0369a1;
+            --success: #10b981; 
+            --danger: #ef4444; /* Yanlış cevap için kırmızı */
             --bg-color: #f8fafc; 
             --card-bg: #ffffff; 
             --text-dark: #0f172a; 
@@ -29,101 +31,117 @@
             padding: 20px;
         }
 
-        header { text-align: center; margin-bottom: 30px; margin-top: 10px; }
+        header { text-align: center; margin-bottom: 20px; margin-top: 10px; }
         header h1 { color: var(--primary); font-size: 2.2rem; margin-bottom: 5px; }
         header p { color: var(--text-muted); font-size: 1rem; }
 
-        /* --- ÜST KONTROL PANELİ (Kategori ve İlerleme) --- */
-        .dashboard {
+        /* --- MOD DEĞİŞTİRİCİ (KARTLAR / SINAV) --- */
+        .mode-switch {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            background: #e2e8f0;
+            border-radius: 12px;
+            padding: 5px;
+            margin-bottom: 20px;
             width: 100%;
             max-width: 400px;
-            margin-bottom: 20px;
+        }
+
+        .mode-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            background: transparent;
+            font-weight: 600;
+            color: var(--text-muted);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .mode-btn.active {
             background: white;
-            padding: 15px 20px;
-            border-radius: 12px;
+            color: var(--primary);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* --- ÜST KONTROL PANELİ --- */
+        .dashboard {
+            display: flex; justify-content: space-between; align-items: center;
+            width: 100%; max-width: 400px; margin-bottom: 20px;
+            background: white; padding: 15px 20px; border-radius: 12px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
 
         select {
-            padding: 8px 12px;
-            border-radius: 8px;
-            border: 1px solid #cbd5e1;
-            font-family: inherit;
-            outline: none;
-            color: var(--text-dark);
-            font-weight: 600;
+            padding: 8px 12px; border-radius: 8px; border: 1px solid #cbd5e1;
+            font-family: inherit; outline: none; color: var(--text-dark); font-weight: 600;
         }
 
-        .progress {
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: var(--success);
-        }
+        .progress { font-size: 0.9rem; font-weight: 700; color: var(--success); }
 
-        /* --- FLASHCARD ALANI --- */
+        /* --- BÖLÜM KONTEYNERLERİ --- */
+        #flashcardSection { width: 100%; max-width: 400px; display: flex; flex-direction: column; align-items: center; }
+        #quizSection { width: 100%; max-width: 400px; display: none; flex-direction: column; align-items: center; }
+
+        /* --- FLASHCARD ALANI (Eski kodlar aynı) --- */
         .flashcard-container {
-            width: 100%;
-            max-width: 400px;
-            height: 250px;
-            perspective: 1000px;
-            cursor: pointer;
-            margin-bottom: 25px;
+            width: 100%; height: 250px; perspective: 1000px;
+            cursor: pointer; margin-bottom: 25px;
         }
-
-        .flashcard {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            transition: transform 0.6s;
-            transform-style: preserve-3d;
-        }
-
+        .flashcard { width: 100%; height: 100%; position: relative; transition: transform 0.6s; transform-style: preserve-3d; }
         .flashcard.is-flipped { transform: rotateY(180deg); }
-
         .card-face {
-            position: absolute; width: 100%; height: 100%;
-            backface-visibility: hidden; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.08); padding: 30px; text-align: center;
+            position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); padding: 30px; text-align: center;
         }
-
         .card-front { background-color: var(--card-bg); border: 2px solid #e2e8f0; }
         .card-back { background-color: var(--primary); color: white; transform: rotateY(180deg); }
-
+        
         .word-german { font-size: 2rem; font-weight: 700; color: var(--text-dark); margin-bottom: 10px; }
         .word-type { font-size: 0.9rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; }
         .word-turkish { font-size: 1.8rem; font-weight: 700; margin-bottom: 15px; }
         .example-sentence { font-size: 1rem; font-style: italic; opacity: 0.9; }
 
-        /* Öğrenildi Rozeti (Kartın üstünde çıkar) */
         .learned-badge {
-            position: absolute; top: 15px; right: 15px;
-            background: var(--success); color: white;
-            padding: 5px 10px; border-radius: 20px;
-            font-size: 0.75rem; font-weight: bold; display: none;
+            position: absolute; top: 15px; right: 15px; background: var(--success); color: white;
+            padding: 5px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; display: none;
         }
 
-        /* --- BUTONLAR --- */
-        .controls { display: flex; gap: 10px; margin-bottom: 20px; width: 100%; max-width: 400px; justify-content: space-between; }
+        .controls { display: flex; gap: 10px; margin-bottom: 20px; width: 100%; justify-content: space-between; }
         
         button {
             flex: 1; padding: 12px 10px; font-size: 0.9rem; font-weight: 600;
-            border: none; border-radius: 12px; background-color: white;
-            color: var(--primary); box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            cursor: pointer; transition: all 0.2s; border: 1px solid #e2e8f0;
+            border: none; border-radius: 12px; background-color: white; color: var(--primary);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05); cursor: pointer; transition: all 0.2s; border: 1px solid #e2e8f0;
         }
-
         button:hover { background-color: #f1f5f9; }
-        
-        /* Öğrendim Butonu Özel Tasarımı */
         .btn-learn { background-color: var(--card-bg); border: 2px solid var(--success); color: var(--success); }
-        .btn-learn:hover { background-color: var(--success); color: white; }
-        .btn-learn.active { background-color: var(--success); color: white; }
+        .btn-learn:hover, .btn-learn.active { background-color: var(--success); color: white; }
 
-        .instruction { color: var(--text-muted); font-size: 0.9rem; margin-top: 10px; }
+        /* --- SINAV (QUIZ) ALANI ÖZEL TASARIMLARI --- */
+        .quiz-card {
+            background: white; width: 100%; padding: 30px 20px; border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08); text-align: center; margin-bottom: 20px;
+        }
+        .quiz-question { font-size: 1.8rem; font-weight: 700; color: var(--primary); margin-bottom: 25px; }
+        
+        .quiz-options { display: flex; flex-direction: column; gap: 10px; width: 100%; }
+        .quiz-option {
+            padding: 15px; background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 12px;
+            font-size: 1rem; font-weight: 600; color: var(--text-dark); cursor: pointer; transition: 0.2s;
+        }
+        .quiz-option:hover { border-color: var(--primary); background: #f0f9ff; }
+        
+        /* Doğru/Yanlış durumları */
+        .quiz-option.correct { background: var(--success); color: white; border-color: var(--success); }
+        .quiz-option.wrong { background: var(--danger); color: white; border-color: var(--danger); }
+        .quiz-option:disabled { cursor: not-allowed; opacity: 0.8; }
+
+        .quiz-feedback { margin-top: 15px; font-weight: 700; font-size: 1.1rem; height: 24px; }
+        .btn-next-quiz { background-color: var(--primary); color: white; display: none; margin-top: 15px; }
+        .btn-next-quiz:hover { background-color: var(--primary-dark); }
+        
     </style>
 </head>
 <body>
@@ -132,6 +150,11 @@
         <h1>med-vokabeln.com</h1>
         <p>Pflegefachkräfte Vokabeltrainer</p>
     </header>
+
+    <div class="mode-switch">
+        <button class="mode-btn active" id="btnFlashcard" onclick="switchMode('flashcard')">📇 Kartlar</button>
+        <button class="mode-btn" id="btnQuiz" onclick="switchMode('quiz')">✍️ Sınav Ol</button>
+    </div>
 
     <div class="dashboard">
         <select id="categorySelect" onchange="changeCategory()">
@@ -143,31 +166,45 @@
         <div class="progress" id="progressText">0 / 0 Öğrenildi</div>
     </div>
 
-    <div class="flashcard-container" onclick="flipCard()">
-        <div class="flashcard" id="myCard">
-            <div class="card-face card-front">
-                <div class="learned-badge" id="frontBadge">✅ ÖĞRENİLDİ</div>
-                <div class="word-type" id="wordType">...</div>
-                <div class="word-german" id="germanWord">Yükleniyor...</div>
+    <div id="flashcardSection">
+        <div class="flashcard-container" onclick="flipCard()">
+            <div class="flashcard" id="myCard">
+                <div class="card-face card-front">
+                    <div class="learned-badge" id="frontBadge">✅ ÖĞRENİLDİ</div>
+                    <div class="word-type" id="wordType">...</div>
+                    <div class="word-german" id="germanWord">Yükleniyor...</div>
+                </div>
+                <div class="card-face card-back">
+                    <div class="learned-badge" id="backBadge" style="background: white; color: var(--success);">✅ ÖĞRENİLDİ</div>
+                    <div class="word-turkish" id="turkishWord">...</div>
+                    <div class="example-sentence" id="exampleSentence">...</div>
+                </div>
             </div>
-            <div class="card-face card-back">
-                <div class="learned-badge" id="backBadge" style="background: white; color: var(--success);">✅ ÖĞRENİLDİ</div>
-                <div class="word-turkish" id="turkishWord">...</div>
-                <div class="example-sentence" id="exampleSentence">...</div>
-            </div>
+        </div>
+
+        <div class="controls">
+            <button onclick="prevWord()">&larr; Önceki</button>
+            <button onclick="toggleLearned()" id="learnBtn" class="btn-learn">✅ Öğrendim</button>
+            <button onclick="nextWord()">Sonraki &rarr;</button>
+        </div>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">💡 Çevirmek için karta dokun.</p>
+    </div>
+
+    <div id="quizSection">
+        <div class="quiz-card">
+            <div style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 10px;">Bu kelimenin anlamı nedir?</div>
+            <div class="quiz-question" id="quizWord">Yükleniyor...</div>
+            
+            <div class="quiz-options" id="quizOptionsContainer">
+                </div>
+
+            <div class="quiz-feedback" id="quizFeedback"></div>
+            <button class="btn-next-quiz" id="nextQuizBtn" onclick="generateQuizQuestion()">Sonraki Soru &rarr;</button>
         </div>
     </div>
 
-    <div class="controls">
-        <button onclick="prevWord()">&larr; Önceki</button>
-        <button onclick="toggleLearned()" id="learnBtn" class="btn-learn">✅ Öğrendim</button>
-        <button onclick="nextWord()">Sonraki &rarr;</button>
-    </div>
-
-    <p class="instruction">💡 Çevirmek için karta dokun.</p>
-
     <script>
-        // Veritabanımız (id ve kategori eklendi)
+        // --- 1. VERİTABANI VE DEĞİŞKENLER ---
         const fullVocabulary = [
             { id: 1, category: "Allgemein", german: "Blutdruckmessgerät", type: "Das Nomen", turkish: "Tansiyon Aleti", example: "Ich brauche das Blutdruckmessgerät." },
             { id: 2, category: "Allgemein", german: "Spritze", type: "Die Nomen", turkish: "Şırınga / İğne", example: "Wir müssen eine Spritze geben." },
@@ -177,55 +214,72 @@
             { id: 6, category: "Aktion", german: "Verbinden", type: "Das Verb", turkish: "Sarmak / Bandajlamak", example: "Ich muss die Wunde verbinden." }
         ];
 
-        let currentCards = [...fullVocabulary]; // Ekranda gösterilen kartlar
+        let currentCards = [...fullVocabulary]; 
         let currentIndex = 0;
-        
-        // LocalStorage'dan öğrenilenleri çek. Yoksa boş dizi [] oluştur.
         let learnedIds = JSON.parse(localStorage.getItem('medVokabeln_learned')) || [];
+        let currentQuizCorrectWord = null; // Sınavdaki anlık doğru kelimeyi tutar
 
-        // Sayfa yüklendiğinde çalışacak başlangıç ayarları
         window.onload = () => {
             updateCard();
         };
 
-        function flipCard() {
-            document.getElementById("myCard").classList.toggle("is-flipped");
+        // --- 2. MOD DEĞİŞTİRME MANTIĞI ---
+        function switchMode(mode) {
+            const flashcardSec = document.getElementById("flashcardSection");
+            const quizSec = document.getElementById("quizSection");
+            const btnFlashcard = document.getElementById("btnFlashcard");
+            const btnQuiz = document.getElementById("btnQuiz");
+
+            if(mode === 'flashcard') {
+                flashcardSec.style.display = "flex";
+                quizSec.style.display = "none";
+                btnFlashcard.classList.add("active");
+                btnQuiz.classList.remove("active");
+                updateCard();
+            } else {
+                flashcardSec.style.display = "none";
+                quizSec.style.display = "flex";
+                btnQuiz.classList.add("active");
+                btnFlashcard.classList.remove("active");
+                generateQuizQuestion(); // Sınava geçince hemen soru üret
+            }
         }
 
-        // Kategori değiştirildiğinde çalışan fonksiyon
+        // --- 3. KATEGORİ VE FLASHCARD MANTIĞI ---
         function changeCategory() {
             const selectedCategory = document.getElementById("categorySelect").value;
-            
             if (selectedCategory === "Alle") {
                 currentCards = [...fullVocabulary];
             } else {
                 currentCards = fullVocabulary.filter(word => word.category === selectedCategory);
             }
-            
-            currentIndex = 0; // Kategori değişince ilk karta dön
+            currentIndex = 0; 
             document.getElementById("myCard").classList.remove("is-flipped");
             setTimeout(updateCard, 200);
+            
+            // Eğer quiz modundaysak, kategori değiştiğinde yeni soru üret
+            if(document.getElementById("quizSection").style.display === "flex") {
+                generateQuizQuestion();
+            }
         }
 
-        // Kartı güncelleyen ana beyin
+        function flipCard() { document.getElementById("myCard").classList.toggle("is-flipped"); }
+        function nextWord() { currentIndex++; if (currentIndex >= currentCards.length) currentIndex = 0; updateCard(); }
+        function prevWord() { currentIndex--; if (currentIndex < 0) currentIndex = currentCards.length - 1; updateCard(); }
+
         function updateCard() {
+            if(currentCards.length === 0) return; // Kategori boşsa çökme olmasın
             document.getElementById("myCard").classList.remove("is-flipped");
-            
             setTimeout(() => {
                 const currentWord = currentCards[currentIndex];
-                
-                // Yazıları güncelle
                 document.getElementById("germanWord").innerText = currentWord.german;
                 document.getElementById("wordType").innerText = currentWord.type;
                 document.getElementById("turkishWord").innerText = currentWord.turkish;
                 document.getElementById("exampleSentence").innerText = currentWord.example;
-
-                // Öğrenildi mi kontrolü
                 checkLearnedStatus(currentWord.id);
             }, 200);
         }
 
-        // Kelime öğrenilmiş mi diye hafızaya (LocalStorage) bakan fonksiyon
         function checkLearnedStatus(wordId) {
             const isLearned = learnedIds.includes(wordId);
             const learnBtn = document.getElementById("learnBtn");
@@ -233,50 +287,103 @@
             const backBadge = document.getElementById("backBadge");
 
             if (isLearned) {
-                learnBtn.innerText = "❌ Öğrenmedim (Geri Al)";
-                learnBtn.classList.add("active");
-                frontBadge.style.display = "block";
-                backBadge.style.display = "block";
+                learnBtn.innerText = "❌ Öğrenmedim (Geri Al)"; learnBtn.classList.add("active");
+                frontBadge.style.display = "block"; backBadge.style.display = "block";
             } else {
-                learnBtn.innerText = "✅ Öğrendim";
-                learnBtn.classList.remove("active");
-                frontBadge.style.display = "none";
-                backBadge.style.display = "none";
+                learnBtn.innerText = "✅ Öğrendim"; learnBtn.classList.remove("active");
+                frontBadge.style.display = "none"; backBadge.style.display = "none";
             }
-
-            // İlerleme metnini güncelle (Örn: 2 / 6 Öğrenildi)
             const learnedInCurrentView = currentCards.filter(card => learnedIds.includes(card.id)).length;
             document.getElementById("progressText").innerText = `${learnedInCurrentView} / ${currentCards.length} Öğrenildi`;
         }
 
-        // Öğrendim butonuna basılınca çalışan fonksiyon
         function toggleLearned() {
             const currentWordId = currentCards[currentIndex].id;
-            
-            // Eğer daha önce öğrenildiyse listeden çıkar, öğrenilmediyse listeye ekle
             if (learnedIds.includes(currentWordId)) {
                 learnedIds = learnedIds.filter(id => id !== currentWordId);
             } else {
                 learnedIds.push(currentWordId);
             }
-
-            // Yeni listeyi tarayıcının hafızasına (LocalStorage) KALICI olarak kaydet
             localStorage.setItem('medVokabeln_learned', JSON.stringify(learnedIds));
-            
-            // Ekrandaki butonu ve rozeti güncelle
             checkLearnedStatus(currentWordId);
         }
 
-        function nextWord() {
-            currentIndex++;
-            if (currentIndex >= currentCards.length) currentIndex = 0;
-            updateCard();
+        // --- 4. SINAV (QUIZ) MANTIĞI ---
+        
+        // Diziyi rastgele karıştırmak için yardımcı fonksiyon (Fisher-Yates Algoritması)
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
         }
 
-        function prevWord() {
-            currentIndex--;
-            if (currentIndex < 0) currentIndex = currentCards.length - 1;
-            updateCard();
+        function generateQuizQuestion() {
+            // Arayüzü sıfırla
+            document.getElementById("quizFeedback").innerText = "";
+            document.getElementById("nextQuizBtn").style.display = "none";
+            
+            // 1. Doğru cevabı seç (Aktif kategoriden)
+            if(currentCards.length === 0) return;
+            const randomCardIndex = Math.floor(Math.random() * currentCards.length);
+            currentQuizCorrectWord = currentCards[randomCardIndex];
+            
+            // Soruyu ekrana yazdır
+            document.getElementById("quizWord").innerText = currentQuizCorrectWord.german;
+
+            // 2. Yanlış cevapları (çeldiricileri) seç
+            // Kategori dar olsa bile çeldiricileri tüm kelimeler havuzundan seçelim ki 4 şık dolsun
+            let distractors = fullVocabulary.filter(word => word.id !== currentQuizCorrectWord.id);
+            distractors = shuffleArray(distractors).slice(0, 3); // Rastgele 3 tanesini al
+
+            // 3. Doğru şıkkı ve yanlış şıkları birleştirip karıştır
+            let options = [currentQuizCorrectWord, ...distractors];
+            options = shuffleArray(options);
+
+            // 4. Şıkları ekrana buton olarak çiz
+            const optionsContainer = document.getElementById("quizOptionsContainer");
+            optionsContainer.innerHTML = ""; // Önceki şıkları temizle
+
+            options.forEach(option => {
+                const btn = document.createElement("button");
+                btn.className = "quiz-option";
+                btn.innerText = option.turkish;
+                // Butona tıklandığında checkAnswer fonksiyonunu çağır
+                btn.onclick = () => checkAnswer(btn, option.id, currentQuizCorrectWord.id);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(clickedButton, selectedId, correctId) {
+            // Tıklandıktan sonra tüm butonları devre dışı bırak
+            const allButtons = document.querySelectorAll(".quiz-option");
+            allButtons.forEach(btn => btn.disabled = true);
+
+            const feedbackEl = document.getElementById("quizFeedback");
+
+            if (selectedId === correctId) {
+                // Doğru cevap!
+                clickedButton.classList.add("correct");
+                feedbackEl.innerText = "Richtig! (Doğru!) 🎉";
+                feedbackEl.style.color = "var(--success)";
+            } else {
+                // Yanlış cevap
+                clickedButton.classList.add("wrong");
+                feedbackEl.innerText = "Falsch! (Yanlış!) ❌";
+                feedbackEl.style.color = "var(--danger)";
+                
+                // Doğru olan şıkkı yeşil yaparak kullanıcıya göster
+                allButtons.forEach(btn => {
+                    // Butonun içindeki metne bakarak doğru kelimeyi buluyoruz
+                    if(btn.innerText === currentQuizCorrectWord.turkish) {
+                        btn.classList.add("correct");
+                    }
+                });
+            }
+
+            // "Sonraki Soru" butonunu görünür yap
+            document.getElementById("nextQuizBtn").style.display = "block";
         }
     </script>
 
