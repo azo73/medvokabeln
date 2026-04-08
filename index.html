@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>med-vokabeln.com | PflegeDeutsch</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=2">
+    <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
 
@@ -17,7 +17,7 @@
         <p>Pflegefachkräfte Vokabeltrainer</p>
         
         <div class="search-container">
-            <input type="text" id="searchInput" placeholder="Kelime ara (Örn: Tansiyon, Blut...)" onkeyup="searchWord()">
+            <input type="text" id="searchInput" placeholder="Kelime veya cümle ara..." onkeyup="searchWord()">
         </div>
     </header>
 
@@ -35,6 +35,7 @@
             <option value="Symptome">Belirtiler (Symptome)</option>
             <option value="Ausrüstung">Ekipman (Ausrüstung)</option>
             <option value="Personal">Personel (Personal)</option>
+            <option value="Dialoge">Diyaloglar / Senaryolar</option>
         </select>
         
         <div class="stats-container">
@@ -70,7 +71,7 @@
 
     <div id="quizSection">
         <div class="quiz-card">
-            <div class="quiz-hint">Bu kelimenin anlamı nedir?</div>
+            <div class="quiz-hint">Bu kelimenin/cümlenin anlamı nedir?</div>
             <div class="quiz-question" id="quizWord">Yükleniyor...</div>
             <div class="quiz-options" id="quizOptionsContainer"></div>
             <div class="quiz-feedback" id="quizFeedback"></div>
@@ -78,6 +79,6 @@
         </div>
     </div>
 
-    <script src="script.js?v=2"></script>
+    <script src="script.js?v=3"></script>
 </body>
 </html>
