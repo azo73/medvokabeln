@@ -12,13 +12,46 @@ let currentIndex = 0;
 let learnedIds = JSON.parse(localStorage.getItem('medVokabeln_learned')) || [];
 let currentQuizCorrectWord = null; 
 
-// SAYFA YÜKLENDİĞİNDE ÇALIŞANLAR
 window.onload = () => { 
     updateCard(); 
-    displayStreak(); // Ekran açıldığında hafızadaki alevi göster
+    displayStreak(); 
 };
 
-// --- YENİ EKLENEN: GÜNLÜK SERİ (STREAK) MANTIĞI ---
+// --- ARAMA MOTORU FONKSİYONU ---
+function searchWord() {
+    const query = document.getElementById("searchInput").value.toLowerCase();
+    const selectedCategory = document.getElementById("categorySelect").value;
+    
+    // Aramayı sadece o an seçili olan kategori içinde yap (veya "Tümü" ise hepsi)
+    let basePool = selectedCategory === "Alle" ? fullVocabulary : fullVocabulary.filter(w => w.category === selectedCategory);
+    
+    if (query === "") {
+        currentCards = basePool;
+    } else {
+        // Hem Almanca kelimelerde hem de Türkçe anlamlarında arama yap
+        currentCards = basePool.filter(word => 
+            word.german.toLowerCase().includes(query) || 
+            word.turkish.toLowerCase().includes(query)
+        );
+    }
+
+    currentIndex = 0;
+    
+    if(currentCards.length === 0) {
+        // Eğer aranan kelime veritabanında yoksa boş kart göster
+        document.getElementById("germanWord").innerText = "Bulunamadı 😔";
+        document.getElementById("turkishWord").innerText = "Sonuç yok.";
+        document.getElementById("wordType").innerText = "...";
+        document.getElementById("exampleSentence").innerText = "...";
+        document.getElementById("frontBadge").style.display = "none";
+        document.getElementById("backBadge").style.display = "none";
+        document.getElementById("progressText").innerText = "0 / 0";
+    } else {
+        document.getElementById("myCard").classList.remove("is-flipped");
+        updateCard();
+    }
+}
+
 function displayStreak() {
     let streakCount = parseInt(localStorage.getItem('medVokabeln_streak')) || 0;
     document.getElementById('streakText').innerText = `🔥 ${streakCount}`;
@@ -27,32 +60,25 @@ function displayStreak() {
 function checkAndUpdateStreak() {
     let streakCount = parseInt(localStorage.getItem('medVokabeln_streak')) || 0;
     let lastActiveDate = localStorage.getItem('medVokabeln_lastActive') || "";
-    
-    // Bugünün tarihini al (Örn: 2024-05-20)
     const today = new Date().toISOString().split('T')[0];
 
-    if (lastActiveDate === today) return; // Bugün zaten kelime öğrendiyse seriyi artırma (günde 1 kez artar)
+    if (lastActiveDate === today) return; 
 
-    // Dünün tarihini bul
     const yesterdayDate = new Date();
     yesterdayDate.setDate(yesterdayDate.getDate() - 1);
     const yesterday = yesterdayDate.toISOString().split('T')[0];
 
-    if (lastActiveDate === yesterday) {
-        streakCount++; // Dün girmiş, seriyi artır!
-    } else {
-        streakCount = 1; // Dün girmemiş, seri sıfırlandı! (1'den başlar)
-    }
+    if (lastActiveDate === yesterday) { streakCount++; } 
+    else { streakCount = 1; }
 
-    // Yeni verileri kalıcı olarak kaydet
     localStorage.setItem('medVokabeln_streak', streakCount);
     localStorage.setItem('medVokabeln_lastActive', today);
     displayStreak();
 }
-// --------------------------------------------------
 
 function speakWord(event) {
     event.stopPropagation(); 
+    if(currentCards.length === 0) return; // Boş aramada ses çalmasın
     const wordToSpeak = currentCards[currentIndex].german;
     const utterance = new SpeechSynthesisUtterance(wordToSpeak);
     utterance.lang = 'de-DE'; 
@@ -78,6 +104,7 @@ function switchMode(mode) {
 }
 
 function changeCategory() {
+    document.getElementById("searchInput").value = ""; // Kategori değişince aramayı sıfırla
     const selectedCategory = document.getElementById("categorySelect").value;
     if (selectedCategory === "Alle") { currentCards = [...fullVocabulary]; } 
     else { currentCards = fullVocabulary.filter(word => word.category === selectedCategory); }
@@ -87,9 +114,18 @@ function changeCategory() {
     if(document.getElementById("quizSection").style.display === "flex") { generateQuizQuestion(); }
 }
 
-function flipCard() { document.getElementById("myCard").classList.toggle("is-flipped"); }
-function nextWord() { currentIndex++; if (currentIndex >= currentCards.length) currentIndex = 0; updateCard(); }
-function prevWord() { currentIndex--; if (currentIndex < 0) currentIndex = currentCards.length - 1; updateCard(); }
+function flipCard() { 
+    if(currentCards.length === 0) return; // Boş sonuç varsa kart dönmesin
+    document.getElementById("myCard").classList.toggle("is-flipped"); 
+}
+function nextWord() { 
+    if(currentCards.length === 0) return;
+    currentIndex++; if (currentIndex >= currentCards.length) currentIndex = 0; updateCard(); 
+}
+function prevWord() { 
+    if(currentCards.length === 0) return;
+    currentIndex--; if (currentIndex < 0) currentIndex = currentCards.length - 1; updateCard(); 
+}
 
 function updateCard() {
     if(currentCards.length === 0) return; 
@@ -122,12 +158,12 @@ function checkLearnedStatus(wordId) {
 }
 
 function toggleLearned() {
+    if(currentCards.length === 0) return;
     const currentWordId = currentCards[currentIndex].id;
     if (learnedIds.includes(currentWordId)) { 
         learnedIds = learnedIds.filter(id => id !== currentWordId); 
     } else { 
         learnedIds.push(currentWordId); 
-        // Kullanıcı kelimeyi öğrendiği an günlük serisini kontrol et ve artır!
         checkAndUpdateStreak(); 
     }
     localStorage.setItem('medVokabeln_learned', JSON.stringify(learnedIds));
@@ -175,8 +211,6 @@ function checkAnswer(clickedButton, selectedId, correctId) {
         clickedButton.classList.add("correct");
         feedbackEl.innerText = "Richtig! (Doğru!) 🎉";
         feedbackEl.style.color = "var(--success)";
-        
-        // Kullanıcı sınavı doğru bildiği an serisini artır!
         checkAndUpdateStreak();
     } else {
         clickedButton.classList.add("wrong");
