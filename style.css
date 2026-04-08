@@ -98,3 +98,23 @@ button.action-btn:hover { background-color: #f1f5f9; }
 .quiz-feedback { margin-top: 15px; font-weight: 700; font-size: 1.1rem; height: 24px; }
 .btn-next-quiz { background-color: var(--primary); color: white; display: none; margin-top: 15px; border: none; padding: 12px; border-radius: 12px; width: 100%; font-weight: bold; cursor: pointer;}
 .btn-next-quiz:hover { background-color: var(--primary-dark); }
+/* --- GÜNLÜK SERİ (STREAK) TASARIMI --- */
+.stats-container {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.streak {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #ea580c; /* Ateş turuncusu */
+    background: #ffedd5; /* Açık turuncu arka plan */
+    padding: 6px 12px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    cursor: default;
+}
