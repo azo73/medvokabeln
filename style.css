@@ -1,3 +1,4 @@
+/* --- DEĞİŞKENLER (Gece moduna uyumlu hale getirildi) --- */
 :root {
     --primary: #0284c7; 
     --primary-dark: #0369a1;
@@ -7,6 +8,26 @@
     --card-bg: #ffffff; 
     --text-dark: #0f172a; 
     --text-muted: #64748b; 
+    --border-color: #e2e8f0;
+    --switch-bg: #e2e8f0;
+    --streak-bg: #ffedd5;
+    --streak-text: #ea580c;
+}
+
+/* YENİ EKLENEN: GECE MODU RENKLERİ */
+body.dark-mode {
+    --primary: #38bdf8; /* Daha parlak bir mavi */
+    --primary-dark: #7dd3fc;
+    --success: #34d399;
+    --danger: #f87171;
+    --bg-color: #0f172a; /* Çok koyu lacivert/siyah */
+    --card-bg: #1e293b; /* Kart arka planı (Koyu) */
+    --text-dark: #f1f5f9; /* Beyaza yakın yazı rengi */
+    --text-muted: #94a3b8; /* Gri alt metinler */
+    --border-color: #334155;
+    --switch-bg: #334155;
+    --streak-bg: #431407;
+    --streak-text: #fdba74;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -17,42 +38,56 @@ body {
     color: var(--text-dark);
     display: flex; flex-direction: column; align-items: center;
     min-height: 100vh; padding: 20px;
+    transition: background-color 0.3s, color 0.3s; /* Gece moduna yumuşak geçiş */
 }
 
-header { text-align: center; margin-bottom: 20px; margin-top: 10px; width: 100%; display: flex; flex-direction: column; align-items: center; }
-header h1 { color: var(--primary); font-size: 2.2rem; margin-bottom: 5px; }
-header p { color: var(--text-muted); font-size: 1rem; }
+/* Header & Gece Modu Butonu */
+header { width: 100%; max-width: 400px; margin-bottom: 20px; margin-top: 10px; display: flex; flex-direction: column; align-items: center; }
+.header-top { display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 5px; }
+header h1 { color: var(--primary); font-size: 1.8rem; }
+header p { color: var(--text-muted); font-size: 0.95rem; text-align: center; }
 
-/* --- ARAMA ÇUBUĞU TASARIMI --- */
-.search-container { width: 100%; max-width: 400px; margin-top: 15px; }
+.theme-btn {
+    background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 50%;
+    width: 40px; height: 40px; font-size: 1.2rem; cursor: pointer;
+    display: flex; justify-content: center; align-items: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05); transition: 0.3s;
+}
+.theme-btn:hover { transform: scale(1.1); }
+
+/* Arama Çubuğu */
+.search-container { width: 100%; margin-top: 15px; }
 #searchInput { 
     width: 100%; padding: 14px 20px; border-radius: 50px; 
-    border: 2px solid #e2e8f0; font-size: 0.95rem; outline: none; 
-    transition: all 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.05); 
+    border: 2px solid var(--border-color); font-size: 0.95rem; outline: none; 
+    transition: all 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    background-color: var(--card-bg); color: var(--text-dark);
 }
 #searchInput:focus { border-color: var(--primary); box-shadow: 0 4px 12px rgba(2, 132, 199, 0.2); }
 
+/* Mod Değiştirici */
 .mode-switch {
-    display: flex; background: #e2e8f0; border-radius: 12px;
+    display: flex; background: var(--switch-bg); border-radius: 12px;
     padding: 5px; margin-bottom: 20px; width: 100%; max-width: 400px;
 }
 .mode-btn {
     flex: 1; padding: 10px; border: none; background: transparent;
     font-weight: 600; color: var(--text-muted); border-radius: 8px; cursor: pointer; transition: 0.3s;
 }
-.mode-btn.active { background: white; color: var(--primary); box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+.mode-btn.active { background: var(--card-bg); color: var(--primary); box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
 
+/* Dashboard */
 .dashboard {
     display: flex; justify-content: space-between; align-items: center;
     width: 100%; max-width: 400px; margin-bottom: 20px;
-    background: white; padding: 15px 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    background: var(--card-bg); padding: 15px 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);
 }
-select { padding: 8px 12px; border-radius: 8px; border: 1px solid #cbd5e1; font-family: inherit; font-weight: 600; }
+select { padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-dark); font-family: inherit; font-weight: 600; outline: none; }
 
 .stats-container { display: flex; gap: 15px; align-items: center; }
 .streak {
-    font-size: 0.95rem; font-weight: 700; color: #ea580c; 
-    background: #ffedd5; padding: 6px 12px; border-radius: 20px; 
+    font-size: 0.95rem; font-weight: 700; color: var(--streak-text); 
+    background: var(--streak-bg); padding: 6px 12px; border-radius: 20px; 
     display: flex; align-items: center; gap: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); cursor: default;
 }
 .progress { font-size: 0.9rem; font-weight: 700; color: var(--success); }
@@ -60,6 +95,7 @@ select { padding: 8px 12px; border-radius: 8px; border: 1px solid #cbd5e1; font-
 #flashcardSection { width: 100%; max-width: 400px; display: flex; flex-direction: column; align-items: center; }
 #quizSection { width: 100%; max-width: 400px; display: none; flex-direction: column; align-items: center; }
 
+/* Flashcards */
 .flashcard-container { width: 100%; height: 250px; perspective: 1000px; cursor: pointer; margin-bottom: 25px; }
 .flashcard { width: 100%; height: 100%; position: relative; transition: transform 0.6s; transform-style: preserve-3d; }
 .flashcard.is-flipped { transform: rotateY(180deg); }
@@ -68,13 +104,13 @@ select { padding: 8px 12px; border-radius: 8px; border: 1px solid #cbd5e1; font-
     display: flex; flex-direction: column; justify-content: center; align-items: center;
     border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); padding: 30px; text-align: center;
 }
-.card-front { background-color: var(--card-bg); border: 2px solid #e2e8f0; }
+.card-front { background-color: var(--card-bg); border: 2px solid var(--border-color); }
 .card-back { background-color: var(--primary); color: white; transform: rotateY(180deg); }
 
 .word-german { font-size: 2rem; font-weight: 700; color: var(--text-dark); margin-bottom: 10px; }
-.word-type { font-size: 0.9rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; }
-.word-turkish { font-size: 1.8rem; font-weight: 700; margin-bottom: 15px; }
-.example-sentence { font-size: 1rem; font-style: italic; opacity: 0.9; }
+.card-back .word-turkish { font-size: 1.8rem; font-weight: 700; margin-bottom: 15px; color: white; }
+.card-back .example-sentence { font-size: 1rem; font-style: italic; opacity: 0.9; color: white; }
+.word-type { font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
 
 .learned-badge {
     position: absolute; top: 15px; right: 15px; background: var(--success); color: white;
@@ -83,31 +119,31 @@ select { padding: 8px 12px; border-radius: 8px; border: 1px solid #cbd5e1; font-
 #backBadge { background: white; color: var(--success); }
 
 .btn-speak {
-    background: #e0f2fe; border: none; border-radius: 50%; width: 45px; height: 45px;
+    background: var(--switch-bg); border: none; border-radius: 50%; width: 45px; height: 45px;
     font-size: 1.2rem; cursor: pointer; display: flex; justify-content: center; align-items: center;
-    margin-bottom: 15px; transition: all 0.2s; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-bottom: 15px; transition: all 0.2s; box-shadow: 0 2px 5px rgba(0,0,0,0.1); color: var(--text-dark);
 }
-.btn-speak:hover { background: #bae6fd; transform: scale(1.1); }
+.btn-speak:hover { transform: scale(1.1); background: var(--border-color); }
 
 .controls { display: flex; gap: 10px; margin-bottom: 20px; width: 100%; justify-content: space-between; }
 button.action-btn {
     flex: 1; padding: 12px 10px; font-size: 0.9rem; font-weight: 600;
-    border: none; border-radius: 12px; background-color: white; color: var(--primary);
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05); cursor: pointer; transition: all 0.2s; border: 1px solid #e2e8f0;
+    border: none; border-radius: 12px; background-color: var(--card-bg); color: var(--primary);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05); cursor: pointer; transition: all 0.2s; border: 1px solid var(--border-color);
 }
-button.action-btn:hover { background-color: #f1f5f9; }
+button.action-btn:hover { background-color: var(--switch-bg); }
 .btn-learn { background-color: var(--card-bg); border: 2px solid var(--success); color: var(--success); }
-.btn-learn:hover, .btn-learn.active { background-color: var(--success); color: white; }
+.btn-learn:hover, .btn-learn.active { background-color: var(--success); color: white; border-color: var(--success); }
 
 .instruction { color: var(--text-muted); font-size: 0.9rem; margin-top: 10px; }
 
 /* Sınav Alanı */
-.quiz-card { background: white; width: 100%; padding: 30px 20px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); text-align: center; margin-bottom: 20px; }
+.quiz-card { background: var(--card-bg); width: 100%; padding: 30px 20px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); text-align: center; margin-bottom: 20px; border: 1px solid var(--border-color); }
 .quiz-hint { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 10px; }
 .quiz-question { font-size: 1.8rem; font-weight: 700; color: var(--primary); margin-bottom: 25px; }
 .quiz-options { display: flex; flex-direction: column; gap: 10px; width: 100%; }
-.quiz-option { padding: 15px; background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: 0.2s; color: var(--text-dark); }
-.quiz-option:hover { border-color: var(--primary); background: #f0f9ff; }
+.quiz-option { padding: 15px; background: var(--switch-bg); border: 2px solid var(--border-color); border-radius: 12px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: 0.2s; color: var(--text-dark); }
+.quiz-option:hover { border-color: var(--primary); }
 .quiz-option.correct { background: var(--success); color: white; border-color: var(--success); }
 .quiz-option.wrong { background: var(--danger); color: white; border-color: var(--danger); }
 .quiz-option:disabled { cursor: not-allowed; opacity: 0.8; }
