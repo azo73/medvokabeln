@@ -10,7 +10,10 @@
 <body>
 
     <header>
-        <h1>med-vokabeln.com</h1>
+        <div class="header-top">
+            <h1>med-vokabeln.com</h1>
+            <button id="themeToggle" class="theme-btn" onclick="toggleTheme()" title="Gece/Gündüz Modunu Değiştir">🌙</button>
+        </div>
         <p>Pflegefachkräfte Vokabeltrainer</p>
         
         <div class="search-container">
@@ -38,43 +41,6 @@
     </div>
 
     <div id="flashcardSection">
-        <div class="flashcard-container" onclick="flipCard()">
-            <div class="flashcard" id="myCard">
-                <div class="card-face card-front">
-                    <div class="learned-badge" id="frontBadge">✅ ÖĞRENİLDİ</div>
-                    <button class="btn-speak" onclick="speakWord(event)" title="Almanca Telaffuzu Dinle">🔊</button>
-                    <div class="word-type" id="wordType">...</div>
-                    <div class="word-german" id="germanWord">Yükleniyor...</div>
-                </div>
-                <div class="card-face card-back">
-                    <div class="learned-badge" id="backBadge">✅ ÖĞRENİLDİ</div>
-                    <div class="word-turkish" id="turkishWord">...</div>
-                    <div class="example-sentence" id="exampleSentence">...</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="controls">
-            <button class="action-btn" onclick="prevWord()">&larr; Önceki</button>
-            <button class="action-btn btn-learn" onclick="toggleLearned()" id="learnBtn">✅ Öğrendim</button>
-            <button class="action-btn" onclick="nextWord()">Sonraki &rarr;</button>
-        </div>
-        <p class="instruction">💡 Çevirmek için karta dokun.</p>
-    </div>
-
-    <div id="quizSection">
-        <div class="quiz-card">
-            <div class="quiz-hint">Bu kelimenin anlamı nedir?</div>
-            <div class="quiz-question" id="quizWord">Yükleniyor...</div>
-            <div class="quiz-options" id="quizOptionsContainer"></div>
-            <div class="quiz-feedback" id="quizFeedback"></div>
-            <button class="btn-next-quiz" id="nextQuizBtn" onclick="generateQuizQuestion()">Sonraki Soru &rarr;</button>
-        </div>
-    </div>
-
-    <script src="script.js"></script>
-</body>
-</html>    <div id="flashcardSection">
         <div class="flashcard-container" onclick="flipCard()">
             <div class="flashcard" id="myCard">
                 <div class="card-face card-front">
