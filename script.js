@@ -4,30 +4,21 @@ let currentIndex = 0;
 let learnedIds = JSON.parse(localStorage.getItem('medVokabeln_learned')) || [];
 let currentQuizCorrectWord = null; 
 
-// SAYFA YÜKLENDİĞİNDE VERİYİ JSON'DAN ÇEK
-window.onload = async () => { 
+window.onload = () => { 
     initTheme(); 
     displayStreak(); 
-    await loadDatabase(); // Veritabanını bekle
+    loadDatabase(); 
 };
 
-// YENİ EKLENEN: JSON ÇEKME FONKSİYONU
-async function loadDatabase() {
-    try {
-        // Önbelleğe takılmaması için sonuna rastgele sayı ekliyoruz
-        const response = await fetch('data.json?' + new Date().getTime());
-        fullVocabulary = await response.json();
+function loadDatabase() {
+    // data.js'den gelen vocabularyData'yı direkt kullanıyoruz.
+    if (typeof vocabularyData !== 'undefined' && vocabularyData.length > 0) {
+        fullVocabulary = [...vocabularyData];
         currentCards = [...fullVocabulary];
-        
-        if (fullVocabulary.length > 0) {
-            updateCard();
-        } else {
-            document.getElementById("germanWord").innerText = "Veritabanı Boş 😔";
-        }
-    } catch (error) {
-        console.error("Veritabanı yüklenirken hata oluştu:", error);
-        document.getElementById("germanWord").innerText = "Bağlantı Hatası 🚨";
-        document.getElementById("turkishWord").innerText = "data.json dosyası bulunamadı.";
+        updateCard();
+    } else {
+        document.getElementById("germanWord").innerText = "Veri Bulunamadı 🚨";
+        document.getElementById("turkishWord").innerText = "data.js dosyası hatalı.";
     }
 }
 
