@@ -8,135 +8,68 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Anatomi Sayfasına Özel Tasarımlar */
-        body { padding-bottom: 50px; }
+        .back-nav { width: 100%; max-width: 400px; display: flex; align-items: center; margin-bottom: 20px; }
+        .btn-back { background: var(--card-bg); border: 1px solid var(--border-color); color: var(--primary); padding: 10px 15px; border-radius: 12px; text-decoration: none; font-weight: bold; }
         
-        .back-nav {
-            width: 100%; max-width: 400px; display: flex; align-items: center;
-            margin-bottom: 20px; margin-top: 10px;
-        }
-        .btn-back {
-            background: var(--card-bg); border: 2px solid var(--border-color);
-            color: var(--text-dark); padding: 10px 15px; border-radius: 12px;
-            text-decoration: none; font-weight: bold; transition: 0.2s;
-        }
-        .btn-back:hover { background: var(--switch-bg); }
+        .anatomy-wrapper { position: relative; width: 200px; height: 400px; margin: 0 auto; }
+        .anatomy-svg { width: 100%; height: 100%; fill: #cbd5e1; }
+        body.dark-mode .anatomy-svg { fill: #334155; }
         
-        /* Resim ve Noktaların Taşıyıcısı */
-        .anatomy-wrapper {
-            position: relative; width: 100%; max-width: 380px; margin: 20px auto;
-            border-radius: 16px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            background-color: white; /* Resmin arkaplanı beyaz olduğu için */
-        }
-        
-        /* Senin Yüklediğin Gerçek Resim */
-        .anatomy-img {
-            width: 100%; display: block; border-radius: 16px;
-        }
-        
-        /* Yanıp Sönen Etkileşim Noktaları */
-        .hotspot {
-            position: absolute; width: 22px; height: 22px;
-            background: var(--primary); border-radius: 50%;
-            cursor: pointer; transform: translate(-50%, -50%);
-            box-shadow: 0 0 0 rgba(2, 132, 199, 0.4);
-            animation: pulse 1.5s infinite; transition: 0.2s;
-            border: 2px solid white;
-        }
-        .hotspot:hover { transform: translate(-50%, -50%) scale(1.3); background: var(--success); animation: none; }
-        
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(2, 132, 199, 0.7); }
-            70% { box-shadow: 0 0 0 15px rgba(2, 132, 199, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(2, 132, 199, 0); }
-        }
+        .hotspot { position: absolute; width: 15px; height: 15px; background: var(--primary); border-radius: 50%; cursor: pointer; transform: translate(-50%, -50%); animation: pulse 1.5s infinite; border: 2px solid white; }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(2, 132, 199, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(2, 132, 199, 0); } 100% { box-shadow: 0 0 0 0 rgba(2, 132, 199, 0); } }
 
-        /* Tıklanınca Çıkan Bilgi Kartı */
-        #infoCard {
-            background: var(--card-bg); width: 100%; max-width: 400px;
-            padding: 20px; border-radius: 16px; border: 2px solid var(--primary);
-            text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            display: none; margin: 10px auto; animation: fadeIn 0.3s;
-        }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        
-        .info-german { font-size: 2.2rem; font-weight: bold; color: var(--primary); margin-bottom: 5px; }
-        .info-turkish { font-size: 1.4rem; font-weight: 600; color: var(--text-dark); margin-bottom: 15px; }
-        .info-type { font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+        #infoCard { background: var(--card-bg); width: 100%; max-width: 400px; padding: 15px; border-radius: 16px; border: 2px solid var(--primary); text-align: center; display: none; margin-top: 15px; }
+        .info-german { font-size: 1.8rem; font-weight: bold; color: var(--primary); }
+        .info-turkish { font-size: 1.2rem; font-weight: 600; color: var(--text-dark); }
+        .btn-speak-an { background: var(--primary); color: white; border: none; padding: 5px 10px; border-radius: 8px; cursor: pointer; margin-bottom: 5px;}
     </style>
 </head>
 <body onload="initTheme()">
 
     <div class="back-nav">
-        <a href="index.html" class="btn-back">← Geri Dön</a>
-        <h2 style="flex:1; text-align:center; color:var(--primary); font-size:1.4rem;">İnteraktif Anatomi</h2>
+        <a href="index.html" class="btn-back">← Geri</a>
+        <h2 style="flex:1; text-align:center; color:var(--text-dark);">İnteraktif Anatomi</h2>
     </div>
 
-    <p style="color:var(--text-muted); text-align:center; font-size:0.9rem;">💡 Öğrenmek istediğin organa/bölgeye tıkla.</p>
+    <div class="anatomy-wrapper">
+        <svg class="anatomy-svg" viewBox="0 0 100 220">
+            <circle cx="50" cy="20" r="15"/>
+            <rect x="45" y="35" width="10" height="10"/>
+            <rect x="30" y="45" width="40" height="70" rx="10"/>
+            <rect x="15" y="45" width="10" height="60" rx="5"/>
+            <rect x="75" y="45" width="10" height="60" rx="5"/>
+            <rect x="33" y="115" width="12" height="80" rx="6"/>
+            <rect x="55" y="115" width="12" height="80" rx="6"/>
+        </svg>
+
+        <div class="hotspot" style="top: 10%; left: 50%;" onclick="showPart('der Kopf', 'Baş')"></div>
+        <div class="hotspot" style="top: 25%; left: 50%;" onclick="showPart('der Hals', 'Boyun')"></div>
+        <div class="hotspot" style="top: 35%; left: 50%;" onclick="showPart('das Herz', 'Kalp')"></div>
+        <div class="hotspot" style="top: 45%; left: 50%;" onclick="showPart('der Magen', 'Mide')"></div>
+        <div class="hotspot" style="top: 35%; left: 15%;" onclick="showPart('der Arm', 'Kol')"></div>
+        <div class="hotspot" style="top: 70%; left: 35%;" onclick="showPart('das Bein', 'Bacak')"></div>
+    </div>
 
     <div id="infoCard">
-        <button class="btn-speak" onclick="speakAnatomy()" title="Dinle" style="margin: 0 auto 10px auto;">🔊</button>
-        <div class="info-type">Anatomie (Anatomi)</div>
+        <button class="btn-speak-an" onclick="speakAnatomy()">🔊 Dinle</button>
         <div class="info-german" id="aGerman">...</div>
         <div class="info-turkish" id="aTurkish">...</div>
     </div>
 
-    <div class="anatomy-wrapper">
-        <img src="a88c9f2c-04ad-41aa-904f-c89c1a8b54c7.jpeg" alt="Anatomi Modeli" class="anatomy-img">
-
-        <div class="hotspot" style="top: 7%; left: 49%;" onclick="showPart('Das Gehirn', 'Beyin')"></div>
-        <div class="hotspot" style="top: 10%; left: 45%;" onclick="showPart('Der Kopf', 'Baş / Kafa')"></div>
-        <div class="hotspot" style="top: 17%; left: 49%;" onclick="showPart('Der Hals', 'Boyun')"></div>
-        
-        <div class="hotspot" style="top: 27%; left: 55%;" onclick="showPart('Das Herz', 'Kalp')"></div>
-        <div class="hotspot" style="top: 25%; left: 43%;" onclick="showPart('Die Lunge', 'Akciğer')"></div>
-        
-        <div class="hotspot" style="top: 34%; left: 44%;" onclick="showPart('Die Leber', 'Karaciğer')"></div>
-        <div class="hotspot" style="top: 36%; left: 55%;" onclick="showPart('Der Magen', 'Mide')"></div>
-        <div class="hotspot" style="top: 44%; left: 50%;" onclick="showPart('Der Darm', 'Bağırsak')"></div>
-        
-        <div class="hotspot" style="top: 38%; left: 24%;" onclick="showPart('Der Arm', 'Kol (Sağ)')"></div>
-        <div class="hotspot" style="top: 55%; left: 21%;" onclick="showPart('Die Hand', 'El')"></div>
-        
-        <div class="hotspot" style="top: 65%; left: 35%;" onclick="showPart('Das Bein', 'Bacak')"></div>
-        <div class="hotspot" style="top: 72%; left: 35%;" onclick="showPart('Das Knie', 'Diz')"></div>
-        <div class="hotspot" style="top: 94%; left: 36%;" onclick="showPart('Der Fuß', 'Ayak')"></div>
-    </div>
-
     <script>
-        // Gece modunu diğer sayfadan hatırla
-        function initTheme() {
-            if (localStorage.getItem('medVokabeln_theme') === 'dark') {
-                document.body.classList.add('dark-mode');
-            }
-        }
-
+        function initTheme() { if (localStorage.getItem('medVokabeln_theme') === 'dark') document.body.classList.add('dark-mode'); }
         let currentWord = "";
-
-        // Noktaya tıklanınca kartı göster
         function showPart(german, turkish) {
             currentWord = german;
             document.getElementById("aGerman").innerText = german;
             document.getElementById("aTurkish").innerText = turkish;
-            
-            // Kartı göster
-            const card = document.getElementById("infoCard");
-            card.style.display = "block";
-            
-            // Tıkladığı an ekranı hafifçe yukarı (karta doğru) kaydır
-            card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            
-            // Tıkladığı an otomatik okusun
+            document.getElementById("infoCard").style.display = "block";
             speakAnatomy();
         }
-
-        // Almanca telaffuz
         function speakAnatomy() {
             if (!currentWord) return;
             const utterance = new SpeechSynthesisUtterance(currentWord);
-            utterance.lang = 'de-DE';
-            utterance.rate = 0.9;
-            window.speechSynthesis.speak(utterance);
+            utterance.lang = 'de-DE'; window.speechSynthesis.speak(utterance);
         }
     </script>
 </body>
