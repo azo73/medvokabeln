@@ -20,14 +20,18 @@
         <button class="mode-btn" id="btnQuiz" onclick="switchMode('quiz')">✍️ Sınav Ol</button>
     </div>
 
-    <div class="dashboard">
+   <div class="dashboard">
         <select id="categorySelect" onchange="changeCategory()">
             <option value="Alle">Tüm Kategoriler</option>
             <option value="Allgemein">Genel Hastane</option>
             <option value="Anatomie">Anatomi</option>
             <option value="Aktion">Fiiller / Eylemler</option>
         </select>
-        <div class="progress" id="progressText">0 / 0 Öğrenildi</div>
+        
+        <div class="stats-container">
+            <div class="streak" id="streakText" title="Günlük Serin">🔥 0</div>
+            <div class="progress" id="progressText">0 / 0 Öğrenildi</div>
+        </div>
     </div>
 
     <div id="flashcardSection">
