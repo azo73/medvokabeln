@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>med-vokabeln.com | PflegeDeutsch</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #0284c7; 
+            --success: #10b981; /* Öğrendim butonu için yeşil */
+            --bg-color: #f8fafc; 
+            --card-bg: #ffffff; 
+            --text-dark: #0f172a; 
+            --text-muted: #64748b; 
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        header { text-align: center; margin-bottom: 30px; margin-top: 10px; }
+        header h1 { color: var(--primary); font-size: 2.2rem; margin-bottom: 5px; }
+        header p { color: var(--text-muted); font-size: 1rem; }
+
+        /* --- ÜST KONTROL PANELİ (Kategori ve İlerleme) --- */
+        .dashboard {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 400px;
+            margin-bottom: 20px;
+            background: white;
+            padding: 15px 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        select {
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+            font-family: inherit;
+            outline: none;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .progress {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--success);
+        }
+
+        /* --- FLASHCARD ALANI --- */
+        .flashcard-container {
+            width: 100%;
+            max-width: 400px;
+            height: 250px;
+            perspective: 1000px;
+            cursor: pointer;
+            margin-bottom: 25px;
+        }
+
+        .flashcard {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .flashcard.is-flipped { transform: rotateY(180deg); }
+
+        .card-face {
+            position: absolute; width: 100%; height: 100%;
+            backface-visibility: hidden; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08); padding: 30px; text-align: center;
+        }
+
+        .card-front { background-color: var(--card-bg); border: 2px solid #e2e8f0; }
+        .card-back { background-color: var(--primary); color: white; transform: rotateY(180deg); }
+
+        .word-german { font-size: 2rem; font-weight: 700; color: var(--text-dark); margin-bottom: 10px; }
+        .word-type { font-size: 0.9rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; }
+        .word-turkish { font-size: 1.8rem; font-weight: 700; margin-bottom: 15px; }
+        .example-sentence { font-size: 1rem; font-style: italic; opacity: 0.9; }
+
+        /* Öğrenildi Rozeti (Kartın üstünde çıkar) */
+        .learned-badge {
+            position: absolute; top: 15px; right: 15px;
+            background: var(--success); color: white;
+            padding: 5px 10px; border-radius: 20px;
+            font-size: 0.75rem; font-weight: bold; display: none;
+        }
+
+        /* --- BUTONLAR --- */
+        .controls { display: flex; gap: 10px; margin-bottom: 20px; width: 100%; max-width: 400px; justify-content: space-between; }
+        
+        button {
+            flex: 1; padding: 12px 10px; font-size: 0.9rem; font-weight: 600;
+            border: none; border-radius: 12px; background-color: white;
+            color: var(--primary); box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            cursor: pointer; transition: all 0.2s; border: 1px solid #e2e8f0;
+        }
+
+        button:hover { background-color: #f1f5f9; }
+        
+        /* Öğrendim Butonu Özel Tasarımı */
+        .btn-learn { background-color: var(--card-bg); border: 2px solid var(--success); color: var(--success); }
+        .btn-learn:hover { background-color: var(--success); color: white; }
+        .btn-learn.active { background-color: var(--success); color: white; }
+
+        .instruction { color: var(--text-muted); font-size: 0.9rem; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>med-vokabeln.com</h1>
+        <p>Pflegefachkräfte Vokabeltrainer</p>
+    </header>
+
+    <div class="dashboard">
+        <select id="categorySelect" onchange="changeCategory()">
+            <option value="Alle">Tüm Kategoriler</option>
+            <option value="Allgemein">Genel Hastane</option>
+            <option value="Anatomie">Anatomi</option>
+            <option value="Aktion">Fiiller / Eylemler</option>
+        </select>
+        <div class="progress" id="progressText">0 / 0 Öğrenildi</div>
+    </div>
+
+    <div class="flashcard-container" onclick="flipCard()">
+        <div class="flashcard" id="myCard">
+            <div class="card-face card-front">
+                <div class="learned-badge" id="frontBadge">✅ ÖĞRENİLDİ</div>
+                <div class="word-type" id="wordType">...</div>
+                <div class="word-german" id="germanWord">Yükleniyor...</div>
+            </div>
+            <div class="card-face card-back">
+                <div class="learned-badge" id="backBadge" style="background: white; color: var(--success);">✅ ÖĞRENİLDİ</div>
+                <div class="word-turkish" id="turkishWord">...</div>
+                <div class="example-sentence" id="exampleSentence">...</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button onclick="prevWord()">&larr; Önceki</button>
+        <button onclick="toggleLearned()" id="learnBtn" class="btn-learn">✅ Öğrendim</button>
+        <button onclick="nextWord()">Sonraki &rarr;</button>
+    </div>
+
+    <p class="instruction">💡 Çevirmek için karta dokun.</p>
+
+    <script>
+        // Veritabanımız (id ve kategori eklendi)
+        const fullVocabulary = [
+            { id: 1, category: "Allgemein", german: "Blutdruckmessgerät", type: "Das Nomen", turkish: "Tansiyon Aleti", example: "Ich brauche das Blutdruckmessgerät." },
+            { id: 2, category: "Allgemein", german: "Spritze", type: "Die Nomen", turkish: "Şırınga / İğne", example: "Wir müssen eine Spritze geben." },
+            { id: 3, category: "Anatomie", german: "Herz", type: "Das Nomen", turkish: "Kalp", example: "Das Herz schlägt schnell." },
+            { id: 4, category: "Anatomie", german: "Lunge", type: "Die Nomen", turkish: "Akciğer", example: "Atmen Sie tief in die Lunge ein." },
+            { id: 5, category: "Aktion", german: "Blut abnehmen", type: "Das Verb", turkish: "Kan almak", example: "Ich werde Ihnen jetzt etwas Blut abnehmen." },
+            { id: 6, category: "Aktion", german: "Verbinden", type: "Das Verb", turkish: "Sarmak / Bandajlamak", example: "Ich muss die Wunde verbinden." }
+        ];
+
+        let currentCards = [...fullVocabulary]; // Ekranda gösterilen kartlar
+        let currentIndex = 0;
+        
+        // LocalStorage'dan öğrenilenleri çek. Yoksa boş dizi [] oluştur.
+        let learnedIds = JSON.parse(localStorage.getItem('medVokabeln_learned')) || [];
+
+        // Sayfa yüklendiğinde çalışacak başlangıç ayarları
+        window.onload = () => {
+            updateCard();
+        };
+
+        function flipCard() {
+            document.getElementById("myCard").classList.toggle("is-flipped");
+        }
+
+        // Kategori değiştirildiğinde çalışan fonksiyon
+        function changeCategory() {
+            const selectedCategory = document.getElementById("categorySelect").value;
+            
+            if (selectedCategory === "Alle") {
+                currentCards = [...fullVocabulary];
+            } else {
+                currentCards = fullVocabulary.filter(word => word.category === selectedCategory);
+            }
+            
+            currentIndex = 0; // Kategori değişince ilk karta dön
+            document.getElementById("myCard").classList.remove("is-flipped");
+            setTimeout(updateCard, 200);
+        }
+
+        // Kartı güncelleyen ana beyin
+        function updateCard() {
+            document.getElementById("myCard").classList.remove("is-flipped");
+            
+            setTimeout(() => {
+                const currentWord = currentCards[currentIndex];
+                
+                // Yazıları güncelle
+                document.getElementById("germanWord").innerText = currentWord.german;
+                document.getElementById("wordType").innerText = currentWord.type;
+                document.getElementById("turkishWord").innerText = currentWord.turkish;
+                document.getElementById("exampleSentence").innerText = currentWord.example;
+
+                // Öğrenildi mi kontrolü
+                checkLearnedStatus(currentWord.id);
+            }, 200);
+        }
+
+        // Kelime öğrenilmiş mi diye hafızaya (LocalStorage) bakan fonksiyon
+        function checkLearnedStatus(wordId) {
+            const isLearned = learnedIds.includes(wordId);
+            const learnBtn = document.getElementById("learnBtn");
+            const frontBadge = document.getElementById("frontBadge");
+            const backBadge = document.getElementById("backBadge");
+
+            if (isLearned) {
+                learnBtn.innerText = "❌ Öğrenmedim (Geri Al)";
+                learnBtn.classList.add("active");
+                frontBadge.style.display = "block";
+                backBadge.style.display = "block";
+            } else {
+                learnBtn.innerText = "✅ Öğrendim";
+                learnBtn.classList.remove("active");
+                frontBadge.style.display = "none";
+                backBadge.style.display = "none";
+            }
+
+            // İlerleme metnini güncelle (Örn: 2 / 6 Öğrenildi)
+            const learnedInCurrentView = currentCards.filter(card => learnedIds.includes(card.id)).length;
+            document.getElementById("progressText").innerText = `${learnedInCurrentView} / ${currentCards.length} Öğrenildi`;
+        }
+
+        // Öğrendim butonuna basılınca çalışan fonksiyon
+        function toggleLearned() {
+            const currentWordId = currentCards[currentIndex].id;
+            
+            // Eğer daha önce öğrenildiyse listeden çıkar, öğrenilmediyse listeye ekle
+            if (learnedIds.includes(currentWordId)) {
+                learnedIds = learnedIds.filter(id => id !== currentWordId);
+            } else {
+                learnedIds.push(currentWordId);
+            }
+
+            // Yeni listeyi tarayıcının hafızasına (LocalStorage) KALICI olarak kaydet
+            localStorage.setItem('medVokabeln_learned', JSON.stringify(learnedIds));
+            
+            // Ekrandaki butonu ve rozeti güncelle
+            checkLearnedStatus(currentWordId);
+        }
+
+        function nextWord() {
+            currentIndex++;
+            if (currentIndex >= currentCards.length) currentIndex = 0;
+            updateCard();
+        }
+
+        function prevWord() {
+            currentIndex--;
+            if (currentIndex < 0) currentIndex = currentCards.length - 1;
+            updateCard();
+        }
+    </script>
+
+</body>
+</html>
