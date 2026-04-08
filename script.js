@@ -13,22 +13,41 @@ let learnedIds = JSON.parse(localStorage.getItem('medVokabeln_learned')) || [];
 let currentQuizCorrectWord = null; 
 
 window.onload = () => { 
+    initTheme(); // Sayfa açılır açılmaz temayı yükle
     updateCard(); 
     displayStreak(); 
 };
+
+// --- YENİ EKLENEN: GECE MODU FONKSİYONLARI ---
+function initTheme() {
+    const savedTheme = localStorage.getItem('medVokabeln_theme');
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        document.getElementById('themeToggle').innerText = '☀️';
+    }
+}
+
+function toggleTheme() {
+    document.body.classList.toggle('dark-mode');
+    const isDark = document.body.classList.contains('dark-mode');
+    
+    // İkonu değiştir
+    document.getElementById('themeToggle').innerText = isDark ? '☀️' : '🌙';
+    
+    // Kullanıcının tercihini kaydet (Bir sonraki girişte hatırlaması için)
+    localStorage.setItem('medVokabeln_theme', isDark ? 'dark' : 'light');
+}
 
 // --- ARAMA MOTORU FONKSİYONU ---
 function searchWord() {
     const query = document.getElementById("searchInput").value.toLowerCase();
     const selectedCategory = document.getElementById("categorySelect").value;
     
-    // Aramayı sadece o an seçili olan kategori içinde yap (veya "Tümü" ise hepsi)
     let basePool = selectedCategory === "Alle" ? fullVocabulary : fullVocabulary.filter(w => w.category === selectedCategory);
     
     if (query === "") {
         currentCards = basePool;
     } else {
-        // Hem Almanca kelimelerde hem de Türkçe anlamlarında arama yap
         currentCards = basePool.filter(word => 
             word.german.toLowerCase().includes(query) || 
             word.turkish.toLowerCase().includes(query)
@@ -38,7 +57,6 @@ function searchWord() {
     currentIndex = 0;
     
     if(currentCards.length === 0) {
-        // Eğer aranan kelime veritabanında yoksa boş kart göster
         document.getElementById("germanWord").innerText = "Bulunamadı 😔";
         document.getElementById("turkishWord").innerText = "Sonuç yok.";
         document.getElementById("wordType").innerText = "...";
@@ -78,7 +96,7 @@ function checkAndUpdateStreak() {
 
 function speakWord(event) {
     event.stopPropagation(); 
-    if(currentCards.length === 0) return; // Boş aramada ses çalmasın
+    if(currentCards.length === 0) return; 
     const wordToSpeak = currentCards[currentIndex].german;
     const utterance = new SpeechSynthesisUtterance(wordToSpeak);
     utterance.lang = 'de-DE'; 
@@ -104,7 +122,7 @@ function switchMode(mode) {
 }
 
 function changeCategory() {
-    document.getElementById("searchInput").value = ""; // Kategori değişince aramayı sıfırla
+    document.getElementById("searchInput").value = ""; 
     const selectedCategory = document.getElementById("categorySelect").value;
     if (selectedCategory === "Alle") { currentCards = [...fullVocabulary]; } 
     else { currentCards = fullVocabulary.filter(word => word.category === selectedCategory); }
@@ -115,7 +133,7 @@ function changeCategory() {
 }
 
 function flipCard() { 
-    if(currentCards.length === 0) return; // Boş sonuç varsa kart dönmesin
+    if(currentCards.length === 0) return; 
     document.getElementById("myCard").classList.toggle("is-flipped"); 
 }
 function nextWord() { 
