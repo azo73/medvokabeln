@@ -10,13 +10,13 @@
     
     <meta name="description" content="Almanya ve İsviçre'deki göçmen hemşireler için ücretsiz interaktif tıbbi Almanca kelime ve diyalog kartları.">
     <meta property="og:title" content="PflegeDeutsch | Tıbbi Almanca Kartları">
-    <meta property="og:description" content="Nöbetlerde ve hastanede en çok ihtiyacın olacak tıbbi Almanca kelimeleri ve diyalogları kolayca öğren, kendini test et!">
+    <meta property="og:description" content="Nöbetlerde und hastanede en çok ihtiyacın olacak tıbbi Almanca kelimeleri ve diyalogları kolayca öğren, kendini test et!">
     <meta property="og:image" content="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80">
     <meta property="og:url" content="http://med-vokabeln.com/">
     <meta property="og:type" content="website">
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=5">
+    <link rel="stylesheet" href="style.css?v=6">
 </head>
 <body>
 
@@ -90,64 +90,6 @@
         </div>
     </div>
 
-    <script src="script.js?v=5"></script>
-</body>
-</html>        <button class="mode-btn" id="btnQuiz" onclick="switchMode('quiz')">✍️ Sınav Ol</button>
-    </div>
-
-    <div class="dashboard">
-        <select id="categorySelect" onchange="changeCategory()">
-            <option value="Alle">Tüm Kategoriler</option>
-            <option value="Allgemein">Genel Hastane</option>
-            <option value="Anatomie">Anatomi</option>
-            <option value="Aktion">Fiiller / Eylemler</option>
-            <option value="Symptome">Belirtiler (Symptome)</option>
-            <option value="Ausrüstung">Ekipman (Ausrüstung)</option>
-            <option value="Personal">Personel (Personal)</option>
-            <option value="Dialoge">Diyaloglar / Senaryolar</option>
-        </select>
-        
-        <div class="stats-container">
-            <div class="streak" id="streakText" title="Günlük Serin">🔥 0</div>
-            <div class="progress" id="progressText">0 / 0 Öğrenildi</div>
-        </div>
-    </div>
-
-    <div id="flashcardSection">
-        <div class="flashcard-container" onclick="flipCard()">
-            <div class="flashcard" id="myCard">
-                <div class="card-face card-front">
-                    <div class="learned-badge" id="frontBadge">✅ ÖĞRENİLDİ</div>
-                    <button class="btn-speak" onclick="speakWord(event)" title="Almanca Telaffuzu Dinle">🔊</button>
-                    <div class="word-type" id="wordType">...</div>
-                    <div class="word-german" id="germanWord">Yükleniyor...</div>
-                </div>
-                <div class="card-face card-back">
-                    <div class="learned-badge" id="backBadge">✅ ÖĞRENİLDİ</div>
-                    <div class="word-turkish" id="turkishWord">...</div>
-                    <div class="example-sentence" id="exampleSentence">...</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="controls">
-            <button class="action-btn" onclick="prevWord()">&larr; Önceki</button>
-            <button class="action-btn btn-learn" onclick="toggleLearned()" id="learnBtn">✅ Öğrendim</button>
-            <button class="action-btn" onclick="nextWord()">Sonraki &rarr;</button>
-        </div>
-        <p class="instruction">💡 Çevirmek için karta dokun.</p>
-    </div>
-
-    <div id="quizSection">
-        <div class="quiz-card">
-            <div class="quiz-hint">Bu kelimenin/cümlenin anlamı nedir?</div>
-            <div class="quiz-question" id="quizWord">Yükleniyor...</div>
-            <div class="quiz-options" id="quizOptionsContainer"></div>
-            <div class="quiz-feedback" id="quizFeedback"></div>
-            <button class="btn-next-quiz" id="nextQuizBtn" onclick="generateQuizQuestion()">Sonraki Soru &rarr;</button>
-        </div>
-    </div>
-
-    <script src="script.js?v=4"></script>
+    <script src="script.js?v=6"></script>
 </body>
 </html>
