@@ -8,22 +8,22 @@
     
     <title>med-vokabeln.com | PflegeDeutsch</title>
     
-    <meta name="description" content="Almanya ve İsviçre'deki göçmen hemşireler için ücretsiz interaktif tıbbi Almanca kelime ve diyalog kartları.">
+    <meta name="description" content="Almanya ve İsviçre'deki hemşireler için ücretsiz interaktif tıbbi Almanca kelime kartları.">
     <meta property="og:title" content="PflegeDeutsch | Tıbbi Almanca Kartları">
-    <meta property="og:description" content="Nöbetlerde und hastanede en çok ihtiyacın olacak tıbbi Almanca kelimeleri ve diyalogları kolayca öğren, kendini test et!">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80">
+    <meta property="og:description" content="Nöbetlerde ihtiyacın olacak tıbbi Almanca kelimeleri ve diyalogları kolayca öğren, kendini test et!">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1200&q=80">
     <meta property="og:url" content="http://med-vokabeln.com/">
     <meta property="og:type" content="website">
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=6">
+    <link rel="stylesheet" href="style.css?v=1">
 </head>
 <body>
 
     <header>
         <div class="header-top">
             <h1>med-vokabeln.com</h1>
-            <button id="themeToggle" class="theme-btn" onclick="toggleTheme()" title="Gece/Gündüz Modunu Değiştir">🌙</button>
+            <button id="themeToggle" class="theme-btn" onclick="toggleTheme()">🌙</button>
         </div>
         <p>Pflegefachkräfte Vokabeltrainer</p>
         
@@ -32,9 +32,9 @@
         </div>
     </header>
 
- <div class="mode-switch">
+    <div class="mode-switch">
         <button class="mode-btn active" id="btnFlashcard" onclick="switchMode('flashcard')">📇 Kartlar</button>
-        <button class="mode-btn" id="btnQuiz" onclick="switchMode('quiz')">✍️ Sınav Ol</button>
+        <button class="mode-btn" id="btnQuiz" onclick="switchMode('quiz')">✍️ Sınav</button>
         <a href="anatomie.html" class="mode-btn" style="text-decoration:none; text-align:center; display:flex; justify-content:center; align-items:center;">🧍 Anatomi</a>
     </div>
 
@@ -44,14 +44,14 @@
             <option value="Allgemein">Genel Hastane</option>
             <option value="Anatomie">Anatomi</option>
             <option value="Aktion">Fiiller / Eylemler</option>
-            <option value="Symptome">Belirtiler (Symptome)</option>
-            <option value="Ausrüstung">Ekipman (Ausrüstung)</option>
-            <option value="Personal">Personel (Personal)</option>
-            <option value="Dialoge">Diyaloglar / Senaryolar</option>
+            <option value="Symptome">Belirtiler</option>
+            <option value="Medikamente">İlaçlar</option>
+            <option value="Personal">Personel</option>
+            <option value="Dialoge">Diyaloglar</option>
         </select>
         
         <div class="stats-container">
-            <div class="streak" id="streakText" title="Günlük Serin">🔥 0</div>
+            <div class="streak" id="streakText" title="Günlük Seri">🔥 0</div>
             <div class="progress" id="progressText">0 / 0 Öğrenildi</div>
         </div>
     </div>
@@ -60,13 +60,13 @@
         <div class="flashcard-container" onclick="flipCard()">
             <div class="flashcard" id="myCard">
                 <div class="card-face card-front">
-                    <div class="learned-badge" id="frontBadge">✅ ÖĞRENİLDİ</div>
-                    <button class="btn-speak" onclick="speakWord(event)" title="Almanca Telaffuzu Dinle">🔊</button>
+                    <div class="learned-badge" id="frontBadge">✅</div>
+                    <button class="btn-speak" onclick="speakWord(event)">🔊</button>
                     <div class="word-type" id="wordType">...</div>
                     <div class="word-german" id="germanWord">Yükleniyor...</div>
                 </div>
                 <div class="card-face card-back">
-                    <div class="learned-badge" id="backBadge">✅ ÖĞRENİLDİ</div>
+                    <div class="learned-badge" id="backBadge">✅</div>
                     <div class="word-turkish" id="turkishWord">...</div>
                     <div class="example-sentence" id="exampleSentence">...</div>
                 </div>
@@ -78,22 +78,18 @@
             <button class="action-btn btn-learn" onclick="toggleLearned()" id="learnBtn">✅ Öğrendim</button>
             <button class="action-btn" onclick="nextWord()">Sonraki &rarr;</button>
         </div>
-        <p class="instruction">💡 Çevirmek için karta dokun.</p>
     </div>
 
     <div id="quizSection">
         <div class="quiz-card">
-            <div class="quiz-hint">Bu kelimenin/cümlenin anlamı nedir?</div>
-            <div class="quiz-question" id="quizWord">Yükleniyor...</div>
+            <div class="quiz-question" id="quizWord">...</div>
             <div class="quiz-options" id="quizOptionsContainer"></div>
             <div class="quiz-feedback" id="quizFeedback"></div>
-            <button class="btn-next-quiz" id="nextQuizBtn" onclick="generateQuizQuestion()">Sonraki Soru &rarr;</button>
+            <button class="btn-next-quiz" id="nextQuizBtn" onclick="generateQuizQuestion()">Sonraki &rarr;</button>
         </div>
     </div>
-<script src="data.js?v=8"></script>
-    <script src="script.js?v=8"></script>
-</body>
-</html>
-    <script src="script.js?v=6"></script>
+
+    <script src="data.js?v=1"></script>
+    <script src="script.js?v=1"></script>
 </body>
 </html>
