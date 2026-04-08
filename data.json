@@ -1,0 +1,4 @@
+[
+    { "id": 1, "category": "Allgemein", "german": "Krankenhaus", "type": "Das Nomen", "turkish": "Hastane", "example": "Das Krankenhaus ist in der Nähe." },
+    { "id": 2, "category": "Notaufnahme", "german": "Notaufnahme", "type": "Die Nomen", "turkish": "Acil Servis", "example": "Bringen Sie ihn sofort in die Notaufnahme!" }
+]
