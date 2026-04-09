@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Vaka Simülatörü | PflegeDeutsch</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏥</text></svg>">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=1">
+    
+    <style>
+        .back-nav { width: 100%; max-width: 400px; display: flex; align-items: center; margin-bottom: 20px; margin-top: 10px; }
+        .btn-back { background: var(--card-bg); border: 2px solid var(--border-color); color: var(--text-dark); padding: 10px 15px; border-radius: 12px; text-decoration: none; font-weight: bold; transition: 0.2s; }
+        
+        .scenario-card { background: white; border-radius: 16px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px; border-left: 5px solid var(--danger); position: relative; }
+        body.dark-mode .scenario-card { background: var(--card-bg); }
+        
+        .patient-avatar { font-size: 2.5rem; position: absolute; top: -20px; right: -10px; background: var(--switch-bg); border-radius: 50%; padding: 5px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        
+        .scenario-title { font-size: 0.85rem; color: var(--danger); font-weight: bold; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+        .scenario-text { font-size: 1.1rem; color: var(--text-dark); font-weight: 600; line-height: 1.5; margin-bottom: 10px; }
+        .scenario-translate { font-size: 0.9rem; color: var(--text-muted); font-style: italic; border-top: 1px dashed var(--border-color); padding-top: 10px; }
+
+        .options-container { display: flex; flex-direction: column; gap: 12px; }
+        .option-btn { background: var(--card-bg); border: 2px solid var(--border-color); color: var(--text-dark); padding: 15px; border-radius: 12px; text-align: left; font-size: 0.95rem; line-height: 1.4; cursor: pointer; transition: all 0.2s; font-weight: 600; }
+        .option-btn:hover { border-color: var(--primary); transform: translateX(5px); }
+        
+        .option-btn.correct { background: var(--success); color: white; border-color: var(--success); pointer-events: none; }
+        .option-btn.wrong { background: var(--danger); color: white; border-color: var(--danger); animation: shake 0.4s; pointer-events: none; }
+        
+        @keyframes shake { 0%, 100% {transform: translateX(0);} 25% {transform: translateX(-5px);} 75% {transform: translateX(5px);} }
+        
+        .feedback { margin-top: 20px; padding: 15px; border-radius: 12px; display: none; font-weight: bold; text-align: center; }
+        .feedback.success { background: rgba(34, 197, 94, 0.2); color: var(--success); display: block; animation: popIn 0.3s; }
+        .feedback.error { background: rgba(239, 68, 68, 0.2); color: var(--danger); display: block; animation: popIn 0.3s; }
+        
+        @keyframes popIn { 0% { transform: scale(0.9); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        
+        .btn-next { display: none; background: var(--primary); color: white; border: none; padding: 15px; border-radius: 12px; width: 100%; font-weight: bold; cursor: pointer; margin-top: 15px; font-size: 1.1rem; box-shadow: 0 4px 10px rgba(2,132,199,0.3); }
+    </style>
+</head>
+<body onload="initTheme()">
+
+    <div class="back-nav">
+        <a href="index.html" class="btn-back">← Geri</a>
+        <h2 style="flex:1; text-align:center; color:var(--primary); font-size: 1.2rem;">Klinik Vaka</h2>
+    </div>
+
+    <div style="width: 100%; max-width: 400px; margin: 0 auto;">
+        
+        <div class="scenario-card" id="scenarioCard">
+            <div class="patient-avatar">🤒</div>
+            <div class="scenario-title" id="caseSubject">Şikayet</div>
+            <div class="scenario-text" id="caseGerman">...</div>
+            <div class="scenario-translate" id="caseTurkish">...</div>
+        </div>
+
+        <div class="options-container" id="optionsContainer">
+            </div>
+
+        <div id="feedbackBox" class="feedback"></div>
+        <button class="btn-next" id="btnNext" onclick="loadNextCase()">Sonraki Vaka &rarr;</button>
+        
+    </div>
+
+    <script>
+        // Tema kontrolü
+        function initTheme() { 
+            if (localStorage.getItem('medVokabeln_theme') === 'dark') document.body.classList.add('dark-mode'); 
+            loadNextCase(); 
+        }
+
+        // VAKA VERİTABANI (GERÇEK HASTANE SENARYOLARI)
+        const cases = [
+            {
+                subject: "Mide Bulantısı / Kusma",
+                german: "\"Schwester, mir ist furchtbar übel und ich glaube, ich muss mich übergeben.\"",
+                turkish: "\"Hemşire hanım, midem çok bulanıyor ve sanırım kusacağım.\"",
+                options: [
+                    { text: "Ich bringe Ihnen sofort eine Brechschale. Atmen Sie ruhig.", isCorrect: true, feedback: "Doğru Müdahale! (Hemen bir böbrek küvet getiriyorum. Sakince nefes alın.)" },
+                    { text: "Sie müssen sofort aufstehen und herumlaufen.", isCorrect: false, feedback: "Yanlış! Midesi bulanan hasta yürütülmez." },
+                    { text: "Ich gebe Ihnen jetzt eine Schlaftablette.", isCorrect: false, feedback: "Yanlış! Teşhis konmadan uyku hapı verilmez." }
+                ]
+            },
+            {
+                subject: "Acil: Göğüs Ağrısı",
+                german: "\"Ich habe plötzliche, starke Schmerzen in der Brust, die in den linken Arm ausstrahlen!\"",
+                turkish: "\"Göğsümde aniden sol koluma yayılan şiddetli bir ağrı var!\"",
+                options: [
+                    { text: "Trinken Sie ein Glas Wasser, das vergeht gleich.", isCorrect: false, feedback: "Yanlış! Kalp krizi şüphesinde hastaya su geçiştirmesi yapılmaz." },
+                    { text: "Wir machen jetzt Ihre Atemübungen.", isCorrect: false, feedback: "Yanlış! Bu bir fizyoterapi durumu değil, acil bir durumdur." },
+                    { text: "Bleiben Sie ganz ruhig liegen. Ich rufe sofort den Arzt und hole das EKG-Gerät!", isCorrect: true, feedback: "Harika! (Sakin bir şekilde yatmaya devam edin. Hemen doktoru çağırıp EKG cihazını getiriyorum!)" }
+                ]
+            },
+            {
+                subject: "İnfüzyon (Serum) Sorunu",
+                german: "\"Mein Tropf ist leer und an der Einstichstelle brennt es schmerzhaft.\"",
+                turkish: "\"Serumum bitti ve iğne yerinde acı verici bir yanma var.\"",
+                options: [
+                    { text: "Ziehen Sie die Nadel einfach selbst heraus.", isCorrect: false, feedback: "Yanlış! Hastadan damar yolunu kendi kendine çekmesi istenemez." },
+                    { text: "Ich stelle die Infusion ab und schaue mir den Zugang sofort an.", isCorrect: true, feedback: "Doğru! (İnfüzyonu kapatıyorum ve damar yoluna hemen bakıyorum.)" },
+                    { text: "Das ist normal, ignorieren Sie es.", isCorrect: false, feedback: "Yanlış! Damar yolundaki yanma flebit (damar iltihabı) veya doku dışına sızma belirtisi olabilir." }
+                ]
+            },
+            {
+                subject: "Diyabet / Hipoglisemi",
+                german: "\"Mir ist extrem schwindelig, ich zittere und schwitze stark.\"",
+                turkish: "\"Başım aşırı dönüyor, titriyorum ve çok terliyorum.\"",
+                options: [
+                    { text: "Ich messe sofort Ihren Blutzucker. Bleiben Sie im Bett.", isCorrect: true, feedback: "Çok İyi! Hipoglisemi (şeker düşmesi) belirtisi. (Hemen kan şekerinizi ölçüyorum. Yatakta kalın.)" },
+                    { text: "Sie sollten heiß duschen gehen.", isCorrect: false, feedback: "Yanlış! Baş dönmesi olan hasta duşa gönderilmez, düşüp yaralanabilir." },
+                    { text: "Ich öffne das Fenster, Ihnen ist nur warm.", isCorrect: false, feedback: "Yanlış! Sadece camı açmak bu semptomları çözmez." }
+                ]
+            }
+        ];
+
+        let currentCaseIndex = -1;
+
+        function shuffleArray(array) {
+            return array.sort(() => Math.random() - 0.5);
+        }
+
+        function loadNextCase() {
+            currentCaseIndex++;
+            
+            // Eğer vakalar bittiyse başa sar
+            if (currentCaseIndex >= cases.length) {
+                currentCaseIndex = 0;
+            }
+
+            const currentCase = cases[currentCaseIndex];
+            
+            // Arayüzü temizle
+            document.getElementById('feedbackBox').className = 'feedback';
+            document.getElementById('feedbackBox').innerText = '';
+            document.getElementById('btnNext').style.display = 'none';
+            document.getElementById('optionsContainer').innerHTML = '';
+
+            // Metinleri Doldur
+            document.getElementById('caseSubject').innerText = currentCase.subject;
+            document.getElementById('caseGerman').innerText = currentCase.german;
+            document.getElementById('caseTurkish').innerText = currentCase.turkish;
+
+            // Şıkları Karıştır ve Oluştur
+            const shuffledOptions = shuffleArray([...currentCase.options]);
+            
+            shuffledOptions.forEach(option => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.innerText = option.text;
+                btn.onclick = () => checkAnswer(btn, option);
+                document.getElementById('optionsContainer').appendChild(btn);
+            });
+        }
+
+        function checkAnswer(clickedBtn, optionData) {
+            // Tüm butonları pasif yap (birden fazla tıklamayı engelle)
+            const allBtns = document.querySelectorAll('.option-btn');
+            allBtns.forEach(btn => btn.style.pointerEvents = 'none');
+
+            const feedbackBox = document.getElementById('feedbackBox');
+
+            if (optionData.isCorrect) {
+                clickedBtn.classList.add('correct');
+                feedbackBox.className = 'feedback success';
+                feedbackBox.innerText = optionData.feedback;
+                
+                // Seriyi (Streak) Güncelleme Şansı (İsteğe bağlı)
+                let streakCount = parseInt(localStorage.getItem('medVokabeln_streak')) || 0;
+                localStorage.setItem('medVokabeln_streak', streakCount + 1);
+                
+            } else {
+                clickedBtn.classList.add('wrong');
+                feedbackBox.className = 'feedback error';
+                feedbackBox.innerText = optionData.feedback;
+                
+                // Doğru olanı yeşil yapıp göster
+                allBtns.forEach(btn => {
+                    if (btn.innerText === cases[currentCaseIndex].options.find(o => o.isCorrect).text) {
+                        btn.classList.add('correct');
+                    }
+                });
+            }
+
+            // Sonraki butonunu göster
+            document.getElementById('btnNext').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
