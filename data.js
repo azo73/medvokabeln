@@ -167,5 +167,5 @@ const vocabularyData = [
     { "id": 147, "category": "Dialoge", "german": "Sie können bugün aufstehen.", "type": "Satz", "turkish": "Bugün kalkabilirsiniz.", "example": "Doktor diyor ki, Sie können heute aufstehen." },
     { "id": 148, "category": "Dialoge", "german": "Besuchszeit ist saat 20'ye kadar.", "type": "Satz", "turkish": "Ziyaret saati 20:00'ye kadar.", "example": "Söyleyin yakınlarınıza: Besuchszeit ist bis 20 Uhr." },
     { "id": 149, "category": "Dialoge", "german": "Ich hole die Bettpfanne.", "type": "Satz", "turkish": "Sürgüyü getiriyorum.", "example": "Yatmaya devam edin, ich hole die Bettpfanne." },
-    { "id": 150, "category": "Dialoge", "german": "Wir machen şimdi Übergabe.", "type": "Satz", "turkish": "Şimdi nöbet teslimi yapıyoruz.", "example": "Sabah vardiyası gidiyor, wir machen jetzt Übergabe." }
+    { "id": 150, "category": "Dialoge", "german": "wir machen jetzt Übergabe.", "type": "Satz", "turkish": "Şimdi nöbet teslimi yapıyoruz.", "example": "Sabah vardiyası gidiyor, wir machen jetzt Übergabe." }
 ]; 
