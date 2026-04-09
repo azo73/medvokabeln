@@ -127,7 +127,7 @@ const vocabularyData = [
     { "id": 107, "category": "Dialoge", "german": "Haben Sie Schmerzen?", "type": "Satz", "turkish": "Ağrınız var mı?", "example": "Sagen Sie mir, haben Sie Schmerzen?" },
     { "id": 108, "category": "Dialoge", "german": "Ich bringe Ihnen die Medikamente.", "type": "Satz", "turkish": "Size ilaçları getiriyorum.", "example": "Hier sind Ihre Tabletten." },
     { "id": 109, "category": "Dialoge", "german": "Können Sie mich verstehen?", "type": "Satz", "turkish": "Beni anlayabiliyor musunuz?", "example": "Hallo, können Sie mich verstehen?" },
-    { "id": 110, "category": "Dialoge", "german": "Drücken Sie die Klingel.", "type": "Satz", "turkish": "Zile basın.", "example": "Wenn bir şey olursa, drücken Sie die Klingel." },
+    { "id": 110, "category": "Dialoge", "german": "Drücken Sie die Klingel.", "type": "Satz", "turkish": "Zile basın.", "example": "Wenn etwas passiert, klingeln Sie bitte." },
     { "id": 111, "category": "Dialoge", "german": "Haben Sie gut geschlafen?", "type": "Satz", "turkish": "İyi uyudunuz mu?", "example": "Guten Tag, haben Sie gut geschlafen?" },
     { "id": 112, "category": "Dialoge", "german": "Ich helfe Ihnen beim Aufstehen.", "type": "Satz", "turkish": "Ayağa kalkmanıza yardım edeyim.", "example": "Ganz dikkatli, ich helfe Ihnen." },
     { "id": 113, "category": "Dialoge", "german": "Möchten Sie etwas trinken?", "type": "Satz", "turkish": "Bir şey içmek ister misiniz?", "example": "Hier ist su, möchten Sie etwas trinken?" },
