@@ -12,15 +12,19 @@
     
     <title>med-vokabeln.com | PflegeDeutsch</title>
     
-    <meta name="description" content="Almanya und İsviçre'deki hemşireler für ücretsiz interaktif tıbbi Almanca kelime kartları.">
+    <meta name="description" content="Almanya und İsviçre'deki hemşireler için ücretsiz interaktif tıbbi Almanca kelime kartları.">
     <meta property="og:title" content="PflegeDeutsch | Tıbbi Almanca Kartları">
     <meta property="og:description" content="Nöbetlerde ihtiyacın olacak tıbbi Almanca kelimeleri ve diyalogları kolayca öğren, kendini test et!">
     <meta property="og:image" content="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1200&q=80">
-    <meta property="og:url" content="http://med-vokabeln.com/">
+    <meta property="og:url" content="https://med-vokabeln.com/">
     <meta property="og:type" content="website">
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css?v=1">
+    <style>
+        /* Panel açılış animasyonu */
+        @keyframes popInModal { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+    </style>
 </head>
 <body>
 
@@ -57,7 +61,7 @@
         </select>
         
         <div class="stats-container">
-            <div class="streak" id="streakText" title="Günlük Seri">🔥 0</div>
+            <div class="streak" id="streakText" title="Başarılarını Gör ve Paylaş" onclick="openShareModal()" style="cursor:pointer; box-shadow: 0 2px 5px rgba(234, 88, 12, 0.2);">🔥 0</div>
             <div class="progress" id="progressText">0 / 0 Öğrenildi</div>
         </div>
     </div>
@@ -74,71 +78,4 @@
                 <div class="card-face card-back">
                     <div class="learned-badge" id="backBadge">✅</div>
                     <div class="word-turkish" id="turkishWord">...</div>
-                    <div class="example-sentence" id="exampleSentence">...</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="controls">
-            <button class="action-btn" onclick="prevWord()">&larr; Önceki</button>
-            <button class="action-btn btn-learn" onclick="toggleLearned()" id="learnBtn">✅ Öğrendim</button>
-            <button class="action-btn" onclick="nextWord()">Sonraki &rarr;</button>
-        </div>
-    </div>
-
-    <div id="quizSection">
-        <div class="quiz-card">
-            <div class="quiz-question" id="quizWord">...</div>
-            <div class="quiz-options" id="quizOptionsContainer"></div>
-            <div class="quiz-feedback" id="quizFeedback"></div>
-            <button class="btn-next-quiz" id="nextQuizBtn" onclick="generateQuizQuestion()">Sonraki &rarr;</button>
-        </div>
-    </div>
-
-    <div style="width: 100%; max-width: 400px; padding: 20px; text-align: left; margin-top: 120px; margin-bottom: 30px; background: var(--card-bg); border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid var(--border-color);">
-        <h3 style="color: var(--primary); font-size: 1.1rem; margin-bottom: 10px;">Warum PflegeDeutsch?</h3>
-        <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; margin-bottom: 10px;">
-            PflegeDeutsch ist der ultimative medizinische Vokabeltrainer für internationale Pflegefachkräfte in Deutschland, Österreich und der Schweiz. Lernen Sie die wichtigsten medizinischen Fachbegriffe, Anatomie, Symptome und Dialoge für den Krankenhausalltag. 
-        </p>
-        <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.5;">
-            Unsere interaktiven Lernkarten (Flashcards), das Quiz-System und das interaktive Anatomiemodell helfen Ihnen, sich optimal auf Ihre Schichten, Visiten und die Kommunikation mit Ärzten und Patienten vorzubereiten. Kostenlos, schnell und effektiv Deutsch für Pflegekräfte lernen!
-        </p>
-    </div>
-
-    <footer style="width: 100%; text-align: center; margin-bottom: 100px; font-size: 0.85rem;">
-        <a href="datenschutz.html" style="color: var(--primary); text-decoration: none; margin: 0 10px;">Datenschutzerklärung (Gizlilik)</a>
-        <span style="color: var(--text-muted);">|</span>
-        <a href="#" style="color: var(--primary); text-decoration: none; margin: 0 10px;">Impressum (Künye)</a>
-    </footer>
-
-    <div id="cookieBanner" style="position: fixed; bottom: 0; left: 0; width: 100%; background: var(--text-dark); color: white; padding: 15px 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 9999; box-shadow: 0 -4px 10px rgba(0,0,0,0.2);">
-        <p style="font-size: 0.85rem; text-align: center; margin-bottom: 10px; max-width: 600px;">
-            Wir verwenden Cookies, um Inhalte und Anzeigen zu personalisieren.
-        </p>
-        <button onclick="acceptCookies()" style="background: var(--success); color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer;">Akzeptieren (Kabul Et)</button>
-    </div>
-
-    <script>
-        if(localStorage.getItem('cookiesAccepted') === 'yes') {
-            document.getElementById('cookieBanner').style.display = 'none';
-        }
-        function acceptCookies() {
-            localStorage.setItem('cookiesAccepted', 'yes');
-            document.getElementById('cookieBanner').style.display = 'none';
-        }
-    </script>
-
-    <script src="data.js?v=1"></script>
-    <script src="script.js?v=1"></script>
-
-    <script>
-        if ("serviceWorker" in navigator) {
-            window.addEventListener("load", function() {
-                navigator.serviceWorker.register("sw.js")
-                .then(res => console.log("SW Registered"))
-                .catch(err => console.log("SW Error", err));
-            });
-        }
-    </script>
-</body>
-</html>
+                    <div class
