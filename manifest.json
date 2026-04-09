@@ -1,0 +1,20 @@
+{
+  "name": "PflegeDeutsch",
+  "short_name": "PflegeDeutsch",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#0284c7",
+  "icons": [
+    {
+      "src": "https://raw.githubusercontent.com/azo73/medvokabeln/main/Detailed%20human%20anatomical%20model%20display.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://raw.githubusercontent.com/azo73/medvokabeln/main/Detailed%20human%20anatomical%20model%20display.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
