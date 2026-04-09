@@ -9,7 +9,7 @@ window.onload = () => {
     initTheme(); 
     displayStreak(); 
     loadDatabase(); 
-    updateRank(); // Sayfa açılırken rütbeyi hesapla
+    updateRank(); 
 };
 
 // --- RÜTBE (GAMIFICATION) MANTIĞI ---
@@ -30,8 +30,17 @@ function updateRank() {
 // ------------------------------------
 
 function loadDatabase() {
+    // Önce kullanıcının kendi eklediği kelimeleri hafızadan çek
+    let customWords = JSON.parse(localStorage.getItem('medVokabeln_customWords')) || [];
+
     if (typeof vocabularyData !== 'undefined' && vocabularyData.length > 0) {
-        fullVocabulary = [...vocabularyData];
+        // Hem orijinal veritabanını hem de özel kelimeleri birleştir
+        fullVocabulary = [...vocabularyData, ...customWords];
+        currentCards = [...fullVocabulary];
+        updateCard();
+    } else if (customWords.length > 0) {
+        // Sadece özel kelimeler varsa
+        fullVocabulary = [...customWords];
         currentCards = [...fullVocabulary];
         updateCard();
     } else {
@@ -74,7 +83,7 @@ function searchWord() {
     } else if (selectedCategory === "Alle") {
         basePool = fullVocabulary;
     } else {
-        basePool = fullVocabulary.filter(w => w.category === selectedCategory);
+        basePool = fullVocabulary.filter(w => w.category === selectedCategory || (w.type && w.type.includes("Kişisel Not")));
     }
     
     if (query === "") { 
@@ -114,9 +123,9 @@ function updateCard() {
     document.getElementById("myCard").classList.remove("is-flipped");
     const currentWord = currentCards[currentIndex];
     document.getElementById("germanWord").innerText = currentWord.german;
-    document.getElementById("wordType").innerText = currentWord.type;
+    document.getElementById("wordType").innerText = currentWord.type || "";
     document.getElementById("turkishWord").innerText = currentWord.turkish;
-    document.getElementById("exampleSentence").innerText = currentWord.example;
+    document.getElementById("exampleSentence").innerText = currentWord.example || "";
     checkLearnedStatus(currentWord.id);
 }
 
@@ -150,7 +159,7 @@ function toggleLearned() {
     }
     localStorage.setItem('medVokabeln_learned', JSON.stringify(learnedIds));
     checkLearnedStatus(currentWordId);
-    updateRank(); // Öğrenilme durumuna göre rütbeyi hemen güncelle
+    updateRank(); 
 }
 
 function displayStreak() { document.getElementById('streakText').innerText = `🔥 ${localStorage.getItem('medVokabeln_streak') || 0}`; }
@@ -268,4 +277,52 @@ function shareGeneral() {
         navigator.clipboard.writeText(generateShareText());
         alert("Mesaj kopyalandı! İstediğin yere yapıştırıp hava atabilirsin. 😎");
     }
+}
+
+// ---------------------------------------------------
+// ➕ KİŞİSEL KELİME EKLEME SİSTEMİ (LOCAL STORAGE)
+// ---------------------------------------------------
+function openAddWordModal() {
+    document.getElementById('addWordModal').style.display = 'flex';
+}
+
+function closeAddWordModal() {
+    document.getElementById('addWordModal').style.display = 'none';
+}
+
+function saveCustomWord() {
+    const de = document.getElementById('newWordDe').value.trim();
+    const tr = document.getElementById('newWordTr').value.trim();
+
+    if(!de || !tr) {
+        alert("🚨 Lütfen hem Almanca hem Türkçe kısmını doldur!");
+        return;
+    }
+
+    // Benzersiz ID oluştur
+    const newId = 'custom_' + Date.now();
+    const newCard = { 
+        id: newId, 
+        german: de, 
+        turkish: tr, 
+        type: "Kişisel Not 📝", 
+        category: "Alle", 
+        example: "(Kendi eklediğin not)" 
+    };
+
+    let customWords = JSON.parse(localStorage.getItem('medVokabeln_customWords')) || [];
+    customWords.push(newCard);
+    localStorage.setItem('medVokabeln_customWords', JSON.stringify(customWords));
+
+    // Eklenen kelimeyi mevcut havuza anında kat
+    fullVocabulary.push(newCard);
+    currentCards.push(newCard);
+
+    document.getElementById('newWordDe').value = '';
+    document.getElementById('newWordTr').value = '';
+    closeAddWordModal();
+    
+    alert(`🎉 Başarılı! "${de}" destene eklendi. Artık sınavlarında ve kartlarında çıkacak.`);
+    
+    // Ekranda hemen gösterelim mi? İstersen son karta da atlatabilirsin ama şimdilik desteye karıştı.
 }
