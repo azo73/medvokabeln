@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5935458968037999" crossorigin="anonymous"></script>
-    
     <link rel="manifest" href="manifest.json">
-
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🩺</text></svg>">
     
     <title>med-vokabeln.com | PflegeDeutsch</title>
@@ -22,7 +20,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css?v=1">
     <style>
-        /* Panel açılış animasyonu */
         @keyframes popInModal { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
     </style>
 </head>
@@ -34,6 +31,10 @@
             <button id="themeToggle" class="theme-btn" onclick="toggleTheme()">🌙</button>
         </div>
         <p>Pflegefachkräfte Vokabeltrainer</p>
+        
+        <div id="userRank" style="margin-top:10px; background:var(--switch-bg); padding:8px 18px; border-radius:20px; font-size:0.9rem; color:var(--primary); font-weight:700; display:inline-flex; align-items:center; gap:5px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+            🐣 Pflegeschüler/in
+        </div>
         
         <div class="search-container">
             <input type="text" id="searchInput" placeholder="Kelime veya cümle ara..." onkeyup="searchWord()">
@@ -78,4 +79,102 @@
                 <div class="card-face card-back">
                     <div class="learned-badge" id="backBadge">✅</div>
                     <div class="word-turkish" id="turkishWord">...</div>
-                    <div class
+                    <div class="example-sentence" id="exampleSentence">...</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="action-btn" onclick="prevWord()">&larr; Önceki</button>
+            <button class="action-btn btn-learn" onclick="toggleLearned()" id="learnBtn">✅ Öğrendim</button>
+            <button class="action-btn" onclick="nextWord()">Sonraki &rarr;</button>
+        </div>
+    </div>
+
+    <div id="quizSection">
+        <div class="quiz-card">
+            <div class="quiz-question" id="quizWord">...</div>
+            <div class="quiz-options" id="quizOptionsContainer"></div>
+            <div class="quiz-feedback" id="quizFeedback"></div>
+            <button class="btn-next-quiz" id="nextQuizBtn" onclick="generateQuizQuestion()">Sonraki &rarr;</button>
+        </div>
+    </div>
+
+    <div style="width: 100%; max-width: 400px; padding: 20px; text-align: left; margin-top: 120px; margin-bottom: 30px; background: var(--card-bg); border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid var(--border-color);">
+        <h3 style="color: var(--primary); font-size: 1.1rem; margin-bottom: 10px;">Warum PflegeDeutsch?</h3>
+        <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; margin-bottom: 10px;">
+            PflegeDeutsch ist der ultimative medizinische Vokabeltrainer für internationale Pflegefachkräfte in Deutschland, Österreich und der Schweiz. Lernen Sie die wichtigsten medizinischen Fachbegriffe, Anatomie, Symptome und Dialoge für den Krankenhausalltag. 
+        </p>
+        <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.5;">
+            Unsere interaktiven Lernkarten (Flashcards), das Quiz-System und das interaktive Anatomiemodell helfen Ihnen, sich optimal auf Ihre Schichten, Visiten und die Kommunikation mit Ärzten und Patienten vorzubereiten. Kostenlos, schnell und effektiv Deutsch für Pflegekräfte lernen!
+        </p>
+    </div>
+
+    <footer style="width: 100%; text-align: center; margin-bottom: 100px; font-size: 0.85rem;">
+        <a href="datenschutz.html" style="color: var(--primary); text-decoration: none; margin: 0 10px;">Datenschutzerklärung (Gizlilik)</a>
+        <span style="color: var(--text-muted);">|</span>
+        <a href="#" style="color: var(--primary); text-decoration: none; margin: 0 10px;">Impressum (Künye)</a>
+    </footer>
+
+    <div id="shareModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:10000; justify-content:center; align-items:center; padding:20px;">
+        <div style="background:var(--card-bg); width:100%; max-width:350px; border-radius:24px; padding:25px; position:relative; text-align:center; animation:popInModal 0.3s forwards;">
+            <button onclick="closeShareModal()" style="position:absolute; top:15px; right:15px; background:none; border:none; font-size:1.5rem; color:var(--text-muted); cursor:pointer;">✕</button>
+            
+            <div style="font-size:3.5rem; margin-bottom:5px;" id="modalRankEmoji">🏆</div>
+            <h2 style="color:var(--primary); margin-bottom:5px;" id="modalRankName">Senin Başarın</h2>
+            <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:20px;">Gelişimini arkadaşlarınla paylaş!</p>
+            
+            <div style="background:var(--switch-bg); border-radius:16px; padding:15px; margin-bottom:20px;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:10px; border-bottom:1px solid var(--border-color); padding-bottom:5px;">
+                    <span style="color:var(--text-dark); font-weight:600;">🔥 Günlük Seri:</span>
+                    <strong id="modalStreak" style="color:var(--text-dark);">0 Gün</strong>
+                </div>
+                <div style="display:flex; justify-content:space-between; margin-bottom:10px; border-bottom:1px solid var(--border-color); padding-bottom:5px;">
+                    <span style="color:var(--text-dark); font-weight:600;">✅ Öğrenilen:</span>
+                    <strong id="modalLearned" style="color:var(--success);">0 Kelime</strong>
+                </div>
+                <div style="display:flex; justify-content:space-between;">
+                    <span style="color:var(--text-dark); font-weight:600;">⚠️ Zorlandığın:</span>
+                    <strong id="modalDiff" style="color:var(--danger);">0 Kelime</strong>
+                </div>
+            </div>
+
+            <button onclick="shareOnWhatsApp()" style="width:100%; background:#25D366; color:white; border:none; padding:12px; border-radius:12px; font-weight:bold; margin-bottom:10px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px;">
+                WhatsApp'ta Paylaş
+            </button>
+            <button onclick="shareGeneral()" style="width:100%; background:var(--primary); color:white; border:none; padding:12px; border-radius:12px; font-weight:bold; cursor:pointer;">
+                Diğer (Instagram / Hikaye)
+            </button>
+        </div>
+    </div>
+
+    <div id="cookieBanner" style="position: fixed; bottom: 0; left: 0; width: 100%; background: var(--text-dark); color: white; padding: 15px 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 9999; box-shadow: 0 -4px 10px rgba(0,0,0,0.2);">
+        <p style="font-size: 0.85rem; text-align: center; margin-bottom: 10px; max-width: 600px;">
+            Wir verwenden Cookies, um Inhalte und Anzeigen zu personalisieren.
+        </p>
+        <button onclick="acceptCookies()" style="background: var(--success); color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer;">Akzeptieren (Kabul Et)</button>
+    </div>
+
+    <script>
+        if(localStorage.getItem('cookiesAccepted') === 'yes') {
+            document.getElementById('cookieBanner').style.display = 'none';
+        }
+        function acceptCookies() {
+            localStorage.setItem('cookiesAccepted', 'yes');
+            document.getElementById('cookieBanner').style.display = 'none';
+        }
+    </script>
+
+    <script src="data.js?v=1"></script>
+    <script src="script.js?v=1"></script>
+
+    <script>
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", function() {
+                navigator.serviceWorker.register("sw.js")
+                .catch(err => console.log("SW Error", err));
+            });
+        }
+    </script>
+</body>
+</html>
