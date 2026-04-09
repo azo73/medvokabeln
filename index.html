@@ -6,13 +6,13 @@
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5935458968037999" crossorigin="anonymous"></script>
     
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🩺</text></svg>">
-
     <link rel="manifest" href="manifest.json">
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🩺</text></svg>">
     
     <title>med-vokabeln.com | PflegeDeutsch</title>
     
-    <meta name="description" content="Almanya ve İsviçre'deki hemşireler için ücretsiz interaktif tıbbi Almanca kelime kartları.">
+    <meta name="description" content="Almanya und İsviçre'deki hemşireler için ücretsiz interaktif tıbbi Almanca kelime kartları.">
     <meta property="og:title" content="PflegeDeutsch | Tıbbi Almanca Kartları">
     <meta property="og:description" content="Nöbetlerde ihtiyacın olacak tıbbi Almanca kelimeleri ve diyalogları kolayca öğren, kendini test et!">
     <meta property="og:image" content="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1200&q=80">
@@ -92,6 +92,40 @@
             <button class="btn-next-quiz" id="nextQuizBtn" onclick="generateQuizQuestion()">Sonraki &rarr;</button>
         </div>
     </div>
+
+    <div style="width: 100%; max-width: 400px; padding: 20px; text-align: left; margin-bottom: 20px; background: var(--card-bg); border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+        <h3 style="color: var(--primary); font-size: 1.1rem; margin-bottom: 10px;">Warum PflegeDeutsch?</h3>
+        <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; margin-bottom: 10px;">
+            PflegeDeutsch ist der ultimative medizinische Vokabeltrainer für internationale Pflegefachkräfte in Deutschland, Österreich und der Schweiz. Lernen Sie die wichtigsten medizinischen Fachbegriffe, Anatomie, Symptome und Dialoge für den Krankenhausalltag. 
+        </p>
+        <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.5;">
+            Unsere interaktiven Lernkarten (Flashcards), das Quiz-System und das interaktive Anatomiemodell helfen Ihnen, sich optimal auf Ihre Schichten, Visiten und die Kommunikation mit Ärzten und Patienten vorzubereiten. Kostenlos, schnell und effektiv Deutsch für Pflegekräfte lernen!
+        </p>
+    </div>
+
+    <footer style="width: 100%; text-align: center; margin-bottom: 80px; font-size: 0.85rem;">
+        <a href="datenschutz.html" style="color: var(--primary); text-decoration: none; margin: 0 10px;">Datenschutzerklärung (Gizlilik)</a>
+        <span style="color: var(--text-muted);">|</span>
+        <a href="#" style="color: var(--primary); text-decoration: none; margin: 0 10px;">Impressum (Künye)</a>
+    </footer>
+
+    <div id="cookieBanner" style="position: fixed; bottom: 0; left: 0; width: 100%; background: var(--text-dark); color: white; padding: 15px 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 9999; box-shadow: 0 -4px 10px rgba(0,0,0,0.2);">
+        <p style="font-size: 0.85rem; text-align: center; margin-bottom: 10px; max-width: 600px;">
+            Wir verwenden Cookies, um Inhalte und Anzeigen zu personalisieren und die Zugriffe auf unsere Website zu analysieren. (Sitemiz deneyiminizi iyileştirmek için çerezler kullanır.)
+        </p>
+        <button onclick="acceptCookies()" style="background: var(--success); color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer;">Akzeptieren (Kabul Et)</button>
+    </div>
+
+    <script>
+        // Çerez onayı kontrolü
+        if(localStorage.getItem('cookiesAccepted') === 'yes') {
+            document.getElementById('cookieBanner').style.display = 'none';
+        }
+        function acceptCookies() {
+            localStorage.setItem('cookiesAccepted', 'yes');
+            document.getElementById('cookieBanner').style.display = 'none';
+        }
+    </script>
 
     <script src="data.js?v=1"></script>
     <script src="script.js?v=1"></script>
