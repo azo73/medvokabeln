@@ -130,7 +130,7 @@ const vocabularyData = [
     { "id": 110, "category": "Dialoge", "german": "Drücken Sie die Klingel.", "type": "Satz", "turkish": "Zile basın.", "example": "Wenn etwas passiert, klingeln Sie bitte." },
     { "id": 111, "category": "Dialoge", "german": "Haben Sie gut geschlafen?", "type": "Satz", "turkish": "İyi uyudunuz mu?", "example": "Guten Tag, haben Sie gut geschlafen?" },
     { "id": 112, "category": "Dialoge", "german": "Ich helfe Ihnen beim Aufstehen.", "type": "Satz", "turkish": "Ayağa kalkmanıza yardım edeyim.", "example": "ich helfe Ihnen." },
-    { "id": 113, "category": "Dialoge", "german": "Möchten Sie etwas trinken?", "type": "Satz", "turkish": "Bir şey içmek ister misiniz?", "example": "Hier ist su, möchten Sie etwas trinken?" },
+    { "id": 113, "category": "Dialoge", "german": "Möchten Sie etwas trinken?", "type": "Satz", "turkish": "Bir şey içmek ister misiniz?", "example": "Hier ist wasser, möchten Sie etwas trinken?" },
     { "id": 114, "category": "Dialoge", "german": "Ich werde jetzt Ihren Blutdruck messen.", "type": "Satz", "turkish": "Şimdi tansiyonunuzu ölçeceğim.", "example": "Halten Sie Ihren Arm ruhig." },
     { "id": 115, "category": "Dialoge", "german": "Warten Sie bir an.", "type": "Satz", "turkish": "Bir dakika bekleyin.", "example": "Ich bin hemen yine burada." },
     { "id": 116, "category": "Dialoge", "german": "Der Arzt geliyor birazdan.", "type": "Satz", "turkish": "Doktor birazdan gelecek.", "example": "Lütfen gedulden Sie sich kısa." },
