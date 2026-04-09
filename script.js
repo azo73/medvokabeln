@@ -2,9 +2,9 @@ let fullVocabulary = [];
 let currentCards = []; 
 let currentIndex = 0;
 let learnedIds = JSON.parse(localStorage.getItem('medVokabeln_learned')) || [];
+let difficultIds = JSON.parse(localStorage.getItem('medVokabeln_difficult')) || [];
 let currentQuizCorrectWord = null; 
 
-// SAYFA YÜKLENDİĞİNDE VERİYİ data.js'den ÇEK
 window.onload = () => { 
     initTheme(); 
     displayStreak(); 
@@ -12,7 +12,6 @@ window.onload = () => {
 };
 
 function loadDatabase() {
-    // data.js'den gelen vocabularyData'yı direkt kullanıyoruz.
     if (typeof vocabularyData !== 'undefined' && vocabularyData.length > 0) {
         fullVocabulary = [...vocabularyData];
         currentCards = [...fullVocabulary];
@@ -20,6 +19,19 @@ function loadDatabase() {
     } else {
         document.getElementById("germanWord").innerText = "Veri Bulunamadı 🚨";
     }
+}
+
+// Zor kelime listesi işlemleri
+function addToDifficult(wordId) {
+    if (!difficultIds.includes(wordId)) {
+        difficultIds.push(wordId);
+        localStorage.setItem('medVokabeln_difficult', JSON.stringify(difficultIds));
+    }
+}
+
+function removeFromDifficult(wordId) {
+    difficultIds = difficultIds.filter(id => id !== wordId);
+    localStorage.setItem('medVokabeln_difficult', JSON.stringify(difficultIds));
 }
 
 // TEMA AYARLARI
@@ -40,14 +52,28 @@ function toggleTheme() {
 function searchWord() {
     const query = document.getElementById("searchInput").value.toLowerCase();
     const selectedCategory = document.getElementById("categorySelect").value;
-    let basePool = selectedCategory === "Alle" ? fullVocabulary : fullVocabulary.filter(w => w.category === selectedCategory);
     
-    if (query === "") { currentCards = basePool; } 
-    else { currentCards = basePool.filter(word => word.german.toLowerCase().includes(query) || word.turkish.toLowerCase().includes(query)); }
+    let basePool;
+    if (selectedCategory === "Zorlandiklarim") {
+        basePool = fullVocabulary.filter(w => difficultIds.includes(w.id));
+    } else if (selectedCategory === "Alle") {
+        basePool = fullVocabulary;
+    } else {
+        basePool = fullVocabulary.filter(w => w.category === selectedCategory);
+    }
+    
+    if (query === "") { 
+        currentCards = basePool; 
+    } else { 
+        currentCards = basePool.filter(word => word.german.toLowerCase().includes(query) || word.turkish.toLowerCase().includes(query)); 
+    }
+    
     currentIndex = 0;
     if(currentCards.length === 0) {
-        document.getElementById("germanWord").innerText = "Yok 😔";
-        document.getElementById("turkishWord").innerText = "Sonuç bulunamadı.";
+        document.getElementById("germanWord").innerText = selectedCategory === "Zorlandiklarim" ? "Harika! 🎉" : "Yok 😔";
+        document.getElementById("turkishWord").innerText = selectedCategory === "Zorlandiklarim" ? "Zorlandığın kelime kalmadı!" : "Sonuç bulunamadı.";
+        document.getElementById("wordType").innerText = "";
+        document.getElementById("exampleSentence").innerText = "";
     } else { updateCard(); }
 }
 
@@ -85,8 +111,17 @@ function updateCard() {
 function checkLearnedStatus(wordId) {
     const isLearned = learnedIds.includes(wordId);
     const learnBtn = document.getElementById("learnBtn");
-    if (isLearned) { learnBtn.innerText = "❌ Geri Al"; learnBtn.classList.add("active"); document.getElementById("frontBadge").style.display = "block"; document.getElementById("backBadge").style.display = "block"; } 
-    else { learnBtn.innerText = "✅ Öğrendim"; learnBtn.classList.remove("active"); document.getElementById("frontBadge").style.display = "none"; document.getElementById("backBadge").style.display = "none"; }
+    if (isLearned) { 
+        learnBtn.innerText = "❌ Geri Al"; 
+        learnBtn.classList.add("active"); 
+        document.getElementById("frontBadge").style.display = "block"; 
+        document.getElementById("backBadge").style.display = "block"; 
+    } else { 
+        learnBtn.innerText = "✅ Öğrendim"; 
+        learnBtn.classList.remove("active"); 
+        document.getElementById("frontBadge").style.display = "none"; 
+        document.getElementById("backBadge").style.display = "none"; 
+    }
     const learnedInCurrentView = currentCards.filter(card => learnedIds.includes(card.id)).length;
     document.getElementById("progressText").innerText = `${learnedInCurrentView} / ${currentCards.length}`;
 }
@@ -94,8 +129,13 @@ function checkLearnedStatus(wordId) {
 function toggleLearned() {
     if(currentCards.length === 0) return;
     const currentWordId = currentCards[currentIndex].id;
-    if (learnedIds.includes(currentWordId)) { learnedIds = learnedIds.filter(id => id !== currentWordId); } 
-    else { learnedIds.push(currentWordId); updateStreak(); }
+    if (learnedIds.includes(currentWordId)) { 
+        learnedIds = learnedIds.filter(id => id !== currentWordId); 
+    } else { 
+        learnedIds.push(currentWordId); 
+        updateStreak(); 
+        removeFromDifficult(currentWordId); // Öğrenildiyse zor listesinden çıkar
+    }
     localStorage.setItem('medVokabeln_learned', JSON.stringify(learnedIds));
     checkLearnedStatus(currentWordId);
 }
@@ -125,10 +165,24 @@ function switchMode(mode) {
 
 function generateQuizQuestion() {
     document.getElementById("quizFeedback").innerText = ""; document.getElementById("nextQuizBtn").style.display = "none";
-    currentQuizCorrectWord = currentCards[Math.floor(Math.random() * currentCards.length)];
+    
+    let pool = fullVocabulary;
+    const selectedCategory = document.getElementById("categorySelect").value;
+    if(selectedCategory === "Zorlandiklarim") pool = fullVocabulary.filter(w => difficultIds.includes(w.id));
+    else if(selectedCategory !== "Alle") pool = fullVocabulary.filter(w => w.category === selectedCategory);
+    
+    if(pool.length === 0) {
+        document.getElementById("quizWord").innerText = "Kelime yok!";
+        document.getElementById("quizOptionsContainer").innerHTML = "";
+        return;
+    }
+
+    currentQuizCorrectWord = pool[Math.floor(Math.random() * pool.length)];
     document.getElementById("quizWord").innerText = currentQuizCorrectWord.german;
+    
     let distractors = fullVocabulary.filter(word => word.id !== currentQuizCorrectWord.id).sort(() => 0.5 - Math.random()).slice(0, 3);
     let options = [currentQuizCorrectWord, ...distractors].sort(() => 0.5 - Math.random());
+    
     const optionsContainer = document.getElementById("quizOptionsContainer");
     optionsContainer.innerHTML = ""; 
     options.forEach(option => {
@@ -139,7 +193,16 @@ function generateQuizQuestion() {
 
 function checkAnswer(clickedButton, selectedId) {
     document.querySelectorAll(".quiz-option").forEach(btn => btn.disabled = true);
-    if (selectedId === currentQuizCorrectWord.id) { clickedButton.classList.add("correct"); document.getElementById("quizFeedback").innerText = "Richtig! 🎉"; updateStreak(); } 
-    else { clickedButton.classList.add("wrong"); document.getElementById("quizFeedback").innerText = "Falsch! ❌"; document.querySelectorAll(".quiz-option").forEach(btn => { if(btn.innerText === currentQuizCorrectWord.turkish) btn.classList.add("correct"); }); }
+    if (selectedId === currentQuizCorrectWord.id) { 
+        clickedButton.classList.add("correct"); 
+        document.getElementById("quizFeedback").innerText = "Richtig! 🎉"; 
+        updateStreak(); 
+        removeFromDifficult(currentQuizCorrectWord.id); // Doğru bildiyse zorluktan çıkar
+    } else { 
+        clickedButton.classList.add("wrong"); 
+        document.getElementById("quizFeedback").innerText = "Falsch! ❌"; 
+        document.querySelectorAll(".quiz-option").forEach(btn => { if(btn.innerText === currentQuizCorrectWord.turkish) btn.classList.add("correct"); }); 
+        addToDifficult(currentQuizCorrectWord.id); // Yanlış bildiyse zora ekle
+    }
     document.getElementById("nextQuizBtn").style.display = "block";
 }
