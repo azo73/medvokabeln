@@ -41,12 +41,13 @@
         </div>
     </header>
 
-  <div class="mode-switch">
+    <div class="mode-switch">
         <button class="mode-btn active" id="btnFlashcard" onclick="switchMode('flashcard')">📇 Kartlar</button>
         <button class="mode-btn" id="btnQuiz" onclick="switchMode('quiz')">✍️ Sınav</button>
         <a href="anatomie.html" class="mode-btn" style="text-decoration:none; text-align:center; display:flex; justify-content:center; align-items:center;">🧍 Anatomi</a>
         <a href="spiel.html" class="mode-btn" style="text-decoration:none; text-align:center; display:flex; justify-content:center; align-items:center;">🎮 Oyun</a>
         <a href="simulasyon.html" class="mode-btn" style="text-decoration:none; text-align:center; display:flex; justify-content:center; align-items:center; background: var(--danger); color: white;">🏥 Vaka</a>
+        <button class="mode-btn" onclick="openAddWordModal()" style="background: #10b981; color: white; border: none;">➕ Ekle</button>
     </div>
 
     <div class="dashboard">
@@ -92,7 +93,7 @@
         </div>
     </div>
 
-    <div id="quizSection">
+    <div id="quizSection" style="display: none;">
         <div class="quiz-card">
             <div class="quiz-question" id="quizWord">...</div>
             <div class="quiz-options" id="quizOptionsContainer"></div>
@@ -146,6 +147,26 @@
             <button onclick="shareGeneral()" style="width:100%; background:var(--primary); color:white; border:none; padding:12px; border-radius:12px; font-weight:bold; cursor:pointer;">
                 Diğer (Instagram / Hikaye)
             </button>
+        </div>
+    </div>
+
+    <div id="addWordModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 10001; align-items: center; justify-content: center; backdrop-filter: blur(3px);">
+        <div style="background: var(--card-bg); padding: 25px; border-radius: 16px; width: 90%; max-width: 350px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); position: relative; border: 2px solid var(--primary); animation: popInModal 0.3s;">
+            <button onclick="closeAddWordModal()" style="position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 1.5rem; color: var(--text-dark); cursor: pointer;">✕</button>
+            <h3 style="margin-top: 0; color: var(--primary); text-align: center;">➕ Yeni Kelime Ekle</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); text-align: center; margin-bottom: 15px;">Hastanede duyduğun o garip kelimeyi buraya yaz, destene karışsın!</p>
+            
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; font-size: 0.9rem; margin-bottom: 5px; color: var(--text-dark); font-weight: bold;">Almanca (Örn: die Braunüle)</label>
+                <input type="text" id="newWordDe" placeholder="Almancası..." style="width: 100%; padding: 12px; border-radius: 8px; border: 2px solid var(--border-color); background: var(--bg-color); color: var(--text-dark); box-sizing: border-box; font-size: 1rem;">
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; font-size: 0.9rem; margin-bottom: 5px; color: var(--text-dark); font-weight: bold;">Türkçe Anlamı (Örn: Damar Yolu)</label>
+                <input type="text" id="newWordTr" placeholder="Türkçesi..." style="width: 100%; padding: 12px; border-radius: 8px; border: 2px solid var(--border-color); background: var(--bg-color); color: var(--text-dark); box-sizing: border-box; font-size: 1rem;">
+            </div>
+
+            <button onclick="saveCustomWord()" style="width: 100%; padding: 12px; background: var(--success); color: white; border: none; border-radius: 8px; font-weight: bold; font-size: 1.1rem; cursor: pointer; box-shadow: 0 4px 10px rgba(34, 197, 94, 0.3);">Desteme Kaydet</button>
         </div>
     </div>
 
