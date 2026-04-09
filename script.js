@@ -9,7 +9,25 @@ window.onload = () => {
     initTheme(); 
     displayStreak(); 
     loadDatabase(); 
+    updateRank(); // Sayfa açılırken rütbeyi hesapla
 };
+
+// --- RÜTBE (GAMIFICATION) MANTIĞI ---
+function getRank(count) {
+    if (count < 20) return { name: "Pflegeschüler/in", emoji: "🐣" };
+    if (count < 70) return { name: "Pflegefachkraft", emoji: "💉" };
+    if (count < 120) return { name: "Stationsleitung", emoji: "📋" };
+    return { name: "Chefarzt/ärztin", emoji: "👑" };
+}
+
+function updateRank() {
+    const rank = getRank(learnedIds.length);
+    const rankEl = document.getElementById("userRank");
+    if(rankEl) {
+        rankEl.innerHTML = `${rank.emoji} ${rank.name}`;
+    }
+}
+// ------------------------------------
 
 function loadDatabase() {
     if (typeof vocabularyData !== 'undefined' && vocabularyData.length > 0) {
@@ -21,7 +39,6 @@ function loadDatabase() {
     }
 }
 
-// Zor kelime listesi işlemleri
 function addToDifficult(wordId) {
     if (!difficultIds.includes(wordId)) {
         difficultIds.push(wordId);
@@ -34,7 +51,6 @@ function removeFromDifficult(wordId) {
     localStorage.setItem('medVokabeln_difficult', JSON.stringify(difficultIds));
 }
 
-// TEMA AYARLARI
 function initTheme() {
     if (localStorage.getItem('medVokabeln_theme') === 'dark') {
         document.body.classList.add('dark-mode');
@@ -48,7 +64,6 @@ function toggleTheme() {
     localStorage.setItem('medVokabeln_theme', isDark ? 'dark' : 'light');
 }
 
-// ARAMA VE KATEGORİ FİLTRELEME
 function searchWord() {
     const query = document.getElementById("searchInput").value.toLowerCase();
     const selectedCategory = document.getElementById("categorySelect").value;
@@ -82,7 +97,6 @@ function changeCategory() {
     searchWord();
 }
 
-// SESLİ OKUMA
 function speakWord(event) {
     event.stopPropagation(); 
     if(currentCards.length === 0) return; 
@@ -91,7 +105,6 @@ function speakWord(event) {
     window.speechSynthesis.speak(utterance);
 }
 
-// KART KONTROLLERİ
 function flipCard() { document.getElementById("myCard").classList.toggle("is-flipped"); }
 function nextWord() { currentIndex++; if (currentIndex >= currentCards.length) currentIndex = 0; updateCard(); }
 function prevWord() { currentIndex--; if (currentIndex < 0) currentIndex = currentCards.length - 1; updateCard(); }
@@ -107,7 +120,6 @@ function updateCard() {
     checkLearnedStatus(currentWord.id);
 }
 
-// ÖĞRENİLDİ DURUMU VE SERİ
 function checkLearnedStatus(wordId) {
     const isLearned = learnedIds.includes(wordId);
     const learnBtn = document.getElementById("learnBtn");
@@ -134,10 +146,11 @@ function toggleLearned() {
     } else { 
         learnedIds.push(currentWordId); 
         updateStreak(); 
-        removeFromDifficult(currentWordId); // Öğrenildiyse zor listesinden çıkar
+        removeFromDifficult(currentWordId);
     }
     localStorage.setItem('medVokabeln_learned', JSON.stringify(learnedIds));
     checkLearnedStatus(currentWordId);
+    updateRank(); // Öğrenilme durumuna göre rütbeyi hemen güncelle
 }
 
 function displayStreak() { document.getElementById('streakText').innerText = `🔥 ${localStorage.getItem('medVokabeln_streak') || 0}`; }
@@ -151,10 +164,108 @@ function updateStreak() {
     displayStreak();
 }
 
-// MOD DEĞİŞTİRME VE SINAV
 function switchMode(mode) {
     if(mode === 'flashcard') {
         document.getElementById("flashcardSection").style.display = "flex"; document.getElementById("quizSection").style.display = "none";
         document.getElementById("btnFlashcard").classList.add("active"); document.getElementById("btnQuiz").classList.remove("active");
     } else {
-        document.getElementById("flashcardSection").style.display = "none"; document.getElementById
+        document.getElementById("flashcardSection").style.display = "none"; document.getElementById("quizSection").style.display = "flex";
+        document.getElementById("btnQuiz").classList.add("active"); document.getElementById("btnFlashcard").classList.remove("active");
+        generateQuizQuestion(); 
+    }
+}
+
+function generateQuizQuestion() {
+    document.getElementById("quizFeedback").innerText = ""; document.getElementById("nextQuizBtn").style.display = "none";
+    
+    let pool = fullVocabulary;
+    const selectedCategory = document.getElementById("categorySelect").value;
+    if(selectedCategory === "Zorlandiklarim") pool = fullVocabulary.filter(w => difficultIds.includes(w.id));
+    else if(selectedCategory !== "Alle") pool = fullVocabulary.filter(w => w.category === selectedCategory);
+    
+    if(pool.length === 0) {
+        document.getElementById("quizWord").innerText = "Kelime yok!";
+        document.getElementById("quizOptionsContainer").innerHTML = "";
+        return;
+    }
+
+    currentQuizCorrectWord = pool[Math.floor(Math.random() * pool.length)];
+    document.getElementById("quizWord").innerText = currentQuizCorrectWord.german;
+    
+    let distractors = fullVocabulary.filter(word => word.id !== currentQuizCorrectWord.id).sort(() => 0.5 - Math.random()).slice(0, 3);
+    let options = [currentQuizCorrectWord, ...distractors].sort(() => 0.5 - Math.random());
+    
+    const optionsContainer = document.getElementById("quizOptionsContainer");
+    optionsContainer.innerHTML = ""; 
+    options.forEach(option => {
+        const btn = document.createElement("button"); btn.className = "quiz-option"; btn.innerText = option.turkish;
+        btn.onclick = () => checkAnswer(btn, option.id); optionsContainer.appendChild(btn);
+    });
+}
+
+function checkAnswer(clickedButton, selectedId) {
+    document.querySelectorAll(".quiz-option").forEach(btn => btn.disabled = true);
+    if (selectedId === currentQuizCorrectWord.id) { 
+        clickedButton.classList.add("correct"); 
+        document.getElementById("quizFeedback").innerText = "Richtig! 🎉"; 
+        updateStreak(); 
+        removeFromDifficult(currentQuizCorrectWord.id);
+    } else { 
+        clickedButton.classList.add("wrong"); 
+        document.getElementById("quizFeedback").innerText = "Falsch! ❌"; 
+        document.querySelectorAll(".quiz-option").forEach(btn => { if(btn.innerText === currentQuizCorrectWord.turkish) btn.classList.add("correct"); }); 
+        addToDifficult(currentQuizCorrectWord.id);
+    }
+    document.getElementById("nextQuizBtn").style.display = "block";
+}
+
+// ---------------------------------------------------
+// PAYLAŞIM VE SKOR PANELİ FONKSİYONLARI
+// ---------------------------------------------------
+function openShareModal() {
+    const streak = localStorage.getItem('medVokabeln_streak') || 0;
+    const learned = (JSON.parse(localStorage.getItem('medVokabeln_learned')) || []).length;
+    const diff = (JSON.parse(localStorage.getItem('medVokabeln_difficult')) || []).length;
+    const rank = getRank(learned);
+
+    document.getElementById('modalStreak').innerText = streak + " Gün";
+    document.getElementById('modalLearned').innerText = learned + " Kelime";
+    document.getElementById('modalDiff').innerText = diff + " Kelime";
+    
+    document.getElementById('modalRankEmoji').innerText = rank.emoji;
+    document.getElementById('modalRankName').innerText = rank.name;
+
+    document.getElementById('shareModal').style.display = 'flex';
+}
+
+function closeShareModal() {
+    document.getElementById('shareModal').style.display = 'none';
+}
+
+function generateShareText() {
+    const streak = localStorage.getItem('medVokabeln_streak') || 0;
+    const learned = (JSON.parse(localStorage.getItem('medVokabeln_learned')) || []).length;
+    const rank = getRank(learned);
+    
+    return `${rank.emoji} PflegeDeutsch'ta "${rank.name}" rütbesine ulaştım! Tam ${learned} kelime öğrendim ve ${streak} günlük serim var. 🩺 Sen de bana katıl: https://med-vokabeln.com`;
+}
+
+function shareOnWhatsApp() {
+    const text = encodeURIComponent(generateShareText());
+    window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
+}
+
+function shareGeneral() {
+    const shareData = {
+        title: 'PflegeDeutsch Başarım',
+        text: generateShareText(),
+        url: 'https://med-vokabeln.com'
+    };
+
+    if (navigator.share) {
+        navigator.share(shareData).catch((err) => console.log('Paylaşım iptal:', err));
+    } else {
+        navigator.clipboard.writeText(generateShareText());
+        alert("Mesaj kopyalandı! İstediğin yere yapıştırıp hava atabilirsin. 😎");
+    }
+}
