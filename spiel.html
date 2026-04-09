@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5935458968037999" crossorigin="anonymous"></script>
+    
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🩺</text></svg>">
+    
+    <title>Eşleştirme Oyunu | PflegeDeutsch</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=1">
+    <style>
+        .back-nav { width: 100%; max-width: 400px; display: flex; align-items: center; margin-bottom: 20px; margin-top: 10px; }
+        .btn-back { background: var(--card-bg); border: 2px solid var(--border-color); color: var(--text-dark); padding: 10px 15px; border-radius: 12px; text-decoration: none; font-weight: bold; transition: 0.2s; }
+        
+        .game-container { width: 100%; max-width: 400px; display: flex; justify-content: space-between; gap: 10px; margin-top: 20px; }
+        .column { flex: 1; display: flex; flex-direction: column; gap: 10px; }
+        
+        /* Oyun Butonları */
+        .game-btn { padding: 15px 10px; border: 2px solid var(--border-color); background: var(--card-bg); border-radius: 12px; cursor: pointer; font-weight: 600; color: var(--text-dark); transition: all 0.2s; font-size: 0.9rem; text-align: center; }
+        .game-btn.selected { border-color: var(--primary); background: var(--switch-bg); transform: scale(1.05); box-shadow: 0 4px 10px rgba(2,132,199,0.2); }
+        .game-btn.correct { background: var(--success); color: white; border-color: var(--success); pointer-events: none; opacity: 0; transition: opacity 0.5s; }
+        .game-btn.wrong { background: var(--danger); color: white; border-color: var(--danger); animation: shake 0.4s; }
+        
+        @keyframes shake { 0%, 100% {transform: translateX(0);} 25% {transform: translateX(-5px);} 75% {transform: translateX(5px);} }
+        
+        .win-msg { display: none; text-align: center; margin-top: 30px; font-size: 1.4rem; color: var(--success); font-weight: bold; animation: popIn 0.5s; }
+        @keyframes popIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        
+        .btn-restart { display: none; background: var(--primary); color: white; border: none; padding: 15px; border-radius: 12px; width: 100%; max-width: 400px; font-weight: bold; cursor: pointer; margin-top: 20px; font-size: 1.1rem; box-shadow: 0 4px 10px rgba(2,132,199,0.3); }
+    </style>
+</head>
+<body onload="initTheme()">
+
+    <div class="back-nav">
+        <a href="index.html" class="btn-back">← Geri</a>
+        <h2 style="flex:1; text-align:center; color:var(--primary); font-size: 1.2rem;">Eşleştirme Oyunu</h2>
+    </div>
+
+    <p style="color:var(--text-muted); text-align:center; font-size:0.9rem;">💡 Önce Almancasına, sonra Türkçesine dokun.</p>
+    
+    <div class="game-container">
+        <div class="column" id="colGerman"></div>
+        <div class="column" id="colTurkish"></div>
+    </div>
+    
+    <div class="win-msg" id="winMessage">Tebrikler! Hepsini buldun 🎉</div>
+    <button class="btn-restart" id="btnRestart" onclick="startGame()">🔄 Yeni Kelimeler Getir</button>
+
+    <script src="data.js?v=1"></script>
+    
+    <script>
+        function initTheme() { 
+            if (localStorage.getItem('medVokabeln_theme') === 'dark') document.body.classList.add('dark-mode'); 
+            startGame(); 
+        }
+        
+        let selectedGerman = null;
+        let selectedTurkish = null;
+        let pairsFound = 0;
+
+        function shuffle(array) { return array.sort(() => Math.random() - 0.5); }
+
+        function startGame() {
+            pairsFound = 0;
+            document.getElementById('winMessage').style.display = 'none';
+            document.getElementById('btnRestart').style.display = 'none';
+            
+            // Veritabanından rastgele 5 kelime seç
+            let pool = shuffle([...vocabularyData]).slice(0, 5);
+            
+            // Sol ve sağ sütunu ayrı ayrı karıştır
+            let germanList = shuffle([...pool]);
+            let turkishList = shuffle([...pool]);
+
+            const colGer = document.getElementById('colGerman');
+            const colTur = document.getElementById('colTurkish');
+            colGer.innerHTML = ''; colTur.innerHTML = '';
+
+            // Almanca Butonları Oluştur
+            germanList.forEach(item => {
+                let btn = document.createElement('button');
+                btn.className = 'game-btn';
+                btn.innerText = item.german;
+                btn.onclick = () => selectItem(btn, 'german', item.id);
+                colGer.appendChild(btn);
+            });
+
+            // Türkçe Butonları Oluştur
+            turkishList.forEach(item => {
+                let btn = document.createElement('button');
+                btn.className = 'game-btn';
+                btn.innerText = item.turkish;
+                btn.onclick = () => selectItem(btn, 'turkish', item.id);
+                colTur.appendChild(btn);
+            });
+        }
+
+        function selectItem(btn, type, id) {
+            // Seçili olanı güncelle
+            if (type === 'german') {
+                if(selectedGerman) selectedGerman.btn.classList.remove('selected');
+                selectedGerman = { btn, id };
+                btn.classList.add('selected');
+            } else {
+                if(selectedTurkish) selectedTurkish.btn.classList.remove('selected');
+                selectedTurkish = { btn, id };
+                btn.classList.add('selected');
+            }
+
+            // İkisi de seçildiyse kontrol et
+            if (selectedGerman && selectedTurkish) {
+                checkMatch();
+            }
+        }
+
+        function checkMatch() {
+            let gBtn = selectedGerman.btn;
+            let tBtn = selectedTurkish.btn;
+            
+            if (selectedGerman.id === selectedTurkish.id) {
+                // DOĞRU EŞLEŞME
+                gBtn.classList.remove('selected'); tBtn.classList.remove('selected');
+                gBtn.classList.add('correct'); tBtn.classList.add('correct');
+                pairsFound++;
+                selectedGerman = null; selectedTurkish = null;
+                
+                // Oyun Bitti mi?
+                if (pairsFound === 5) {
+                    setTimeout(() => {
+                        document.getElementById('winMessage').style.display = 'block';
+                        document.getElementById('btnRestart').style.display = 'block';
+                    }, 500);
+                }
+            } else {
+                // YANLIŞ EŞLEŞME
+                gBtn.classList.remove('selected'); tBtn.classList.remove('selected');
+                gBtn.classList.add('wrong'); tBtn.classList.add('wrong');
+                
+                setTimeout(() => {
+                    gBtn.classList.remove('wrong'); tBtn.classList.remove('wrong');
+                }, 400); // 0.4 saniye sonra kırmızılığı kaldır
+                
+                selectedGerman = null; selectedTurkish = null;
+            }
+        }
+    </script>
+</body>
+</html>
