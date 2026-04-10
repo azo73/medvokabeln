@@ -164,7 +164,7 @@ const vocabularyData = [
     { "id": 144, "category": "Dialoge", "german": "Können Sie die Beine hareket ettirmek?", "type": "Satz", "turkish": "Bacaklarınızı hareket ettirebiliyor musunuz?", "example": "Deyin bakalım, können Sie die Beine bewegen?" },
     { "id": 145, "category": "Dialoge", "german": "Das ist nur ein kleiner Piks.", "type": "Satz", "turkish": "Bu sadece küçük bir batma. veya bizdeki karşılığıyla; Sadece minicik bir iğne acısı, sinek ısırığı gibi.", "example": "Hab keine Angst,das ist nur ein kleiner Piks." },
     { "id": 146, "category": "Dialoge", "german": "Ihre Werte sind stabil.", "type": "Satz", "turkish": "Değerleriniz normal.", "example": "İyi haberler, Ihre Werte sind stabil." },
-    { "id": 147, "category": "Dialoge", "german": "Sie können bugün aufstehen.", "type": "Satz", "turkish": "Bugün kalkabilirsiniz.", "example": "Doktor diyor ki, Sie können heute aufstehen." },
+    { "id": 147, "category": "Dialoge", "german": "Sie können heute aufstehen.", "type": "Satz", "turkish": "Bugün ayağa kalkabilirsiniz.", "example": "Der Arzt sagt: Sie können heute aufstehen." },
     { "id": 148, "category": "Dialoge", "german": "Die Besuchszeiten sind von 20:00 bis 22:00 Uhr.", "type": "Satz", "turkish": "Ziyaret saatleri akşam 8'den 10'a kadardır.", "example": "Sagen Sie Ihren Verwandten: Die Besuchszeiten sind von 20:00 bis 22:00 Uhr." },
     { "id": 149, "category": "Dialoge", "german": "Ich hole die Bettpfanne.", "type": "Satz", "turkish": "Sürgüyü getiriyorum.", "example": "Ich hole die Bettpfanne." },
     { "id": 150, "category": "Dialoge", "german": "wir machen jetzt Übergabe.", "type": "Satz", "turkish": "Şimdi nöbet teslimi yapıyoruz.", "example": "Die Frühschicht ist zu Ende, wir übergeben jetzt." }
