@@ -161,7 +161,7 @@ const vocabularyData = [
     { "id": 141, "category": "Dialoge", "german": "Nehmen Sie die Tabletten yemekten sonra.", "type": "Satz", "turkish": "Hapları yemekten sonra alın.", "example": "Çok önemli: Nehmen Sie die Tabletten nach dem Essen." },
     { "id": 142, "category": "Dialoge", "german": "Ich helfe Ihnen beim Waschen.", "type": "Satz", "turkish": "Yıkanmanıza yardım edeceğim.", "example": "Guten Morgen, ich helfe Ihnen beim Waschen." },
     { "id": 143, "category": "Dialoge", "german": "Haben Sie Schluckbeschwerden?", "type": "Satz", "turkish": "Yutkunma zorluğu çekiyor musunuz?", "example": "Yemek yerken, haben Sie Schluckbeschwerden?" },
-    { "id": 144, "category": "Dialoge", "german": "Können Sie die Beine hareket ettirmek?", "type": "Satz", "turkish": "Bacaklarınızı hareket ettirebiliyor musunuz?", "example": "Deyin bakalım, können Sie die Beine bewegen?" },
+    { "id": 144, "category": "Dialoge", "german": "Können Sie Ihre Beine bewegen?", "type": "Satz", "turkish": "Bacaklarınızı hareket ettirebiliyor musunuz?", "example": "Sag mir, können Sie Ihre Beine bewegen?" },
     { "id": 145, "category": "Dialoge", "german": "Das ist nur ein kleiner Piks.", "type": "Satz", "turkish": "Bu sadece küçük bir batma. veya bizdeki karşılığıyla; Sadece minicik bir iğne acısı, sinek ısırığı gibi.", "example": "Hab keine Angst,das ist nur ein kleiner Piks." },
     { "id": 146, "category": "Dialoge", "german": "Ihre Werte sind stabil.", "type": "Satz", "turkish": "Değerleriniz normal.", "example": "Gute Nachrichten, Ihre Werte sind stabil." },
     { "id": 147, "category": "Dialoge", "german": "Sie können heute aufstehen.", "type": "Satz", "turkish": "Bugün ayağa kalkabilirsiniz.", "example": "Der Arzt sagt: Sie können heute aufstehen." },
