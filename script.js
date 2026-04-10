@@ -1,3 +1,16 @@
+// --- FIREBASE BAĞLANTISI ---
+const firebaseConfig = {
+    apiKey: "AIzaSyClCQ8oQDKfH8lIrEdhwqlHfzvQzW9rAIA",
+    authDomain: "medvokabeln.firebaseapp.com",
+    projectId: "medvokabeln",
+    storageBucket: "medvokabeln.firebasestorage.app",
+    messagingSenderId: "983844382469",
+    appId: "1:983844382469:web:78737dbc24a869db66f96c"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+// ---------------------------
+
 let fullVocabulary = []; 
 let currentCards = []; 
 let currentIndex = 0;
@@ -12,7 +25,6 @@ window.onload = () => {
     updateRank(); 
 };
 
-// --- RÜTBE (GAMIFICATION) MANTIĞI ---
 function getRank(count) {
     if (count < 20) return { name: "Pflegeschüler/in", emoji: "🐣" };
     if (count < 70) return { name: "Pflegefachkraft", emoji: "💉" };
@@ -27,20 +39,10 @@ function updateRank() {
         rankEl.innerHTML = `${rank.emoji} ${rank.name}`;
     }
 }
-// ------------------------------------
 
 function loadDatabase() {
-    // Önce kullanıcının kendi eklediği kelimeleri hafızadan çek
-    let customWords = JSON.parse(localStorage.getItem('medVokabeln_customWords')) || [];
-
     if (typeof vocabularyData !== 'undefined' && vocabularyData.length > 0) {
-        // Hem orijinal veritabanını hem de özel kelimeleri birleştir
-        fullVocabulary = [...vocabularyData, ...customWords];
-        currentCards = [...fullVocabulary];
-        updateCard();
-    } else if (customWords.length > 0) {
-        // Sadece özel kelimeler varsa
-        fullVocabulary = [...customWords];
+        fullVocabulary = [...vocabularyData];
         currentCards = [...fullVocabulary];
         updateCard();
     } else {
@@ -83,7 +85,7 @@ function searchWord() {
     } else if (selectedCategory === "Alle") {
         basePool = fullVocabulary;
     } else {
-        basePool = fullVocabulary.filter(w => w.category === selectedCategory || (w.type && w.type.includes("Kişisel Not")));
+        basePool = fullVocabulary.filter(w => w.category === selectedCategory || (w.type && w.type.includes("🌍 Topluluk")));
     }
     
     if (query === "") { 
@@ -228,9 +230,6 @@ function checkAnswer(clickedButton, selectedId) {
     document.getElementById("nextQuizBtn").style.display = "block";
 }
 
-// ---------------------------------------------------
-// PAYLAŞIM VE SKOR PANELİ FONKSİYONLARI
-// ---------------------------------------------------
 function openShareModal() {
     const streak = localStorage.getItem('medVokabeln_streak') || 0;
     const learned = (JSON.parse(localStorage.getItem('medVokabeln_learned')) || []).length;
@@ -280,49 +279,27 @@ function shareGeneral() {
 }
 
 // ---------------------------------------------------
-// ➕ KİŞİSEL KELİME EKLEME SİSTEMİ (LOCAL STORAGE)
+// 🌍 KÜRESEL TOPLULUK SÖZLÜĞÜNÜ HAVUZA EKLEME
 // ---------------------------------------------------
-function openAddWordModal() {
-    document.getElementById('addWordModal').style.display = 'flex';
-}
-
-function closeAddWordModal() {
-    document.getElementById('addWordModal').style.display = 'none';
-}
-
-function saveCustomWord() {
-    const de = document.getElementById('newWordDe').value.trim();
-    const tr = document.getElementById('newWordTr').value.trim();
-
-    if(!de || !tr) {
-        alert("🚨 Lütfen hem Almanca hem Türkçe kısmını doldur!");
-        return;
-    }
-
-    // Benzersiz ID oluştur
-    const newId = 'custom_' + Date.now();
-    const newCard = { 
-        id: newId, 
-        german: de, 
-        turkish: tr, 
-        type: "Kişisel Not 📝", 
-        category: "Alle", 
-        example: "(Kendi eklediğin not)" 
-    };
-
-    let customWords = JSON.parse(localStorage.getItem('medVokabeln_customWords')) || [];
-    customWords.push(newCard);
-    localStorage.setItem('medVokabeln_customWords', JSON.stringify(customWords));
-
-    // Eklenen kelimeyi mevcut havuza anında kat
-    fullVocabulary.push(newCard);
-    currentCards.push(newCard);
-
-    document.getElementById('newWordDe').value = '';
-    document.getElementById('newWordTr').value = '';
-    closeAddWordModal();
-    
-    alert(`🎉 Başarılı! "${de}" destene eklendi. Artık sınavlarında ve kartlarında çıkacak.`);
-    
-    // Ekranda hemen gösterelim mi? İstersen son karta da atlatabilirsin ama şimdilik desteye karıştı.
-}
+db.collection("communityWords").onSnapshot((snapshot) => {
+    snapshot.docChanges().forEach((change) => {
+        if (change.type === "added") {
+            const data = change.doc.data();
+            const newCard = {
+                id: change.doc.id,
+                german: data.german,
+                turkish: data.turkish,
+                type: `🌍 Topluluk (${data.author})`, 
+                category: "Alle",
+                example: "Topluluk tarafından eklendi."
+            };
+            
+            if (typeof fullVocabulary !== 'undefined' && !fullVocabulary.find(w => w.id === newCard.id)) {
+                fullVocabulary.push(newCard);
+                currentCards.push(newCard);
+                
+                if(currentCards.length === 1) updateCard();
+            }
+        }
+    });
+});
