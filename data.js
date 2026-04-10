@@ -156,7 +156,7 @@ const vocabularyData = [
     { "id": 136, "category": "Dialoge", "german": "Haben Sie eine Patientenverfügung?", "type": "Satz", "turkish": "Hasta vasiyetnameniz var mı?", "example": "Dosya için: Haben Sie eine Patientenverfügung?" },
     { "id": 137, "category": "Dialoge", "german": "Brauchen Sie bir Schmerzmittel?", "type": "Satz", "turkish": "Ağrı kesiciye ihtiyacınız var mı?", "example": "Eğer ağrı çoksa, brauchen Sie ein Schmerzmittel?" },
     { "id": 138, "category": "Dialoge", "german": "Wir müssen Sie tartmak.", "type": "Satz", "turkish": "Sizi tartmamız gerekiyor.", "example": "Gelin lütfen, wir müssen Sie wiegen." },
-    { "id": 139, "category": "Dialoge", "german": "Der Tropf boşaldı.", "type": "Satz", "turkish": "Serum bitti.", "example": "Görüyorum, der Tropf ist leer. Ich hole einen neuen." },
+    { "id": 139, "category": "Dialoge", "german": "Das Serum ist fertig.", "type": "Satz", "turkish": "Serum bitti.", "example": "Ich sehe, das Serum ist fertig.Ich werde sie jetzt entfernen." },
     { "id": 140, "category": "Dialoge", "german": "Öffnen Sie den Mund ganz weit.", "type": "Satz", "turkish": "Ağzınızı kocaman açın.", "example": "Sag 'Aaa',Öffnen Sie den Mund ganz weit." },
     { "id": 141, "category": "Dialoge", "german": "Nehmen Sie die Tabletten nach dem Essen ein.", "type": "Satz", "turkish": "Hapları yemekten sonra alın.", "example": "Sehr wichtig: Nehmen Sie die Tabletten nach dem Essen ein." },
     { "id": 142, "category": "Dialoge", "german": "Ich helfe Ihnen beim Waschen.", "type": "Satz", "turkish": "Yıkanmanıza yardım edeceğim.", "example": "Guten Morgen, ich helfe Ihnen beim Waschen." },
