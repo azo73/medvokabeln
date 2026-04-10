@@ -160,7 +160,7 @@ const vocabularyData = [
     { "id": 140, "category": "Dialoge", "german": "Öffnen Sie den Mund ganz weit.", "type": "Satz", "turkish": "Ağzınızı kocaman açın.", "example": "Sag 'Aaa',Öffnen Sie den Mund ganz weit." },
     { "id": 141, "category": "Dialoge", "german": "Nehmen Sie die Tabletten nach dem Essen ein.", "type": "Satz", "turkish": "Hapları yemekten sonra alın.", "example": "Sehr wichtig: Nehmen Sie die Tabletten nach dem Essen ein." },
     { "id": 142, "category": "Dialoge", "german": "Ich helfe Ihnen beim Waschen.", "type": "Satz", "turkish": "Yıkanmanıza yardım edeceğim.", "example": "Guten Morgen, ich helfe Ihnen beim Waschen." },
-    { "id": 143, "category": "Dialoge", "german": "Haben Sie Schluckbeschwerden?", "type": "Satz", "turkish": "Yutkunma zorluğu çekiyor musunuz?", "example": "Yemek yerken, haben Sie Schluckbeschwerden?" },
+    { "id": 143, "category": "Dialoge", "german": "Haben Sie Schluckbeschwerden?", "type": "Satz", "turkish": "Yutkunma zorluğu çekiyor musunuz?", "example": "Beim Essen, haben Sie Schluckbeschwerden?" },
     { "id": 144, "category": "Dialoge", "german": "Können Sie Ihre Beine bewegen?", "type": "Satz", "turkish": "Bacaklarınızı hareket ettirebiliyor musunuz?", "example": "Sag mir, können Sie Ihre Beine bewegen?" },
     { "id": 145, "category": "Dialoge", "german": "Das ist nur ein kleiner Piks.", "type": "Satz", "turkish": "Bu sadece küçük bir batma. veya bizdeki karşılığıyla; Sadece minicik bir iğne acısı, sinek ısırığı gibi.", "example": "Hab keine Angst,das ist nur ein kleiner Piks." },
     { "id": 146, "category": "Dialoge", "german": "Ihre Werte sind stabil.", "type": "Satz", "turkish": "Değerleriniz normal.", "example": "Gute Nachrichten, Ihre Werte sind stabil." },
