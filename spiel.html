@@ -54,8 +54,15 @@
     <script src="data.js?v=1"></script>
     
     <script>
+        let fullGamePool = []; // Orijinal ve topluluk kelimelerinin birleşeceği havuz
+
         function initTheme() { 
             if (localStorage.getItem('medVokabeln_theme') === 'dark') document.body.classList.add('dark-mode'); 
+            
+            // KÖPRÜ: Orijinal listeyi al, üstüne Topluluk kelimelerini ekle!
+            let communityWords = JSON.parse(localStorage.getItem('medVokabeln_communityWords')) || [];
+            fullGamePool = [...vocabularyData, ...communityWords];
+
             startGame(); 
         }
         
@@ -70,10 +77,9 @@
             document.getElementById('winMessage').style.display = 'none';
             document.getElementById('btnRestart').style.display = 'none';
             
-            // Veritabanından rastgele 5 kelime seç
-            let pool = shuffle([...vocabularyData]).slice(0, 5);
+            // ARTik sadece vocabularyData'dan değil, FULL havuzdan çekiyor!
+            let pool = shuffle([...fullGamePool]).slice(0, 5);
             
-            // Sol ve sağ sütunu ayrı ayrı karıştır
             let germanList = shuffle([...pool]);
             let turkishList = shuffle([...pool]);
 
@@ -81,7 +87,7 @@
             const colTur = document.getElementById('colTurkish');
             colGer.innerHTML = ''; colTur.innerHTML = '';
 
-            // Almanca Butonları Oluştur
+            // Almanca Butonları
             germanList.forEach(item => {
                 let btn = document.createElement('button');
                 btn.className = 'game-btn';
@@ -90,7 +96,7 @@
                 colGer.appendChild(btn);
             });
 
-            // Türkçe Butonları Oluştur
+            // Türkçe Butonları
             turkishList.forEach(item => {
                 let btn = document.createElement('button');
                 btn.className = 'game-btn';
@@ -101,7 +107,6 @@
         }
 
         function selectItem(btn, type, id) {
-            // Seçili olanı güncelle
             if (type === 'german') {
                 if(selectedGerman) selectedGerman.btn.classList.remove('selected');
                 selectedGerman = { btn, id };
@@ -112,7 +117,6 @@
                 btn.classList.add('selected');
             }
 
-            // İkisi de seçildiyse kontrol et
             if (selectedGerman && selectedTurkish) {
                 checkMatch();
             }
@@ -129,7 +133,6 @@
                 pairsFound++;
                 selectedGerman = null; selectedTurkish = null;
                 
-                // Oyun Bitti mi?
                 if (pairsFound === 5) {
                     setTimeout(() => {
                         document.getElementById('winMessage').style.display = 'block';
@@ -143,7 +146,7 @@
                 
                 setTimeout(() => {
                     gBtn.classList.remove('wrong'); tBtn.classList.remove('wrong');
-                }, 400); // 0.4 saniye sonra kırmızılığı kaldır
+                }, 400); 
                 
                 selectedGerman = null; selectedTurkish = null;
             }
