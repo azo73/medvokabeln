@@ -68,6 +68,7 @@ function initTheme() {
         document.getElementById('themeToggle').innerText = '☀️';
     }
 }
+
 function toggleTheme() {
     document.body.classList.toggle('dark-mode');
     const isDark = document.body.classList.contains('dark-mode');
@@ -217,4 +218,45 @@ function generateQuizQuestion() {
 function checkAnswer(clickedButton, selectedId) {
     document.querySelectorAll(".quiz-option").forEach(btn => btn.disabled = true);
     if (selectedId === currentQuizCorrectWord.id) { 
-        clickedButton.classList.add
+        clickedButton.classList.add("correct"); 
+        document.getElementById("quizFeedback").innerText = "Richtig! 🎉"; 
+        updateStreak(); 
+        removeFromDifficult(currentQuizCorrectWord.id);
+    } else { 
+        clickedButton.classList.add("wrong"); 
+        document.getElementById("quizFeedback").innerText = "Falsch! ❌"; 
+        document.querySelectorAll(".quiz-option").forEach(btn => { if(btn.innerText === currentQuizCorrectWord.turkish) btn.classList.add("correct"); }); 
+        addToDifficult(currentQuizCorrectWord.id);
+    }
+    document.getElementById("nextQuizBtn").style.display = "block";
+}
+
+// ---------------------------------------------------
+// 🌍 KÜRESEL TOPLULUK SÖZLÜĞÜNÜ HAVUZA EKLEME
+// ---------------------------------------------------
+let communityWordsCache = [];
+
+db.collection("communityWords").onSnapshot((snapshot) => {
+    snapshot.docChanges().forEach((change) => {
+        if (change.type === "added") {
+            const data = change.doc.data();
+            const newCard = {
+                id: change.doc.id,
+                german: data.german,
+                turkish: data.turkish,
+                type: `🌍 Topluluk (${data.author})`, 
+                category: "Alle",
+                example: "Topluluk tarafından eklendi."
+            };
+            
+            if (typeof fullVocabulary !== 'undefined' && !fullVocabulary.find(w => w.id === newCard.id)) {
+                fullVocabulary.push(newCard);
+                currentCards.push(newCard);
+                communityWordsCache.push(newCard); 
+                
+                if(currentCards.length === 1) updateCard();
+            }
+        }
+    });
+    localStorage.setItem('medVokabeln_communityWords', JSON.stringify(communityWordsCache));
+});
