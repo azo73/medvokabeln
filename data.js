@@ -158,7 +158,7 @@ const vocabularyData = [
     { "id": 138, "category": "Dialoge", "german": "Wir müssen Sie tartmak.", "type": "Satz", "turkish": "Sizi tartmamız gerekiyor.", "example": "Gelin lütfen, wir müssen Sie wiegen." },
     { "id": 139, "category": "Dialoge", "german": "Der Tropf boşaldı.", "type": "Satz", "turkish": "Serum bitti.", "example": "Görüyorum, der Tropf ist leer. Ich hole einen neuen." },
     { "id": 140, "category": "Dialoge", "german": "Machen Sie den Mund kocaman açın.", "type": "Satz", "turkish": "Ağzınızı kocaman açın.", "example": "Söyleyin 'Aaa', machen Sie den Mund weit auf." },
-    { "id": 141, "category": "Dialoge", "german": "Nehmen Sie die Tabletten yemekten sonra.", "type": "Satz", "turkish": "Hapları yemekten sonra alın.", "example": "Çok önemli: Nehmen Sie die Tabletten nach dem Essen." },
+    { "id": 141, "category": "Dialoge", "german": "Nehmen Sie die Tabletten nach dem Essen ein.", "type": "Satz", "turkish": "Hapları yemekten sonra alın.", "example": "Sehr wichtig: Nehmen Sie die Tabletten nach dem Essen ein." },
     { "id": 142, "category": "Dialoge", "german": "Ich helfe Ihnen beim Waschen.", "type": "Satz", "turkish": "Yıkanmanıza yardım edeceğim.", "example": "Guten Morgen, ich helfe Ihnen beim Waschen." },
     { "id": 143, "category": "Dialoge", "german": "Haben Sie Schluckbeschwerden?", "type": "Satz", "turkish": "Yutkunma zorluğu çekiyor musunuz?", "example": "Yemek yerken, haben Sie Schluckbeschwerden?" },
     { "id": 144, "category": "Dialoge", "german": "Können Sie Ihre Beine bewegen?", "type": "Satz", "turkish": "Bacaklarınızı hareket ettirebiliyor musunuz?", "example": "Sag mir, können Sie Ihre Beine bewegen?" },
