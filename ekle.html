@@ -1,1 +1,118 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Topluluk Sözlüğü | PflegeDeutsch</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=1">
+    
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
+    
+    <style>
+        .community-card {
+            background: var(--card-bg);
+            border-left: 4px solid var(--primary);
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            animation: popInModal 0.3s forwards;
+        }
+        .community-card h4 { margin: 0 0 5px 0; color: var(--text-dark); font-size: 1.1rem; }
+        .community-card p { margin: 0 0 8px 0; color: var(--text-muted); font-size: 0.95rem; }
+        .author-badge { background: var(--switch-bg); color: var(--primary); padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; display: inline-block; }
+    </style>
+</head>
+<body>
 
+    <header>
+        <div class="header-top">
+            <h1>🌍 Topluluk Sözlüğü</h1>
+            <a href="index.html" style="background: var(--switch-bg); padding: 8px 15px; border-radius: 20px; text-decoration: none; color: var(--text-dark); font-weight: bold; font-size: 0.9rem;">&larr; Geri Dön</a>
+        </div>
+        <p>Diğer hemşirelerin eklediği kelimeleri gör und sen de katkıda bulun!</p>
+    </header>
+
+    <div style="padding: 20px; max-width: 500px; margin: 0 auto; background: var(--card-bg); border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 2px solid #10b981; margin-bottom: 30px;">
+        <h3 style="margin-top: 0; color: #10b981; text-align: center;">➕ Yeni Kelime Fırlat</h3>
+        
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; font-size: 0.9rem; margin-bottom: 5px; color: var(--text-dark); font-weight: bold;">Almanca (Örn: die Braunüle)</label>
+            <input type="text" id="newWordDe" style="width: 100%; padding: 12px; border-radius: 8px; border: 2px solid var(--border-color); background: var(--bg-color); color: var(--text-dark); font-size: 1rem;">
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; font-size: 0.9rem; margin-bottom: 5px; color: var(--text-dark); font-weight: bold;">Türkçe (Örn: Damar Yolu)</label>
+            <input type="text" id="newWordTr" style="width: 100%; padding: 12px; border-radius: 8px; border: 2px solid var(--border-color); background: var(--bg-color); color: var(--text-dark); font-size: 1rem;">
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <label style="display: block; font-size: 0.9rem; margin-bottom: 5px; color: var(--text-dark); font-weight: bold;">Senin Nickin</label>
+            <input type="text" id="newWordAuthor" placeholder="Örn: Hemşire Ayşe..." style="width: 100%; padding: 12px; border-radius: 8px; border: 2px solid var(--border-color); background: var(--bg-color); color: var(--text-dark); font-size: 1rem;">
+        </div>
+
+        <button onclick="saveWordToFirebase()" style="width: 100%; padding: 12px; background: #10b981; color: white; border: none; border-radius: 8px; font-weight: bold; font-size: 1.1rem; cursor: pointer; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);">Dünyaya Gönder 🚀</button>
+    </div>
+
+    <div style="max-width: 500px; margin: 0 auto; padding: 0 20px 100px 20px;">
+        <h3 style="color: var(--text-dark); border-bottom: 2px solid var(--border-color); padding-bottom: 10px; margin-bottom: 20px;">📜 Son Eklenenler</h3>
+        <div id="communityList">
+            <div style="text-align: center; color: var(--text-muted);">Yükleniyor...</div>
+        </div>
+    </div>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyClCQ8oQDKfH8lIrEdhwqlHfzvQzW9rAIA",
+            authDomain: "medvokabeln.firebaseapp.com",
+            projectId: "medvokabeln",
+            storageBucket: "medvokabeln.firebasestorage.app",
+            messagingSenderId: "983844382469",
+            appId: "1:983844382469:web:78737dbc24a869db66f96c"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        function saveWordToFirebase() {
+            const de = document.getElementById('newWordDe').value.trim();
+            const tr = document.getElementById('newWordTr').value.trim();
+            const author = document.getElementById('newWordAuthor').value.trim() || "Gizli Kahraman";
+
+            if(!de || !tr) return alert("🚨 Lütfen Almanca ve Türkçe kısımlarını doldur!");
+
+            db.collection("communityWords").add({
+                german: de,
+                turkish: tr,
+                author: author,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            }).then(() => {
+                document.getElementById('newWordDe').value = '';
+                document.getElementById('newWordTr').value = '';
+            }).catch(err => alert("Hata: " + err));
+        }
+
+        db.collection("communityWords").orderBy("timestamp", "desc").onSnapshot((snapshot) => {
+            const listContainer = document.getElementById('communityList');
+            listContainer.innerHTML = ''; 
+            
+            if(snapshot.empty) {
+                listContainer.innerHTML = '<div style="text-align:center; color:gray;">Henüz kimse kelime eklemedi. İlk sen ol!</div>';
+                return;
+            }
+
+            snapshot.forEach((doc) => {
+                const data = doc.data();
+                listContainer.innerHTML += `
+                    <div class="community-card">
+                        <h4>🇩🇪 ${data.german}</h4>
+                        <p>🇹🇷 ${data.turkish}</p>
+                        <div class="author-badge">✍️ ${data.author}</div>
+                    </div>
+                `;
+            });
+        });
+    </script>
+</body>
+</html>
