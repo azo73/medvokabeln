@@ -93,7 +93,7 @@ const vocabularyData = [
     { "id": 79, "category": "Medikamente", "german": "Salbe", "type": "Die Nomen", "turkish": "Merhem", "example": "Tragen Sie diese Salbe zweimal täglich auf." },
     { "id": 80, "category": "Medikamente", "german": "Tropfen", "type": "Die Nomen", "turkish": "Damla", "example": "Nehmen Sie 20 Tropfen vor dem Essen." },
     { "id": 81, "category": "Medikamente", "german": "Zäpfchen", "type": "Das Nomen", "turkish": "Fitil", "example": "Das Zäpfchen ist gegen das Fieber." },
-    { "id": 82, "category": "Medikamente", "german": "Infusion", "type": "Die Nomen", "turkish": "Serum", "example": "Die Infusion hala akıyor." },
+    { "id": 82, "category": "Medikamente", "german": "Infusion", "type": "Die Nomen", "turkish": "Serum", "example": "Die Infusion läuft noch." },
     { "id": 83, "category": "Medikamente", "german": "Nebenwirkung", "type": "Die Nomen", "turkish": "Yan etki", "example": "Haben Sie yan etkiler fark ettiniz?" },
     { "id": 84, "category": "Medikamente", "german": "Dosierung", "type": "Die Nomen", "turkish": "Doz", "example": "Die Dosierung wurde değiştirildi." },
     { "id": 85, "category": "Medikamente", "german": "Beruhigungsmittel", "type": "Das Nomen", "turkish": "Sakinleştirici", "example": "Er hat bir Beruhigungsmittel aldı." },
