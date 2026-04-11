@@ -133,7 +133,7 @@ const vocabularyData = [
     { "id": 113, "category": "Dialoge", "german": "Möchten Sie etwas trinken?", "type": "Satz", "turkish": "Bir şey içmek ister misiniz?", "example": "Hier ist wasser, möchten Sie etwas trinken?" },
     { "id": 114, "category": "Dialoge", "german": "Ich werde jetzt Ihren Blutdruck messen.", "type": "Satz", "turkish": "Şimdi tansiyonunuzu ölçeceğim.", "example": "Halten Sie Ihren Arm ruhig." },
     { "id": 115, "category": "Dialoge", "german": "Warten Sie bir an.", "type": "Satz", "turkish": "Bir dakika bekleyin.", "example": "Ich bin gleich wieder da." },
-    { "id": 116, "category": "Dialoge", "german": "Der Arzt geliyor birazdan.", "type": "Satz", "turkish": "Doktor birazdan gelecek.", "example": "Lütfen gedulden Sie sich kısa." },
+    { "id": 116, "category": "Dialoge", "german": "Der Arzt kommt gleich.", "type": "Satz", "turkish": "Doktor birazdan geliyor.", "example": "Bitte gedulden Sie sich einen Moment." },
     { "id": 117, "category": "Dialoge", "german": "Haben Sie Allergien?", "type": "Satz", "turkish": "Alerjiniz var mı?", "example": "Haben Sie Allergien gegen Penicillin?" },
     { "id": 118, "category": "Dialoge", "german": "Gute Besserung!", "type": "Satz", "turkish": "Geçmiş olsun!", "example": "Güle güle ve gute Besserung!" },
     { "id": 119, "category": "Dialoge", "german": "Soll ich das Fenster kapatayım mı?", "type": "Satz", "turkish": "Pencereyi kapatayım mı?", "example": "Ist es Ihnen çok soğuk?" },
