@@ -111,7 +111,7 @@ const vocabularyData = [
     { "id": 95, "category": "Notfall", "german": "Notarzt", "type": "Der Nomen", "turkish": "Acil Doktoru", "example": "Rufen Sie sofort den Notarzt!" },
 
     // --- KRANKHEITEN ---
-    { "id": 96, "category": "Krankheiten", "german": "Krebs", "type": "Der Nomen", "turkish": "Kanser", "example": "Er wird wegen Krebs tedavi ediliyor." },
+    { "id": 96, "category": "Krankheiten", "german": "Krebs", "type": "Der Nomen", "turkish": "Kanser", "example": "Er wird wegen Krebs behandelt." },
     { "id": 97, "category": "Krankheiten", "german": "Diabetes", "type": "Die Nomen", "turkish": "Şeker Hastalığı", "example": "Sie hat Diabetes Typ 2." },
     { "id": 98, "category": "Krankheiten", "german": "Asthma", "type": "Das Nomen", "turkish": "Astım", "example": "Er benutzt sein Asthma-Spray." },
     { "id": 99, "category": "Krankheiten", "german": "Bluthochdruck", "type": "Der Nomen", "turkish": "Yüksek Tansiyon", "example": "Bluthochdruck ist tehlikeli." },
