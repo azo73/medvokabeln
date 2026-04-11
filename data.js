@@ -75,7 +75,7 @@ const vocabularyData = [
     { "id": 65, "category": "Ausrüstung", "german": "Defibrillator", "type": "Der Nomen", "turkish": "Defibrilatör", "example": "Bringt den Defibrillator mit!" },
 
     // --- PERSONAL ---
-    { "id": 66, "category": "Personal", "german": "Pflegefachkraft", "type": "Die Nomen", "turkish": "Hemşire", "example": "Ich bin Ihre Pflegefachkraft bugün." },
+    { "id": 66, "category": "Personal", "german": "Pflegefachkraft", "type": "Die Nomen", "turkish": "Hemşire", "example": "Ich bin heute Ihre Pflegefachkraft." },
     { "id": 67, "category": "Personal", "german": "Oberarzt", "type": "Der Nomen", "turkish": "Uzman doktor", "example": "Der Oberarzt macht bugün Dienst." },
     { "id": 68, "category": "Personal", "german": "Chefarzt", "type": "Der Nomen", "turkish": "Başhekim", "example": "Der Chefarzt ist ameliyathanede." },
     { "id": 69, "category": "Personal", "german": "Stationsleitung", "type": "Die Nomen", "turkish": "Servis sorumlusu", "example": "Sprechen Sie mit der Stationsleitung." },
