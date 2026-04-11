@@ -83,7 +83,7 @@ const vocabularyData = [
     { "id": 71, "category": "Personal", "german": "Logopäde", "type": "Der Nomen", "turkish": "Konuşma terapisti", "example": "Der Logopäde hilft beim Schlucken." },
     { "id": 72, "category": "Personal", "german": "Hebamme", "type": "Die Nomen", "turkish": "Ebe", "example": "Die Hebamme ist im Kreißsaal." },
     { "id": 73, "category": "Personal", "german": "Auszubildende", "type": "Die Nomen", "turkish": "Stajyer", "example": "Unsere Auszubildende hilft Ihnen." },
-    { "id": 74, "category": "Personal", "german": "Reinigungskraft", "type": "Die Nomen", "turkish": "Temizlik görevlisi", "example": "Die Reinigungskraft geliyor birazdan." },
+    { "id": 74, "category": "Personal", "german": "Reinigungskraft", "type": "Die Nomen", "turkish": "Temizlik görevlisi", "example": "Die Reinigungskraft kommt in Kürze." },
     { "id": 75, "category": "Personal", "german": "Rettungssanitäter", "type": "Der Nomen", "turkish": "Paramedik", "example": "Die Rettungssanitäter sind da." },
 
     // --- MEDIKAMENTE ---
