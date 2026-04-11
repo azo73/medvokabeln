@@ -95,7 +95,7 @@ const vocabularyData = [
     { "id": 81, "category": "Medikamente", "german": "Zäpfchen", "type": "Das Nomen", "turkish": "Fitil", "example": "Das Zäpfchen ist gegen das Fieber." },
     { "id": 82, "category": "Medikamente", "german": "Infusion", "type": "Die Nomen", "turkish": "Serum", "example": "Die Infusion läuft noch." },
     { "id": 83, "category": "Medikamente", "german": "Nebenwirkung", "type": "Die Nomen", "turkish": "Yan etki", "example": "Haben Sie Nebenwirkungen bemerkt?" },
-    { "id": 84, "category": "Medikamente", "german": "Dosierung", "type": "Die Nomen", "turkish": "Doz", "example": "Die Dosierung wurde değiştirildi." },
+    { "id": 84, "category": "Medikamente", "german": "Dosierung", "type": "Die Nomen", "turkish": "Doz", "example": "Die Dosierung wurde geändert." },
     { "id": 85, "category": "Medikamente", "german": "Beruhigungsmittel", "type": "Das Nomen", "turkish": "Sakinleştirici", "example": "Er hat bir Beruhigungsmittel aldı." },
 
     // --- NOTFALL ---
