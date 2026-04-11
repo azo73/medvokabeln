@@ -77,7 +77,7 @@ const vocabularyData = [
     // --- PERSONAL ---
     { "id": 66, "category": "Personal", "german": "Pflegefachkraft", "type": "Die Nomen", "turkish": "Hemşire", "example": "Ich bin heute Ihre Pflegefachkraft." },
     { "id": 67, "category": "Personal", "german": "Oberarzt", "type": "Der Nomen", "turkish": "Uzman doktor", "example": "Der Oberarzt macht heute Dienst." },
-    { "id": 68, "category": "Personal", "german": "Chefarzt", "type": "Der Nomen", "turkish": "Başhekim", "example": "Der Chefarzt ist ameliyathanede." },
+    { "id": 68, "category": "Personal", "german": "Chefarzt", "type": "Der Nomen", "turkish": "Başhekim", "example": "Der Chefarzt ist im Operationssaal." },
     { "id": 69, "category": "Personal", "german": "Stationsleitung", "type": "Die Nomen", "turkish": "Servis sorumlusu", "example": "Sprechen Sie mit der Stationsleitung." },
     { "id": 70, "category": "Personal", "german": "Physiotherapeut", "type": "Der Nomen", "turkish": "Fizyoterapist", "example": "Der Physiotherapeut geliyor saat 10'da." },
     { "id": 71, "category": "Personal", "german": "Logopäde", "type": "Der Nomen", "turkish": "Konuşma terapisti", "example": "Der Logopäde hilft beim Schlucken." },
