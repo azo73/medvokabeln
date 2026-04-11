@@ -90,7 +90,7 @@ const vocabularyData = [
     { "id": 76, "category": "Medikamente", "german": "Schmerzmittel", "type": "Das Nomen", "turkish": "Ağrı kesici", "example": "Brauchen Sie daha bir Schmerzmittel?" },
     { "id": 77, "category": "Medikamente", "german": "Antibiotikum", "type": "Das Nomen", "turkish": "Antibiyotik", "example": "Sie müssen das Antibiotikum zu Ende nehmen." },
     { "id": 78, "category": "Medikamente", "german": "Schlaftablette", "type": "Die Nomen", "turkish": "Uyku ilacı", "example": "Hier ist Ihre Schlaftablette." },
-    { "id": 79, "category": "Medikamente", "german": "Salbe", "type": "Die Nomen", "turkish": "Merhem", "example": "Tragen Sie bu Salbe günde iki kez auf." },
+    { "id": 79, "category": "Medikamente", "german": "Salbe", "type": "Die Nomen", "turkish": "Merhem", "example": "Tragen Sie diese Salbe zweimal täglich auf." },
     { "id": 80, "category": "Medikamente", "german": "Tropfen", "type": "Die Nomen", "turkish": "Damla", "example": "Nehmen Sie 20 Tropfen yemekten önce." },
     { "id": 81, "category": "Medikamente", "german": "Zäpfchen", "type": "Das Nomen", "turkish": "Fitil", "example": "Das Zäpfchen düşürür ateşi." },
     { "id": 82, "category": "Medikamente", "german": "Infusion", "type": "Die Nomen", "turkish": "Serum", "example": "Die Infusion hala akıyor." },
