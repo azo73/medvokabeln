@@ -155,7 +155,7 @@ const vocabularyData = [
     { "id": 135, "category": "Dialoge", "german": "Das Bett ist taze yapıldı.", "type": "Satz", "turkish": "Yatak yeni yapıldı.", "example": "Yatabilirsiniz, das Bett ist frisch bezogen." },
     { "id": 136, "category": "Dialoge", "german": "Haben Sie eine Patientenverfügung?", "type": "Satz", "turkish": "Hasta vasiyetnameniz var mı?", "example": "Dosya için: Haben Sie eine Patientenverfügung?" },
     { "id": 137, "category": "Dialoge", "german": "Brauchen Sie bir Schmerzmittel?", "type": "Satz", "turkish": "Ağrı kesiciye ihtiyacınız var mı?", "example": "Eğer ağrı çoksa, brauchen Sie ein Schmerzmittel?" },
-    { "id": 138, "category": "Dialoge", "german": "Wir müssen Sie tartmak.", "type": "Satz", "turkish": "Sizi tartmamız gerekiyor.", "example": "Gelin lütfen, wir müssen Sie wiegen." },
+    { "id": 138, "category": "Dialoge", "german": "Wir müssen Sie wiegen.", "type": "Satz", "turkish": "Sizi tartmamız gerekiyor.", "example": "Kommen Sie bitte,wir müssen Sie wiegen." },
     { "id": 139, "category": "Dialoge", "german": "Das Serum ist fertig.", "type": "Satz", "turkish": "Serum bitti.", "example": "Ich sehe, das Serum ist fertig.Ich werde sie jetzt entfernen." },
     { "id": 140, "category": "Dialoge", "german": "Öffnen Sie den Mund ganz weit.", "type": "Satz", "turkish": "Ağzınızı kocaman açın.", "example": "Sag 'Aaa',Öffnen Sie den Mund ganz weit." },
     { "id": 141, "category": "Dialoge", "german": "Nehmen Sie die Tabletten nach dem Essen ein.", "type": "Satz", "turkish": "Hapları yemekten sonra alın.", "example": "Sehr wichtig: Nehmen Sie die Tabletten nach dem Essen ein." },
