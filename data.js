@@ -136,7 +136,7 @@ const vocabularyData = [
     { "id": 116, "category": "Dialoge", "german": "Der Arzt kommt gleich.", "type": "Satz", "turkish": "Doktor birazdan geliyor.", "example": "Bitte gedulden Sie sich einen Moment." },
     { "id": 117, "category": "Dialoge", "german": "Haben Sie Allergien?", "type": "Satz", "turkish": "Alerjiniz var mı?", "example": "Haben Sie Allergien gegen Penicillin?" },
     { "id": 118, "category": "Dialoge", "german": "Gute Besserung!", "type": "Satz", "turkish": "Geçmiş olsun!", "example": "Auf Wiedersehen und gute Besserung!" },
-    { "id": 119, "category": "Dialoge", "german": "Soll ich das Fenster kapatayım mı?", "type": "Satz", "turkish": "Pencereyi kapatayım mı?", "example": "Ist es Ihnen çok soğuk?" },
+    { "id": 119, "category": "Dialoge", "german": "Soll ich das Fenster schließen/zumachen?", "type": "Satz", "turkish": "Pencereyi kapatayım mı?", "example": ""Ist es Ihnen zu kalt?" },
     { "id": 120, "category": "Dialoge", "german": "Was kann ich für Sie tun?", "type": "Satz", "turkish": "Sizin için ne yapabilirim?", "example": "Brauchen Sie daha bir şey?" },
     { "id": 121, "category": "Dialoge", "german": "Haben Sie Stuhlgang gehabt?", "type": "Satz", "turkish": "Tuvalete çıktınız mı?", "example": "Haben Sie bugün zaten Stuhlgang gehabt?" },
     { "id": 122, "category": "Dialoge", "german": "Darf ich Fieber messen?", "type": "Satz", "turkish": "Ateşinizi ölçebilir miyim?", "example": "Darf ich bei Ihnen Fieber messen?" },
