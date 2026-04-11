@@ -117,7 +117,7 @@ const vocabularyData = [
     { "id": 99, "category": "Krankheiten", "german": "Bluthochdruck", "type": "Der Nomen", "turkish": "Yüksek Tansiyon", "example": "Bluthochdruck ist gefährlich." },
     { "id": 100, "category": "Krankheiten", "german": "Schlaganfall", "type": "Der Nomen", "turkish": "İnme / Felç", "example": "Verdacht auf Schlaganfall." },
     { "id": 101, "category": "Krankheiten", "german": "Herzinfarkt", "type": "Der Nomen", "turkish": "Kalp Krizi", "example": "Er hatte bir hafif Herzinfarkt." },
-    { "id": 102, "category": "Krankheiten", "german": "Grippe", "type": "Die Nomen", "turkish": "Grip", "example": "Die Grippe ist bu yıl güçlü." },
+    { "id": 102, "category": "Krankheiten", "german": "Grippe", "type": "Die Nomen", "turkish": "Grip", "example": "Die Grippe ist dieses Jahr sehr stark." },
     { "id": 103, "category": "Krankheiten", "german": "Entzündung", "type": "Die Nomen", "turkish": "İltihap / Enfeksiyon", "example": "Das ist eine bakterielle Entzündung." },
     { "id": 104, "category": "Krankheiten", "german": "Allergie", "type": "Die Nomen", "turkish": "Alerji", "example": "Haben Sie bir Allergie gegen fındık?" },
     { "id": 105, "category": "Krankheiten", "german": "Demenz", "type": "Die Nomen", "turkish": "Demans / Bunama", "example": "Der Patient leidet an Demenz." },
