@@ -102,7 +102,7 @@ const vocabularyData = [
     { "id": 86, "category": "Notfall", "german": "Bewusstlos", "type": "Adjektiv", "turkish": "Bilinci kapalı", "example": "Der Patient ist bewusstlos." },
     { "id": 87, "category": "Notfall", "german": "Wiederbelebung", "type": "Die Nomen", "turkish": "Kalp masajı / CPR", "example": "Wir beginnen mit der Wiederbelebung." },
     { "id": 88, "category": "Notfall", "german": "Koma", "type": "Das Nomen", "turkish": "Koma", "example": "Er liegt im künstlichen Koma." },
-    { "id": 89, "category": "Notfall", "german": "Erste Hilfe", "type": "Die Nomen", "turkish": "İlk Yardım", "example": "Erste Hilfe ist burada çok önemli." },
+    { "id": 89, "category": "Notfall", "german": "Erste Hilfe", "type": "Die Nomen", "turkish": "İlk Yardım", "example": "Erste Hilfe ist hier sehr wichtig." },
     { "id": 90, "category": "Notfall", "german": "Herzstillstand", "type": "Der Nomen", "turkish": "Kalp durması", "example": "Er hatte bir Herzstillstand." },
     { "id": 91, "category": "Notfall", "german": "Schock", "type": "Der Nomen", "turkish": "Şok", "example": "Der Patient steht altında Schock." },
     { "id": 92, "category": "Notfall", "german": "Verletzung", "type": "Die Nomen", "turkish": "Yaralanma", "example": "Die Verletzung ist ağır." },
