@@ -108,7 +108,7 @@ const vocabularyData = [
     { "id": 92, "category": "Notfall", "german": "Verletzung", "type": "Die Nomen", "turkish": "Yaralanma", "example": "Die Verletzung ist schwer." },
     { "id": 93, "category": "Notfall", "german": "Wunde", "type": "Die Nomen", "turkish": "Yara", "example": "Die Wunde blutet stark/sehr." },
     { "id": 94, "category": "Notfall", "german": "Verbrennung", "type": "Die Nomen", "turkish": "Yanık", "example": "Er hat eine Verbrennung dritten Grades." },
-    { "id": 95, "category": "Notfall", "german": "Notarzt", "type": "Der Nomen", "turkish": "Acil Doktoru", "example": "Arayın hemen den Notarzt!" },
+    { "id": 95, "category": "Notfall", "german": "Notarzt", "type": "Der Nomen", "turkish": "Acil Doktoru", "example": "Rufen Sie sofort den Notarzt!" },
 
     // --- KRANKHEITEN ---
     { "id": 96, "category": "Krankheiten", "german": "Krebs", "type": "Der Nomen", "turkish": "Kanser", "example": "Er wird wegen Krebs tedavi ediliyor." },
