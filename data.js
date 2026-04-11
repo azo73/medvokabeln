@@ -119,7 +119,7 @@ const vocabularyData = [
     { "id": 101, "category": "Krankheiten", "german": "Herzinfarkt", "type": "Der Nomen", "turkish": "Kalp Krizi", "example": "Er hatte bir hafif Herzinfarkt." },
     { "id": 102, "category": "Krankheiten", "german": "Grippe", "type": "Die Nomen", "turkish": "Grip", "example": "Die Grippe ist dieses Jahr sehr stark." },
     { "id": 103, "category": "Krankheiten", "german": "Entzündung", "type": "Die Nomen", "turkish": "İltihap / Enfeksiyon", "example": "Das ist eine bakterielle Entzündung." },
-    { "id": 104, "category": "Krankheiten", "german": "Allergie", "type": "Die Nomen", "turkish": "Alerji", "example": "Haben Sie bir Allergie gegen fındık?" },
+    { "id": 104, "category": "Krankheiten", "german": "Allergie", "type": "Die Nomen", "turkish": "Alerji", "example": "Haben Sie eine Allergie gegen Nüsse?" },
     { "id": 105, "category": "Krankheiten", "german": "Demenz", "type": "Die Nomen", "turkish": "Demans / Bunama", "example": "Der Patient leidet an Demenz." },
 
     // --- DIALOGE ---
