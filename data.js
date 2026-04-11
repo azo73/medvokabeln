@@ -152,7 +152,7 @@ const vocabularyData = [
     { "id": 132, "category": "Dialoge", "german": "Ist Ihnen schwindelig?", "type": "Satz", "turkish": "Başınız dönüyor mu?", "example": "Setzen Sie sich, ist Ihnen schwindelig?" },
     { "id": 133, "category": "Dialoge", "german": "Bitte bleiben Sie nüchtern.", "type": "Satz", "turkish": "Lütfen aç kalın.", "example": "Bitte bleiben Sie ab Mitternacht nüchtern." },
     { "id": 134, "category": "Dialoge", "german": "Ziehen Sie sich lütfen soyunun.", "type": "Satz", "turkish": "Lütfen soyunun.", "example": "EKG için, ziehen Sie sich bitte den Oberkörper aus." },
-    { "id": 135, "category": "Dialoge", "german": "Das Bett ist taze yapıldı.", "type": "Satz", "turkish": "Yatak yeni yapıldı.", "example": "Yatabilirsiniz, das Bett ist frisch bezogen." },
+    { "id": 135, "category": "Dialoge", "german": "Das Bett ist frisch gemacht.", "type": "Satz", "turkish": "Yatak yeni yapıldı.", "example": "Legen Sie sich gerne hin, das Bett ist frisch bezogen." },
     { "id": 136, "category": "Dialoge", "german": "Haben Sie eine Patientenverfügung?", "type": "Satz", "turkish": "Hasta vasiyetnameniz var mı?", "example": "Dosya için: Haben Sie eine Patientenverfügung?" },
     { "id": 137, "category": "Dialoge", "german": "Brauchen Sie bir Schmerzmittel?", "type": "Satz", "turkish": "Ağrı kesiciye ihtiyacınız var mı?", "example": "Eğer ağrı çoksa, brauchen Sie ein Schmerzmittel?" },
     { "id": 138, "category": "Dialoge", "german": "Wir müssen Sie wiegen.", "type": "Satz", "turkish": "Sizi tartmamız gerekiyor.", "example": "Kommen Sie bitte,wir müssen Sie wiegen." },
