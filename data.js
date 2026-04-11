@@ -72,7 +72,7 @@ const vocabularyData = [
     { "id": 62, "category": "Ausrüstung", "german": "Katheter", "type": "Der Nomen", "turkish": "Kateter", "example": "Der Katheter boşaltılmalı." },
     { "id": 63, "category": "Ausrüstung", "german": "EKG-Gerät", "type": "Das Nomen", "turkish": "EKG cihazı", "example": "Schließen Sie das EKG-Gerät an." },
     { "id": 64, "category": "Ausrüstung", "german": "Sauerstoffmaske", "type": "Die Nomen", "turkish": "Oksijen Maskesi", "example": "Wir legen die Sauerstoffmaske an." },
-    { "id": 65, "category": "Ausrüstung", "german": "Defibrillator", "type": "Der Nomen", "turkish": "Defibrilatör", "example": "Getirin den Defibrillator!" },
+    { "id": 65, "category": "Ausrüstung", "german": "Defibrillator", "type": "Der Nomen", "turkish": "Defibrilatör", "example": "Bringt den Defibrillator mit!" },
 
     // --- PERSONAL ---
     { "id": 66, "category": "Personal", "german": "Pflegefachkraft", "type": "Die Nomen", "turkish": "Hemşire", "example": "Ich bin Ihre Pflegefachkraft bugün." },
