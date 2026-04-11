@@ -104,7 +104,7 @@ const vocabularyData = [
     { "id": 88, "category": "Notfall", "german": "Koma", "type": "Das Nomen", "turkish": "Koma", "example": "Er liegt im künstlichen Koma." },
     { "id": 89, "category": "Notfall", "german": "Erste Hilfe", "type": "Die Nomen", "turkish": "İlk Yardım", "example": "Erste Hilfe ist hier sehr wichtig." },
     { "id": 90, "category": "Notfall", "german": "Herzstillstand", "type": "Der Nomen", "turkish": "Kalp durması", "example": "Er hatte bir Herzstillstand." },
-    { "id": 91, "category": "Notfall", "german": "Schock", "type": "Der Nomen", "turkish": "Şok", "example": "Der Patient steht altında Schock." },
+    { "id": 91, "category": "Notfall", "german": "Schock", "type": "Der Nomen", "turkish": "Şok", "example": "Der Patient steht unter Schock." },
     { "id": 92, "category": "Notfall", "german": "Verletzung", "type": "Die Nomen", "turkish": "Yaralanma", "example": "Die Verletzung ist ağır." },
     { "id": 93, "category": "Notfall", "german": "Wunde", "type": "Die Nomen", "turkish": "Yara", "example": "Die Wunde kanıyor çok." },
     { "id": 94, "category": "Notfall", "german": "Verbrennung", "type": "Die Nomen", "turkish": "Yanık", "example": "Er hat bir Verbrennung üçüncü derece." },
