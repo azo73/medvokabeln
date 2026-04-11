@@ -149,7 +149,7 @@ const vocabularyData = [
     { "id": 129, "category": "Dialoge", "german": "Wo tam olarak tut es weh?", "type": "Satz", "turkish": "Tam olarak neresi ağrıyor?", "example": "Gösterin bakalım, wo genau tut es weh?" },
     { "id": 130, "category": "Dialoge", "german": "Bitte drehen Sie sich yana.", "type": "Satz", "turkish": "Lütfen yan dönün.", "example": "İğne için, bitte drehen Sie sich auf die Seite." },
     { "id": 131, "category": "Dialoge", "german": "Wir fahren Sie şimdi ameliyata.", "type": "Satz", "turkish": "Sizi şimdi ameliyathaneye götürüyoruz.", "example": "Her şey hazır, wir fahren Sie jetzt in den OP." },
-    { "id": 132, "category": "Dialoge", "german": "Ist Ihnen başınız dönüyor mu?", "type": "Satz", "turkish": "Başınız dönüyor mu?", "example": "Oturun, ist Ihnen schwindelig?" },
+    { "id": 132, "category": "Dialoge", "german": "Ist Ihnen schwindelig?", "type": "Satz", "turkish": "Başınız dönüyor mu?", "example": "Setzen Sie sich, ist Ihnen schwindelig?" },
     { "id": 133, "category": "Dialoge", "german": "Bitte nüchtern kalmak.", "type": "Satz", "turkish": "Lütfen aç kalın.", "example": "Gece yarısından itibaren bitte nüchtern bleiben." },
     { "id": 134, "category": "Dialoge", "german": "Ziehen Sie sich lütfen soyunun.", "type": "Satz", "turkish": "Lütfen soyunun.", "example": "EKG için, ziehen Sie sich bitte den Oberkörper aus." },
     { "id": 135, "category": "Dialoge", "german": "Das Bett ist taze yapıldı.", "type": "Satz", "turkish": "Yatak yeni yapıldı.", "example": "Yatabilirsiniz, das Bett ist frisch bezogen." },
