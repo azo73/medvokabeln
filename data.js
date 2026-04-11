@@ -114,7 +114,7 @@ const vocabularyData = [
     { "id": 96, "category": "Krankheiten", "german": "Krebs", "type": "Der Nomen", "turkish": "Kanser", "example": "Er wird wegen Krebs behandelt." },
     { "id": 97, "category": "Krankheiten", "german": "Diabetes", "type": "Die Nomen", "turkish": "Şeker Hastalığı", "example": "Sie hat Diabetes Typ 2." },
     { "id": 98, "category": "Krankheiten", "german": "Asthma", "type": "Das Nomen", "turkish": "Astım", "example": "Er benutzt sein Asthma-Spray." },
-    { "id": 99, "category": "Krankheiten", "german": "Bluthochdruck", "type": "Der Nomen", "turkish": "Yüksek Tansiyon", "example": "Bluthochdruck ist tehlikeli." },
+    { "id": 99, "category": "Krankheiten", "german": "Bluthochdruck", "type": "Der Nomen", "turkish": "Yüksek Tansiyon", "example": "Bluthochdruck ist gefährlich." },
     { "id": 100, "category": "Krankheiten", "german": "Schlaganfall", "type": "Der Nomen", "turkish": "İnme / Felç", "example": "Verdacht auf Schlaganfall." },
     { "id": 101, "category": "Krankheiten", "german": "Herzinfarkt", "type": "Der Nomen", "turkish": "Kalp Krizi", "example": "Er hatte bir hafif Herzinfarkt." },
     { "id": 102, "category": "Krankheiten", "german": "Grippe", "type": "Die Nomen", "turkish": "Grip", "example": "Die Grippe ist bu yıl güçlü." },
