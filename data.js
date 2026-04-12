@@ -168,4 +168,17 @@ const vocabularyData = [
     { "id": 148, "category": "Dialoge", "german": "Die Besuchszeiten sind von 20:00 bis 22:00 Uhr.", "type": "Satz", "turkish": "Ziyaret saatleri akşam 8'den 10'a kadardır.", "example": "Sagen Sie Ihren Verwandten: Die Besuchszeiten sind von 20:00 bis 22:00 Uhr." },
     { "id": 149, "category": "Dialoge", "german": "Ich hole die Bettpfanne.", "type": "Satz", "turkish": "Sürgüyü getiriyorum.", "example": "Ich hole die Bettpfanne." },
     { "id": 150, "category": "Dialoge", "german": "wir machen jetzt Übergabe.", "type": "Satz", "turkish": "Şimdi nöbet teslimi yapıyoruz.", "example": "Die Frühschicht ist zu Ende, wir übergeben jetzt." }
+    // --- WEITERE DIALOGE (EK DİYALOGLAR) ---
+    { "id": 166, "category": "Dialoge", "german": "Auf einer Skala von 1 bis 10, wie stark sind Ihre Schmerzen?", "type": "Satz", "turkish": "1'den 10'a kadar bir skalada ağrınız ne kadar güçlü?", "example": "Sagen Sie mir bitte: Auf einer Skala von 1 bis 10, wie stark sind Ihre Schmerzen?" },
+    
+    { "id": 167, "category": "Dialoge", "german": "Haben Sie heute schon Wasser gelassen?", "type": "Satz", "turkish": "Bugün idrarınızı yaptınız mı?", "example": "Das ist wichtig für die Kontrolle: Haben Sie heute schon Wasser gelassen?" },
+    { "id": 168, "category": "Dialoge", "german": "Ich muss Ihnen Blut abnehmen.", "type": "Satz", "turkish": "Sizden kan almam gerekiyor.", "example": "Setzen Sie sich bitte hin, ich muss Ihnen Blut abnehmen." },
+    { "id": 169, "category": "Dialoge", "german": "Darf ich Ihren Verband kontrollieren?", "type": "Satz", "turkish": "Pansumanınızı kontrol edebilir miyim?", "example": "Guten Morgen, darf ich kurz Ihren Verband kontrollieren?" },
+    { "id": 170, "category": "Dialoge", "german": "Sind Sie gegen irgendwelche Medikamente allergisch?", "type": "Satz", "turkish": "Herhangi bir ilaca karşı alerjiniz var mı?", "example": "Bevor wir anfangen: Sind Sie gegen irgendwelche Medikamente allergisch?" },
+    { "id": 171, "category": "Dialoge", "german": "Bitte bleiben Sie im Bett liegen.", "type": "Satz", "turkish": "Lütfen yatakta kalın.", "example": "Es ist zu gefährlich, bitte bleiben Sie im Bett liegen." },
+    { "id": 172, "category": "Dialoge", "german": "Brauchen Sie Hilfe beim Gang zur Toilette?", "type": "Satz", "turkish": "Tuvalete giderken yardıma ihtiyacınız var mı?", "example": "Klingeln Sie bitte, wenn Sie Hilfe beim Gang zur Toilette brauchen." },
+    { "id": 173, "category": "Dialoge", "german": "Der Arzt wird Sie gleich untersuchen.", "type": "Satz", "turkish": "Doktor sizi birazdan muayene edecek.", "example": "Haben Sie ein wenig Geduld, der Arzt wird Sie gleich untersuchen." },
+    { "id": 174, "category": "Dialoge", "german": "Ich stelle Ihnen jetzt den Perfusor ein.", "type": "Satz", "turkish": "Şimdi infüzyon pompasını (perfusor) ayarlıyorum.", "example": "Einen Moment bitte, ich stelle Ihnen jetzt den Perfusor ein." },
+    { "id": 175, "category": "Dialoge", "german": "Wie war Ihre Nacht?", "type": "Satz", "turkish": "Geceniz nasıl geçti?", "example": "Guten Morgen Herr Müller, wie war Ihre Nacht?" }
+];
 ]; 
