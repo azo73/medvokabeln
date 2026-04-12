@@ -181,4 +181,3 @@ const vocabularyData = [
     { "id": 174, "category": "Dialoge", "german": "Ich stelle Ihnen jetzt den Perfusor ein.", "type": "Satz", "turkish": "Şimdi infüzyon pompasını (perfusor) ayarlıyorum.", "example": "Einen Moment bitte, ich stelle Ihnen jetzt den Perfusor ein." },
     { "id": 175, "category": "Dialoge", "german": "Wie war Ihre Nacht?", "type": "Satz", "turkish": "Geceniz nasıl geçti?", "example": "Guten Morgen Herr Müller, wie war Ihre Nacht?" }
 ];
-]; 
