@@ -6,77 +6,159 @@
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5935458968037999" crossorigin="anonymous"></script>
     
-    <title>Anatomi Modu | PflegeDeutsch</title>
+    <link rel="manifest" href="manifest.json">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🩺</text></svg>">
+    
+    <title>Anatomi Laboratuvarı | PflegeDeutsch</title>
+    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=1">
+    <link rel="stylesheet" href="style.css?v=2">
     <style>
-        .back-nav { width: 100%; max-width: 400px; display: flex; align-items: center; margin-bottom: 20px; }
-        .btn-back { background: var(--card-bg); border: 1px solid var(--border-color); color: var(--primary); padding: 10px 15px; border-radius: 12px; text-decoration: none; font-weight: bold; }
+        .back-nav { width: 100%; max-width: 800px; display: flex; align-items: center; margin: 20px auto; padding: 0 15px; }
+        .btn-back { background: var(--card-bg); border: 2px solid var(--border-color); color: var(--text-dark); padding: 10px 15px; border-radius: 12px; text-decoration: none; font-weight: bold; transition: 0.2s; }
+        .btn-back:hover { background: var(--switch-bg); }
         
-        /* Yeni Resim ve Nokta Düzeni */
-        .anatomy-container { position: relative; width: 100%; max-width: 400px; margin: 0 auto; background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .anatomy-img { width: 100%; display: block; }
-        
-        .hotspot { position: absolute; width: 22px; height: 22px; background: rgba(2, 132, 199, 0.8); border: 2.5px solid white; border-radius: 50%; cursor: pointer; transform: translate(-50%, -50%); animation: pulse 1.5s infinite; transition: 0.3s; z-index: 10; }
-        .hotspot:hover { background: var(--success); transform: translate(-50%, -50%) scale(1.3); }
-        
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(2, 132, 199, 0.7); } 70% { box-shadow: 0 0 0 12px rgba(2, 132, 199, 0); } 100% { box-shadow: 0 0 0 0 rgba(2, 132, 199, 0); } }
+        .anatomy-header { text-align: center; margin-bottom: 30px; }
+        .anatomy-header h2 { color: var(--primary); font-size: 1.8rem; }
+        .anatomy-header p { color: var(--text-muted); font-size: 0.9rem; margin-top: 5px; }
 
-        #infoCard { background: var(--card-bg); width: 100%; max-width: 400px; padding: 20px; border-radius: 16px; border: 2px solid var(--primary); text-align: center; display: none; margin-top: 15px; animation: slideIn 0.3s; }
-        @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        /* Anatomi Grid Sistemi */
+        .anatomy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 15px;
+            padding-bottom: 50px;
+        }
+
+        /* 3D Dönüşüm İçin Kart Ayarları */
+        .anatomy-card-container {
+            perspective: 1000px;
+            height: 180px;
+            cursor: pointer;
+        }
+
+        .anatomy-card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+            transform-style: preserve-3d;
+            border-radius: 16px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .anatomy-card-container.flipped .anatomy-card {
+            transform: rotateY(180deg);
+        }
+
+        .anatomy-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            text-align: center;
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+        }
+
+        .anatomy-front {
+            z-index: 2;
+        }
+
+        .anatomy-back {
+            transform: rotateY(180deg);
+            background: var(--switch-bg);
+            border-color: var(--primary);
+        }
+
+        .anatomy-icon { font-size: 3rem; margin-bottom: 10px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); }
+        .anatomy-german { font-weight: 700; color: var(--text-dark); font-size: 1.1rem; }
+        .anatomy-type { font-size: 0.75rem; color: var(--text-muted); margin-top: 5px; }
         
-        .info-german { font-size: 2rem; font-weight: bold; color: var(--primary); margin-bottom: 5px; }
-        .info-turkish { font-size: 1.4rem; font-weight: 600; color: var(--text-dark); }
-        .btn-speak-an { background: var(--primary); color: white; border: none; padding: 8px 15px; border-radius: 10px; cursor: pointer; margin-bottom: 10px; font-weight: bold; }
+        .anatomy-turkish { font-weight: 700; color: var(--primary); font-size: 1.1rem; margin-bottom: 10px; }
+        .anatomy-example { font-size: 0.8rem; color: var(--text-dark); font-style: italic; line-height: 1.3; }
+
+        @media (max-width: 480px) {
+            .anatomy-grid { grid-template-columns: repeat(2, 1fr); }
+            .anatomy-card-container { height: 160px; }
+            .anatomy-icon { font-size: 2.5rem; }
+            .anatomy-german { font-size: 1rem; }
+        }
     </style>
 </head>
-<body onload="initTheme()">
+<body onload="initAnatomy()">
 
     <div class="back-nav">
-        <a href="index.html" class="btn-back">← Geri</a>
-        <h2 style="flex:1; text-align:center; color:var(--text-dark); font-size: 1.2rem;">İnteraktif Anatomi</h2>
+        <a href="index.html" class="btn-back">← Geri Dön</a>
     </div>
 
-    <div class="anatomy-container">
-        <img src="https://raw.githubusercontent.com/azo73/medvokabeln/main/Detailed%20human%20anatomical%20model%20display.png" class="anatomy-img" alt="Anatomie">
-
-        <div class="hotspot" style="top: 7%; left: 52%;" onclick="showPart('Das Gehirn', 'Beyin')"></div>
-        <div class="hotspot" style="top: 10%; left: 45%;" onclick="showPart('Der Kopf', 'Baş')"></div>
-        <div class="hotspot" style="top: 17%; left: 49%;" onclick="showPart('Der Hals', 'Boyun')"></div>
-        <div class="hotspot" style="top: 26%; left: 42%;" onclick="showPart('Die Lunge', 'Akciğer')"></div>
-        <div class="hotspot" style="top: 29%; left: 51%;" onclick="showPart('Das Herz', 'Kalp')"></div>
-        <div class="hotspot" style="top: 34%; left: 45%;" onclick="showPart('Die Leber', 'Karaciğer')"></div>
-        <div class="hotspot" style="top: 36%; left: 54%;" onclick="showPart('Der Magen', 'Mide')"></div>
-        <div class="hotspot" style="top: 45%; left: 50%;" onclick="showPart('Der Darm', 'Bağırsaklar')"></div>
-        <div class="hotspot" style="top: 42%; left: 24%;" onclick="showPart('Der Arm', 'Kol')"></div>
-        <div class="hotspot" style="top: 55%; left: 21%;" onclick="showPart('Die Hand', 'El')"></div>
-        <div class="hotspot" style="top: 70%; left: 37%;" onclick="showPart('Das Knie', 'Diz')"></div>
-        <div class="hotspot" style="top: 94%; left: 43%;" onclick="showPart('Der Fuß', 'Ayak')"></div>
+    <div class="anatomy-header">
+        <h2>🧍‍♂️ Anatomi Laboratuvarı</h2>
+        <p>Organların ve vücut bölümlerinin üzerine dokunarak detayları gör.</p>
     </div>
 
-    <div id="infoCard">
-        <button class="btn-speak-an" onclick="speakAnatomy()">🔊 Dinle</button>
-        <div class="info-german" id="aGerman">...</div>
-        <div class="info-turkish" id="aTurkish">...</div>
-    </div>
+    <div class="anatomy-grid" id="anatomyGrid">
+        </div>
 
+    <script src="data.js?v=2"></script>
     <script>
-        function initTheme() { if (localStorage.getItem('medVokabeln_theme') === 'dark') document.body.classList.add('dark-mode'); }
-        let currentWord = "";
-        function showPart(german, turkish) {
-            currentWord = german;
-            document.getElementById("aGerman").innerText = german;
-            document.getElementById("aTurkish").innerText = turkish;
-            document.getElementById("infoCard").style.display = "block";
-            // Kartı görünür yapmak için otomatik kaydır
-            document.getElementById("infoCard").scrollIntoView({ behavior: 'smooth' });
-            speakAnatomy();
+        function initTheme() {
+            if (localStorage.getItem('medVokabeln_theme') === 'dark') {
+                document.body.classList.add('dark-mode');
+            }
         }
-        function speakAnatomy() {
-            if (!currentWord) return;
-            const utterance = new SpeechSynthesisUtterance(currentWord);
-            utterance.lang = 'de-DE'; window.speechSynthesis.speak(utterance);
+
+        // Kelimelere göre otomatik emoji atama motoru
+        const iconMap = {
+            "Herz": "🫀", "Lunge": "🫁", "Gehirn": "🧠", "Magen": "🥙", 
+            "Leber": "🩸", "Niere": "🫘", "Blut": "🩸", "Knochen": "🦴", 
+            "Haut": "🤚", "Ader": "🪢", "Wirbelsäule": "🦴", "Gelenk": "🦾", 
+            "Muskel": "💪", "Nerv": "⚡", "Bauch": "🤰"
+        };
+
+        function initAnatomy() {
+            initTheme();
+            const grid = document.getElementById('anatomyGrid');
+            
+            // data.js içinden sadece 'Anatomie' kategorisini filtrele
+            const anatomyWords = vocabularyData.filter(word => word.category === "Anatomie");
+
+            if(anatomyWords.length === 0) {
+                grid.innerHTML = "<p style='text-align:center; width:100%; color:var(--text-muted);'>Henüz anatomi kelimesi bulunamadı.</p>";
+                return;
+            }
+
+            anatomyWords.forEach(word => {
+                // Eşleşen emoji yoksa varsayılan olarak 🔬 kullan
+                const icon = iconMap[word.german] || "🔬"; 
+                
+                const cardHtml = `
+                    <div class="anatomy-card-container" onclick="this.classList.toggle('flipped')">
+                        <div class="anatomy-card">
+                            <div class="anatomy-face anatomy-front">
+                                <div class="anatomy-icon">${icon}</div>
+                                <div class="anatomy-german">${word.german}</div>
+                                <div class="anatomy-type">${word.type}</div>
+                            </div>
+                            <div class="anatomy-face anatomy-back">
+                                <div class="anatomy-turkish">${word.turkish}</div>
+                                <div class="anatomy-example">"${word.example}"</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.innerHTML += cardHtml;
+            });
         }
     </script>
 </body>
