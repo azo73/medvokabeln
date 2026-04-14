@@ -39,6 +39,7 @@
             perspective: 1000px;
             height: 180px;
             cursor: pointer;
+            position: relative; /* Yıldızın karta göre pozisyon alması için eklendi */
         }
 
         .anatomy-card {
@@ -88,11 +89,29 @@
         .anatomy-turkish { font-weight: 700; color: var(--primary); font-size: 1.1rem; margin-bottom: 10px; }
         .anatomy-example { font-size: 0.8rem; color: var(--text-dark); font-style: italic; line-height: 1.3; }
 
+        /* --- YENİ EKLENEN FAVORİ YILDIZ BUTONU CSS --- */
+        .fav-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 10;
+            transition: transform 0.2s;
+            text-shadow: 0 0 5px rgba(0,0,0,0.1);
+        }
+        .fav-btn:hover { transform: scale(1.2); }
+        .fav-btn.active { color: #f1c40f; filter: none; opacity: 1; } /* Sarı aktif yıldız */
+        .fav-btn.inactive { color: #ccc; filter: grayscale(100%); opacity: 0.4; } /* Soluk gri yıldız */
+
         @media (max-width: 480px) {
             .anatomy-grid { grid-template-columns: repeat(2, 1fr); }
             .anatomy-card-container { height: 160px; }
             .anatomy-icon { font-size: 2.5rem; }
             .anatomy-german { font-size: 1rem; }
+            .fav-btn { font-size: 1.2rem; top: 8px; right: 8px; }
         }
     </style>
 </head>
@@ -104,7 +123,7 @@
 
     <div class="anatomy-header">
         <h2>🧍‍♂️ Anatomi Laboratuvarı</h2>
-        <p>Organların ve vücut bölümlerinin üzerine dokunarak detayları gör.</p>
+        <p>Organların üzerine dokunarak detayları gör, zorlandıklarını yıldızla! ⭐</p>
     </div>
 
     <div class="anatomy-grid" id="anatomyGrid">
@@ -118,19 +137,18 @@
             }
         }
 
-        // Kelimelere göre otomatik emoji atama motoru
         const iconMap = {
             "Herz": "🫀", "Lunge": "🫁", "Gehirn": "🧠", "Magen": "🥙", 
             "Leber": "🩸", "Niere": "🫘", "Blut": "🩸", "Knochen": "🦴", 
             "Haut": "🤚", "Ader": "🪢", "Wirbelsäule": "🦴", "Gelenk": "🦾", 
-            "Muskel": "💪", "Nerv": "⚡", "Bauch": "🤰"
+            "Muskel": "💪", "Nerv": "⚡", "Bauch": "🤰", "Darm": "🪱",
+            "Schilddrüse": "🦋", "Kehlkopf": "🗣️", "Auge": "👁️", "Ohr": "👂"
         };
 
         function initAnatomy() {
             initTheme();
             const grid = document.getElementById('anatomyGrid');
             
-            // data.js içinden sadece 'Anatomie' kategorisini filtrele
             const anatomyWords = vocabularyData.filter(word => word.category === "Anatomie");
 
             if(anatomyWords.length === 0) {
@@ -138,12 +156,23 @@
                 return;
             }
 
+            grid.innerHTML = ""; // Listeyi her seferinde temizleyip baştan çiziyoruz (Yıldız durumu güncellensin diye)
+
             anatomyWords.forEach(word => {
-                // Eşleşen emoji yoksa varsayılan olarak 🔬 kullan
                 const icon = iconMap[word.german] || "🔬"; 
+                
+                // --- FAVORİ KONTROLÜ ---
+                // data.js içine eklediğimiz isFavorite fonksiyonunu kullanıyoruz
+                const isFav = (typeof isFavorite === 'function') ? isFavorite(word.id) : false;
+                const starClass = isFav ? "active" : "inactive";
                 
                 const cardHtml = `
                     <div class="anatomy-card-container" onclick="this.classList.toggle('flipped')">
+                        
+                        <button class="fav-btn ${starClass}" onclick="event.stopPropagation(); toggleFavorite(${word.id});">
+                            ⭐
+                        </button>
+                        
                         <div class="anatomy-card">
                             <div class="anatomy-face anatomy-front">
                                 <div class="anatomy-icon">${icon}</div>
