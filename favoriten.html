@@ -6,37 +6,96 @@
     <title>Zor Kelimelerim ⭐ | PflegeDeutsch</title>
     <link rel="stylesheet" href="style.css?v=2">
     <style>
-        .fav-header { text-align: center; margin: 30px 0; }
-        .word-list { max-width: 800px; margin: 0 auto; padding: 15px; }
+        body { background-color: var(--bg-color); min-height: 100vh; }
+        .top-nav { padding: 15px; max-width: 800px; margin: 0 auto; }
+        .btn-back { font-weight: bold; color: var(--primary); text-decoration: none; display: inline-block; padding: 10px; }
+        
+        .fav-header { text-align: center; margin: 20px 0 40px 0; padding: 0 15px; }
+        .fav-header h1 { color: var(--text-dark); font-size: 2rem; margin-bottom: 10px; }
+        .fav-header p { color: var(--text-muted); }
+
+        .word-list { max-width: 800px; margin: 0 auto; padding: 0 15px 50px 15px; }
+        
         .word-card { 
             background: var(--card-bg); 
             border: 2px solid var(--border-color); 
-            border-radius: 12px; 
-            padding: 15px; 
-            margin-bottom: 10px; 
+            border-radius: 16px; 
+            padding: 20px; 
+            margin-bottom: 15px; 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            transition: transform 0.2s;
         }
-        .empty-state { text-align: center; color: var(--text-muted); margin-top: 50px; }
+        .word-card:hover { transform: translateY(-3px); box-shadow: 0 6px 12px rgba(0,0,0,0.05); }
+        
+        .word-info { flex: 1; }
+        .word-header { display: flex; align-items: center; gap: 10px; margin-bottom: 5px; }
+        .german-text { font-weight: 800; color: var(--text-dark); font-size: 1.3rem; }
+        
+        .btn-speak-small { 
+            background: var(--switch-bg); 
+            border: none; 
+            border-radius: 50%; 
+            width: 35px; 
+            height: 35px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            cursor: pointer; 
+            font-size: 1.1rem; 
+            transition: 0.2s;
+        }
+        .btn-speak-small:hover { background: var(--primary); transform: scale(1.1); }
+        
+        .turkish-text { color: var(--primary); font-weight: 600; font-size: 1.1rem; margin-bottom: 8px; }
+        .example-text { font-size: 0.9rem; color: var(--text-muted); font-style: italic; background: rgba(0,0,0,0.03); padding: 8px 12px; border-radius: 8px; display: inline-block;}
+        
+        .btn-remove { background: none; border: none; font-size: 1.5rem; cursor: pointer; padding: 10px; transition: 0.2s; opacity: 0.5; }
+        .btn-remove:hover { transform: scale(1.2); opacity: 1; }
+        
+        .empty-state { text-align: center; color: var(--text-muted); margin-top: 50px; padding: 40px; background: var(--card-bg); border-radius: 20px; border: 2px dashed var(--border-color); }
     </style>
 </head>
-<body onload="loadFavorites()">
+<body onload="initFavPage()">
 
-    <div style="padding: 15px;">
-        <a href="index.html" style="text-decoration:none; color:var(--primary); font-weight:bold;">← Ana Sayfaya Dön</a>
+    <div class="top-nav">
+        <a href="index.html" class="btn-back">← Ana Sayfaya Dön</a>
     </div>
 
     <div class="fav-header">
-        <h1>⭐ Zor Kelimelerim</h1>
-        <p>Yıldızladığın ve çalışman gereken kelimeler burada toplanır.</p>
+        <h1>⭐ Favorilerim</h1>
+        <p>Zorlandığın kelimeler burada. Ses ikonuna basarak telaffuzlarını dinle!</p>
     </div>
 
     <div id="favContainer" class="word-list">
         </div>
 
-    <script src="data.js"></script>
+    <script src="data.js?v=2"></script>
     <script>
+        function initFavPage() {
+            if (localStorage.getItem('medVokabeln_theme') === 'dark') {
+                document.body.classList.add('dark-mode');
+            }
+            loadFavorites();
+        }
+
+        // --- SESLİ OKUMA MOTORU ---
+        function speakFavWord(text) {
+            if ('speechSynthesis' in window) {
+                // Konuşmayı durdur (üst üste binmesin diye)
+                window.speechSynthesis.cancel();
+                
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'de-DE'; // Alman aksanı
+                utterance.rate = 0.85; // Öğrenenler için bir tık yavaş
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert("Tarayıcınız sesli okumayı desteklemiyor.");
+            }
+        }
+
         function loadFavorites() {
             const container = document.getElementById('favContainer');
             const favorites = JSON.parse(localStorage.getItem('medVokabeln_favs')) || [];
@@ -44,8 +103,10 @@
             if (favorites.length === 0) {
                 container.innerHTML = `
                     <div class="empty-state">
+                        <div style="font-size: 4rem; margin-bottom: 15px;">🤷‍♂️</div>
+                        <h2 style="color: var(--text-dark); margin-bottom: 10px;">Liste Bembeyaz!</h2>
                         <p>Henüz hiçbir kelimeyi yıldızlamadın.</p>
-                        <p>Kelime listesindeki yıldızlara basarak buraya ekleyebilirsin!</p>
+                        <p>Ana sayfadaki veya Anatomi bölümündeki yıldızlara (⭐) basarak buraya kelime ekleyebilirsin.</p>
                     </div>`;
                 return;
             }
@@ -55,13 +116,20 @@
             
             container.innerHTML = '';
             favWords.forEach(word => {
+                // Kaçış karakteri sorunlarını önlemek için kelimeyi güvenli hale getiriyoruz
+                const safeGermanWord = word.german.replace(/'/g, "\\'");
+
                 container.innerHTML += `
                     <div class="word-card">
-                        <div>
-                            <div style="font-weight:bold; color:var(--primary);">${word.german}</div>
-                            <div style="font-size:0.9rem;">${word.turkish}</div>
+                        <div class="word-info">
+                            <div class="word-header">
+                                <div class="german-text">${word.german}</div>
+                                <button class="btn-speak-small" onclick="speakFavWord('${safeGermanWord}')" title="Telaffuzu Dinle">🔊</button>
+                            </div>
+                            <div class="turkish-text">${word.turkish}</div>
+                            <div class="example-text">"${word.example}"</div>
                         </div>
-                        <button onclick="removeFav(${word.id})" style="background:none; border:none; font-size:1.2rem; cursor:pointer;">❌</button>
+                        <button class="btn-remove" onclick="removeFav(${word.id})" title="Favorilerden Çıkar">❌</button>
                     </div>
                 `;
             });
@@ -71,7 +139,9 @@
             let favorites = JSON.parse(localStorage.getItem('medVokabeln_favs')) || [];
             favorites = favorites.filter(favId => favId !== id);
             localStorage.setItem('medVokabeln_favs', JSON.stringify(favorites));
-            loadFavorites(); // Sayfayı yenile
+            
+            // Animasyonlu silinme hissi için sayfayı baştan yüklüyoruz
+            loadFavorites(); 
         }
     </script>
 </body>
