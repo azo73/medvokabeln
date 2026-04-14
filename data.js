@@ -296,3 +296,25 @@ const vocabularyData = [
     { "id": 249, "category": "Dialoge", "german": "Haben Sie heute schon Stuhlgang gehabt?", "type": "Satz", "turkish": "Bugün büyük tuvaletinize çıktınız mı?", "example": "Wichtige Frage für die Verdauung: Haben Sie heute schon Stuhlgang gehabt?" },
     { "id": 250, "category": "Dialoge", "german": "Wir müssen Ihre Temperatur noch einmal messen.", "type": "Satz", "turkish": "Ateşinizi bir kez daha ölçmemiz gerekiyor.", "example": "Sie fühlen sich heiß an, wir müssen Ihre Temperatur noch einmal messen." }
 ];
+
+// --- FAVORİ MANTIĞI (ORTAK KOD) ---
+function toggleFavorite(id) {
+    let favorites = JSON.parse(localStorage.getItem('medVokabeln_favs')) || [];
+    const index = favorites.indexOf(id);
+
+    if (index > -1) {
+        favorites.splice(index, 1); // Listede varsa çıkar
+    } else {
+        favorites.push(id); // Listede yoksa ekle
+    }
+
+    localStorage.setItem('medVokabeln_favs', JSON.stringify(favorites));
+    
+    // Sayfadaki kelimeleri yenilemek için (Eğer fonksiyon varsa çalıştır)
+    if (typeof initAnatomy === 'function') initAnatomy();
+}
+
+function isFavorite(id) {
+    let favorites = JSON.parse(localStorage.getItem('medVokabeln_favs')) || [];
+    return favorites.includes(id);
+}
