@@ -209,5 +209,44 @@ const vocabularyData = [
     { "id": 182, "category": "Dialoge", "german": "Wann treten die Schmerzen meistens auf?", "type": "Satz", "turkish": "Ağrılar çoğunlukla ne zaman ortaya çıkıyor?", "example": "Morgens oder abends? Wann treten die Schmerzen auf?" },
     { "id": 183, "category": "Dialoge", "german": "Haben Sie Schwierigkeiten beim Atmen?", "type": "Satz", "turkish": "Nefes alırken zorluk çekiyor musunuz?", "example": "Sagen Sie mir: Haben Sie Schwierigkeiten beim Atmen?" },
     { "id": 184, "category": "Dialoge", "german": "Ich werde jetzt Ihre Vitalwerte kontrollieren.", "type": "Satz", "turkish": "Şimdi yaşam bulgularınızı (tansiyon, nabız vs.) kontrol edeceğim.", "example": "Einen Moment Geduld, ich werde Ihre Vitalwerte kontrollieren." },
-    { "id": 185, "category": "Dialoge", "german": "Haben Sie jemanden, der Sie heute abholt?", "type": "Satz", "turkish": "Bugün sizi alacak birisi var mı?", "example": "Bei der Entlassung: Haben Sie jemanden, der Sie abholt?" }
+    { "id": 185, "category": "Dialoge", "german": "Haben Sie jemanden, der Sie heute abholt?", "type": "Satz", "turkish": "Bugün sizi alacak birisi var mı?", "example": "Bei der Entlassung: Haben Sie jemanden, der Sie abholt?" },
+    // --- YENİ ANATOMİ KELİMELERİ ---
+    { "id": 186, "category": "Anatomie", "german": "Darm", "type": "Der Nomen", "turkish": "Bağırsak", "example": "Der Patient hat Probleme mit dem Darm." },
+    { "id": 187, "category": "Anatomie", "german": "Bauchspeicheldrüse", "type": "Die Nomen", "turkish": "Pankreas", "example": "Die Bauchspeicheldrüse produziert Insulin." },
+    { "id": 188, "category": "Anatomie", "german": "Gallenblase", "type": "Die Nomen", "turkish": "Safra kesesi", "example": "Die Gallenblase wurde operativ entfernt." },
+    { "id": 189, "category": "Anatomie", "german": "Schilddrüse", "type": "Die Nomen", "turkish": "Tiroid bezi", "example": "Ihre Schilddrüse funktioniert normal." },
+    { "id": 190, "category": "Anatomie", "german": "Becken", "type": "Das Nomen", "turkish": "Leğen kemiği / Pelvis", "example": "Er hat eine Fraktur im Becken." },
+
+    // --- YENİ HASTALIKLAR & SEMPTOMLAR ---
+    { "id": 191, "category": "Krankheiten", "german": "Lungenentzündung", "type": "Die Nomen", "turkish": "Zatürre", "example": "Verdacht auf eine schwere Lungenentzündung." },
+    { "id": 192, "category": "Krankheiten", "german": "Thrombose", "type": "Die Nomen", "turkish": "Tromboz / Pıhtı", "example": "Wir müssen eine Thrombose verhindern." },
+    { "id": 193, "category": "Krankheiten", "german": "Herzinsuffizienz", "type": "Die Nomen", "turkish": "Kalp yetmezliği", "example": "Der Patient leidet an chronischer Herzinsuffizienz." },
+    { "id": 194, "category": "Symptome", "german": "Schüttelfrost", "type": "Der Nomen", "turkish": "Titreme / Üşüme nöbeti", "example": "Haben Sie Fieber und Schüttelfrost?" },
+    { "id": 195, "category": "Symptome", "german": "Herzrasen", "type": "Das Nomen", "turkish": "Çarpıntı", "example": "Sie klagt über plötzliches Herzrasen." },
+    { "id": 196, "category": "Symptome", "german": "Erschöpfung", "type": "Die Nomen", "turkish": "Tükenmişlik / Aşırı yorgunluk", "example": "Chronische Erschöpfung ist ein Symptom." },
+
+    // --- YENİ EYLEMLER (HEMŞİRELİK İŞLEMLERİ) ---
+    { "id": 197, "category": "Aktion", "german": "Blut abnehmen", "type": "Das Verb", "turkish": "Kan almak", "example": "Ich werde Ihnen jetzt Blut abnehmen." },
+    { "id": 198, "category": "Aktion", "german": "Beobachten", "type": "Das Verb", "turkish": "Gözlemlemek", "example": "Wir müssen den Patienten über Nacht beobachten." },
+    { "id": 199, "category": "Aktion", "german": "Inhalieren", "type": "Das Verb", "turkish": "İnhale etmek / Buhar almak", "example": "Der Patient muss dreimal täglich inhalieren." },
+    { "id": 200, "category": "Aktion", "german": "Beruhigen", "type": "Das Verb", "turkish": "Sakinleştirmek / Teselli etmek", "example": "Wir müssen den weinenden Patienten beruhigen." },
+
+    // --- YENİ EKİPMANLAR & TERİMLER ---
+    { "id": 201, "category": "Ausrüstung", "german": "Stauschlauch", "type": "Der Nomen", "turkish": "Turnike lastiği (Kan alırken)", "example": "Ich lege jetzt den Stauschlauch an." },
+    { "id": 202, "category": "Ausrüstung", "german": "Kompresse", "type": "Die Nomen", "turkish": "Kompres / Gazlı bez", "example": "Geben Sie mir bitte eine sterile Kompresse." },
+    { "id": 203, "category": "Ausrüstung", "german": "Trage", "type": "Die Nomen", "turkish": "Sedye", "example": "Legen Sie den Patienten auf die Trage." },
+    { "id": 204, "category": "Ausrüstung", "german": "Rollator", "type": "Der Nomen", "turkish": "Yürüteç", "example": "Bitte benutzen Sie Ihren Rollator." },
+    { "id": 205, "category": "Allgemein", "german": "Patientenakte", "type": "Die Nomen", "turkish": "Hasta dosyası", "example": "Die Befunde stehen in der Patientenakte." },
+    { "id": 206, "category": "Allgemein", "german": "Entlassungsbrief", "type": "Der Nomen", "turkish": "Taburcu mektubu / Epikriz", "example": "Ihr Entlassungsbrief ist fertig." },
+    { "id": 207, "category": "Allgemein", "german": "Angehörige", "type": "Die Nomen (Plural)", "turkish": "Hasta yakınları", "example": "Die Angehörigen warten draußen." },
+    { "id": 208, "category": "Allgemein", "german": "Dienstübergabe", "type": "Die Nomen", "turkish": "Nöbet teslimi", "example": "Wir sind gerade in der Dienstübergabe." },
+
+    // --- YENİ HAYAT KURTARAN DİYALOGLAR ---
+    { "id": 209, "category": "Dialoge", "german": "Wir brauchen eine Urinprobe von Ihnen.", "type": "Satz", "turkish": "Sizden idrar numunesi almamız gerekiyor.", "example": "Für das Labor: Wir brauchen eine Urinprobe von Ihnen." },
+    { "id": 210, "category": "Dialoge", "german": "Ich stelle Ihr Bett jetzt etwas höher.", "type": "Satz", "turkish": "Şimdi yatağınızı biraz yükseltiyorum.", "example": "Zum Essen: Ich stelle Ihr Bett jetzt etwas höher." },
+    { "id": 211, "category": "Dialoge", "german": "Bitte drücken Sie diesen Tupfer fest auf die Wunde.", "type": "Satz", "turkish": "Lütfen bu pamuğu/bezi yaranın üzerine sıkıca bastırın.", "example": "Nach der Blutabnahme: Bitte drücken Sie diesen Tupfer fest auf die Wunde." },
+    { "id": 212, "category": "Dialoge", "german": "Darf ich Ihnen beim Essen helfen?", "type": "Satz", "turkish": "Yemek yerken size yardım edebilir miyim?", "example": "Das Essen ist da, darf ich Ihnen beim Essen helfen?" },
+    { "id": 213, "category": "Dialoge", "german": "Der Eingriff ist gut verlaufen.", "type": "Satz", "turkish": "Müdahale/Ameliyat iyi geçti.", "example": "Machen Sie sich keine Sorgen, der Eingriff ist gut verlaufen." },
+    { "id": 214, "category": "Dialoge", "german": "Haben Sie Ihre Wertsachen im Safe eingeschlossen?", "type": "Satz", "turkish": "Değerli eşyalarınızı kasaya kilitlediniz mi?", "example": "Vor der OP: Haben Sie Ihre Wertsachen im Safe eingeschlossen?" },
+    { "id": 215, "category": "Dialoge", "german": "Klingeln Sie, wenn die Infusion leer ist.", "type": "Satz", "turkish": "Serum bittiğinde zile basın.", "example": "Ganz wichtig: Klingeln Sie, wenn die Infusion leer ist." }
 ];
