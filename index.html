@@ -39,24 +39,63 @@
         .fav-btn-main.active { color: #f1c40f; filter: none; opacity: 1; }
         .fav-btn-main.inactive { color: #ccc; filter: grayscale(100%); opacity: 0.4; }
 
-        /* --- MENÜ HİZALAMA ÇÖZÜMÜ --- */
+        /* Menü Hizalama */
         .mode-switch {
             display: flex;
-            flex-wrap: wrap; /* Mobilde taşanları alt satıra indirir */
+            flex-wrap: wrap;
             justify-content: center;
             gap: 10px;
-            margin: 20px auto;
+            margin: 15px auto 20px auto;
             max-width: 800px;
             padding: 0 15px;
         }
         .mode-btn {
-            white-space: nowrap !important; /* Kelimenin ikiye bölünmesini engeller */
+            white-space: nowrap !important;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 10px 15px; /* Buton içi boşlukları dengeledik */
-            font-size: 0.9rem; /* Metni bir tık küçülttük ki hepsi sığsın */
+            padding: 10px 15px;
+            font-size: 0.9rem;
         }
+
+        /* --- GÜNÜN KELİMESİ (Wort des Tages) CSS --- */
+        .wotd-container {
+            max-width: 800px;
+            margin: 15px auto 5px auto;
+            padding: 0 15px;
+        }
+        .wotd-card {
+            background: linear-gradient(135deg, rgba(234, 88, 12, 0.1), rgba(234, 88, 12, 0.03));
+            border: 2px dashed var(--primary);
+            border-radius: 16px;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            transition: transform 0.2s;
+        }
+        .wotd-card:hover { transform: translateY(-2px); }
+        .wotd-left { display: flex; flex-direction: column; }
+        .wotd-title { font-size: 0.85rem; color: var(--primary); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; display: flex; align-items: center; gap: 5px; }
+        .wotd-german { font-size: 1.4rem; font-weight: 800; color: var(--text-dark); margin-bottom: 2px; }
+        .wotd-turkish { font-size: 0.95rem; color: var(--text-muted); font-weight: 600; }
+        
+        .wotd-speak-btn {
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.3rem;
+            transition: 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .wotd-speak-btn:hover { border-color: var(--primary); color: var(--primary); transform: scale(1.1); }
     </style>
 </head>
 <body>
@@ -77,13 +116,24 @@
         </div>
     </header>
 
+    <div class="wotd-container">
+        <div class="wotd-card">
+            <div class="wotd-left">
+                <div class="wotd-title">📅 Günün Kelimesi</div>
+                <div class="wotd-german" id="wotdGerman">Yükleniyor...</div>
+                <div class="wotd-turkish" id="wotdTurkish">...</div>
+            </div>
+            <button class="wotd-speak-btn" onclick="speakWotd()" title="Telaffuzu Dinle">🔊</button>
+        </div>
+    </div>
+
     <div class="mode-switch">
         <button class="mode-btn active" id="btnFlashcard" onclick="switchMode('flashcard')">📇 Kartlar</button>
         <button class="mode-btn" id="btnQuiz" onclick="switchMode('quiz')">✍️ Sınav</button>
         <a href="anatomie.html" class="mode-btn" style="text-decoration:none;">🧍 Anatomi</a>
         <a href="spiel.html" class="mode-btn" style="text-decoration:none;">🎮 Oyun</a>
         <a href="training.html" class="mode-btn" style="text-decoration:none;">🧠 Antrenman</a>
-        <a href="favoriten.html" class="mode-btn" style="text-decoration:none;">⭐ Zor Kelimeler</a>
+        <a href="favoriten.html" class="mode-btn" style="text-decoration:none;">⭐ Favoriler</a>
     </div>
 
     <div class="dashboard">
@@ -181,6 +231,35 @@
             document.getElementById('cookieBanner').style.display = 'none';
         }
 
+        // --- GÜNÜN KELİMESİ (WotD) ALGORİTMASI ---
+        function initWotd() {
+            if (typeof vocabularyData === 'undefined' || vocabularyData.length === 0) return;
+            
+            // 1970'den bu yana geçen gün sayısını hesaplıyoruz
+            // Böylece gece 00:00 olduğu an kelime herkes için aynı anda değişiyor!
+            const epochDay = Math.floor(Date.now() / (1000 * 60 * 60 * 24));
+            
+            // Gün sayısını kelime havuzuna bölüp kalanı alıyoruz. Sırayla dönmesini sağlıyor.
+            const wotdIndex = epochDay % vocabularyData.length;
+            const wotd = vocabularyData[wotdIndex];
+            
+            document.getElementById('wotdGerman').innerText = wotd.german;
+            document.getElementById('wotdTurkish').innerText = wotd.turkish;
+            
+            // Butona basıldığında okutmak için global bir değişkene atıyoruz
+            window.currentWotdText = wotd.german;
+        }
+
+        function speakWotd() {
+            if (window.currentWotdText && 'speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(window.currentWotdText);
+                utterance.lang = 'de-DE';
+                utterance.rate = 0.85; // Öğrenme hızı
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
         // --- YILDIZ MANTIĞI ---
         function getDisplayedWordId() {
             const currentGermanWord = document.getElementById('germanWord').innerText.trim();
@@ -210,8 +289,10 @@
             }
         }
 
-        // Kelime her değiştiğinde yıldızı kontrol eden Gözlemci (Observer)
+        // Sayfa yüklendiğinde hem gözlemciyi hem de Günün Kelimesi'ni başlat
         window.addEventListener('DOMContentLoaded', () => {
+            initWotd(); // Günün Kelimesi motoru çalışsın!
+
             const observer = new MutationObserver(() => {
                 refreshStarUI();
             });
@@ -219,7 +300,6 @@
             if (target) {
                 observer.observe(target, { characterData: true, childList: true, subtree: true });
             }
-            // İlk açılış için
             setTimeout(refreshStarUI, 500);
         });
     </script>
