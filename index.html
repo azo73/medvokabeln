@@ -21,6 +21,23 @@
     <link rel="stylesheet" href="style.css?v=1">
     <style>
         @keyframes popInModal { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        
+        /* --- YENİ YILDIZ CSS EKLENDİ --- */
+        .fav-btn-main {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 2rem; /* Ana sayfada biraz daha büyük dursun */
+            cursor: pointer;
+            z-index: 10;
+            transition: transform 0.2s;
+            text-shadow: 0 0 5px rgba(0,0,0,0.1);
+        }
+        .fav-btn-main:hover { transform: scale(1.2); }
+        .fav-btn-main.active { color: #f1c40f; filter: none; opacity: 1; }
+        .fav-btn-main.inactive { color: #ccc; filter: grayscale(100%); opacity: 0.4; }
     </style>
 </head>
 <body>
@@ -46,13 +63,13 @@
         <button class="mode-btn" id="btnQuiz" onclick="switchMode('quiz')">✍️ Sınav</button>
         <a href="anatomie.html" class="mode-btn" style="text-decoration:none; text-align:center; display:flex; justify-content:center; align-items:center;">🧍 Anatomi</a>
         <a href="spiel.html" class="mode-btn" style="text-decoration:none; text-align:center; display:flex; justify-content:center; align-items:center;">🎮 Oyun</a>
-        <a href="ekle.html" class="mode-btn" style="text-decoration:none; text-align:center; display:flex; justify-content:center; align-items:center;">🌍 Topluluk</a>
+        <a href="training.html" class="mode-btn" style="text-decoration:none; text-align:center; display:flex; justify-content:center; align-items:center;">🧠 Antrenman</a>
+        <a href="favoriten.html" class="mode-btn" style="text-decoration:none; text-align:center; display:flex; justify-content:center; align-items:center;">⭐ Zor Kelimeler</a>
     </div>
 
     <div class="dashboard">
         <select id="categorySelect" onchange="changeCategory()">
             <option value="Alle">Tüm Kategoriler</option>
-            <option value="Zorlandiklarim">⚠️ Zorlandıklarım</option>
             <option value="Allgemein">Genel Hastane</option>
             <option value="Anatomie">Anatomi</option>
             <option value="Aktion">Fiiller / Eylemler</option>
@@ -70,6 +87,8 @@
 
     <div id="flashcardSection">
         <div class="flashcard-container" onclick="flipCard()">
+            <button id="mainFavBtn" class="fav-btn-main inactive" onclick="event.stopPropagation(); toggleMainFav();">⭐</button>
+            
             <div class="flashcard" id="myCard">
                 <div class="card-face card-front">
                     <div class="learned-badge" id="frontBadge">✅</div>
@@ -164,6 +183,39 @@
             localStorage.setItem('cookiesAccepted', 'yes');
             document.getElementById('cookieBanner').style.display = 'none';
         }
+        
+        // --- ANA SAYFA YILDIZ GÜNCELLEME KODU ---
+        function updateMainFavStar() {
+            if(typeof currentWordIndex === 'undefined' || !currentList || currentList.length === 0) return;
+            const word = currentList[currentWordIndex];
+            const btn = document.getElementById('mainFavBtn');
+            if(typeof isFavorite === 'function' && isFavorite(word.id)) {
+                btn.className = "fav-btn-main active";
+            } else {
+                btn.className = "fav-btn-main inactive";
+            }
+        }
+
+        function toggleMainFav() {
+            if(typeof currentWordIndex === 'undefined' || !currentList || currentList.length === 0) return;
+            const word = currentList[currentWordIndex];
+            if(typeof toggleFavorite === 'function') toggleFavorite(word.id);
+            updateMainFavStar(); // Yıldıza basılınca rengini hemen değiştir
+        }
+        
+        // Asıl script.js yüklendikten sonra çalışsın diye setInterval ile kontrol ediyoruz
+        const checkLoad = setInterval(() => {
+            if(typeof loadCard !== 'undefined') {
+                clearInterval(checkLoad);
+                const originalLoadCard = loadCard;
+                // Orijinal loadCard fonksiyonunu eziyoruz ki kart değişince yıldız da güncellensin
+                loadCard = function() {
+                    originalLoadCard();
+                    updateMainFavStar();
+                }
+            }
+        }, 100);
+
     </script>
 
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
