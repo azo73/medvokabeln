@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zor Kelimelerim ⭐ | PflegeDeutsch</title>
+    <link rel="stylesheet" href="style.css?v=2">
+    <style>
+        .fav-header { text-align: center; margin: 30px 0; }
+        .word-list { max-width: 800px; margin: 0 auto; padding: 15px; }
+        .word-card { 
+            background: var(--card-bg); 
+            border: 2px solid var(--border-color); 
+            border-radius: 12px; 
+            padding: 15px; 
+            margin-bottom: 10px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+        .empty-state { text-align: center; color: var(--text-muted); margin-top: 50px; }
+    </style>
+</head>
+<body onload="loadFavorites()">
+
+    <div style="padding: 15px;">
+        <a href="index.html" style="text-decoration:none; color:var(--primary); font-weight:bold;">← Ana Sayfaya Dön</a>
+    </div>
+
+    <div class="fav-header">
+        <h1>⭐ Zor Kelimelerim</h1>
+        <p>Yıldızladığın ve çalışman gereken kelimeler burada toplanır.</p>
+    </div>
+
+    <div id="favContainer" class="word-list">
+        </div>
+
+    <script src="data.js"></script>
+    <script>
+        function loadFavorites() {
+            const container = document.getElementById('favContainer');
+            const favorites = JSON.parse(localStorage.getItem('medVokabeln_favs')) || [];
+            
+            if (favorites.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <p>Henüz hiçbir kelimeyi yıldızlamadın.</p>
+                        <p>Kelime listesindeki yıldızlara basarak buraya ekleyebilirsin!</p>
+                    </div>`;
+                return;
+            }
+
+            // Sadece favori listesindeki ID'lere sahip kelimeleri filtrele
+            const favWords = vocabularyData.filter(w => favorites.includes(w.id));
+            
+            container.innerHTML = '';
+            favWords.forEach(word => {
+                container.innerHTML += `
+                    <div class="word-card">
+                        <div>
+                            <div style="font-weight:bold; color:var(--primary);">${word.german}</div>
+                            <div style="font-size:0.9rem;">${word.turkish}</div>
+                        </div>
+                        <button onclick="removeFav(${word.id})" style="background:none; border:none; font-size:1.2rem; cursor:pointer;">❌</button>
+                    </div>
+                `;
+            });
+        }
+
+        function removeFav(id) {
+            let favorites = JSON.parse(localStorage.getItem('medVokabeln_favs')) || [];
+            favorites = favorites.filter(favId => favId !== id);
+            localStorage.setItem('medVokabeln_favs', JSON.stringify(favorites));
+            loadFavorites(); // Sayfayı yenile
+        }
+    </script>
+</body>
+</html>
