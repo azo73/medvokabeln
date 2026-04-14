@@ -38,6 +38,25 @@
         .fav-btn-main:hover { transform: scale(1.2); }
         .fav-btn-main.active { color: #f1c40f; filter: none; opacity: 1; }
         .fav-btn-main.inactive { color: #ccc; filter: grayscale(100%); opacity: 0.4; }
+
+        /* --- MENÜ HİZALAMA ÇÖZÜMÜ --- */
+        .mode-switch {
+            display: flex;
+            flex-wrap: wrap; /* Mobilde taşanları alt satıra indirir */
+            justify-content: center;
+            gap: 10px;
+            margin: 20px auto;
+            max-width: 800px;
+            padding: 0 15px;
+        }
+        .mode-btn {
+            white-space: nowrap !important; /* Kelimenin ikiye bölünmesini engeller */
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 15px; /* Buton içi boşlukları dengeledik */
+            font-size: 0.9rem; /* Metni bir tık küçülttük ki hepsi sığsın */
+        }
     </style>
 </head>
 <body>
@@ -61,10 +80,10 @@
     <div class="mode-switch">
         <button class="mode-btn active" id="btnFlashcard" onclick="switchMode('flashcard')">📇 Kartlar</button>
         <button class="mode-btn" id="btnQuiz" onclick="switchMode('quiz')">✍️ Sınav</button>
-        <a href="anatomie.html" class="mode-btn" style="text-decoration:none; text-align:center; display:flex; justify-content:center; align-items:center;">🧍 Anatomi</a>
-        <a href="spiel.html" class="mode-btn" style="text-decoration:none; text-align:center; display:flex; justify-content:center; align-items:center;">🎮 Oyun</a>
-        <a href="training.html" class="mode-btn" style="text-decoration:none; text-align:center; display:flex; justify-content:center; align-items:center;">🧠 Antrenman</a>
-        <a href="favoriten.html" class="mode-btn" style="text-decoration:none; text-align:center; display:flex; justify-content:center; align-items:center;">⭐ Favoriler</a>
+        <a href="anatomie.html" class="mode-btn" style="text-decoration:none;">🧍 Anatomi</a>
+        <a href="spiel.html" class="mode-btn" style="text-decoration:none;">🎮 Oyun</a>
+        <a href="training.html" class="mode-btn" style="text-decoration:none;">🧠 Antrenman</a>
+        <a href="favoriten.html" class="mode-btn" style="text-decoration:none;">⭐ Zor Kelimeler</a>
     </div>
 
     <div class="dashboard">
