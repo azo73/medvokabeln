@@ -248,5 +248,51 @@ const vocabularyData = [
     { "id": 212, "category": "Dialoge", "german": "Darf ich Ihnen beim Essen helfen?", "type": "Satz", "turkish": "Yemek yerken size yardım edebilir miyim?", "example": "Das Essen ist da, darf ich Ihnen beim Essen helfen?" },
     { "id": 213, "category": "Dialoge", "german": "Der Eingriff ist gut verlaufen.", "type": "Satz", "turkish": "Müdahale/Ameliyat iyi geçti.", "example": "Machen Sie sich keine Sorgen, der Eingriff ist gut verlaufen." },
     { "id": 214, "category": "Dialoge", "german": "Haben Sie Ihre Wertsachen im Safe eingeschlossen?", "type": "Satz", "turkish": "Değerli eşyalarınızı kasaya kilitlediniz mi?", "example": "Vor der OP: Haben Sie Ihre Wertsachen im Safe eingeschlossen?" },
-    { "id": 215, "category": "Dialoge", "german": "Klingeln Sie, wenn die Infusion leer ist.", "type": "Satz", "turkish": "Serum bittiğinde zile basın.", "example": "Ganz wichtig: Klingeln Sie, wenn die Infusion leer ist." }
+    { "id": 215, "category": "Dialoge", "german": "Klingeln Sie, wenn die Infusion leer ist.", "type": "Satz", "turkish": "Serum bittiğinde zile basın.", "example": "Ganz wichtig: Klingeln Sie, wenn die Infusion leer ist." },
+    // --- YENİ ANATOMİ (İÇ ORGANLAR & SİSTEMLER) ---
+    { "id": 216, "category": "Anatomie", "german": "Kehlkopf", "type": "Der Nomen", "turkish": "Gırtlak", "example": "Der Tubus muss durch den Kehlkopf." },
+    { "id": 217, "category": "Anatomie", "german": "Speiseröhre", "type": "Die Nomen", "turkish": "Yemek borusu", "example": "Die Magensonde geht durch die Speiseröhre." },
+    { "id": 218, "category": "Anatomie", "german": "Luftröhre", "type": "Die Nomen", "turkish": "Soluk borusu", "example": "Er hat sich verschluckt, das Essen ist in der Luftröhre." },
+    { "id": 219, "category": "Anatomie", "german": "Blinddarm", "type": "Der Nomen", "turkish": "Kör bağırsak / Apandis", "example": "Der Blinddarm muss operiert werden." },
+    { "id": 220, "category": "Anatomie", "german": "Zwerchfell", "type": "Das Nomen", "turkish": "Diyafram", "example": "Das Zwerchfell hilft bei der Atmung." },
+
+    // --- YENİ SEMPTOMLAR & HASTALIKLAR ---
+    { "id": 221, "category": "Symptome", "german": "Hautausschlag", "type": "Der Nomen", "turkish": "Cilt döküntüsü", "example": "Der Patient hat einen allergischen Hautausschlag." },
+    { "id": 222, "category": "Krankheiten", "german": "Gehirnerschütterung", "type": "Die Nomen", "turkish": "Beyin sarsıntısı", "example": "Nach dem Sturz hat er eine Gehirnerschütterung." },
+    { "id": 223, "category": "Symptome", "german": "Sodbrennen", "type": "Das Nomen", "turkish": "Mide yanması", "example": "Haben Sie oft Sodbrennen nach dem Essen?" },
+    { "id": 224, "category": "Symptome", "german": "Blähungen", "type": "Die Nomen (Plural)", "turkish": "Gaz / Şişkinlik", "example": "Der Patient klagt über starke Blähungen." },
+    { "id": 225, "category": "Allgemein", "german": "Narbe", "type": "Die Nomen", "turkish": "Yara izi / Ameliyat izi", "example": "Die Narbe heilt sehr gut." },
+
+    // --- YENİ EYLEMLER (TIBBİ MÜDAHALELER) ---
+    { "id": 226, "category": "Aktion", "german": "Abhören", "type": "Das Verb", "turkish": "Dinlemek (Stetoskopla)", "example": "Der Arzt wird jetzt Ihre Lunge abhören." },
+    { "id": 227, "category": "Aktion", "german": "Intubieren", "type": "Das Verb", "turkish": "Entübe etmek", "example": "Der Notarzt musste den Patienten intubieren." },
+    { "id": 228, "category": "Aktion", "german": "Verabreichen", "type": "Das Verb", "turkish": "Uygulamak / İlaç vermek", "example": "Ich werde Ihnen jetzt das Schmerzmittel verabreichen." },
+    { "id": 229, "category": "Aktion", "german": "Fixieren", "type": "Das Verb", "turkish": "Sabitlemek", "example": "Wir müssen den Arm für die Infusion fixieren." },
+    { "id": 230, "category": "Aktion", "german": "Reanimieren", "type": "Das Verb", "turkish": "Yeniden canlandırmak (CPR)", "example": "Das Team musste den Patienten reanimieren." },
+
+    // --- YENİ EKİPMANLAR & İLAÇLAR ---
+    { "id": 231, "category": "Ausrüstung", "german": "Sauerstoffflasche", "type": "Die Nomen", "turkish": "Oksijen tüpü", "example": "Die Sauerstoffflasche ist fast leer." },
+    { "id": 232, "category": "Ausrüstung", "german": "Skalpell", "type": "Das Nomen", "turkish": "Neşter", "example": "Der Chirurg verlangt das Skalpell." },
+    { "id": 233, "category": "Ausrüstung", "german": "Pinzette", "type": "Die Nomen", "turkish": "Penset / Cımbız", "example": "Geben Sie mir bitte die sterile Pinzette." },
+    { "id": 234, "category": "Ausrüstung", "german": "Mundschutz", "type": "Der Nomen", "turkish": "Cerrahi maske", "example": "Bitte tragen Sie einen Mundschutz im Zimmer." },
+    { "id": 235, "category": "Medikamente", "german": "Abführmittel", "type": "Das Nomen", "turkish": "Müshil", "example": "Der Arzt hat ein Abführmittel verschrieben." },
+    { "id": 236, "category": "Medikamente", "german": "Betäubung", "type": "Die Nomen", "turkish": "Anestezi / Uyuşturma", "example": "Die örtliche Betäubung wirkt in wenigen Minuten." },
+
+    // --- YENİ HASTANE TERİMLERİ ---
+    { "id": 237, "category": "Allgemein", "german": "Schweigepflicht", "type": "Die Nomen", "turkish": "Sır saklama yükümlülüğü / Mahremiyet", "example": "Ärzte und Pflegekräfte unterliegen der Schweigepflicht." },
+    { "id": 238, "category": "Allgemein", "german": "Einverständniserklärung", "type": "Die Nomen", "turkish": "Onam formu", "example": "Bitte unterschreiben Sie diese Einverständniserklärung." },
+    { "id": 239, "category": "Allgemein", "german": "Krankenwagen", "type": "Der Nomen", "turkish": "Ambulans", "example": "Der Krankenwagen ist in fünf Minuten da." },
+    { "id": 240, "category": "Allgemein", "german": "Pflegeplan", "type": "Der Nomen", "turkish": "Bakım planı", "example": "Wir müssen den Pflegeplan des Patienten anpassen." },
+
+    // --- YENİ GÜNLÜK HASTA DİYALOGLARI ---
+    { "id": 241, "category": "Dialoge", "german": "Können Sie sich bitte aufsetzen?", "type": "Satz", "turkish": "Lütfen oturabilir misiniz?", "example": "Zum Abhören der Lunge: Können Sie sich bitte aufsetzen?" },
+    { "id": 242, "category": "Dialoge", "german": "Haben Sie das Gefühl, dass Sie sich übergeben müssen?", "type": "Satz", "turkish": "Kusacakmış gibi hissediyor musunuz?", "example": "Sie sehen blass aus, haben Sie das Gefühl, dass Sie sich übergeben müssen?" },
+    { "id": 243, "category": "Dialoge", "german": "Ich bringe Sie jetzt auf Ihr Zimmer.", "type": "Satz", "turkish": "Sizi şimdi odanıza götürüyorum.", "example": "Die Untersuchung ist fertig, ich bringe Sie jetzt auf Ihr Zimmer." },
+    { "id": 244, "category": "Dialoge", "german": "Bitte nicht kratzen!", "type": "Satz", "turkish": "Lütfen kaşımayın!", "example": "Auch wenn es juckt, bitte nicht kratzen!" },
+    { "id": 245, "category": "Dialoge", "german": "Wie ist Ihr Name und Ihr Geburtsdatum?", "type": "Satz", "turkish": "Adınız ve doğum tarihiniz nedir?", "example": "Zur Kontrolle: Wie ist Ihr Name und Ihr Geburtsdatum?" },
+    { "id": 246, "category": "Dialoge", "german": "Haben Sie Prothesen, eine Brille oder ein Hörgerät?", "type": "Satz", "turkish": "Proteziniz, gözlüğünüz veya işitme cihazınız var mı?", "example": "Vor dem OP: Haben Sie Prothesen, eine Brille oder ein Hörgerät?" },
+    { "id": 247, "category": "Dialoge", "german": "Wir machen jetzt ein EKG.", "type": "Satz", "turkish": "Şimdi EKG çekeceğiz.", "example": "Entspannen Sie sich, wir machen jetzt ein EKG." },
+    { "id": 248, "category": "Dialoge", "german": "Der Tropf läuft zu schnell, ich stelle ihn ein.", "type": "Satz", "turkish": "Serum çok hızlı akıyor, ayarlıyorum.", "example": "Einen Moment, der Tropf läuft zu schnell, ich stelle ihn ein." },
+    { "id": 249, "category": "Dialoge", "german": "Haben Sie heute schon Stuhlgang gehabt?", "type": "Satz", "turkish": "Bugün büyük tuvaletinize çıktınız mı?", "example": "Wichtige Frage für die Verdauung: Haben Sie heute schon Stuhlgang gehabt?" },
+    { "id": 250, "category": "Dialoge", "german": "Wir müssen Ihre Temperatur noch einmal messen.", "type": "Satz", "turkish": "Ateşinizi bir kez daha ölçmemiz gerekiyor.", "example": "Sie fühlen sich heiß an, wir müssen Ihre Temperatur noch einmal messen." }
 ];
