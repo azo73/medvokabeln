@@ -22,14 +22,14 @@
     <style>
         @keyframes popInModal { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
         
-        /* --- YENİ YILDIZ CSS EKLENDİ --- */
+        /* Favori Yıldızı CSS */
         .fav-btn-main {
             position: absolute;
             top: 15px;
             right: 15px;
             background: none;
             border: none;
-            font-size: 2rem; /* Ana sayfada biraz daha büyük dursun */
+            font-size: 2rem;
             cursor: pointer;
             z-index: 10;
             transition: transform 0.2s;
@@ -64,12 +64,13 @@
         <a href="anatomie.html" class="mode-btn" style="text-decoration:none; text-align:center; display:flex; justify-content:center; align-items:center;">🧍 Anatomi</a>
         <a href="spiel.html" class="mode-btn" style="text-decoration:none; text-align:center; display:flex; justify-content:center; align-items:center;">🎮 Oyun</a>
         <a href="training.html" class="mode-btn" style="text-decoration:none; text-align:center; display:flex; justify-content:center; align-items:center;">🧠 Antrenman</a>
-        <a href="favoriten.html" class="mode-btn" style="text-decoration:none; text-align:center; display:flex; justify-content:center; align-items:center;">⭐ Zor Kelimeler</a>
+        <a href="favoriten.html" class="mode-btn" style="text-decoration:none; text-align:center; display:flex; justify-content:center; align-items:center;">⭐ Favoriler</a>
     </div>
 
     <div class="dashboard">
         <select id="categorySelect" onchange="changeCategory()">
             <option value="Alle">Tüm Kategoriler</option>
+            <option value="Zorlandiklarim">⚠️ Zorlandıklarım</option>
             <option value="Allgemein">Genel Hastane</option>
             <option value="Anatomie">Anatomi</option>
             <option value="Aktion">Fiiller / Eylemler</option>
@@ -87,7 +88,7 @@
 
     <div id="flashcardSection">
         <div class="flashcard-container" onclick="flipCard()">
-            <button id="mainFavBtn" class="fav-btn-main inactive" onclick="event.stopPropagation(); toggleMainFav();">⭐</button>
+            <button id="mainFavBtn" class="fav-btn-main inactive" onclick="event.stopPropagation(); handleFavClick();">⭐</button>
             
             <div class="flashcard" id="myCard">
                 <div class="card-face card-front">
@@ -137,36 +138,7 @@
     </footer>
 
     <div id="shareModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:10000; justify-content:center; align-items:center; padding:20px;">
-        <div style="background:var(--card-bg); width:100%; max-width:350px; border-radius:24px; padding:25px; position:relative; text-align:center; animation:popInModal 0.3s forwards;">
-            <button onclick="closeShareModal()" style="position:absolute; top:15px; right:15px; background:none; border:none; font-size:1.5rem; color:var(--text-muted); cursor:pointer;">✕</button>
-            
-            <div style="font-size:3.5rem; margin-bottom:5px;" id="modalRankEmoji">🏆</div>
-            <h2 style="color:var(--primary); margin-bottom:5px;" id="modalRankName">Senin Başarın</h2>
-            <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:20px;">Gelişimini arkadaşlarınla paylaş!</p>
-            
-            <div style="background:var(--switch-bg); border-radius:16px; padding:15px; margin-bottom:20px;">
-                <div style="display:flex; justify-content:space-between; margin-bottom:10px; border-bottom:1px solid var(--border-color); padding-bottom:5px;">
-                    <span style="color:var(--text-dark); font-weight:600;">🔥 Günlük Seri:</span>
-                    <strong id="modalStreak" style="color:var(--text-dark);">0 Gün</strong>
-                </div>
-                <div style="display:flex; justify-content:space-between; margin-bottom:10px; border-bottom:1px solid var(--border-color); padding-bottom:5px;">
-                    <span style="color:var(--text-dark); font-weight:600;">✅ Öğrenilen:</span>
-                    <strong id="modalLearned" style="color:var(--success);">0 Kelime</strong>
-                </div>
-                <div style="display:flex; justify-content:space-between;">
-                    <span style="color:var(--text-dark); font-weight:600;">⚠️ Zorlandığın:</span>
-                    <strong id="modalDiff" style="color:var(--danger);">0 Kelime</strong>
-                </div>
-            </div>
-
-            <button onclick="shareOnWhatsApp()" style="width:100%; background:#25D366; color:white; border:none; padding:12px; border-radius:12px; font-weight:bold; margin-bottom:10px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px;">
-                WhatsApp'ta Paylaş
-            </button>
-            <button onclick="shareGeneral()" style="width:100%; background:var(--primary); color:white; border:none; padding:12px; border-radius:12px; font-weight:bold; cursor:pointer;">
-                Diğer (Instagram / Hikaye)
-            </button>
         </div>
-    </div>
 
     <div id="cookieBanner" style="position: fixed; bottom: 0; left: 0; width: 100%; background: var(--text-dark); color: white; padding: 15px 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 9999; box-shadow: 0 -4px 10px rgba(0,0,0,0.2);">
         <p style="font-size: 0.85rem; text-align: center; margin-bottom: 10px; max-width: 600px;">
@@ -175,7 +147,13 @@
         <button onclick="acceptCookies()" style="background: var(--success); color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer;">Akzeptieren (Kabul Et)</button>
     </div>
 
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
+    <script src="data.js?v=1"></script>
+    <script src="script.js?v=1"></script>
+
     <script>
+        // Çerez kontrolü
         if(localStorage.getItem('cookiesAccepted') === 'yes') {
             document.getElementById('cookieBanner').style.display = 'none';
         }
@@ -183,52 +161,54 @@
             localStorage.setItem('cookiesAccepted', 'yes');
             document.getElementById('cookieBanner').style.display = 'none';
         }
-        
-        // --- ANA SAYFA YILDIZ GÜNCELLEME KODU ---
-        function updateMainFavStar() {
-            if(typeof currentWordIndex === 'undefined' || !currentList || currentList.length === 0) return;
-            const word = currentList[currentWordIndex];
+
+        // --- YILDIZ MANTIĞI ---
+        function getDisplayedWordId() {
+            const currentGermanWord = document.getElementById('germanWord').innerText.trim();
+            const wordObj = vocabularyData.find(w => w.german === currentGermanWord);
+            return wordObj ? wordObj.id : null;
+        }
+
+        function refreshStarUI() {
+            const wordId = getDisplayedWordId();
+            if (!wordId) return;
+
             const btn = document.getElementById('mainFavBtn');
-            if(typeof isFavorite === 'function' && isFavorite(word.id)) {
+            if (typeof isFavorite === 'function' && isFavorite(wordId)) {
                 btn.className = "fav-btn-main active";
             } else {
                 btn.className = "fav-btn-main inactive";
             }
         }
 
-        function toggleMainFav() {
-            if(typeof currentWordIndex === 'undefined' || !currentList || currentList.length === 0) return;
-            const word = currentList[currentWordIndex];
-            if(typeof toggleFavorite === 'function') toggleFavorite(word.id);
-            updateMainFavStar(); // Yıldıza basılınca rengini hemen değiştir
-        }
-        
-        // Asıl script.js yüklendikten sonra çalışsın diye setInterval ile kontrol ediyoruz
-        const checkLoad = setInterval(() => {
-            if(typeof loadCard !== 'undefined') {
-                clearInterval(checkLoad);
-                const originalLoadCard = loadCard;
-                // Orijinal loadCard fonksiyonunu eziyoruz ki kart değişince yıldız da güncellensin
-                loadCard = function() {
-                    originalLoadCard();
-                    updateMainFavStar();
-                }
+        function handleFavClick() {
+            const wordId = getDisplayedWordId();
+            if (!wordId) return;
+
+            if (typeof toggleFavorite === 'function') {
+                toggleFavorite(wordId);
+                refreshStarUI();
             }
-        }, 100);
+        }
 
+        // Kelime her değiştiğinde yıldızı kontrol eden Gözlemci (Observer)
+        window.addEventListener('DOMContentLoaded', () => {
+            const observer = new MutationObserver(() => {
+                refreshStarUI();
+            });
+            const target = document.getElementById('germanWord');
+            if (target) {
+                observer.observe(target, { characterData: true, childList: true, subtree: true });
+            }
+            // İlk açılış için
+            setTimeout(refreshStarUI, 500);
+        });
     </script>
-
-    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
-
-    <script src="data.js?v=1"></script>
-    <script src="script.js?v=1"></script>
 
     <script>
         if ("serviceWorker" in navigator) {
             window.addEventListener("load", function() {
-                navigator.serviceWorker.register("sw.js")
-                .catch(err => console.log("SW Error", err));
+                navigator.serviceWorker.register("sw.js").catch(err => console.log("SW", err));
             });
         }
     </script>
