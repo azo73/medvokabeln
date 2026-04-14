@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Günlük Antrenman 🧠 | PflegeDeutsch</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=2">
+    <style>
+        body { display: flex; flex-direction: column; min-height: 100vh; background-color: var(--bg-color); }
+        .top-bar { padding: 15px; display: flex; justify-content: space-between; align-items: center; max-width: 600px; margin: 0 auto; width: 100%; }
+        .btn-back { font-weight: bold; color: var(--primary); text-decoration: none; }
+        
+        .progress-container { width: 100%; background: var(--border-color); height: 8px; border-radius: 4px; overflow: hidden; margin-top: 10px; }
+        .progress-bar { height: 100%; background: var(--primary); width: 0%; transition: width 0.3s; }
+        
+        .training-area { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 20px; max-width: 600px; margin: 0 auto; width: 100%; }
+        
+        /* Flashcard CSS */
+        .flashcard-container { perspective: 1000px; width: 100%; height: 250px; margin-bottom: 30px; cursor: pointer; }
+        .flashcard { width: 100%; height: 100%; position: relative; transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1); transform-style: preserve-3d; border-radius: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
+        .flashcard-container.flipped .flashcard { transform: rotateX(180deg); }
+        
+        .flashcard-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; text-align: center; background: var(--card-bg); border: 2px solid var(--border-color); }
+        .flashcard-front { z-index: 2; }
+        .flashcard-back { transform: rotateX(180deg); background: var(--switch-bg); border-color: var(--primary); }
+        
+        .word-category { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+        .word-de { font-size: 2rem; font-weight: 800; color: var(--text-dark); margin-bottom: 5px; }
+        .word-type { font-size: 0.9rem; color: var(--text-muted); }
+        
+        .word-tr { font-size: 1.8rem; font-weight: 700; color: var(--primary); margin-bottom: 15px; }
+        .word-ex { font-size: 1rem; color: var(--text-dark); font-style: italic; line-height: 1.4; padding: 10px; background: rgba(0,0,0,0.05); border-radius: 10px; width: 100%; }
+
+        /* SRS Butonları (1-3-6 Sistemi) */
+        .action-buttons { display: none; width: 100%; gap: 10px; }
+        .action-buttons.visible { display: flex; }
+        .btn-srs { flex: 1; padding: 15px 5px; border: none; border-radius: 12px; font-weight: 600; font-size: 1rem; cursor: pointer; transition: 0.2s; color: white; display: flex; flex-direction: column; align-items: center; gap: 5px; }
+        .btn-srs:active { transform: scale(0.95); }
+        
+        .btn-hard { background: #e74c3c; } /* Kırmızı: Zordu (1 Gün) */
+        .btn-good { background: #f39c12; } /* Turuncu: İyi (3 Gün) */
+        .btn-easy { background: #2ecc71; } /* Yeşil: Kolay (6 Gün) */
+        
+        .btn-srs span { font-size: 0.75rem; opacity: 0.9; }
+
+        /* Bitiş Ekranı */
+        .finish-screen { display: none; flex-direction: column; align-items: center; text-align: center; margin-top: 50px; }
+        .finish-icon { font-size: 4rem; margin-bottom: 20px; }
+    </style>
+</head>
+<body onload="initTraining()">
+
+    <div class="top-bar">
+        <a href="index.html" class="btn-back">← Geri</a>
+        <div style="font-weight: bold; color: var(--text-muted);" id="counterText">0 / 0</div>
+    </div>
+    <div style="padding: 0 15px; max-width: 600px; margin: 0 auto; width: 100%;">
+        <div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+    </div>
+
+    <div class="training-area">
+        
+        <div class="flashcard-container" id="cardContainer" onclick="flipCard()">
+            <div class="flashcard">
+                <div class="flashcard-face flashcard-front">
+                    <div class="word-category" id="fCategory">Kategori</div>
+                    <div class="word-de" id="fGerman">Laden...</div>
+                    <div class="word-type" id="fType">Yükleniyor</div>
+                    <p style="margin-top: 20px; font-size: 0.8rem; color: var(--text-muted);">Çevirmek için dokun 👆</p>
+                </div>
+                <div class="flashcard-face flashcard-back">
+                    <div class="word-tr" id="fTurkish">...</div>
+                    <div class="word-ex" id="fExample">...</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="action-buttons" id="actionButtons">
+            <button class="btn-srs btn-hard" onclick="rateWord(1)">Zordu <span>Tekrar Et</span></button>
+            <button class="btn-srs btn-good" onclick="rateWord(3)">İyiydi <span>3 Gün Sonra</span></button>
+            <button class="btn-srs btn-easy" onclick="rateWord(6)">Kolaydı <span>6 Gün Sonra</span></button>
+        </div>
+
+        <div class="finish-screen" id="finishScreen">
+            <div class="finish-icon">🏆</div>
+            <h2 style="color: var(--text-dark);">Tebrikler Başhekim!</h2>
+            <p style="color: var(--text-muted); margin-top: 10px;">Bugünkü antrenmanını tamamladın.<br>Beynin bu kelimeleri kalıcı hafızaya yazıyor.</p>
+            <a href="index.html" style="margin-top: 30px; display: inline-block; padding: 12px 24px; background: var(--primary); color: white; border-radius: 12px; text-decoration: none; font-weight: bold;">Ana Sayfaya Dön</a>
+        </div>
+
+    </div>
+
+    <script src="data.js?v=3"></script>
+    <script>
+        let sessionWords = [];
+        let currentIndex = 0;
+        let srsData = JSON.parse(localStorage.getItem('medVokabeln_srs')) || {};
+
+        function initTheme() {
+            if (localStorage.getItem('medVokabeln_theme') === 'dark') document.body.classList.add('dark-mode');
+        }
+
+        function initTraining() {
+            initTheme();
+            const now = Date.now();
+            
+            // Sadece vakti gelmiş (veya hiç sorulmamış yeni) kelimeleri bul
+            let dueWords = vocabularyData.filter(word => {
+                if (!srsData[word.id]) return true; // Yeni kelime
+                return srsData[word.id].nextReview <= now; // Vakti gelmiş kelime
+            });
+
+            // Kullanıcıyı boğmamak için günlük maksimum 20 kelime seç
+            sessionWords = dueWords.sort(() => 0.5 - Math.random()).slice(0, 20);
+
+            if (sessionWords.length === 0) {
+                showFinishScreen();
+            } else {
+                loadCard(0);
+            }
+        }
+
+        function loadCard(index) {
+            if (index >= sessionWords.length) {
+                showFinishScreen();
+                return;
+            }
+
+            currentIndex = index;
+            const word = sessionWords[index];
+
+            // Ön yüzü doldur
+            document.getElementById('fCategory').innerText = word.category;
+            document.getElementById('fGerman').innerText = word.german;
+            document.getElementById('fType').innerText = word.type;
+
+            // Arka yüzü doldur
+            document.getElementById('fTurkish').innerText = word.turkish;
+            document.getElementById('fExample').innerText = `"${word.example}"`;
+
+            // Kartı düzelt ve butonları gizle
+            document.getElementById('cardContainer').classList.remove('flipped');
+            document.getElementById('actionButtons').classList.remove('visible');
+
+            // İlerlemeyi güncelle
+            document.getElementById('counterText').innerText = `${index + 1} / ${sessionWords.length}`;
+            const progress = ((index) / sessionWords.length) * 100;
+            document.getElementById('progressBar').style.width = `${progress}%`;
+        }
+
+        function flipCard() {
+            const container = document.getElementById('cardContainer');
+            if (!container.classList.contains('flipped')) {
+                container.classList.add('flipped');
+                // Kart dönünce butonları göster
+                setTimeout(() => {
+                    document.getElementById('actionButtons').classList.add('visible');
+                }, 300);
+            }
+        }
+
+        // 1-3-6 Algoritması Motoru
+        function rateWord(days) {
+            const wordId = sessionWords[currentIndex].id;
+            const nextReviewDate = Date.now() + (days * 24 * 60 * 60 * 1000); // Şu anki zaman + seçilen gün
+            
+            srsData[wordId] = {
+                nextReview: nextReviewDate,
+                lastRating: days
+            };
+            
+            localStorage.setItem('medVokabeln_srs', JSON.stringify(srsData));
+            
+            // Sonraki karta geç
+            loadCard(currentIndex + 1);
+        }
+
+        function showFinishScreen() {
+            document.getElementById('cardContainer').style.display = 'none';
+            document.getElementById('actionButtons').style.display = 'none';
+            document.getElementById('progressBar').style.width = '100%';
+            document.getElementById('counterText').innerText = 'Tamamlandı';
+            document.getElementById('finishScreen').style.display = 'flex';
+        }
+    </script>
+</body>
+</html>
