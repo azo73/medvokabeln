@@ -59,6 +59,21 @@ button.action-btn { flex: 1; padding: 12px; font-size: 0.9rem; font-weight: 600;
 .btn-learn { border: 2px solid var(--success); color: var(--success); }
 .btn-learn.active { background: var(--success); color: white; }
 
+.fav-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 10;
+    transition: transform 0.2s;
+}
+.fav-btn:hover { transform: scale(1.2); }
+.fav-btn.active { color: #f1c40f; } /* Altın sarısı yıldız */
+.fav-btn.inactive { color: #ccc; }  /* Gri yıldız */
+
 .quiz-card { background: var(--card-bg); width: 100%; padding: 20px; border-radius: 20px; border: 1px solid var(--border-color); text-align: center; }
 .quiz-question { font-size: 1.6rem; font-weight: 700; color: var(--primary); margin-bottom: 20px; }
 .quiz-options { display: flex; flex-direction: column; gap: 10px; }
