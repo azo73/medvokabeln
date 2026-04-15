@@ -92,13 +92,14 @@ function searchWord() {
     if (query === "") { 
         currentCards = basePool; 
     } else { 
-        currentCards = basePool.filter(word => word.german.toLowerCase().includes(query) || word.turkish.toLowerCase().includes(query)); 
+        currentCards = basePool.filter(word => word.german.toLowerCase().includes(query) || word.turkish.toLowerCase().includes(query) || (word.english && word.english.toLowerCase().includes(query))); 
     }
     
     currentIndex = 0;
     if(currentCards.length === 0) {
+        let currentLang = localStorage.getItem('medVokabeln_lang') || 'tr';
         document.getElementById("germanWord").innerText = selectedCategory === "Zorlandiklarim" ? "Harika! 🎉" : "Yok 😔";
-        document.getElementById("turkishWord").innerText = selectedCategory === "Zorlandiklarim" ? "Zorlandığın kelime kalmadı!" : "Sonuç bulunamadı.";
+        document.getElementById("turkishWord").innerText = selectedCategory === "Zorlandiklarim" ? (currentLang==='en'?"No difficult words!":"Zorlandığın kelime kalmadı!") : (currentLang==='en'?"No results found.":"Sonuç bulunamadı.");
         document.getElementById("wordType").innerText = "";
         document.getElementById("exampleSentence").innerText = "";
     } else { updateCard(); }
@@ -121,27 +122,42 @@ function flipCard() { document.getElementById("myCard").classList.toggle("is-fli
 function nextWord() { currentIndex++; if (currentIndex >= currentCards.length) currentIndex = 0; updateCard(); }
 function prevWord() { currentIndex--; if (currentIndex < 0) currentIndex = currentCards.length - 1; updateCard(); }
 
+// --- ÇOK DİLLİ GÜNCELLEME BURADA ---
 function updateCard() {
     if(currentCards.length === 0) return; 
     document.getElementById("myCard").classList.remove("is-flipped");
     const currentWord = currentCards[currentIndex];
+    
     document.getElementById("germanWord").innerText = currentWord.german;
     document.getElementById("wordType").innerText = currentWord.type || "";
-    document.getElementById("turkishWord").innerText = currentWord.turkish;
+    
+    let currentLang = localStorage.getItem('medVokabeln_lang') || 'tr';
+    
+    // Eğer dil İngilizce seçiliyse ve kelimenin İngilizcesi varsa, onu göster!
+    if (currentLang === 'en' && currentWord.english) {
+        document.getElementById("turkishWord").innerText = currentWord.english;
+    } else {
+        document.getElementById("turkishWord").innerText = currentWord.turkish;
+    }
+
     document.getElementById("exampleSentence").innerText = currentWord.example || "";
     checkLearnedStatus(currentWord.id);
+    
+    if (typeof refreshStarUI === 'function') refreshStarUI();
 }
 
 function checkLearnedStatus(wordId) {
     const isLearned = learnedIds.includes(wordId);
-    const learnBtn = document.getElementById("learnBtn");
+    const learnBtn = document.getElementById("btnLearn");
+    let currentLang = localStorage.getItem('medVokabeln_lang') || 'tr';
+
     if (isLearned) { 
-        learnBtn.innerText = "❌ Geri Al"; 
+        learnBtn.innerText = currentLang === 'en' ? "❌ Undo" : "❌ Geri Al"; 
         learnBtn.classList.add("active"); 
         document.getElementById("frontBadge").style.display = "block"; 
         document.getElementById("backBadge").style.display = "block"; 
     } else { 
-        learnBtn.innerText = "✅ Öğrendim"; 
+        learnBtn.innerText = currentLang === 'en' ? "✅ Learned" : "✅ Öğrendim"; 
         learnBtn.classList.remove("active"); 
         document.getElementById("frontBadge").style.display = "none"; 
         document.getElementById("backBadge").style.display = "none"; 
@@ -187,6 +203,7 @@ function switchMode(mode) {
     }
 }
 
+// --- SINAVIN (QUIZ) ÇOK DİLLİ GÜNCELLEMESİ ---
 function generateQuizQuestion() {
     document.getElementById("quizFeedback").innerText = ""; document.getElementById("nextQuizBtn").style.display = "none";
     
@@ -207,25 +224,40 @@ function generateQuizQuestion() {
     let distractors = fullVocabulary.filter(word => word.id !== currentQuizCorrectWord.id).sort(() => 0.5 - Math.random()).slice(0, 3);
     let options = [currentQuizCorrectWord, ...distractors].sort(() => 0.5 - Math.random());
     
+    let currentLang = localStorage.getItem('medVokabeln_lang') || 'tr';
     const optionsContainer = document.getElementById("quizOptionsContainer");
     optionsContainer.innerHTML = ""; 
+    
     options.forEach(option => {
-        const btn = document.createElement("button"); btn.className = "quiz-option"; btn.innerText = option.turkish;
-        btn.onclick = () => checkAnswer(btn, option.id); optionsContainer.appendChild(btn);
+        const btn = document.createElement("button"); 
+        btn.className = "quiz-option"; 
+        
+        // Eğer dil İngilizce ise şıklara da İngilizce yazsın!
+        btn.innerText = (currentLang === 'en' && option.english) ? option.english : option.turkish;
+        
+        btn.onclick = () => checkAnswer(btn, option.id); 
+        optionsContainer.appendChild(btn);
     });
 }
 
 function checkAnswer(clickedButton, selectedId) {
     document.querySelectorAll(".quiz-option").forEach(btn => btn.disabled = true);
+    let currentLang = localStorage.getItem('medVokabeln_lang') || 'tr';
+
     if (selectedId === currentQuizCorrectWord.id) { 
         clickedButton.classList.add("correct"); 
-        document.getElementById("quizFeedback").innerText = "Richtig! 🎉"; 
+        document.getElementById("quizFeedback").innerText = currentLang === 'en' ? "Correct! 🎉" : "Richtig! 🎉"; 
         updateStreak(); 
         removeFromDifficult(currentQuizCorrectWord.id);
     } else { 
         clickedButton.classList.add("wrong"); 
-        document.getElementById("quizFeedback").innerText = "Falsch! ❌"; 
-        document.querySelectorAll(".quiz-option").forEach(btn => { if(btn.innerText === currentQuizCorrectWord.turkish) btn.classList.add("correct"); }); 
+        document.getElementById("quizFeedback").innerText = currentLang === 'en' ? "Wrong! ❌" : "Falsch! ❌"; 
+        
+        // Doğru şıkkı bul ve yeşil yap (Dile göre)
+        let correctText = (currentLang === 'en' && currentQuizCorrectWord.english) ? currentQuizCorrectWord.english : currentQuizCorrectWord.turkish;
+        document.querySelectorAll(".quiz-option").forEach(btn => { 
+            if(btn.innerText === correctText) btn.classList.add("correct"); 
+        }); 
         addToDifficult(currentQuizCorrectWord.id);
     }
     document.getElementById("nextQuizBtn").style.display = "block";
