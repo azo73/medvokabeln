@@ -44,8 +44,10 @@
         .wotd-speak-btn:hover { border-color: var(--primary); color: var(--primary); transform: scale(1.1); }
 
         .header-actions { display: flex; align-items: center; gap: 10px; }
-        .lang-btn { background: var(--card-bg); border: 2px solid var(--border-color); border-radius: 20px; padding: 5px 12px; font-weight: bold; color: var(--text-dark); cursor: pointer; display: flex; align-items: center; gap: 5px; font-size: 0.9rem; transition: 0.2s; }
+        .lang-btn { background: var(--card-bg); border: 2px solid var(--border-color); border-radius: 20px; padding: 5px 12px; font-weight: bold; color: var(--text-dark); cursor: pointer; display: flex; align-items: center; gap: 6px; font-size: 0.9rem; transition: 0.2s; }
         .lang-btn:hover { border-color: var(--primary); }
+        /* YENİ: Bayrak Resmi CSS'i */
+        .lang-btn img { width: 18px; height: auto; border-radius: 2px; box-shadow: 0 0 2px rgba(0,0,0,0.2); }
     </style>
 </head>
 <body>
@@ -54,7 +56,9 @@
         <div class="header-top">
             <h1>med-vokabeln.com</h1>
             <div class="header-actions">
-                <button id="langToggle" class="lang-btn" onclick="toggleLanguage()">🇹🇷 TR</button>
+                <button id="langToggle" class="lang-btn" onclick="toggleLanguage()">
+                    <img src="https://flagcdn.com/w20/tr.png" alt="TR"> TR
+                </button>
                 <button id="themeToggle" class="theme-btn" onclick="toggleTheme()">🌙</button>
             </div>
         </div>
@@ -205,10 +209,10 @@
     <script src="script.js?v=6"></script>
 
     <script>
-        // --- TAM KAPSAMLI DİL SÖZLÜĞÜ ---
+        // --- TAM KAPSAMLI DİL SÖZLÜĞÜ (GERÇEK BAYRAK RESİMLERİYLE) ---
         const uiDict = {
             tr: {
-                flag: "🇹🇷 TR",
+                flag: '<img src="https://flagcdn.com/w20/tr.png" alt="TR"> TR',
                 subTitle: "Pflegefachkräfte Vokabeltrainer",
                 search: "Kelime veya cümle ara...",
                 wotd: "📅 Günün Kelimesi",
@@ -248,7 +252,7 @@
                 cookieBtn: "Kabul Et"
             },
             en: {
-                flag: "🇬🇧 EN",
+                flag: '<img src="https://flagcdn.com/w20/gb.png" alt="EN"> EN',
                 subTitle: "Nursing Vocabulary Trainer",
                 search: "Search for a word or phrase...",
                 wotd: "📅 Word of the Day",
