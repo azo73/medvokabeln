@@ -16,7 +16,7 @@
     <meta property="og:type" content="website">
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=5">
+    <link rel="stylesheet" href="style.css?v=6">
     
     <style>
         @keyframes popInModal { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
@@ -43,7 +43,6 @@
         .wotd-speak-btn { background: var(--card-bg); border: 2px solid var(--border-color); border-radius: 50%; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.3rem; transition: 0.2s; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         .wotd-speak-btn:hover { border-color: var(--primary); color: var(--primary); transform: scale(1.1); }
 
-        /* YENİ: Dil Butonu için ufak hizalama */
         .header-actions { display: flex; align-items: center; gap: 10px; }
         .lang-btn { background: var(--card-bg); border: 2px solid var(--border-color); border-radius: 20px; padding: 5px 12px; font-weight: bold; color: var(--text-dark); cursor: pointer; display: flex; align-items: center; gap: 5px; font-size: 0.9rem; transition: 0.2s; }
         .lang-btn:hover { border-color: var(--primary); }
@@ -77,7 +76,7 @@
                 <div class="wotd-german" id="wotdGerman">Yükleniyor...</div>
                 <div class="wotd-turkish" id="wotdTurkish">...</div>
             </div>
-            <button class="wotd-speak-btn" onclick="speakWotd()" title="Ses / Audio">🔊</button>
+            <button class="wotd-speak-btn" id="uiAudioBtn" onclick="speakWotd()" title="Ses / Audio">🔊</button>
         </div>
     </div>
 
@@ -94,17 +93,17 @@
         <select id="categorySelect" onchange="changeCategory()">
             <option value="Alle" id="catAll">Tüm Kategoriler</option>
             <option value="Zorlandiklarim" id="catDiff">⚠️ Zorlandıklarım</option>
-            <option value="Allgemein">Allgemein (Genel)</option>
-            <option value="Anatomie">Anatomie (Anatomi)</option>
-            <option value="Aktion">Aktion (Fiiller)</option>
-            <option value="Symptome">Symptome (Belirtiler)</option>
-            <option value="Medikamente">Medikamente (İlaçlar)</option>
-            <option value="Personal">Personal (Personel)</option>
-            <option value="Dialoge">Dialoge (Diyaloglar)</option>
+            <option value="Allgemein" id="catAllg">Allgemein (Genel)</option>
+            <option value="Anatomie" id="catAnat">Anatomie (Anatomi)</option>
+            <option value="Aktion" id="catAkt">Aktion (Fiiller)</option>
+            <option value="Symptome" id="catSymp">Symptome (Belirtiler)</option>
+            <option value="Medikamente" id="catMed">Medikamente (İlaçlar)</option>
+            <option value="Personal" id="catPers">Personal (Personel)</option>
+            <option value="Dialoge" id="catDial">Dialoge (Diyaloglar)</option>
         </select>
         
         <div class="stats-container">
-            <div class="streak" id="streakText" onclick="openShareModal()" style="cursor:pointer; box-shadow: 0 2px 5px rgba(234, 88, 12, 0.2);">🔥 0</div>
+            <div class="streak" id="streakText" title="Başarılarını Gör ve Paylaş" onclick="openShareModal()" style="cursor:pointer; box-shadow: 0 2px 5px rgba(234, 88, 12, 0.2);">🔥 0</div>
             <div class="progress" id="progressText">0 / 0</div>
         </div>
     </div>
@@ -160,17 +159,53 @@
         <a href="#" style="color: var(--primary); text-decoration: none; margin: 0 10px;">Impressum</a>
     </footer>
 
-    <div id="shareModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:10000; justify-content:center; align-items:center; padding:20px;"></div>
-    <div id="cookieBanner" style="display:none;"></div>
+    <div id="shareModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:10000; justify-content:center; align-items:center; padding:20px;">
+        <div style="background:var(--card-bg); width:100%; max-width:350px; border-radius:24px; padding:25px; position:relative; text-align:center; animation:popInModal 0.3s forwards;">
+            <button onclick="closeShareModal()" style="position:absolute; top:15px; right:15px; background:none; border:none; font-size:1.5rem; color:var(--text-muted); cursor:pointer;">✕</button>
+            
+            <div style="font-size:3.5rem; margin-bottom:5px;" id="modalRankEmoji">🏆</div>
+            <h2 style="color:var(--primary); margin-bottom:5px;" id="uiModalTitle">Senin Başarın</h2>
+            <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:20px;" id="uiModalSub">Gelişimini arkadaşlarınla paylaş!</p>
+            
+            <div style="background:var(--switch-bg); border-radius:16px; padding:15px; margin-bottom:20px;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:10px; border-bottom:1px solid var(--border-color); padding-bottom:5px;">
+                    <span style="color:var(--text-dark); font-weight:600;" id="uiModalStreakLbl">🔥 Günlük Seri:</span>
+                    <strong id="modalStreak" style="color:var(--text-dark);">0</strong>
+                </div>
+                <div style="display:flex; justify-content:space-between; margin-bottom:10px; border-bottom:1px solid var(--border-color); padding-bottom:5px;">
+                    <span style="color:var(--text-dark); font-weight:600;" id="uiModalLearnedLbl">✅ Öğrenilen:</span>
+                    <strong id="modalLearned" style="color:var(--success);">0</strong>
+                </div>
+                <div style="display:flex; justify-content:space-between;">
+                    <span style="color:var(--text-dark); font-weight:600;" id="uiModalDiffLbl">⚠️ Zorlandığın:</span>
+                    <strong id="modalDiff" style="color:var(--danger);">0</strong>
+                </div>
+            </div>
+
+            <button id="uiBtnWa" onclick="shareOnWhatsApp()" style="width:100%; background:#25D366; color:white; border:none; padding:12px; border-radius:12px; font-weight:bold; margin-bottom:10px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px;">
+                WhatsApp'ta Paylaş
+            </button>
+            <button id="uiBtnOther" onclick="shareGeneral()" style="width:100%; background:var(--primary); color:white; border:none; padding:12px; border-radius:12px; font-weight:bold; cursor:pointer;">
+                Diğer (Instagram / Hikaye)
+            </button>
+        </div>
+    </div>
+
+    <div id="cookieBanner" style="position: fixed; bottom: 0; left: 0; width: 100%; background: var(--text-dark); color: white; padding: 15px 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 9999; box-shadow: 0 -4px 10px rgba(0,0,0,0.2);">
+        <p id="uiCookieText" style="font-size: 0.85rem; text-align: center; margin-bottom: 10px; max-width: 600px;">
+            Wir verwenden Cookies, um Inhalte und Anzeigen zu personalisieren.
+        </p>
+        <button id="uiCookieBtn" onclick="acceptCookies()" style="background: var(--success); color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer;">Akzeptieren (Kabul Et)</button>
+    </div>
 
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
     
-    <script src="data.js?v=5"></script>
-    <script src="script.js?v=5"></script>
+    <script src="data.js?v=6"></script>
+    <script src="script.js?v=6"></script>
 
     <script>
-        // --- DİL (LANGUAGE) SİSTEMİ ---
+        // --- TAM KAPSAMLI DİL SÖZLÜĞÜ ---
         const uiDict = {
             tr: {
                 flag: "🇹🇷 TR",
@@ -185,12 +220,32 @@
                 favs: "⭐ Favoriler",
                 catAll: "Tüm Kategoriler",
                 catDiff: "⚠️ Zorlandıklarım",
+                catAllg: "Allgemein (Genel Hastane)",
+                catAnat: "Anatomie (Anatomi)",
+                catAkt: "Aktion (Fiiller/Eylemler)",
+                catSymp: "Symptome (Belirtiler)",
+                catMed: "Medikamente (İlaçlar)",
+                catPers: "Personal (Personel)",
+                catDial: "Dialoge (Diyaloglar)",
                 prev: "&larr; Önceki",
                 learn: "✅ Öğrendim",
                 next: "Sonraki &rarr;",
                 why1: "PflegeDeutsch, Almanya ve İsviçre'deki uluslararası hemşireler için en iyi tıbbi kelime uygulamasıdır.",
                 why2: "İnteraktif kelime kartları ve anatomi modelleri ile nöbetlere ve doktor iletişimine en iyi şekilde hazırlanın.",
-                privacy: "Gizlilik Politikası"
+                privacy: "Gizlilik Politikası",
+                audioTitle: "Sesi Dinle",
+                streakTitle: "Başarılarını Gör ve Paylaş",
+                
+                // Modal & Çerezler
+                modalTitle: "Senin Başarın",
+                modalSub: "Gelişimini arkadaşlarınla paylaş!",
+                modalStreakLbl: "🔥 Günlük Seri:",
+                modalLearnedLbl: "✅ Öğrenilen:",
+                modalDiffLbl: "⚠️ Zorlandığın:",
+                btnWa: "WhatsApp'ta Paylaş",
+                btnOther: "Diğer (Instagram / Hikaye)",
+                cookieText: "Sana daha iyi hizmet verebilmek için çerezleri kullanıyoruz.",
+                cookieBtn: "Kabul Et"
             },
             en: {
                 flag: "🇬🇧 EN",
@@ -205,12 +260,32 @@
                 favs: "⭐ Favorites",
                 catAll: "All Categories",
                 catDiff: "⚠️ My Difficulties",
+                catAllg: "Allgemein (General)",
+                catAnat: "Anatomie (Anatomy)",
+                catAkt: "Aktion (Verbs/Actions)",
+                catSymp: "Symptome (Symptoms)",
+                catMed: "Medikamente (Medications)",
+                catPers: "Personal (Staff)",
+                catDial: "Dialoge (Dialogues)",
                 prev: "&larr; Previous",
                 learn: "✅ Learned",
                 next: "Next &rarr;",
                 why1: "PflegeDeutsch is the ultimate medical vocabulary trainer for international nursing professionals in Germany, Austria, and Switzerland.",
                 why2: "Our interactive flashcards and anatomy models help you prepare optimally for your shifts and communication with doctors and patients.",
-                privacy: "Privacy Policy"
+                privacy: "Privacy Policy",
+                audioTitle: "Listen to Audio",
+                streakTitle: "View and Share Progress",
+                
+                // Modal & Çerezler
+                modalTitle: "Your Progress",
+                modalSub: "Share your progress with friends!",
+                modalStreakLbl: "🔥 Daily Streak:",
+                modalLearnedLbl: "✅ Learned Words:",
+                modalDiffLbl: "⚠️ Difficult Words:",
+                btnWa: "Share on WhatsApp",
+                btnOther: "Other (Instagram / Story)",
+                cookieText: "We use cookies to personalize content and ads.",
+                cookieBtn: "Accept"
             }
         };
 
@@ -228,16 +303,40 @@
             document.getElementById('btnGame').innerHTML = dict.game;
             document.getElementById('btnTraining').innerHTML = dict.training;
             document.getElementById('btnFavs').innerHTML = dict.favs;
+            
+            // KATEGORİLER
             document.getElementById('catAll').innerText = dict.catAll;
             document.getElementById('catDiff').innerText = dict.catDiff;
+            document.getElementById('catAllg').innerText = dict.catAllg;
+            document.getElementById('catAnat').innerText = dict.catAnat;
+            document.getElementById('catAkt').innerText = dict.catAkt;
+            document.getElementById('catSymp').innerText = dict.catSymp;
+            document.getElementById('catMed').innerText = dict.catMed;
+            document.getElementById('catPers').innerText = dict.catPers;
+            document.getElementById('catDial').innerText = dict.catDial;
+            
             document.getElementById('btnPrev').innerHTML = dict.prev;
             document.getElementById('btnLearn').innerHTML = dict.learn;
             document.getElementById('btnNext').innerHTML = dict.next;
             document.getElementById('uiWhy1').innerText = dict.why1;
             document.getElementById('uiWhy2').innerText = dict.why2;
             document.getElementById('uiPrivacy').innerText = dict.privacy;
+            
+            // HOVER & TITLE EKRANLARI
+            document.getElementById('uiAudioBtn').title = dict.audioTitle;
+            document.getElementById('streakText').title = dict.streakTitle;
 
-            // Günün Kelimesi ve Kartlar için veri varsa İngilizceyi göster
+            // MODAL & ÇEREZ EKRANI
+            document.getElementById('uiModalTitle').innerText = dict.modalTitle;
+            document.getElementById('uiModalSub').innerText = dict.modalSub;
+            document.getElementById('uiModalStreakLbl').innerText = dict.modalStreakLbl;
+            document.getElementById('uiModalLearnedLbl').innerText = dict.modalLearnedLbl;
+            document.getElementById('uiModalDiffLbl').innerText = dict.modalDiffLbl;
+            document.getElementById('uiBtnWa').innerText = dict.btnWa;
+            document.getElementById('uiBtnOther').innerText = dict.btnOther;
+            document.getElementById('uiCookieText').innerText = dict.cookieText;
+            document.getElementById('uiCookieBtn').innerText = dict.cookieBtn;
+
             initWotd();
         }
 
@@ -245,11 +344,10 @@
             currentLang = currentLang === 'tr' ? 'en' : 'tr';
             localStorage.setItem('medVokabeln_lang', currentLang);
             applyLanguage();
-            // Karttaki kelimeyi hemen yeni dile çevir!
             if(typeof loadCard === 'function') loadCard();
+            if(typeof updateCard === 'function') updateCard();
         }
 
-        // --- GÜNÜN KELİMESİ (WotD) ---
         function initWotd() {
             if (typeof vocabularyData === 'undefined' || vocabularyData.length === 0) return;
             const epochDay = Math.floor(Date.now() / (1000 * 60 * 60 * 24));
@@ -257,8 +355,6 @@
             const wotd = vocabularyData[wotdIndex];
             
             document.getElementById('wotdGerman').innerText = wotd.german;
-            
-            // Eğer data.js'de "english" karşılığı varsa ve dil EN seçiliyse onu yaz, yoksa Türkçeyi yaz
             if(currentLang === 'en' && wotd.english) {
                 document.getElementById('wotdTurkish').innerText = wotd.english;
             } else {
@@ -303,8 +399,17 @@
             }
         }
 
+        // Çerez Kontrolü
+        if(localStorage.getItem('cookiesAccepted') === 'yes') {
+            document.getElementById('cookieBanner').style.display = 'none';
+        }
+        function acceptCookies() {
+            localStorage.setItem('cookiesAccepted', 'yes');
+            document.getElementById('cookieBanner').style.display = 'none';
+        }
+
         window.addEventListener('DOMContentLoaded', () => {
-            applyLanguage(); // Sayfa açılır açılmaz seçili dili uygula!
+            applyLanguage(); 
             
             const observer = new MutationObserver(() => { refreshStarUI(); });
             const target = document.getElementById('germanWord');
