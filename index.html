@@ -10,94 +10,43 @@
     
     <title>med-vokabeln.com | PflegeDeutsch</title>
     
-    <meta name="description" content="Almanya und İsviçre'deki hemşireler için ücretsiz interaktif tıbbi Almanca kelime kartları.">
+    <meta name="description" content="Almanya und İsviçre'deki hemşireler für international nursing professionals.">
     <meta property="og:title" content="PflegeDeutsch | Tıbbi Almanca Kartları">
-    <meta property="og:description" content="Nöbetlerde ihtiyacın olacak tıbbi Almanca kelimeleri ve diyalogları kolayca öğren, kendini test et!">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1200&q=80">
     <meta property="og:url" content="https://med-vokabeln.com/">
     <meta property="og:type" content="website">
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="style.css?v=5">
     
     <style>
         @keyframes popInModal { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
         
-        /* Favori Yıldızı CSS */
         .fav-btn-main {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: none;
-            border: none;
-            font-size: 2rem;
-            cursor: pointer;
-            z-index: 10;
-            transition: transform 0.2s;
-            text-shadow: 0 0 5px rgba(0,0,0,0.1);
+            position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 2rem;
+            cursor: pointer; z-index: 10; transition: transform 0.2s; text-shadow: 0 0 5px rgba(0,0,0,0.1);
         }
         .fav-btn-main:hover { transform: scale(1.2); }
         .fav-btn-main.active { color: #f1c40f; filter: none; opacity: 1; }
         .fav-btn-main.inactive { color: #ccc; filter: grayscale(100%); opacity: 0.4; }
 
-        /* Menü Hizalama */
-        .mode-switch {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            margin: 15px auto 20px auto;
-            max-width: 800px;
-            padding: 0 15px;
-        }
-        .mode-btn {
-            white-space: nowrap !important;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 10px 15px;
-            font-size: 0.9rem;
-        }
+        .mode-switch { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 15px auto 20px auto; max-width: 800px; padding: 0 15px; }
+        .mode-btn { white-space: nowrap !important; display: inline-flex; align-items: center; justify-content: center; padding: 10px 15px; font-size: 0.9rem; }
 
-        /* --- GÜNÜN KELİMESİ (Wort des Tages) CSS --- */
-        .wotd-container {
-            max-width: 800px;
-            margin: 15px auto 5px auto;
-            padding: 0 15px;
-        }
-        .wotd-card {
-            background: linear-gradient(135deg, rgba(234, 88, 12, 0.1), rgba(234, 88, 12, 0.03));
-            border: 2px dashed var(--primary);
-            border-radius: 16px;
-            padding: 15px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
-            transition: transform 0.2s;
-        }
+        .wotd-container { max-width: 800px; margin: 15px auto 5px auto; padding: 0 15px; }
+        .wotd-card { background: linear-gradient(135deg, rgba(234, 88, 12, 0.1), rgba(234, 88, 12, 0.03)); border: 2px dashed var(--primary); border-radius: 16px; padding: 15px 20px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 4px 10px rgba(0,0,0,0.02); transition: transform 0.2s; }
         .wotd-card:hover { transform: translateY(-2px); }
         .wotd-left { display: flex; flex-direction: column; }
         .wotd-title { font-size: 0.85rem; color: var(--primary); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; display: flex; align-items: center; gap: 5px; }
         .wotd-german { font-size: 1.4rem; font-weight: 800; color: var(--text-dark); margin-bottom: 2px; }
         .wotd-turkish { font-size: 0.95rem; color: var(--text-muted); font-weight: 600; }
         
-        .wotd-speak-btn {
-            background: var(--card-bg);
-            border: 2px solid var(--border-color);
-            border-radius: 50%;
-            width: 45px;
-            height: 45px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 1.3rem;
-            transition: 0.2s;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
+        .wotd-speak-btn { background: var(--card-bg); border: 2px solid var(--border-color); border-radius: 50%; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.3rem; transition: 0.2s; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         .wotd-speak-btn:hover { border-color: var(--primary); color: var(--primary); transform: scale(1.1); }
+
+        /* YENİ: Dil Butonu için ufak hizalama */
+        .header-actions { display: flex; align-items: center; gap: 10px; }
+        .lang-btn { background: var(--card-bg); border: 2px solid var(--border-color); border-radius: 20px; padding: 5px 12px; font-weight: bold; color: var(--text-dark); cursor: pointer; display: flex; align-items: center; gap: 5px; font-size: 0.9rem; transition: 0.2s; }
+        .lang-btn:hover { border-color: var(--primary); }
     </style>
 </head>
 <body>
@@ -105,9 +54,12 @@
     <header>
         <div class="header-top">
             <h1>med-vokabeln.com</h1>
-            <button id="themeToggle" class="theme-btn" onclick="toggleTheme()">🌙</button>
+            <div class="header-actions">
+                <button id="langToggle" class="lang-btn" onclick="toggleLanguage()">🇹🇷 TR</button>
+                <button id="themeToggle" class="theme-btn" onclick="toggleTheme()">🌙</button>
+            </div>
         </div>
-        <p>Pflegefachkräfte Vokabeltrainer</p>
+        <p id="uiSubTitle">Pflegefachkräfte Vokabeltrainer</p>
         
         <div id="userRank" style="margin-top:10px; background:var(--switch-bg); padding:8px 18px; border-radius:20px; font-size:0.9rem; color:var(--primary); font-weight:700; display:inline-flex; align-items:center; gap:5px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
             🐣 Pflegeschüler/in
@@ -121,39 +73,39 @@
     <div class="wotd-container">
         <div class="wotd-card">
             <div class="wotd-left">
-                <div class="wotd-title">📅 Günün Kelimesi</div>
+                <div class="wotd-title" id="uiWotdTitle">📅 Günün Kelimesi</div>
                 <div class="wotd-german" id="wotdGerman">Yükleniyor...</div>
                 <div class="wotd-turkish" id="wotdTurkish">...</div>
             </div>
-            <button class="wotd-speak-btn" onclick="speakWotd()" title="Telaffuzu Dinle">🔊</button>
+            <button class="wotd-speak-btn" onclick="speakWotd()" title="Ses / Audio">🔊</button>
         </div>
     </div>
 
     <div class="mode-switch">
         <button class="mode-btn active" id="btnFlashcard" onclick="switchMode('flashcard')">📇 Kartlar</button>
         <button class="mode-btn" id="btnQuiz" onclick="switchMode('quiz')">✍️ Sınav</button>
-        <a href="anatomie.html" class="mode-btn" style="text-decoration:none;">🧍 Anatomi</a>
-        <a href="spiel.html" class="mode-btn" style="text-decoration:none;">🎮 Oyun</a>
-        <a href="training.html" class="mode-btn" style="text-decoration:none;">🧠 Antrenman</a>
-        <a href="favoriten.html" class="mode-btn" style="text-decoration:none;">⭐ Favoriler</a>
+        <a href="anatomie.html" class="mode-btn" id="btnAnatomy" style="text-decoration:none;">🧍 Anatomi</a>
+        <a href="spiel.html" class="mode-btn" id="btnGame" style="text-decoration:none;">🎮 Oyun</a>
+        <a href="training.html" class="mode-btn" id="btnTraining" style="text-decoration:none;">🧠 Antrenman</a>
+        <a href="favoriten.html" class="mode-btn" id="btnFavs" style="text-decoration:none;">⭐ Favoriler</a>
     </div>
 
     <div class="dashboard">
         <select id="categorySelect" onchange="changeCategory()">
-            <option value="Alle">Tüm Kategoriler</option>
-            <option value="Zorlandiklarim">⚠️ Zorlandıklarım</option>
-            <option value="Allgemein">Genel Hastane</option>
-            <option value="Anatomie">Anatomi</option>
-            <option value="Aktion">Fiiller / Eylemler</option>
-            <option value="Symptome">Belirtiler</option>
-            <option value="Medikamente">İlaçlar</option>
-            <option value="Personal">Personel</option>
-            <option value="Dialoge">Diyaloglar</option>
+            <option value="Alle" id="catAll">Tüm Kategoriler</option>
+            <option value="Zorlandiklarim" id="catDiff">⚠️ Zorlandıklarım</option>
+            <option value="Allgemein">Allgemein (Genel)</option>
+            <option value="Anatomie">Anatomie (Anatomi)</option>
+            <option value="Aktion">Aktion (Fiiller)</option>
+            <option value="Symptome">Symptome (Belirtiler)</option>
+            <option value="Medikamente">Medikamente (İlaçlar)</option>
+            <option value="Personal">Personal (Personel)</option>
+            <option value="Dialoge">Dialoge (Diyaloglar)</option>
         </select>
         
         <div class="stats-container">
-            <div class="streak" id="streakText" title="Başarılarını Gör ve Paylaş" onclick="openShareModal()" style="cursor:pointer; box-shadow: 0 2px 5px rgba(234, 88, 12, 0.2);">🔥 0</div>
-            <div class="progress" id="progressText">0 / 0 Öğrenildi</div>
+            <div class="streak" id="streakText" onclick="openShareModal()" style="cursor:pointer; box-shadow: 0 2px 5px rgba(234, 88, 12, 0.2);">🔥 0</div>
+            <div class="progress" id="progressText">0 / 0</div>
         </div>
     </div>
 
@@ -177,9 +129,9 @@
         </div>
 
         <div class="controls">
-            <button class="action-btn" onclick="prevWord()">&larr; Önceki</button>
-            <button class="action-btn btn-learn" onclick="toggleLearned()" id="learnBtn">✅ Öğrendim</button>
-            <button class="action-btn" onclick="nextWord()">Sonraki &rarr;</button>
+            <button class="action-btn" id="btnPrev" onclick="prevWord()">&larr; Önceki</button>
+            <button class="action-btn btn-learn" id="btnLearn" onclick="toggleLearned()">✅ Öğrendim</button>
+            <button class="action-btn" id="btnNext" onclick="nextWord()">Sonraki &rarr;</button>
         </div>
     </div>
 
@@ -194,29 +146,22 @@
 
     <div style="width: 100%; max-width: 400px; padding: 20px; text-align: left; margin-top: 120px; margin-bottom: 30px; background: var(--card-bg); border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid var(--border-color);">
         <h3 style="color: var(--primary); font-size: 1.1rem; margin-bottom: 10px;">Warum PflegeDeutsch?</h3>
-        <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; margin-bottom: 10px;">
+        <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; margin-bottom: 10px;" id="uiWhy1">
             PflegeDeutsch ist der ultimative medizinische Vokabeltrainer für internationale Pflegefachkräfte in Deutschland, Österreich und der Schweiz.
         </p>
-        <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.5;">
+        <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.5;" id="uiWhy2">
             Unsere interaktiven Lernkarten (Flashcards), das Quiz-System und das interaktive Anatomiemodell helfen Ihnen, sich optimal auf Ihre Schichten, Visiten und die Kommunikation mit Ärzten und Patienten vorzubereiten.
         </p>
     </div>
 
     <footer style="width: 100%; text-align: center; margin-bottom: 100px; font-size: 0.85rem;">
-        <a href="datenschutz.html" style="color: var(--primary); text-decoration: none; margin: 0 10px;">Datenschutzerklärung (Gizlilik)</a>
+        <a href="datenschutz.html" style="color: var(--primary); text-decoration: none; margin: 0 10px;" id="uiPrivacy">Datenschutzerklärung</a>
         <span style="color: var(--text-muted);">|</span>
-        <a href="#" style="color: var(--primary); text-decoration: none; margin: 0 10px;">Impressum (Künye)</a>
+        <a href="#" style="color: var(--primary); text-decoration: none; margin: 0 10px;">Impressum</a>
     </footer>
 
-    <div id="shareModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:10000; justify-content:center; align-items:center; padding:20px;">
-        </div>
-
-    <div id="cookieBanner" style="position: fixed; bottom: 0; left: 0; width: 100%; background: var(--text-dark); color: white; padding: 15px 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 9999; box-shadow: 0 -4px 10px rgba(0,0,0,0.2);">
-        <p style="font-size: 0.85rem; text-align: center; margin-bottom: 10px; max-width: 600px;">
-            Wir verwenden Cookies, um Inhalte und Anzeigen zu personalisieren.
-        </p>
-        <button onclick="acceptCookies()" style="background: var(--success); color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer;">Akzeptieren (Kabul Et)</button>
-    </div>
+    <div id="shareModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:10000; justify-content:center; align-items:center; padding:20px;"></div>
+    <div id="cookieBanner" style="display:none;"></div>
 
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
@@ -225,26 +170,100 @@
     <script src="script.js?v=5"></script>
 
     <script>
-        // Çerez kontrolü
-        if(localStorage.getItem('cookiesAccepted') === 'yes') {
-            document.getElementById('cookieBanner').style.display = 'none';
-        }
-        function acceptCookies() {
-            localStorage.setItem('cookiesAccepted', 'yes');
-            document.getElementById('cookieBanner').style.display = 'none';
+        // --- DİL (LANGUAGE) SİSTEMİ ---
+        const uiDict = {
+            tr: {
+                flag: "🇹🇷 TR",
+                subTitle: "Pflegefachkräfte Vokabeltrainer",
+                search: "Kelime veya cümle ara...",
+                wotd: "📅 Günün Kelimesi",
+                flashcard: "📇 Kartlar",
+                quiz: "✍️ Sınav",
+                anatomy: "🧍 Anatomi",
+                game: "🎮 Oyun",
+                training: "🧠 Antrenman",
+                favs: "⭐ Favoriler",
+                catAll: "Tüm Kategoriler",
+                catDiff: "⚠️ Zorlandıklarım",
+                prev: "&larr; Önceki",
+                learn: "✅ Öğrendim",
+                next: "Sonraki &rarr;",
+                why1: "PflegeDeutsch, Almanya ve İsviçre'deki uluslararası hemşireler için en iyi tıbbi kelime uygulamasıdır.",
+                why2: "İnteraktif kelime kartları ve anatomi modelleri ile nöbetlere ve doktor iletişimine en iyi şekilde hazırlanın.",
+                privacy: "Gizlilik Politikası"
+            },
+            en: {
+                flag: "🇬🇧 EN",
+                subTitle: "Nursing Vocabulary Trainer",
+                search: "Search for a word or phrase...",
+                wotd: "📅 Word of the Day",
+                flashcard: "📇 Flashcards",
+                quiz: "✍️ Quiz",
+                anatomy: "🧍 Anatomy",
+                game: "🎮 Game",
+                training: "🧠 Training",
+                favs: "⭐ Favorites",
+                catAll: "All Categories",
+                catDiff: "⚠️ My Difficulties",
+                prev: "&larr; Previous",
+                learn: "✅ Learned",
+                next: "Next &rarr;",
+                why1: "PflegeDeutsch is the ultimate medical vocabulary trainer for international nursing professionals in Germany, Austria, and Switzerland.",
+                why2: "Our interactive flashcards and anatomy models help you prepare optimally for your shifts and communication with doctors and patients.",
+                privacy: "Privacy Policy"
+            }
+        };
+
+        let currentLang = localStorage.getItem('medVokabeln_lang') || 'tr';
+
+        function applyLanguage() {
+            const dict = uiDict[currentLang];
+            document.getElementById('langToggle').innerHTML = dict.flag;
+            document.getElementById('uiSubTitle').innerText = dict.subTitle;
+            document.getElementById('searchInput').placeholder = dict.search;
+            document.getElementById('uiWotdTitle').innerText = dict.wotd;
+            document.getElementById('btnFlashcard').innerHTML = dict.flashcard;
+            document.getElementById('btnQuiz').innerHTML = dict.quiz;
+            document.getElementById('btnAnatomy').innerHTML = dict.anatomy;
+            document.getElementById('btnGame').innerHTML = dict.game;
+            document.getElementById('btnTraining').innerHTML = dict.training;
+            document.getElementById('btnFavs').innerHTML = dict.favs;
+            document.getElementById('catAll').innerText = dict.catAll;
+            document.getElementById('catDiff').innerText = dict.catDiff;
+            document.getElementById('btnPrev').innerHTML = dict.prev;
+            document.getElementById('btnLearn').innerHTML = dict.learn;
+            document.getElementById('btnNext').innerHTML = dict.next;
+            document.getElementById('uiWhy1').innerText = dict.why1;
+            document.getElementById('uiWhy2').innerText = dict.why2;
+            document.getElementById('uiPrivacy').innerText = dict.privacy;
+
+            // Günün Kelimesi ve Kartlar için veri varsa İngilizceyi göster
+            initWotd();
         }
 
-        // --- GÜNÜN KELİMESİ (WotD) ALGORİTMASI ---
+        function toggleLanguage() {
+            currentLang = currentLang === 'tr' ? 'en' : 'tr';
+            localStorage.setItem('medVokabeln_lang', currentLang);
+            applyLanguage();
+            // Karttaki kelimeyi hemen yeni dile çevir!
+            if(typeof loadCard === 'function') loadCard();
+        }
+
+        // --- GÜNÜN KELİMESİ (WotD) ---
         function initWotd() {
             if (typeof vocabularyData === 'undefined' || vocabularyData.length === 0) return;
-            
             const epochDay = Math.floor(Date.now() / (1000 * 60 * 60 * 24));
             const wotdIndex = epochDay % vocabularyData.length;
             const wotd = vocabularyData[wotdIndex];
             
             document.getElementById('wotdGerman').innerText = wotd.german;
-            document.getElementById('wotdTurkish').innerText = wotd.turkish;
             
+            // Eğer data.js'de "english" karşılığı varsa ve dil EN seçiliyse onu yaz, yoksa Türkçeyi yaz
+            if(currentLang === 'en' && wotd.english) {
+                document.getElementById('wotdTurkish').innerText = wotd.english;
+            } else {
+                document.getElementById('wotdTurkish').innerText = wotd.turkish;
+            }
             window.currentWotdText = wotd.german;
         }
 
@@ -258,7 +277,6 @@
             }
         }
 
-        // --- YILDIZ MANTIĞI ---
         function getDisplayedWordId() {
             const currentGermanWord = document.getElementById('germanWord').innerText.trim();
             const wordObj = vocabularyData.find(w => w.german === currentGermanWord);
@@ -268,7 +286,6 @@
         function refreshStarUI() {
             const wordId = getDisplayedWordId();
             if (!wordId) return;
-
             const btn = document.getElementById('mainFavBtn');
             if (typeof isFavorite === 'function' && isFavorite(wordId)) {
                 btn.className = "fav-btn-main active";
@@ -280,7 +297,6 @@
         function handleFavClick() {
             const wordId = getDisplayedWordId();
             if (!wordId) return;
-
             if (typeof toggleFavorite === 'function') {
                 toggleFavorite(wordId);
                 refreshStarUI();
@@ -288,15 +304,11 @@
         }
 
         window.addEventListener('DOMContentLoaded', () => {
-            initWotd();
-
-            const observer = new MutationObserver(() => {
-                refreshStarUI();
-            });
+            applyLanguage(); // Sayfa açılır açılmaz seçili dili uygula!
+            
+            const observer = new MutationObserver(() => { refreshStarUI(); });
             const target = document.getElementById('germanWord');
-            if (target) {
-                observer.observe(target, { characterData: true, childList: true, subtree: true });
-            }
+            if (target) { observer.observe(target, { characterData: true, childList: true, subtree: true }); }
             setTimeout(refreshStarUI, 500);
         });
     </script>
@@ -304,14 +316,9 @@
     <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.getRegistrations().then(function(registrations) {
-                for(let registration of registrations) {
-                    registration.unregister().then(function(boolean) {
-                        console.log("İnatçı Service Worker başarıyla silindi!");
-                    });
-                }
+                for(let registration of registrations) { registration.unregister(); }
             });
         }
     </script>
-
 </body>
 </html>
