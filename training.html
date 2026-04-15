@@ -6,11 +6,13 @@
     <title>Günlük Antrenman 🧠 | PflegeDeutsch</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=2">
+    <link rel="stylesheet" href="style.css?v=8">
     <style>
         body { display: flex; flex-direction: column; min-height: 100vh; background-color: var(--bg-color); }
         .top-bar { padding: 15px; display: flex; justify-content: space-between; align-items: center; max-width: 600px; margin: 0 auto; width: 100%; }
-        .btn-back { font-weight: bold; color: var(--primary); text-decoration: none; }
+        .btn-back { background: var(--card-bg); border: 2px solid var(--border-color); color: var(--text-dark); padding: 8px 15px; border-radius: 12px; text-decoration: none; font-weight: bold; transition: 0.2s; display: flex; align-items: center; gap: 6px; cursor: pointer;}
+        .btn-back:hover { background: var(--switch-bg); border-color: var(--primary); }
+        .btn-back img { width: 18px; height: auto; border-radius: 2px; box-shadow: 0 0 2px rgba(0,0,0,0.2); }
         
         .progress-container { width: 100%; background: var(--border-color); height: 8px; border-radius: 4px; overflow: hidden; margin-top: 10px; }
         .progress-bar { height: 100%; background: var(--primary); width: 0%; transition: width 0.3s; }
@@ -33,15 +35,15 @@
         .word-tr { font-size: 1.8rem; font-weight: 700; color: var(--primary); margin-bottom: 15px; }
         .word-ex { font-size: 1rem; color: var(--text-dark); font-style: italic; line-height: 1.4; padding: 10px; background: rgba(0,0,0,0.05); border-radius: 10px; width: 100%; }
 
-        /* SRS Butonları (1-3-6 Sistemi) */
+        /* SRS Butonları */
         .action-buttons { display: none; width: 100%; gap: 10px; }
         .action-buttons.visible { display: flex; }
         .btn-srs { flex: 1; padding: 15px 5px; border: none; border-radius: 12px; font-weight: 600; font-size: 1rem; cursor: pointer; transition: 0.2s; color: white; display: flex; flex-direction: column; align-items: center; gap: 5px; }
         .btn-srs:active { transform: scale(0.95); }
         
-        .btn-hard { background: #e74c3c; } /* Kırmızı: Zordu (1 Gün) */
-        .btn-good { background: #f39c12; } /* Turuncu: İyi (3 Gün) */
-        .btn-easy { background: #2ecc71; } /* Yeşil: Kolay (6 Gün) */
+        .btn-hard { background: #e74c3c; } 
+        .btn-good { background: #f39c12; } 
+        .btn-easy { background: #2ecc71; } 
         
         .btn-srs span { font-size: 0.75rem; opacity: 0.9; }
 
@@ -50,12 +52,16 @@
         .finish-icon { font-size: 4rem; margin-bottom: 20px; }
     </style>
 </head>
-<body onload="initTraining()">
+<body onload="initPage()">
 
     <div class="top-bar">
-        <a href="index.html" class="btn-back">← Geri</a>
+        <a href="index.html" class="btn-back" id="uiBackBtn">← Geri</a>
         <div style="font-weight: bold; color: var(--text-muted);" id="counterText">0 / 0</div>
+        <button id="langToggle" class="btn-back" onclick="toggleLanguage()">
+            <img src="https://flagcdn.com/w20/tr.png" alt="TR"> TR
+        </button>
     </div>
+    
     <div style="padding: 0 15px; max-width: 600px; margin: 0 auto; width: 100%;">
         <div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
     </div>
@@ -68,7 +74,7 @@
                     <div class="word-category" id="fCategory">Kategori</div>
                     <div class="word-de" id="fGerman">Laden...</div>
                     <div class="word-type" id="fType">Yükleniyor</div>
-                    <p style="margin-top: 20px; font-size: 0.8rem; color: var(--text-muted);">Çevirmek için dokun 👆</p>
+                    <p style="margin-top: 20px; font-size: 0.8rem; color: var(--text-muted);" id="uiTapHint">Çevirmek için dokun 👆</p>
                 </div>
                 <div class="flashcard-face flashcard-back">
                     <div class="word-tr" id="fTurkish">...</div>
@@ -78,41 +84,105 @@
         </div>
 
         <div class="action-buttons" id="actionButtons">
-            <button class="btn-srs btn-hard" onclick="rateWord(1)">Zordu <span>Tekrar Et</span></button>
-            <button class="btn-srs btn-good" onclick="rateWord(3)">İyiydi <span>3 Gün Sonra</span></button>
-            <button class="btn-srs btn-easy" onclick="rateWord(6)">Kolaydı <span>6 Gün Sonra</span></button>
+            <button class="btn-srs btn-hard" onclick="rateWord(1)">
+                <div id="btnHard1">Zordu</div> <span id="btnHard2">Tekrar Et</span>
+            </button>
+            <button class="btn-srs btn-good" onclick="rateWord(3)">
+                <div id="btnGood1">İyiydi</div> <span id="btnGood2">3 Gün Sonra</span>
+            </button>
+            <button class="btn-srs btn-easy" onclick="rateWord(6)">
+                <div id="btnEasy1">Kolaydı</div> <span id="btnEasy2">6 Gün Sonra</span>
+            </button>
         </div>
 
         <div class="finish-screen" id="finishScreen">
             <div class="finish-icon">🏆</div>
-            <h2 style="color: var(--text-dark);">Tebrikler Başhekim!</h2>
-            <p style="color: var(--text-muted); margin-top: 10px;">Bugünkü antrenmanını tamamladın.<br>Beynin bu kelimeleri kalıcı hafızaya yazıyor.</p>
-            <a href="index.html" style="margin-top: 30px; display: inline-block; padding: 12px 24px; background: var(--primary); color: white; border-radius: 12px; text-decoration: none; font-weight: bold;">Ana Sayfaya Dön</a>
+            <h2 style="color: var(--text-dark);" id="uiFinTitle">Tebrikler Başhekim!</h2>
+            <p style="color: var(--text-muted); margin-top: 10px;" id="uiFinSub">Bugünkü antrenmanını tamamladın.<br>Beynin bu kelimeleri kalıcı hafızaya yazıyor.</p>
+            <a href="index.html" style="margin-top: 30px; display: inline-block; padding: 12px 24px; background: var(--primary); color: white; border-radius: 12px; text-decoration: none; font-weight: bold;" id="uiFinBtn">Ana Sayfaya Dön</a>
         </div>
 
     </div>
 
-    <script src="data.js?v=3"></script>
+    <script src="data.js?v=8"></script>
     <script>
+        // --- DİL SÖZLÜĞÜ ---
+        const uiDictTrain = {
+            tr: {
+                flag: '<img src="https://flagcdn.com/w20/tr.png" alt="TR"> TR',
+                back: "← Geri",
+                tapHint: "Çevirmek için dokun 👆",
+                hard1: "Zordu", hard2: "Tekrar Et",
+                good1: "İyiydi", good2: "3 Gün Sonra",
+                easy1: "Kolaydı", easy2: "6 Gün Sonra",
+                finTitle: "Tebrikler Başhekim!",
+                finSub: "Bugünkü antrenmanını tamamladın.<br>Beynin bu kelimeleri kalıcı hafızaya yazıyor.",
+                finBtn: "Ana Sayfaya Dön",
+                doneCount: "Tamamlandı"
+            },
+            en: {
+                flag: '<img src="https://flagcdn.com/w20/gb.png" alt="EN"> EN',
+                back: "← Back",
+                tapHint: "Tap to flip 👆",
+                hard1: "Hard", hard2: "Repeat",
+                good1: "Good", good2: "In 3 Days",
+                easy1: "Easy", easy2: "In 6 Days",
+                finTitle: "Well done, Doc!",
+                finSub: "You've completed today's training.<br>Your brain is writing these words into long-term memory.",
+                finBtn: "Return Home",
+                doneCount: "Completed"
+            }
+        };
+
+        let currentLang = localStorage.getItem('medVokabeln_lang') || 'tr';
+
+        function applyLanguage() {
+            const dict = uiDictTrain[currentLang];
+            document.getElementById('langToggle').innerHTML = dict.flag;
+            document.getElementById('uiBackBtn').innerText = dict.back;
+            document.getElementById('uiTapHint').innerText = dict.tapHint;
+            
+            document.getElementById('btnHard1').innerText = dict.hard1;
+            document.getElementById('btnHard2').innerText = dict.hard2;
+            document.getElementById('btnGood1').innerText = dict.good1;
+            document.getElementById('btnGood2').innerText = dict.good2;
+            document.getElementById('btnEasy1').innerText = dict.easy1;
+            document.getElementById('btnEasy2').innerText = dict.easy2;
+            
+            document.getElementById('uiFinTitle').innerText = dict.finTitle;
+            document.getElementById('uiFinSub').innerHTML = dict.finSub;
+            document.getElementById('uiFinBtn').innerText = dict.finBtn;
+
+            // Zaten bir kart açıksa onun dilini de değiştir
+            if(sessionWords.length > 0 && currentIndex < sessionWords.length) {
+                loadCard(currentIndex);
+            }
+        }
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'tr' ? 'en' : 'tr';
+            localStorage.setItem('medVokabeln_lang', currentLang);
+            applyLanguage();
+        }
+
+        function initPage() {
+            if (localStorage.getItem('medVokabeln_theme') === 'dark') document.body.classList.add('dark-mode');
+            applyLanguage();
+            initTraining();
+        }
+
         let sessionWords = [];
         let currentIndex = 0;
         let srsData = JSON.parse(localStorage.getItem('medVokabeln_srs')) || {};
 
-        function initTheme() {
-            if (localStorage.getItem('medVokabeln_theme') === 'dark') document.body.classList.add('dark-mode');
-        }
-
         function initTraining() {
-            initTheme();
             const now = Date.now();
             
-            // Sadece vakti gelmiş (veya hiç sorulmamış yeni) kelimeleri bul
             let dueWords = vocabularyData.filter(word => {
-                if (!srsData[word.id]) return true; // Yeni kelime
-                return srsData[word.id].nextReview <= now; // Vakti gelmiş kelime
+                if (!srsData[word.id]) return true; 
+                return srsData[word.id].nextReview <= now; 
             });
 
-            // Kullanıcıyı boğmamak için günlük maksimum 20 kelime seç
             sessionWords = dueWords.sort(() => 0.5 - Math.random()).slice(0, 20);
 
             if (sessionWords.length === 0) {
@@ -131,20 +201,17 @@
             currentIndex = index;
             const word = sessionWords[index];
 
-            // Ön yüzü doldur
             document.getElementById('fCategory').innerText = word.category;
             document.getElementById('fGerman').innerText = word.german;
-            document.getElementById('fType').innerText = word.type;
+            document.getElementById('fType').innerText = word.type || "";
 
-            // Arka yüzü doldur
-            document.getElementById('fTurkish').innerText = word.turkish;
+            // DİLE GÖRE ÇEVİRİ BASIMI!
+            document.getElementById('fTurkish').innerText = (currentLang === 'en' && word.english) ? word.english : word.turkish;
             document.getElementById('fExample').innerText = `"${word.example}"`;
 
-            // Kartı düzelt ve butonları gizle
             document.getElementById('cardContainer').classList.remove('flipped');
             document.getElementById('actionButtons').classList.remove('visible');
 
-            // İlerlemeyi güncelle
             document.getElementById('counterText').innerText = `${index + 1} / ${sessionWords.length}`;
             const progress = ((index) / sessionWords.length) * 100;
             document.getElementById('progressBar').style.width = `${progress}%`;
@@ -154,17 +221,15 @@
             const container = document.getElementById('cardContainer');
             if (!container.classList.contains('flipped')) {
                 container.classList.add('flipped');
-                // Kart dönünce butonları göster
                 setTimeout(() => {
                     document.getElementById('actionButtons').classList.add('visible');
                 }, 300);
             }
         }
 
-        // 1-3-6 Algoritması Motoru
         function rateWord(days) {
             const wordId = sessionWords[currentIndex].id;
-            const nextReviewDate = Date.now() + (days * 24 * 60 * 60 * 1000); // Şu anki zaman + seçilen gün
+            const nextReviewDate = Date.now() + (days * 24 * 60 * 60 * 1000); 
             
             srsData[wordId] = {
                 nextReview: nextReviewDate,
@@ -172,8 +237,6 @@
             };
             
             localStorage.setItem('medVokabeln_srs', JSON.stringify(srsData));
-            
-            // Sonraki karta geç
             loadCard(currentIndex + 1);
         }
 
@@ -181,7 +244,7 @@
             document.getElementById('cardContainer').style.display = 'none';
             document.getElementById('actionButtons').style.display = 'none';
             document.getElementById('progressBar').style.width = '100%';
-            document.getElementById('counterText').innerText = 'Tamamlandı';
+            document.getElementById('counterText').innerText = uiDictTrain[currentLang].doneCount;
             document.getElementById('finishScreen').style.display = 'flex';
         }
     </script>
