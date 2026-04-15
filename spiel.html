@@ -8,15 +8,17 @@
     
     <link rel="manifest" href="manifest.json">
     <link rel="icon" href="favicon.png" type="image/png">
-<link rel="apple-touch-icon" href="favicon.png">
+    <link rel="apple-touch-icon" href="favicon.png">
     
     <title>Eşleştirme Oyunu | PflegeDeutsch</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=1">
+    <link rel="stylesheet" href="style.css?v=8">
     <style>
-        .back-nav { width: 100%; max-width: 400px; display: flex; align-items: center; margin-bottom: 20px; margin-top: 10px; }
-        .btn-back { background: var(--card-bg); border: 2px solid var(--border-color); color: var(--text-dark); padding: 10px 15px; border-radius: 12px; text-decoration: none; font-weight: bold; transition: 0.2s; }
+        .back-nav { width: 100%; max-width: 400px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; margin-top: 10px; }
+        .btn-back { background: var(--card-bg); border: 2px solid var(--border-color); color: var(--text-dark); padding: 10px 15px; border-radius: 12px; text-decoration: none; font-weight: bold; transition: 0.2s; display: flex; align-items: center; gap: 6px; cursor: pointer;}
+        .btn-back:hover { background: var(--switch-bg); border-color: var(--primary); }
+        .btn-back img { width: 18px; height: auto; border-radius: 2px; box-shadow: 0 0 2px rgba(0,0,0,0.2); }
         
         .game-container { width: 100%; max-width: 400px; display: flex; justify-content: space-between; gap: 10px; margin-top: 20px; }
         .column { flex: 1; display: flex; flex-direction: column; gap: 10px; }
@@ -35,14 +37,17 @@
         .btn-restart { display: none; background: var(--primary); color: white; border: none; padding: 15px; border-radius: 12px; width: 100%; max-width: 400px; font-weight: bold; cursor: pointer; margin-top: 20px; font-size: 1.1rem; box-shadow: 0 4px 10px rgba(2,132,199,0.3); }
     </style>
 </head>
-<body onload="initTheme()">
+<body onload="initPage()">
 
     <div class="back-nav">
-        <a href="index.html" class="btn-back">← Geri</a>
-        <h2 style="flex:1; text-align:center; color:var(--primary); font-size: 1.2rem;">Eşleştirme Oyunu</h2>
+        <a href="index.html" class="btn-back" id="uiBackBtn">← Geri</a>
+        <h2 style="flex:1; text-align:center; color:var(--primary); font-size: 1.2rem;" id="uiTitle">Eşleştirme Oyunu</h2>
+        <button id="langToggle" class="btn-back" onclick="toggleLanguage()">
+            <img src="https://flagcdn.com/w20/tr.png" alt="TR"> TR
+        </button>
     </div>
 
-    <p style="color:var(--text-muted); text-align:center; font-size:0.9rem;">💡 Önce Almancasına, sonra Türkçesine dokun.</p>
+    <p style="color:var(--text-muted); text-align:center; font-size:0.9rem;" id="uiSub">💡 Önce Almancasına, sonra Türkçesine dokun.</p>
     
     <div class="game-container">
         <div class="column" id="colGerman"></div>
@@ -52,19 +57,58 @@
     <div class="win-msg" id="winMessage">Tebrikler! Hepsini buldun 🎉</div>
     <button class="btn-restart" id="btnRestart" onclick="startGame()">🔄 Yeni Kelimeler Getir</button>
 
-    <script src="data.js?v=1"></script>
+    <script src="data.js?v=8"></script>
     
     <script>
-        let fullGamePool = []; // Orijinal ve topluluk kelimelerinin birleşeceği havuz
+        // --- DİL SÖZLÜĞÜ ---
+        const uiDictGame = {
+            tr: {
+                flag: '<img src="https://flagcdn.com/w20/tr.png" alt="TR"> TR',
+                back: "← Geri",
+                title: "Eşleştirme Oyunu",
+                sub: "💡 Önce Almancasına, sonra Türkçesine dokun.",
+                win: "Tebrikler! Hepsini buldun 🎉",
+                restart: "🔄 Yeni Kelimeler Getir"
+            },
+            en: {
+                flag: '<img src="https://flagcdn.com/w20/gb.png" alt="EN"> EN',
+                back: "← Back",
+                title: "Matching Game",
+                sub: "💡 Tap German first, then the translation.",
+                win: "Congrats! You found them all 🎉",
+                restart: "🔄 Get New Words"
+            }
+        };
 
-        function initTheme() { 
+        let currentLang = localStorage.getItem('medVokabeln_lang') || 'tr';
+
+        function applyLanguage() {
+            const dict = uiDictGame[currentLang];
+            document.getElementById('langToggle').innerHTML = dict.flag;
+            document.getElementById('uiBackBtn').innerText = dict.back;
+            document.getElementById('uiTitle').innerText = dict.title;
+            document.getElementById('uiSub').innerText = dict.sub;
+            document.getElementById('winMessage').innerText = dict.win;
+            document.getElementById('btnRestart').innerText = dict.restart;
+            
+            startGame(); // Dili değiştirince kelimeler de o dile dönsün diye oyunu sıfırlıyoruz.
+        }
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'tr' ? 'en' : 'tr';
+            localStorage.setItem('medVokabeln_lang', currentLang);
+            applyLanguage();
+        }
+
+        let fullGamePool = []; 
+
+        function initPage() { 
             if (localStorage.getItem('medVokabeln_theme') === 'dark') document.body.classList.add('dark-mode'); 
             
-            // KÖPRÜ: Orijinal listeyi al, üstüne Topluluk kelimelerini ekle!
             let communityWords = JSON.parse(localStorage.getItem('medVokabeln_communityWords')) || [];
             fullGamePool = [...vocabularyData, ...communityWords];
 
-            startGame(); 
+            applyLanguage(); 
         }
         
         let selectedGerman = null;
@@ -78,7 +122,6 @@
             document.getElementById('winMessage').style.display = 'none';
             document.getElementById('btnRestart').style.display = 'none';
             
-            // ARTik sadece vocabularyData'dan değil, FULL havuzdan çekiyor!
             let pool = shuffle([...fullGamePool]).slice(0, 5);
             
             let germanList = shuffle([...pool]);
@@ -88,7 +131,6 @@
             const colTur = document.getElementById('colTurkish');
             colGer.innerHTML = ''; colTur.innerHTML = '';
 
-            // Almanca Butonları
             germanList.forEach(item => {
                 let btn = document.createElement('button');
                 btn.className = 'game-btn';
@@ -97,11 +139,11 @@
                 colGer.appendChild(btn);
             });
 
-            // Türkçe Butonları
             turkishList.forEach(item => {
                 let btn = document.createElement('button');
                 btn.className = 'game-btn';
-                btn.innerText = item.turkish;
+                // Dile göre İngilizce veya Türkçe basıyoruz!
+                btn.innerText = (currentLang === 'en' && item.english) ? item.english : item.turkish;
                 btn.onclick = () => selectItem(btn, 'turkish', item.id);
                 colTur.appendChild(btn);
             });
@@ -128,7 +170,6 @@
             let tBtn = selectedTurkish.btn;
             
             if (selectedGerman.id === selectedTurkish.id) {
-                // DOĞRU EŞLEŞME
                 gBtn.classList.remove('selected'); tBtn.classList.remove('selected');
                 gBtn.classList.add('correct'); tBtn.classList.add('correct');
                 pairsFound++;
@@ -141,7 +182,6 @@
                     }, 500);
                 }
             } else {
-                // YANLIŞ EŞLEŞME
                 gBtn.classList.remove('selected'); tBtn.classList.remove('selected');
                 gBtn.classList.add('wrong'); tBtn.classList.add('wrong');
                 
