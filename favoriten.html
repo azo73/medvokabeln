@@ -3,145 +3,181 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zor Kelimelerim ⭐ | PflegeDeutsch</title>
-    <link rel="stylesheet" href="style.css?v=2">
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5935458968037999" crossorigin="anonymous"></script>
+    
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="favicon.png">
+    
+    <title>Favoriler ⭐ | PflegeDeutsch</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=8">
     <style>
-        body { background-color: var(--bg-color); min-height: 100vh; }
-        .top-nav { padding: 15px; max-width: 800px; margin: 0 auto; }
-        .btn-back { font-weight: bold; color: var(--primary); text-decoration: none; display: inline-block; padding: 10px; }
+        body { background-color: var(--bg-color); min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding-bottom: 50px;}
         
-        .fav-header { text-align: center; margin: 20px 0 40px 0; padding: 0 15px; }
-        .fav-header h1 { color: var(--text-dark); font-size: 2rem; margin-bottom: 10px; }
-        .fav-header p { color: var(--text-muted); }
+        .back-nav { width: 100%; max-width: 600px; display: flex; align-items: center; justify-content: space-between; margin-top: 20px; padding: 0 15px; }
+        .btn-back { background: var(--card-bg); border: 2px solid var(--border-color); color: var(--text-dark); padding: 10px 15px; border-radius: 12px; text-decoration: none; font-weight: bold; transition: 0.2s; display: flex; align-items: center; gap: 6px; cursor: pointer; }
+        .btn-back:hover { background: var(--switch-bg); border-color: var(--primary); }
+        .btn-back img { width: 18px; height: auto; border-radius: 2px; box-shadow: 0 0 2px rgba(0,0,0,0.2); }
+        
+        .page-header { text-align: center; margin: 30px 0 20px 0; padding: 0 15px; }
+        .page-header h2 { color: #f1c40f; font-size: 1.8rem; margin-bottom: 5px; text-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .page-header p { color: var(--text-muted); font-size: 0.95rem; }
 
-        .word-list { max-width: 800px; margin: 0 auto; padding: 0 15px 50px 15px; }
+        .fav-list { width: 100%; max-width: 600px; display: flex; flex-direction: column; gap: 15px; padding: 0 15px; }
         
-        .word-card { 
-            background: var(--card-bg); 
-            border: 2px solid var(--border-color); 
-            border-radius: 16px; 
-            padding: 20px; 
-            margin-bottom: 15px; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-            transition: transform 0.2s;
-        }
-        .word-card:hover { transform: translateY(-3px); box-shadow: 0 6px 12px rgba(0,0,0,0.05); }
+        .fav-card { background: var(--card-bg); border: 2px solid var(--border-color); border-radius: 16px; padding: 20px; display: flex; justify-content: space-between; align-items: center; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+        .fav-card:hover { transform: translateY(-3px); box-shadow: 0 8px 15px rgba(0,0,0,0.05); border-color: #f1c40f; }
         
-        .word-info { flex: 1; }
-        .word-header { display: flex; align-items: center; gap: 10px; margin-bottom: 5px; }
-        .german-text { font-weight: 800; color: var(--text-dark); font-size: 1.3rem; }
+        .fav-info { display: flex; flex-direction: column; gap: 5px; }
+        .fav-german { font-size: 1.3rem; font-weight: 800; color: var(--text-dark); display: flex; align-items: center; gap: 10px; }
+        .fav-type { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+        .fav-translation { font-size: 1.1rem; font-weight: 600; color: var(--primary); }
         
-        .btn-speak-small { 
-            background: var(--switch-bg); 
-            border: none; 
-            border-radius: 50%; 
-            width: 35px; 
-            height: 35px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            cursor: pointer; 
-            font-size: 1.1rem; 
-            transition: 0.2s;
-        }
-        .btn-speak-small:hover { background: var(--primary); transform: scale(1.1); }
-        
-        .turkish-text { color: var(--primary); font-weight: 600; font-size: 1.1rem; margin-bottom: 8px; }
-        .example-text { font-size: 0.9rem; color: var(--text-muted); font-style: italic; background: rgba(0,0,0,0.03); padding: 8px 12px; border-radius: 8px; display: inline-block;}
-        
-        .btn-remove { background: none; border: none; font-size: 1.5rem; cursor: pointer; padding: 10px; transition: 0.2s; opacity: 0.5; }
-        .btn-remove:hover { transform: scale(1.2); opacity: 1; }
-        
-        .empty-state { text-align: center; color: var(--text-muted); margin-top: 50px; padding: 40px; background: var(--card-bg); border-radius: 20px; border: 2px dashed var(--border-color); }
+        .btn-speak-small { background: var(--switch-bg); border: none; border-radius: 50%; width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.1rem; transition: 0.2s; }
+        .btn-speak-small:hover { background: var(--primary); color: white; transform: scale(1.1); }
+
+        .btn-remove-fav { background: none; border: none; font-size: 1.8rem; cursor: pointer; color: #f1c40f; transition: 0.2s; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); }
+        .btn-remove-fav:hover { transform: scale(1.2) rotate(15deg); color: #e74c3c; }
+
+        .empty-state { text-align: center; margin-top: 50px; padding: 0 20px; display: none; }
+        .empty-state.visible { display: block; }
+        .empty-icon { font-size: 4rem; filter: grayscale(100%); opacity: 0.5; margin-bottom: 15px; }
+        .empty-text { color: var(--text-muted); font-size: 1rem; line-height: 1.5; }
     </style>
 </head>
-<body onload="initFavPage()">
+<body onload="initPage()">
 
-    <div class="top-nav">
-        <a href="index.html" class="btn-back">← Ana Sayfaya Dön</a>
+    <div class="back-nav">
+        <a href="index.html" class="btn-back" id="uiBackBtn">← Geri</a>
+        <button id="langToggle" class="btn-back" onclick="toggleLanguage()">
+            <img src="https://flagcdn.com/w20/tr.png" alt="TR"> TR
+        </button>
     </div>
 
-    <div class="fav-header">
-        <h1>⭐ Favorilerim</h1>
-        <p>Zorlandığın kelimeler burada. Ses ikonuna basarak telaffuzlarını dinle!</p>
+    <div class="page-header">
+        <h2 id="uiTitle">⭐ Favori Kelimelerin</h2>
+        <p id="uiSub">Sık sık tekrar etmen gereken, yıldızladığın kelimeler.</p>
     </div>
 
-    <div id="favContainer" class="word-list">
+    <div class="empty-state" id="emptyState">
+        <div class="empty-icon">⭐</div>
+        <p class="empty-text" id="uiEmptyText">Henüz favori kelimen yok.<br>Kartların üzerindeki yıldıza basarak ekleyebilirsin!</p>
+    </div>
+
+    <div class="fav-list" id="favListContainer">
         </div>
 
-    <script src="data.js?v=2"></script>
+    <script src="data.js?v=8"></script>
     <script>
-        function initFavPage() {
-            if (localStorage.getItem('medVokabeln_theme') === 'dark') {
-                document.body.classList.add('dark-mode');
+        // --- DİL SÖZLÜĞÜ (FAVORİLER İÇİN) ---
+        const uiDictFavs = {
+            tr: {
+                flag: '<img src="https://flagcdn.com/w20/tr.png" alt="TR"> TR',
+                back: "← Geri",
+                title: "⭐ Favori Kelimelerin",
+                sub: "Sık sık tekrar etmen gereken, yıldızladığın kelimeler.",
+                emptyText: "Henüz favori kelimen yok.<br>Kartların üzerindeki yıldıza basarak ekleyebilirsin!"
+            },
+            en: {
+                flag: '<img src="https://flagcdn.com/w20/gb.png" alt="EN"> EN',
+                back: "← Back",
+                title: "⭐ Favorite Words",
+                sub: "Words you have starred and need to review often.",
+                emptyText: "No favorite words yet.<br>You can add them by tapping the star on the cards!"
             }
-            loadFavorites();
+        };
+
+        let currentLang = localStorage.getItem('medVokabeln_lang') || 'tr';
+
+        function applyLanguage() {
+            const dict = uiDictFavs[currentLang];
+            document.getElementById('langToggle').innerHTML = dict.flag;
+            document.getElementById('uiBackBtn').innerText = dict.back;
+            document.getElementById('uiTitle').innerText = dict.title;
+            document.getElementById('uiSub').innerText = dict.sub;
+            document.getElementById('uiEmptyText').innerHTML = dict.emptyText;
+
+            // Dili değiştirdiğimizde listeyi yeniden çiz ki kelimelerin anlamları İngilizce/Türkçe olarak güncellensin
+            renderFavList();
         }
 
-        // --- SESLİ OKUMA MOTORU ---
-        function speakFavWord(text) {
+        function toggleLanguage() {
+            currentLang = currentLang === 'tr' ? 'en' : 'tr';
+            localStorage.setItem('medVokabeln_lang', currentLang);
+            applyLanguage();
+        }
+
+        function initTheme() {
+            if (localStorage.getItem('medVokabeln_theme') === 'dark') document.body.classList.add('dark-mode');
+        }
+
+        function initPage() {
+            initTheme();
+            applyLanguage();
+        }
+
+        function speakWord(text) {
             if ('speechSynthesis' in window) {
-                // Konuşmayı durdur (üst üste binmesin diye)
                 window.speechSynthesis.cancel();
-                
                 const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = 'de-DE'; // Alman aksanı
-                utterance.rate = 0.85; // Öğrenenler için bir tık yavaş
+                utterance.lang = 'de-DE';
+                utterance.rate = 0.85;
                 window.speechSynthesis.speak(utterance);
-            } else {
-                alert("Tarayıcınız sesli okumayı desteklemiyor.");
             }
         }
 
-        function loadFavorites() {
-            const container = document.getElementById('favContainer');
-            const favorites = JSON.parse(localStorage.getItem('medVokabeln_favs')) || [];
-            
-            if (favorites.length === 0) {
-                container.innerHTML = `
-                    <div class="empty-state">
-                        <div style="font-size: 4rem; margin-bottom: 15px;">🤷‍♂️</div>
-                        <h2 style="color: var(--text-dark); margin-bottom: 10px;">Liste Bembeyaz!</h2>
-                        <p>Henüz hiçbir kelimeyi yıldızlamadın.</p>
-                        <p>Ana sayfadaki veya Anatomi bölümündeki yıldızlara (⭐) basarak buraya kelime ekleyebilirsin.</p>
-                    </div>`;
-                return;
-            }
-
-            // Sadece favori listesindeki ID'lere sahip kelimeleri filtrele
-            const favWords = vocabularyData.filter(w => favorites.includes(w.id));
-            
-            container.innerHTML = '';
-            favWords.forEach(word => {
-                // Kaçış karakteri sorunlarını önlemek için kelimeyi güvenli hale getiriyoruz
-                const safeGermanWord = word.german.replace(/'/g, "\\'");
-
-                container.innerHTML += `
-                    <div class="word-card">
-                        <div class="word-info">
-                            <div class="word-header">
-                                <div class="german-text">${word.german}</div>
-                                <button class="btn-speak-small" onclick="speakFavWord('${safeGermanWord}')" title="Telaffuzu Dinle">🔊</button>
-                            </div>
-                            <div class="turkish-text">${word.turkish}</div>
-                            <div class="example-text">"${word.example}"</div>
-                        </div>
-                        <button class="btn-remove" onclick="removeFav(${word.id})" title="Favorilerden Çıkar">❌</button>
-                    </div>
-                `;
-            });
-        }
-
-        function removeFav(id) {
+        function removeFavorite(id) {
             let favorites = JSON.parse(localStorage.getItem('medVokabeln_favs')) || [];
             favorites = favorites.filter(favId => favId !== id);
             localStorage.setItem('medVokabeln_favs', JSON.stringify(favorites));
             
-            // Animasyonlu silinme hissi için sayfayı baştan yüklüyoruz
-            loadFavorites(); 
+            // Listeyi yeniden çiz
+            renderFavList();
+        }
+
+        function renderFavList() {
+            const container = document.getElementById('favListContainer');
+            const emptyState = document.getElementById('emptyState');
+            
+            let favorites = JSON.parse(localStorage.getItem('medVokabeln_favs')) || [];
+            
+            // Eğer hiç favori yoksa, boş durumu göster
+            if (favorites.length === 0) {
+                container.innerHTML = "";
+                emptyState.classList.add('visible');
+                return;
+            }
+
+            // Favori kelimeleri ana datadan filtrele
+            // data.js dosyasındaki vocabularyData'yı kullanıyoruz.
+            let favWords = vocabularyData.filter(word => favorites.includes(word.id));
+            
+            emptyState.classList.remove('visible');
+            container.innerHTML = "";
+
+            favWords.forEach(word => {
+                // Hangi dil seçiliyse onu al (İngilizcesi yoksa Türkçeyi basar)
+                const displayedTranslation = (currentLang === 'en' && word.english) ? word.english : word.turkish;
+                const wordType = word.type || "Wort";
+
+                const cardHtml = `
+                    <div class="fav-card">
+                        <div class="fav-info">
+                            <div class="fav-type">${wordType}</div>
+                            <div class="fav-german">
+                                ${word.german} 
+                                <button class="btn-speak-small" onclick="speakWord('${word.german}')" title="Dinle">🔊</button>
+                            </div>
+                            <div class="fav-translation">${displayedTranslation}</div>
+                        </div>
+                        <button class="btn-remove-fav" onclick="removeFavorite(${word.id})" title="Favorilerden Çıkar">⭐</button>
+                    </div>
+                `;
+                container.innerHTML += cardHtml;
+            });
         }
     </script>
 </body>
