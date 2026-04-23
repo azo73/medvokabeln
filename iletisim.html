@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İletişim | PflegeDeutsch</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=6">
+    <style>
+        .page-container { max-width: 600px; margin: 40px auto; padding: 30px; background: var(--card-bg); border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .page-content h1 { color: var(--primary); margin-bottom: 10px; font-size: 1.8rem; text-align: center;}
+        .page-content p { color: var(--text-muted); text-align: center; margin-bottom: 30px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; color: var(--text-dark); font-weight: 600; }
+        .form-group input, .form-group textarea { width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; font-family: inherit; font-size: 1rem; }
+        .form-group textarea { resize: vertical; min-height: 120px; }
+        .submit-btn { width: 100%; background: var(--primary); color: white; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1.1rem; transition: 0.2s;}
+        .submit-btn:hover { opacity: 0.9; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-top">
+            <div class="brand">
+                <a href="index.html" style="text-decoration: none; color: inherit;"><h1 style="margin:0;">med-vokabeln.com</h1></a>
+                <p style="margin:0; font-size:0.85rem; opacity:0.8;">Pflegefachkräfte Vokabeltrainer</p>
+            </div>
+            <nav class="main-nav">
+                <ul class="nav-links">
+                    <li><a href="index.html">Ana Sayfa</a></li>
+                    <li><a href="rehber.html">Almanca Rehberi</a></li>
+                    <li><a href="hakkimizda.html">Hakkımızda</a></li>
+                    <li><a href="iletisim.html" style="color: var(--primary);">İletişim</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="page-container">
+        <div class="page-content">
+            <h1>Bizimle İletişime Geçin</h1>
+            <p>Soru, öneri veya işbirlikleri için formu doldurabilir veya doğrudan mail atabilirsiniz.</p>
+            
+            <p style="text-align: center; font-weight: bold; color: var(--text-dark); margin-bottom: 20px;">✉️ Email: info@med-vokabeln.com</p>
+
+            <form action="#" onsubmit="event.preventDefault(); alert('Mesajınız başarıyla alınmıştır. Teşekkür ederiz!');">
+                <div class="form-group">
+                    <label>Adınız Soyadınız</label>
+                    <input type="text" placeholder="Örn: Ayşe Yılmaz" required>
+                </div>
+                <div class="form-group">
+                    <label>E-Posta Adresiniz</label>
+                    <input type="email" placeholder="mail@ornek.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Mesajınız</label>
+                    <textarea placeholder="Mesajınızı buraya yazın..." required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Gönder</button>
+            </form>
+        </div>
+    </div>
+
+    <footer style="width: 100%; text-align: center; margin-bottom: 30px; font-size: 0.85rem;">
+        <a href="datenschutz.html" style="color: var(--primary); text-decoration: none; margin: 0 10px;">Datenschutzerklärung</a>
+        <span style="color: var(--text-muted);">|</span>
+        <a href="impressum.html" style="color: var(--primary); text-decoration: none; margin: 0 10px;">Impressum</a>
+    </footer>
+
+</body>
+</html>
