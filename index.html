@@ -261,10 +261,11 @@
                 <ul class="nav-links">
                     <li><a href="telc.html" style="color: var(--primary);">telc Hazırlık 🔥</a></li>
                     <li><a href="rehber.html">Rehber</a></li>
+                    <li><a href="topluluk.html">Topluluk 🌍</a></li>
                     <li><a href="hakkimizda.html">Hakkımızda</a></li>
                     <li><a href="iletisim.html">İletişim</a></li>
                     <li>
-                        <button id="langToggle" onclick="toggleLanguage()" style="background:transparent; border:1px solid #555; color:white; padding:5px 10px; border-radius:15px; cursor:pointer;">TR</button>
+                        <button id="langToggle" onclick="toggleLanguage()" style="background:transparent; border:1px solid #555; color:white; padding:5px 10px; border-radius:15px; cursor:pointer; transition:0.2s;">TR</button>
                     </li>
                 </ul>
             </nav>
@@ -382,7 +383,7 @@
     <script src="script.js?v=6"></script>
     
     <script>
-        // Dil ve WotD Ayarları (Eski yapınla tamamen aynı, ID'ler korundu)
+        // Dil ve WotD Ayarları
         let currentLang = localStorage.getItem('medVokabeln_lang') || 'tr';
         
         function toggleLanguage() {
@@ -414,7 +415,7 @@
 
         window.addEventListener('DOMContentLoaded', () => {
             document.getElementById('langToggle').innerText = currentLang.toUpperCase();
-            setTimeout(initWotd, 500); // data.js yüklendikten sonra çalışması için
+            setTimeout(initWotd, 500);
         });
     </script>
 </body>
