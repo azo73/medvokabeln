@@ -7,25 +7,44 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css?v=6">
     <style>
-        .page-container { max-width: 800px; margin: 40px auto; padding: 20px; background: var(--card-bg); border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-align: center; }
+        .modern-header { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 15px 5%; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(0, 0, 0, 0.05); position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03); }
+        .header-left { display: flex; gap: 12px; justify-content: flex-start; }
+        .header-center { text-align: center; }
+        .brand-logo { text-decoration: none; display: block; transition: transform 0.2s; }
+        .brand-logo:hover { transform: scale(1.05); }
+        .brand-logo h1 { margin: 0; font-size: 1.8rem; color: var(--text-dark); letter-spacing: -0.5px; font-weight: 800; }
+        .brand-logo span { color: var(--primary); }
+        .brand-subtitle { margin: 0; font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+        .header-right { display: flex; justify-content: flex-end; }
+        .nav-links { list-style: none; display: flex; gap: 15px; margin: 0; padding: 0; align-items: center;}
+        .nav-links a { text-decoration: none; color: var(--text-muted); font-size: 0.95rem; font-weight: 600; transition: all 0.3s ease; padding: 8px 12px; border-radius: 12px; }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary); background: rgba(234, 88, 12, 0.1); transform: translateY(-2px); }
+        @media (max-width: 850px) { .modern-header { grid-template-columns: 1fr; gap: 15px; padding: 15px; } .header-left { justify-content: center; } .header-right { justify-content: center; width: 100%; } .nav-links { flex-wrap: wrap; justify-content: center; gap: 10px; } }
+
+        .page-container { max-width: 800px; margin: 40px auto; padding: 30px; background: var(--card-bg); border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center; }
         .page-content h1 { color: var(--primary); margin-bottom: 20px; font-size: 1.8rem;}
-        .page-content p { color: var(--text-muted); line-height: 1.6; margin-bottom: 15px; font-size: 1.05rem; text-align: left;}
+        .page-content p { color: var(--text-muted); line-height: 1.7; margin-bottom: 15px; font-size: 1.05rem; text-align: left;}
         .highlight-box { background: var(--switch-bg); padding: 20px; border-radius: 12px; border-left: 4px solid var(--primary); text-align: left; margin: 30px 0;}
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="header-top">
-            <div class="brand">
-                <a href="index.html" style="text-decoration: none; color: inherit;"><h1 style="margin:0;">med-vokabeln.com</h1></a>
-                <p style="margin:0; font-size:0.85rem; opacity:0.8;">Pflegefachkräfte Vokabeltrainer</p>
-            </div>
+    <header class="modern-header">
+        <div class="header-left">
+            <a href="index.html" style="text-decoration: none; color: var(--text-dark); font-weight: bold; padding: 8px 15px; background: var(--switch-bg); border-radius: 20px; font-size: 0.9rem;">&larr; Ana Sayfa</a>
+        </div>
+        <div class="header-center">
+            <a href="index.html" class="brand-logo">
+                <h1>med-<span>vokabeln</span></h1>
+            </a>
+            <p class="brand-subtitle">Pflegefachkräfte Trainer</p>
+        </div>
+        <div class="header-right">
             <nav class="main-nav">
                 <ul class="nav-links">
-                    <li><a href="index.html">Ana Sayfa</a></li>
-                    <li><a href="rehber.html">Almanca Rehberi</a></li>
-                    <li><a href="hakkimizda.html" style="color: var(--primary);">Hakkımızda</a></li>
+                    <li><a href="telc.html" style="color: var(--primary); border: 1px solid var(--primary); background: rgba(234, 88, 12, 0.05);">telc Hazırlık 🔥</a></li>
+                    <li><a href="rehber.html">Rehber</a></li>
+                    <li><a href="hakkimizda.html" class="active">Hakkımızda</a></li>
                     <li><a href="iletisim.html">İletişim</a></li>
                 </ul>
             </nav>
@@ -35,24 +54,23 @@
     <div class="page-container">
         <div class="page-content">
             <h1>Hakkımızda: PflegeDeutsch'in Hikayesi</h1>
-            
-            <p>Uluslararası bir hemşire olarak yeni bir ülkeye, yeni bir sağlık sistemine ve tamamen yeni bir dile adapte olmanın ne kadar zorlu bir süreç olduğunu çok iyi biliyoruz. Tıbbi terimlerin karmaşıklığı, yoğun hastane nöbetleri ve sınav stresi bir araya geldiğinde, dil öğrenimi çoğu zaman ezbere dayalı ve yorucu bir hale gelebiliyor.</p>
-            
-            <p>İşte <strong>med-vokabeln.com (PflegeDeutsch)</strong>, tam olarak bu zorluğu yaşayan sağlık profesyonellerine modern, ücretsiz ve pratik bir çözüm sunmak amacıyla kuruldu. Amacımız, kalın sözlükler ve sıkıcı listeler yerine; interaktif bilgi kartları (flashcards) ve oyunlaştırılmış bir altyapı ile tıbbi Almancayı her an her yerde öğrenilebilir kılmaktır.</p>
-
+            <p>Uluslararası bir hemşire olarak yeni bir dile ve sisteme adapte olmanın zorluklarını biliyoruz. med-vokabeln.com, bu süreci kolaylaştırmak amacıyla kurulmuş modern bir eğitim platformudur.</p>
             <div class="highlight-box">
-                <strong>Vizyonumuz:</strong> Almanya, İsviçre ve Avusturya'da çalışmayı hedefleyen veya halihazırda çalışan uluslararası hemşirelerin, doktorlarla ve hastalarla en güvenilir şekilde iletişim kurmasını sağlayan bir numaralı başucu kaynağı olmak.
+                <strong>Vizyonumuz:</strong> Avrupa'da çalışan veya çalışmayı hedefleyen sağlık profesyonellerinin bir numaralı tıbbi dil rehberi olmak.
             </div>
-
-            <p>Klinik hayatın dinamiklerine uygun olarak hazırladığımız veri tabanımız, her geçen gün yeni kelimeler, diyaloglar ve anatomi modülleri ile büyümeye devam ediyor. Siz hastaların hayatına dokunurken, biz de sizin dil engellerini aşmanıza yardımcı olmaktan gurur duyuyoruz.</p>
+            <p>Her gün güncellenen kelime listelerimiz ve sınav hazırlık modüllerimizle meslektaşlarımızın yanındayız.</p>
         </div>
     </div>
 
     <footer style="width: 100%; text-align: center; margin-bottom: 30px; font-size: 0.85rem;">
-        <a href="datenschutz.html" style="color: var(--primary); text-decoration: none; margin: 0 10px;">Datenschutzerklärung</a>
-        <span style="color: var(--text-muted);">|</span>
-        <a href="impressum.html" style="color: var(--primary); text-decoration: none; margin: 0 10px;">Impressum</a>
+        <div style="margin-bottom: 10px;">
+            <a href="datenschutz.html" style="color: var(--primary); text-decoration: none; margin: 0 10px;">Datenschutzerklärung</a>
+            <span style="color: var(--text-muted);">|</span>
+            <a href="iletisim.html" style="color: var(--primary); text-decoration: none; margin: 0 10px;">Kontakt</a>
+        </div>
+        <div style="color: var(--text-muted); margin-top: 10px; font-weight: 600;">
+            © 2026 Oluşturan Azad | Tüm Hakları Saklıdır
+        </div>
     </footer>
-
 </body>
 </html>
