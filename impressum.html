@@ -4,44 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Impressum | PflegeDeutsch</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=6">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=8">
     <style>
-        /* --- MODERN HEADER & NAV --- */
-        .modern-header { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 15px 5%; background: var(--card-bg, #ffffff); border-bottom: 1px solid var(--border-color, #e2e8f0); position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); }
+        body { background-color: var(--bg-body, #121212); color: var(--text-main, #fff); margin: 0; }
+        .modern-header { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 15px 5%; background: rgba(30, 30, 30, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-color, #333); position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); }
         .header-left { display: flex; gap: 12px; justify-content: flex-start; }
         .header-center { text-align: center; }
-        .brand-logo { text-decoration: none; display: block; transition: transform 0.2s; }
-        .brand-logo:hover { transform: scale(1.05); }
-        .brand-logo h1 { margin: 0; font-size: 1.8rem; color: var(--text-dark, #1e293b); letter-spacing: -0.5px; font-weight: 800; }
-        .brand-logo span { color: var(--primary, #ea580c); }
-        .brand-subtitle { margin: 0; font-size: 0.75rem; color: var(--text-muted, #64748b); text-transform: uppercase; letter-spacing: 1px; }
+        .brand-logo { text-decoration: none; display: block; }
+        .brand-logo h1 { margin: 0; font-size: 1.8rem; color: var(--text-main, #fff); letter-spacing: -0.5px; font-weight: 800; }
+        .brand-logo span { color: var(--primary, #FFCC00); }
+        .brand-subtitle { margin: 0; font-size: 0.75rem; color: var(--text-muted, #a3a3a3); text-transform: uppercase; letter-spacing: 1px; }
         .header-right { display: flex; justify-content: flex-end; }
         .nav-links { list-style: none; display: flex; gap: 15px; margin: 0; padding: 0; align-items: center;}
-        .nav-links a { text-decoration: none; color: var(--text-muted, #64748b); font-size: 0.95rem; font-weight: 600; transition: all 0.3s ease; padding: 8px 12px; border-radius: 12px; }
-        .nav-links a:hover, .nav-links a.active { color: var(--primary, #ea580c); background: rgba(234, 88, 12, 0.1); transform: translateY(-2px); }
+        .nav-links a { text-decoration: none; color: var(--text-muted, #a3a3a3); font-size: 0.95rem; font-weight: 600; transition: all 0.3s ease; padding: 8px 12px; border-radius: 12px; }
+        .nav-links a:hover { color: #000; background: var(--primary, #FFCC00); }
+        @media (max-width: 850px) { .modern-header { grid-template-columns: 1fr; gap: 15px; padding: 15px; } .header-left, .header-right { justify-content: center; width: 100%; } .nav-links { flex-wrap: wrap; justify-content: center; gap: 10px; } }
 
-        @media (max-width: 850px) {
-            .modern-header { grid-template-columns: 1fr; gap: 15px; padding: 15px; }
-            .header-left { justify-content: center; }
-            .header-right { justify-content: center; width: 100%; }
-            .nav-links { flex-wrap: wrap; justify-content: center; gap: 10px; }
-        }
-
-        /* --- IMPRESSUM CONTENT --- */
-        .impressum-container { max-width: 800px; margin: 40px auto; padding: 40px; background: var(--card-bg, #ffffff); border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid var(--border-color, #e2e8f0); }
-        .impressum-container h1 { color: var(--primary, #ea580c); font-size: 2.2rem; margin-bottom: 30px; text-align: center; }
-        .impressum-container h3 { color: var(--text-dark, #1e293b); margin-top: 35px; margin-bottom: 15px; font-size: 1.3rem; border-bottom: 2px solid var(--switch-bg, #f1f5f9); padding-bottom: 8px; }
-        .impressum-container p { color: var(--text-muted, #64748b); line-height: 1.7; margin-bottom: 15px; font-size: 1.05rem; }
-        .impressum-container a { color: var(--primary, #ea580c); text-decoration: none; }
-        .impressum-container a:hover { text-decoration: underline; }
+        .page-container { max-width: 800px; margin: 50px auto; padding: 40px; background: var(--card-bg, #1e1e1e); border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); border: 1px solid var(--border-color, #333); }
+        .page-content h1 { color: var(--primary, #FFCC00); margin-top: 0; margin-bottom: 30px; font-size: 2.2rem; text-align: center;}
+        .page-content h3 { color: var(--text-main, #fff); margin-top: 35px; margin-bottom: 15px; font-size: 1.3rem; border-bottom: 2px solid var(--switch-bg, #2a2a2a); padding-bottom: 8px;}
+        .page-content p { color: var(--text-muted, #a3a3a3); line-height: 1.7; margin-bottom: 15px; font-size: 1.05rem;}
     </style>
 </head>
 <body>
 
     <header class="modern-header">
         <div class="header-left">
-            <a href="index.html" style="text-decoration: none; color: var(--text-dark, #1e293b); font-weight: bold; padding: 8px 15px; background: var(--switch-bg, #f1f5f9); border-radius: 20px; font-size: 0.9rem;">&larr; Ana Sayfa</a>
+            <a href="index.html" style="text-decoration: none; color: var(--text-main, #fff); font-weight: bold; padding: 8px 15px; background: var(--switch-bg, #2a2a2a); border-radius: 20px; font-size: 0.9rem; border: 1px solid var(--border-color, #333);">&larr; Ana Sayfa</a>
         </div>
         <div class="header-center">
             <a href="index.html" class="brand-logo">
@@ -52,7 +42,7 @@
         <div class="header-right">
             <nav class="main-nav">
                 <ul class="nav-links">
-                    <li><a href="telc.html" style="color: var(--primary, #ea580c); border: 1px solid var(--primary, #ea580c); background: rgba(234, 88, 12, 0.05);">telc Hazırlık 🔥</a></li>
+                    <li><a href="goethe.html" style="color: var(--primary, #FFCC00); border: 1px solid var(--primary, #FFCC00); background: rgba(255, 204, 0, 0.05);">Goethe Hazırlık 🇩🇪</a></li>
                     <li><a href="rehber.html">Rehber</a></li>
                     <li><a href="hakkimizda.html">Hakkımızda</a></li>
                     <li><a href="iletisim.html">İletişim</a></li>
@@ -61,43 +51,35 @@
         </div>
     </header>
 
-    <div class="impressum-container">
-        <h1>Impressum</h1>
-        
-        <h3>Angaben gemäß § 5 TMG</h3>
-        <p>
-            <strong>med-vokabeln.com - PflegeDeutsch</strong><br>
-            Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV:<br><br>
-            Azad [Soyadınızı Buraya Yazabilirsiniz]<br>
-            [Şehir/Ülke bilginizi ekleyebilirsiniz, örn: Şanlıurfa, Türkei]<br>
-        </p>
+    <div class="page-container">
+        <div class="page-content">
+            <h1>Impressum</h1>
+            
+            <h3>Angaben gemäß § 5 TMG</h3>
+            <p>
+                med-vokabeln.com - PflegeDeutsch<br>
+                (Website-Betreiber)<br>
+                E-Mail: info@med-vokabeln.com<br>
+            </p>
 
-        <h3>Kontakt</h3>
-        <p>
-            E-Mail: <a href="mailto:info@med-vokabeln.com">info@med-vokabeln.com</a><br>
-            Internetadresse: <a href="https://medvokabeln.com">medvokabeln.com</a>
-        </p>
+            <h3>Haftung für Inhalte</h3>
+            <p>Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.</p>
 
-        <h3>Haftung für Inhalte</h3>
-        <p>Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen. Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.</p>
-
-        <h3>Haftung für Links</h3>
-        <p>Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht erkennbar. Eine permanente inhaltliche Kontrolle der verlinkten Seiten ist jedoch ohne konkrete Anhaltspunkte einer Rechtsverletzung nicht zumutbar. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Links umgehend entfernen.</p>
-
-        <h3>Urheberrecht</h3>
-        <p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers. Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet. Soweit die Inhalte auf dieser Seite nicht vom Betreiber erstellt wurden, werden die Urheberrechte Dritter beachtet. Insbesondere werden Inhalte Dritter als solche gekennzeichnet. Sollten Sie trotzdem auf eine Urheberrechtsverletzung aufmerksam werden, bitten wir um einen entsprechenden Hinweis. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Inhalte umgehend entfernen.</p>
+            <h3>Urheberrecht</h3>
+            <p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.</p>
+        </div>
     </div>
 
-    <footer style="width: 100%; text-align: center; margin: 40px 0 30px 0; font-size: 0.9rem;">
+    <footer style="width: 100%; text-align: center; margin-bottom: 30px; font-size: 0.9rem; border-top: 1px solid var(--border-color, #333); padding-top: 20px;">
         <div style="margin-bottom: 10px;">
-            <a href="datenschutz.html" style="color: var(--primary, #ea580c); text-decoration: none; margin: 0 10px; font-weight: 600;">Datenschutzerklärung</a>
-            <span style="color: var(--text-muted, #64748b);">|</span>
-            <a href="impressum.html" style="color: var(--primary, #ea580c); text-decoration: none; margin: 0 10px; font-weight: 600;">Impressum</a>
-            <span style="color: var(--text-muted, #64748b);">|</span>
-            <a href="iletisim.html" style="color: var(--primary, #ea580c); text-decoration: none; margin: 0 10px; font-weight: 600;">Kontakt</a>
+            <a href="datenschutz.html" style="color: var(--primary, #FFCC00); text-decoration: none; margin: 0 10px; font-weight: 600;">Datenschutzerklärung</a>
+            <span style="color: var(--text-muted, #a3a3a3);">|</span>
+            <a href="impressum.html" style="color: var(--primary, #FFCC00); text-decoration: none; margin: 0 10px; font-weight: 600;">Impressum</a>
+            <span style="color: var(--text-muted, #a3a3a3);">|</span>
+            <a href="iletisim.html" style="color: var(--primary, #FFCC00); text-decoration: none; margin: 0 10px; font-weight: 600;">Kontakt</a>
         </div>
-        <div style="color: var(--text-muted, #64748b); margin-top: 15px; font-weight: 600;">
-            © 2026 Oluşturan Mehmet | Tüm Hakları Saklıdır
+        <div style="color: var(--text-muted, #a3a3a3); margin-top: 10px; font-weight: 600;">
+            © 2026 Oluşturan Azad | Tüm Hakları Saklıdır
         </div>
     </footer>
 
