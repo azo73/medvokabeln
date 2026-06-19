@@ -17,7 +17,7 @@
     <meta property="og:type" content="website">
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=8">
+    <link rel="stylesheet" href="style.css?v=9">
     
     <style>
         :root {
@@ -79,7 +79,7 @@
         .stats-container { display: flex; gap: 15px; align-items: center; }
         .streak { background: var(--switch-bg); color: var(--primary); padding: 8px 15px; border-radius: 20px; font-weight: bold; cursor: pointer; border: 1px solid var(--border-color);}
         
-        #flashcardSection { max-width: 800px; margin: 0 auto; padding: 0 20px; margin-bottom: 50px; }
+        #flashcardSection { max-width: 800px; margin: 0 auto; padding: 0 20px; margin-bottom: 50px; scroll-margin-top: 100px; }
         .flashcard-container { perspective: 1000px; width: 100%; height: 350px; cursor: pointer; margin-bottom: 20px; position: relative; }
         .flashcard { width: 100%; height: 100%; position: relative; transition: transform 0.6s; transform-style: preserve-3d; }
         .flashcard.is-flipped { transform: rotateX(180deg); }
@@ -144,7 +144,7 @@
             </a>
             <nav>
                 <ul class="nav-links">
-                    <li><a href="goethe.html" style="color: var(--primary); border: 1px solid var(--primary); padding: 8px 15px; border-radius: 12px; background: rgba(255, 204, 0, 0.05);">Goethe Hazırlık 🇩🇪</a></li>
+                    <li><a href="goethe.html" style="color: var(--primary); border: 1px solid var(--primary); padding: 8px 15px; border-radius: 12px; background: rgba(255, 204, 0, 0.05);">Goethe Hazırlık</a></li>
                     <li><a href="rehber.html">Rehber</a></li>
                     <li><a href="ekle.html">Topluluk 🌍</a></li>
                     <li><a href="hakkimizda.html">Hakkımızda</a></li>
@@ -157,15 +157,15 @@
         <h1 class="hero-title">Gerçek Dünya İçin Tıbbi Sözlük</h1>
 
         <div class="dict-search-wrapper">
-            <input type="text" id="searchInput" placeholder="Kelime veya cümle ara..." onkeyup="searchWord()">
-            <button onclick="searchWord()">Ara</button>
+            <input type="text" id="searchInput" placeholder="Kelime veya cümle ara..." onkeyup="handleSearchInput(event)">
+            <button onclick="executeSearch()">Ara</button>
         </div>
 
         <div class="popular-searches">
             Popüler kategoriler: 
-            <span class="pill" onclick="document.getElementById('categorySelect').value='Anatomie'; changeCategory();">Anatomie</span>
-            <span class="pill" onclick="document.getElementById('categorySelect').value='Medikamente'; changeCategory();">Medikamente</span>
-            <span class="pill" onclick="document.getElementById('categorySelect').value='Dialoge'; changeCategory();">Dialoge</span>
+            <span class="pill" onclick="document.getElementById('categorySelect').value='Anatomie'; changeCategory(); executeSearch();">Anatomie</span>
+            <span class="pill" onclick="document.getElementById('categorySelect').value='Medikamente'; changeCategory(); executeSearch();">Medikamente</span>
+            <span class="pill" onclick="document.getElementById('categorySelect').value='Dialoge'; changeCategory(); executeSearch();">Dialoge</span>
         </div>
     </section>
 
@@ -281,8 +281,8 @@
 
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
-    <script src="data.js?v=8"></script>
-    <script src="script.js?v=8"></script>
+    <script src="data.js?v=9"></script>
+    <script src="script.js?v=9"></script>
     
     <script>
         let currentLang = localStorage.getItem('medVokabeln_lang') || 'tr';
