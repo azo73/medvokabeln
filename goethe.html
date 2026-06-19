@@ -4,60 +4,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Goethe B1/B2 Hazırlık | PflegeDeutsch</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=6">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=8">
     <style>
-        /* --- MODERN VE SİMETRİK HEADER CSS --- */
-        .modern-header {
-            display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 15px 5%;
-            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05); position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+        :root {
+            --primary: #FFCC00; --bg-body: #121212; --card-bg: #1e1e1e; --text-main: #ffffff; 
+            --text-muted: #a3a3a3; --border-color: #333333; --switch-bg: #2a2a2a;
         }
+        body { background-color: var(--bg-body); color: var(--text-main); margin: 0; font-family: 'Inter', sans-serif; }
+
+        .modern-header { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 15px 5%; background: rgba(30, 30, 30, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); }
         .header-left { display: flex; gap: 12px; justify-content: flex-start; }
         .header-center { text-align: center; }
         .brand-logo { text-decoration: none; display: block; transition: transform 0.2s; }
         .brand-logo:hover { transform: scale(1.05); }
-        .brand-logo h1 { margin: 0; font-size: 1.8rem; color: var(--text-dark, #1e293b); letter-spacing: -0.5px; font-weight: 800; }
-        .brand-logo span { color: var(--primary, #ea580c); }
-        .brand-subtitle { margin: 0; font-size: 0.75rem; color: var(--text-muted, #64748b); text-transform: uppercase; letter-spacing: 1px; }
+        .brand-logo h1 { margin: 0; font-size: 1.8rem; color: var(--text-main); letter-spacing: -0.5px; font-weight: 800; }
+        .brand-logo span { color: var(--primary); }
+        .brand-subtitle { margin: 0; font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
         .header-right { display: flex; justify-content: flex-end; }
         .nav-links { list-style: none; display: flex; gap: 15px; margin: 0; padding: 0; align-items: center;}
-        .nav-links a { text-decoration: none; color: var(--text-muted, #64748b); font-size: 0.95rem; font-weight: 600; transition: all 0.3s ease; padding: 8px 12px; border-radius: 12px; }
-        .nav-links a:hover { color: var(--primary, #ea580c); background: rgba(234, 88, 12, 0.1); transform: translateY(-2px); }
+        .nav-links a { text-decoration: none; color: var(--text-muted); font-size: 0.95rem; font-weight: 600; transition: all 0.3s ease; padding: 8px 12px; border-radius: 12px; }
+        .nav-links a:hover, .nav-links a.active { color: #000; background: var(--primary); transform: translateY(-2px); }
         
         @media (max-width: 850px) {
             .modern-header { grid-template-columns: 1fr; gap: 15px; padding: 15px; }
-            .header-left { justify-content: center; }
-            .header-right { justify-content: center; width: 100%; }
+            .header-left, .header-right { justify-content: center; width: 100%; }
             .nav-links { flex-wrap: wrap; justify-content: center; gap: 10px; }
         }
 
-        /* Sayfa İçeriği CSS */
-        .page-container { max-width: 850px; margin: 40px auto; padding: 30px; background: var(--card-bg, #fff); border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        .page-content h1 { color: var(--primary, #ea580c); margin-bottom: 10px; font-size: 2rem; text-align: center;}
-        .page-content p.subtitle { text-align: center; color: var(--text-muted, #64748b); margin-bottom: 40px; font-size: 1.1rem; }
-        .page-content h2 { color: var(--text-dark, #1e293b); margin-top: 40px; margin-bottom: 20px; font-size: 1.5rem; border-bottom: 3px solid var(--switch-bg, #f1f5f9); padding-bottom: 10px; display: flex; align-items: center; gap: 10px;}
-        .page-content h3 { color: var(--primary, #ea580c); margin-top: 25px; margin-bottom: 15px; font-size: 1.2rem; }
-        .page-content p { color: var(--text-muted, #64748b); line-height: 1.7; margin-bottom: 15px; font-size: 1.05rem;}
+        .page-container { max-width: 850px; margin: 40px auto; padding: 40px; background: var(--card-bg); border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); border: 1px solid var(--border-color); }
+        .page-content h1 { color: var(--primary); margin-top: 0; margin-bottom: 10px; font-size: 2.2rem; text-align: center;}
+        .page-content p.subtitle { text-align: center; color: var(--text-muted); margin-bottom: 40px; font-size: 1.1rem; }
+        .page-content h2 { color: var(--text-main); margin-top: 40px; margin-bottom: 20px; font-size: 1.5rem; border-bottom: 2px solid var(--switch-bg); padding-bottom: 10px; display: flex; align-items: center; gap: 10px;}
+        .page-content h3 { color: var(--primary); margin-top: 25px; margin-bottom: 15px; font-size: 1.2rem; }
+        .page-content p { color: var(--text-muted); line-height: 1.7; margin-bottom: 15px; font-size: 1.05rem;}
         
-        .info-box { background: rgba(234, 88, 12, 0.05); border-left: 4px solid var(--primary, #ea580c); padding: 20px; border-radius: 8px; margin-bottom: 25px; }
-        .info-box strong { color: var(--primary, #ea580c); }
+        .info-box { background: rgba(255, 204, 0, 0.05); border-left: 5px solid var(--primary); padding: 20px; border-radius: 8px; margin-bottom: 25px; border: 1px solid var(--border-color); border-left-width: 5px;}
+        .info-box strong { color: var(--primary); }
         
-        .template-box { background: var(--bg-color, #f8fafc); border: 1px solid var(--border-color, #e2e8f0); padding: 25px; border-radius: 12px; font-family: monospace; font-size: 1rem; color: var(--text-dark, #1e293b); line-height: 1.6; box-shadow: inset 0 2px 5px rgba(0,0,0,0.02); margin-bottom: 20px;}
-        .dialogue { margin-bottom: 15px; background: var(--switch-bg, #f1f5f9); padding: 15px; border-radius: 8px;}
-        .dialogue span { font-weight: bold; color: var(--text-dark, #1e293b); display: block; margin-bottom: 5px; }
+        .template-box { background: var(--switch-bg); border: 1px solid var(--border-color); padding: 25px; border-radius: 12px; font-family: monospace; font-size: 1rem; color: var(--text-main); line-height: 1.6; margin-bottom: 20px;}
+        .dialogue { margin-bottom: 15px; background: var(--switch-bg); padding: 15px; border-radius: 12px; border: 1px solid var(--border-color);}
+        .dialogue span { font-weight: bold; display: block; margin-bottom: 5px; color: var(--primary); }
         
         ul.phrases { list-style: none; padding: 0; }
-        ul.phrases li { background: var(--switch-bg, #f1f5f9); margin-bottom: 10px; padding: 15px; border-radius: 8px; display: flex; flex-direction: column; border-left: 3px solid var(--primary, #ea580c); }
-        ul.phrases li .ger { font-weight: bold; color: var(--text-dark, #1e293b); font-size: 1.05rem;}
-        ul.phrases li .tr { font-size: 0.95rem; color: var(--text-muted, #64748b); margin-top: 5px; }
+        ul.phrases li { background: var(--switch-bg); margin-bottom: 10px; padding: 15px; border-radius: 12px; display: flex; flex-direction: column; border-left: 4px solid var(--primary); }
+        ul.phrases li .ger { font-weight: 800; color: var(--text-main); font-size: 1.1rem; }
+        ul.phrases li .tr { font-size: 0.95rem; color: var(--text-muted); margin-top: 5px; font-style: italic; }
     </style>
 </head>
 <body>
 
     <header class="modern-header">
         <div class="header-left">
-            <a href="index.html" style="text-decoration: none; color: var(--text-dark, #1e293b); font-weight: bold; padding: 8px 15px; background: var(--switch-bg, #f1f5f9); border-radius: 20px; font-size: 0.9rem;">&larr; Ana Sayfa</a>
+            <a href="index.html" style="text-decoration: none; color: var(--text-main); font-weight: bold; padding: 8px 15px; background: var(--switch-bg); border-radius: 20px; font-size: 0.9rem; border: 1px solid var(--border-color);">&larr; Ana Sayfa</a>
         </div>
         <div class="header-center">
             <a href="index.html" class="brand-logo">
@@ -68,7 +67,7 @@
         <div class="header-right">
             <nav class="main-nav">
                 <ul class="nav-links">
-                    <li><a href="goethe.html" style="color: var(--primary, #ea580c); border: 1px solid var(--primary, #ea580c); background: rgba(234, 88, 12, 0.05);">Goethe Hazırlık 🇩🇪</a></li>
+                    <li><a href="goethe.html" style="color: #000; border: 1px solid var(--primary); background: var(--primary);">Goethe Hazırlık 🇩🇪</a></li>
                     <li><a href="rehber.html">Rehber</a></li>
                     <li><a href="hakkimizda.html">Hakkımızda</a></li>
                     <li><a href="iletisim.html">İletişim</a></li>
@@ -83,18 +82,18 @@
             <p class="subtitle">Hemşireler İçin Goethe Sınav Tüyoları, E-posta Şablonları ve Sunum Kalıpları</p>
             
             <div class="info-box">
-                <strong>💡 Goethe Sınavının Püf Noktası:</strong> telc'in aksine Goethe sınavı tamamen genel profesyonel iletişim ve argüman kurma üzerine kuruludur. Hastane raporu yazmak yerine başhemşireye resmi e-posta (Formelle E-Mail) yazmanız, sözlü sınavda ise bir sağlık konusu (Örn: Vardiyalı Çalışma, Hastanede Stres) hakkında 3 dakikalık bir sunum yapıp partnerinizle tartışmanız beklenir.
+                <strong>💡 Goethe Sınavının Püf Noktası:</strong> telc'in aksine Goethe sınavı tamamen genel profesyonel iletişim ve argüman kurma üzerine kuruludur. Hastane raporu yazmak yerine başhemşireye resmi e-posta (Formelle E-Mail) yazmanız, sözlü sınavda ise bir sağlık konusu hakkında sunum yapıp partnerinizle tartışmanız beklenir.
             </div>
 
             <h2>📝 1. Schreiben (Yazılı İfade / Resmi E-Posta)</h2>
-            <p>Goethe B1/B2 yazma bölümünde (Teil 1 veya Teil 2), genellikle bir üstünüze (Pflegedienstleitung - Başhemşire) resmi bir mazeret, şikayet veya bir eğitime katılma talebi yazmanız istenir. Üslup (Höflichkeit) çok önemlidir.</p>
+            <p>Goethe B1/B2 yazma bölümünde genellikle bir üstünüze (Pflegedienstleitung - Başhemşire) resmi bir mazeret, şikayet veya bir eğitime katılma talebi yazmanız istenir. Üslup (Höflichkeit) çok önemlidir.</p>
 
             <h3>Örnek Konu: Hasta olduğunuz için nöbete gidemeyeceğinizi başhemşireye bildirme.</h3>
             <div class="template-box">
                 <strong>Betreff:</strong> Krankmeldung – [Adınız Soyadınız]<br><br>
                 Sehr geehrte Frau [Başhemşirenin Soyadı],<br><br>
                 ich schreibe Ihnen diese E-Mail, um Ihnen mitzuteilen, dass ich leider krank bin und heute nicht zur Schicht auf der Station kommen kann. Ich habe seit gestern Abend hohes Fieber und starke Kopfschmerzen.<br><br>
-                Ich habe bereits einen Termin bei meinem Hausarzt vereinbart und werde Ihnen die Arbeitsunfähigkeitsbescheinigung (Krankschreibung) so schnell wie möglich zukommen lassen.<br><br>
+                Ich habe bereits einen Termin bei meinem Hausarzt vereinbart und werde Ihnen die Arbeitsunfähigkeitsbescheinigung so schnell wie möglich zukommen lassen.<br><br>
                 Es tut mir sehr leid für die Umstände, die dadurch auf der Station entstehen. Ich hoffe, dass ich bald wieder gesund bin und das Team unterstützen kann.<br><br>
                 Vielen Dank für Ihr Verständnis.<br><br>
                 Mit freundlichen Grüßen<br><br>
@@ -103,32 +102,23 @@
             </div>
 
             <h2>🗣️ 2. Sprechen (Sözlü Sınav / Sunum ve Tartışma)</h2>
-            <p>Goethe Sözlü sınavı genelde iki aşamadan oluşur: Bir konu hakkında tek başınıza sunum yapmak (Präsentation) ve partnerinizle bir plan yapmak veya tartışmak (Diskussion). Hemşirelikte çalışacağınız için sunum konularınız "Sağlıklı beslenme, vardiyalı çalışmanın zorlukları, iş yerinde stres yönetimi" gibi konular olabilir.</p>
+            <p>Goethe Sözlü sınavı genelde iki aşamadan oluşur: Bir konu hakkında tek başınıza sunum yapmak (Präsentation) und partnerinizle bir plan yapmak veya tartışmak (Diskussion). Hemşirelikte çalışacağınız için sunum konularınız "Sağlıklı beslenme, vardiyalı çalışmanın zorlukları, iş yerinde stres yönetimi" gibi konular olabilir.</p>
 
-            <h3>Örnek Sunum Konusu (Präsentation): "Schichtdienst in der Pflege" (Hemşirelikte Vardiyalı Çalışma)</h3>
+            <h3>Örnek Sunum Konusu: "Schichtdienst in der Pflege" (Vardiyalı Çalışma)</h3>
             <div class="dialogue">
                 <span>Einleitung (Giriş):</span>
                 "Guten Tag. Das Thema meiner Präsentation ist 'Schichtdienst in der Pflege'. Dieses Thema ist für mich sehr wichtig, da ich als Pflegefachkraft arbeite und der Schichtdienst ein großer Teil meines Berufs ist."
             </div>
             <div class="dialogue">
-                <span>Eigene Erfahrung (Kişisel Tecrübe):</span>
-                "In meiner persönlichen Erfahrung finde ich den Schichtdienst manchmal sehr anstrengend. Besonders die Nachtschichten bringen den Schlafrhythmus durcheinander."
-            </div>
-            <div class="dialogue">
-                <span>Situation im Heimatland (Kendi Ülkenizdeki Durum):</span>
-                "In der Türkei arbeiten Pflegekräfte auch im Schichtsystem. Oft dauern die Schichten 12 bis sogar 24 Stunden. Das führt oft zu großer Erschöpfung beim Personal."
-            </div>
-            <div class="dialogue">
                 <span>Vor- und Nachteile (Avantaj ve Dezavantajlar):</span>
-                "Ein großer Nachteil ist, dass man wenig Zeit für Familie und Hobbys hat. Ein Vorteil ist jedoch, dass man an verschiedenen Tagen frei hat, wenn andere arbeiten, und man bekommt Schichtzulagen (ek mesai ücreti)."
+                "Ein großer Nachteil ist, dass man wenig Zeit für Familie und Hobbys hat. Ein Vorteil ist jedoch, dass man an verschiedenen Tagen frei hat, wenn andere arbeiten, und man bekommt Schichtzulagen."
             </div>
             <div class="dialogue">
                 <span>Schluss (Kapanış):</span>
-                "Zusammenfassend kann ich sagen, dass der Schichtdienst zwar physisch und psychisch schwer ist, aber für die Patientenversorgung absolut notwendig ist. Vielen Dank für Ihre Aufmerksamkeit."
+                "Zusammenfassend kann ich sagen, dass der Schichtdienst zwar physisch schwer ist, aber für die Patientenversorgung absolut notwendig ist. Vielen Dank für Ihre Aufmerksamkeit."
             </div>
 
             <h2>🔑 3. Redemittel (Sunum ve Tartışma Kurtaran Kalıplar)</h2>
-            <p>Goethe komisyonu, bağlaçları (weil, deshalb, obwohl) ve fikir belirtme kalıplarını doğru kullanmanıza çok dikkat eder:</p>
             <ul class="phrases">
                 <li>
                     <span class="ger">"Meiner Meinung nach ist dieses Thema sehr wichtig, weil..."</span>
@@ -139,10 +129,6 @@
                     <span class="tr">Seninle tamamen aynı fikirdeyim ama şunu da düşünmeliyiz ki... (Partnerle tartışırken)</span>
                 </li>
                 <li>
-                    <span class="ger">"Ein weiterer wichtiger Punkt ist, dass..."</span>
-                    <span class="tr">Diğer bir önemli nokta da şudur ki... (Sunumda madde atlerken)</span>
-                </li>
-                <li>
                     <span class="ger">"Das war meine Präsentation. Haben Sie noch Fragen?"</span>
                     <span class="tr">Benim sunumum bu kadardı. Başka sorunuz var mı? (Sunumu profesyonelce bitirirken)</span>
                 </li>
@@ -151,13 +137,15 @@
         </div>
     </div>
 
-    <footer style="width: 100%; text-align: center; margin-bottom: 30px; font-size: 0.85rem;">
+    <footer style="width: 100%; text-align: center; margin-bottom: 30px; font-size: 0.85rem; border-top: 1px solid var(--border-color); padding-top: 20px;">
         <div style="margin-bottom: 10px;">
-            <a href="datenschutz.html" style="color: var(--primary, #ea580c); text-decoration: none; margin: 0 10px; font-weight: 600;">Datenschutzerklärung</a>
-            <span style="color: var(--text-muted, #64748b);">|</span>
-            <a href="iletisim.html" style="color: var(--primary, #ea580c); text-decoration: none; margin: 0 10px; font-weight: 600;">Kontakt</a>
+            <a href="datenschutz.html" style="color: var(--text-muted); text-decoration: none; margin: 0 10px;">Datenschutzerklärung</a>
+            <span style="color: var(--border-color);">|</span>
+            <a href="impressum.html" style="color: var(--text-muted); text-decoration: none; margin: 0 10px;">Impressum</a>
+            <span style="color: var(--border-color);">|</span>
+            <a href="iletisim.html" style="color: var(--text-muted); text-decoration: none; margin: 0 10px;">Kontakt</a>
         </div>
-        <div style="color: var(--text-muted, #64748b); margin-top: 10px; font-weight: 600;">
+        <div style="color: var(--text-muted); margin-top: 10px; font-weight: 600;">
             © 2026 Oluşturan Azad | Tüm Hakları Saklıdır
         </div>
     </footer>
