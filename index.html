@@ -144,25 +144,25 @@
             </a>
             <nav>
                 <ul class="nav-links">
-                    <li><a href="goethe.html" style="color: var(--primary); border: 1px solid var(--primary); padding: 8px 15px; border-radius: 12px; background: rgba(255, 204, 0, 0.05);">Goethe Hazırlık</a></li>
-                    <li><a href="rehber.html">Rehber</a></li>
-                    <li><a href="ekle.html">Topluluk 🌍</a></li>
-                    <li><a href="hakkimizda.html">Hakkımızda</a></li>
-                    <li><a href="iletisim.html">İletişim</a></li>
+                    <li><a href="goethe.html" style="color: var(--primary); border: 1px solid var(--primary); padding: 8px 15px; border-radius: 12px; background: rgba(255, 204, 0, 0.05);" data-tr="Goethe Hazırlık" data-en="Goethe Prep">Goethe Hazırlık</a></li>
+                    <li><a href="rehber.html" data-tr="Rehber" data-en="Guide">Rehber</a></li>
+                    <li><a href="ekle.html" data-tr="Topluluk 🌍" data-en="Community 🌍">Topluluk 🌍</a></li>
+                    <li><a href="hakkimizda.html" data-tr="Hakkımızda" data-en="About Us">Hakkımızda</a></li>
+                    <li><a href="iletisim.html" data-tr="İletişim" data-en="Contact">İletişim</a></li>
                     <li><button id="langToggle" onclick="toggleLanguage()" style="background:transparent; border:1px solid var(--border-color); color:white; padding:8px 15px; border-radius:12px; cursor:pointer; font-weight:bold; transition:0.2s;">TR</button></li>
                 </ul>
             </nav>
         </div>
 
-        <h1 class="hero-title">Gerçek Dünya İçin Tıbbi Sözlük</h1>
+        <h1 class="hero-title" data-tr="Gerçek Dünya İçin Tıbbi Sözlük" data-en="Medical Dictionary for the Real World">Gerçek Dünya İçin Tıbbi Sözlük</h1>
 
         <div class="dict-search-wrapper">
-            <input type="text" id="searchInput" placeholder="Kelime veya cümle ara..." onkeyup="handleSearchInput(event)">
-            <button onclick="executeSearch()">Ara</button>
+            <input type="text" id="searchInput" data-tr-ph="Kelime veya cümle ara..." data-en-ph="Search a word or phrase..." placeholder="Kelime veya cümle ara..." onkeyup="handleSearchInput(event)">
+            <button onclick="executeSearch()" data-tr="Ara" data-en="Search">Ara</button>
         </div>
 
         <div class="popular-searches">
-            Popüler kategoriler: 
+            <span data-tr="Popüler kategoriler:" data-en="Popular categories:">Popüler kategoriler:</span> 
             <span class="pill" onclick="document.getElementById('categorySelect').value='Anatomie'; changeCategory(); executeSearch();">Anatomie</span>
             <span class="pill" onclick="document.getElementById('categorySelect').value='Medikamente'; changeCategory(); executeSearch();">Medikamente</span>
             <span class="pill" onclick="document.getElementById('categorySelect').value='Dialoge'; changeCategory(); executeSearch();">Dialoge</span>
@@ -171,38 +171,41 @@
 
     <div class="overlap-container">
         <div class="dict-card">
-            <div class="wotd-header" id="uiWotdTitle">Word of the Day</div>
-            <div class="wotd-date">Günün Kelimesi</div>
+            <div class="wotd-header">Word of the Day</div>
+            <div class="wotd-date" data-tr="Günün Kelimesi" data-en="Today's Pick">Günün Kelimesi</div>
             <div class="wotd-german" id="wotdGerman">Yükleniyor...</div>
             <div class="wotd-turkish"><span id="wotdTurkish">...</span></div>
-            <button class="dict-btn" id="uiAudioBtn" onclick="speakWotd()">🔊 Dinle ve Pratik Yap</button>
+            <button class="dict-btn" id="uiAudioBtn" onclick="speakWotd()" data-tr="🔊 Dinle ve Pratik Yap" data-en="🔊 Listen & Practice">🔊 Dinle ve Pratik Yap</button>
         </div>
 
         <div class="dict-card">
             <div class="game-icon">🎯</div>
-            <div class="game-title">Bugünün Antrenmanı</div>
+            <div class="game-title" data-tr="Bugünün Antrenmanı" data-en="Today's Training">Bugünün Antrenmanı</div>
             <div class="mode-switch-dict">
-                <button class="mode-btn-dict active" id="btnFlashcard" onclick="switchMode('flashcard')">📇 Flashcard (Kelime Kartları)</button>
-                <button class="mode-btn-dict" id="btnQuiz" onclick="switchMode('quiz')">✍️ Quiz (Sınav Modu)</button>
-                <a href="anatomie.html" class="mode-btn-dict" id="btnAnatomy">🧍 İnteraktif Anatomi</a>
+                <button class="mode-btn-dict active" id="btnFlashcard" onclick="switchMode('flashcard')" data-tr="📇 Flashcard (Kelime Kartları)" data-en="📇 Flashcards">📇 Flashcard (Kelime Kartları)</button>
+                <button class="mode-btn-dict" id="btnQuiz" onclick="switchMode('quiz')" data-tr="✍️ Quiz (Sınav Modu)" data-en="✍️ Quiz Mode">✍️ Quiz (Sınav Modu)</button>
+                <a href="anatomie.html" class="mode-btn-dict" id="btnAnatomy" data-tr="🧍 İnteraktif Anatomi" data-en="🧍 Interactive Anatomy">🧍 İnteraktif Anatomi</a>
             </div>
         </div>
     </div>
 
     <div class="dashboard">
         <select id="categorySelect" onchange="changeCategory()">
-            <option value="Alle" id="catAll">Tüm Kategoriler</option>
-            <option value="Zorlandiklarim" id="catDiff">⚠️ Zorlandıklarım</option>
-            <option value="Allgemein" id="catAllg">Allgemein (Genel)</option>
-            <option value="Anatomie" id="catAnat">Anatomie (Anatomi)</option>
-            <option value="Aktion" id="catAkt">Aktion (Fiiller)</option>
-            <option value="Symptome" id="catSymp">Symptome (Belirtiler)</option>
-            <option value="Medikamente" id="catMed">Medikamente (İlaçlar)</option>
-            <option value="Personal" id="catPers">Personal (Personel)</option>
-            <option value="Dialoge" id="catDial">Dialoge (Diyaloglar)</option>
+            <option value="Alle" id="catAll" data-tr="Tüm Kategoriler" data-en="All Categories">Tüm Kategoriler</option>
+            <option value="Zorlandiklarim" id="catDiff" data-tr="⚠️ Zorlandıklarım" data-en="⚠️ Difficult Words">⚠️ Zorlandıklarım</option>
+            <option value="Allgemein" data-tr="Allgemein (Genel)" data-en="Allgemein (General)">Allgemein (Genel)</option>
+            <option value="Anatomie" data-tr="Anatomie (Anatomi)" data-en="Anatomie (Anatomy)">Anatomie (Anatomi)</option>
+            <option value="Aktion" data-tr="Aktion (Fiiller)" data-en="Aktion (Verbs)">Aktion (Fiiller)</option>
+            <option value="Symptome" data-tr="Symptome (Belirtiler)" data-en="Symptome (Symptoms)">Symptome (Belirtiler)</option>
+            <option value="Medikamente" data-tr="Medikamente (İlaçlar)" data-en="Medikamente (Meds)">Medikamente (İlaçlar)</option>
+            <option value="Personal" data-tr="Personal (Personel)" data-en="Personal (Staff)">Personal (Personel)</option>
+            <option value="Dialoge" data-tr="Dialoge (Diyaloglar)" data-en="Dialoge (Dialogues)">Dialoge (Diyaloglar)</option>
         </select>
         
         <div class="stats-container">
+            <a href="favoriten.html" class="streak" style="text-decoration:none; display:flex; align-items:center; gap:5px;">
+                <span style="font-size:1.1rem; margin-top:-2px;">⭐</span> <span data-tr="Favoriler" data-en="Favorites">Favoriler</span>
+            </a>
             <div class="streak" id="streakText">🔥 0</div>
             <div class="progress" id="progressText" style="color: var(--text-muted); font-weight: bold;">0 / 0</div>
         </div>
@@ -217,7 +220,7 @@
                     <button class="btn-speak" onclick="speakWord(event)">🔊</button>
                     <div class="word-type" id="wordType" style="color:var(--primary); font-weight:bold; margin-bottom:10px;">...</div>
                     <div class="word-german" id="germanWord">Yükleniyor...</div>
-                    <div style="color: var(--text-muted); font-size: 0.95rem;">(Çeviriyi görmek için tıkla)</div>
+                    <div style="color: var(--text-muted); font-size: 0.95rem;" data-tr="(Çeviriyi görmek için tıkla)" data-en="(Tap to see translation)">(Çeviriyi görmek için tıkla)</div>
                 </div>
                 <div class="card-face card-back">
                     <div class="learned-badge" id="backBadge" style="position:absolute; top:20px; right:60px; font-size:1.5rem;">✅</div>
@@ -227,9 +230,9 @@
             </div>
         </div>
         <div class="controls">
-            <button class="action-btn" id="btnPrev" onclick="prevWord()">&larr; Önceki</button>
+            <button class="action-btn" id="btnPrev" onclick="prevWord()" data-tr="&larr; Önceki" data-en="&larr; Previous">&larr; Önceki</button>
             <button class="action-btn btn-learn" id="btnLearn" onclick="toggleLearned()">✅ Öğrendim</button>
-            <button class="action-btn" id="btnNext" onclick="nextWord()">Sonraki &rarr;</button>
+            <button class="action-btn" id="btnNext" onclick="nextWord()" data-tr="Sonraki &rarr;" data-en="Next &rarr;">Sonraki &rarr;</button>
         </div>
     </div>
 
@@ -238,59 +241,75 @@
             <div class="quiz-question" id="quizWord">...</div>
             <div class="quiz-options" id="quizOptionsContainer"></div>
             <div class="quiz-feedback" id="quizFeedback"></div>
-            <button class="action-btn" id="nextQuizBtn" onclick="generateQuizQuestion()" style="margin-top: 20px; width: 100%; display: none;">Sonraki &rarr;</button>
+            <button class="action-btn" id="nextQuizBtn" onclick="generateQuizQuestion()" style="margin-top: 20px; width: 100%; display: none;" data-tr="Sonraki Soru &rarr;" data-en="Next Question &rarr;">Sonraki Soru &rarr;</button>
         </div>
     </div>
 
     <section class="seo-content-section">
         <div class="seo-text-block">
-            <h2>Almanya'da Hemşirelik İçin Tıbbi Almanca (PflegeDeutsch)</h2>
-            <p>Almanya'da sağlık sektöründe çalışmak isteyen hemşireler (Pflegefachkräfte), doktorlar ve hasta bakıcılar için dil bariyeri en büyük zorluklardan biridir. <strong>medvokabeln.com</strong>, B1 ve B2 seviyesindeki sağlık çalışanlarının klinik ortamda ihtiyaç duyduğu <em>Fachsprache</em> (Mesleki Dil) kelimelerini öğrenmesini sağlayan interaktif bir tıbbi sözlüktür.</p>
-            <p>Hastanede hasta kabulü (Aufnahme), anamnez alma, nöbet teslimi (Übergabe) ve acil durumlarda kullanılan kalıpları ezberlemek yerine, "Flashcard" ve "Aralıklı Tekrar" (Spaced Repetition) sistemimizle kalıcı olarak hafızanıza kazıyabilirsiniz. Ayrıca <strong>Goethe B1/B2 Pflege</strong> sınavına hazırlık modülümüzle rol yapma (Rollenspiel) ve mektup yazma (Brief schreiben) pratiği yapabilirsiniz.</p>
+            <h2 data-tr="Almanya'da Hemşirelik İçin Tıbbi Almanca" data-en="Medical German for Nursing in Germany">Almanya'da Hemşirelik İçin Tıbbi Almanca</h2>
+            <p data-tr="Almanya'da sağlık sektöründe çalışmak isteyen hemşireler, doktorlar ve hasta bakıcılar için dil bariyeri en büyük zorluklardan biridir. medvokabeln.com, B1 ve B2 seviyesindeki sağlık çalışanlarının klinik ortamda ihtiyaç duyduğu Fachsprache kelimelerini öğrenmesini sağlayan interaktif bir tıbbi sözlüktür." data-en="For nurses, doctors, and caregivers wanting to work in the German healthcare sector, the language barrier is one of the biggest challenges. medvokabeln.com is an interactive medical dictionary designed to help B1 and B2 level healthcare professionals learn the Fachsprache (specialized language) they need in a clinical setting.">Almanya'da sağlık sektöründe çalışmak isteyen hemşireler, doktorlar ve hasta bakıcılar için dil bariyeri en büyük zorluklardan biridir. <strong>medvokabeln.com</strong>, B1 ve B2 seviyesindeki sağlık çalışanlarının klinik ortamda ihtiyaç duyduğu <em>Fachsprache</em> (Mesleki Dil) kelimelerini öğrenmesini sağlayan interaktif bir tıbbi sözlüktür.</p>
+            <p data-tr="Hastanede hasta kabulü, anamnez alma, nöbet teslimi ve acil durumlarda kullanılan kalıpları ezberlemek yerine, flashcard ve Aralıklı Tekrar sistemimizle kalıcı olarak hafızanıza kazıyabilirsiniz." data-en="Instead of just memorizing phrases used in hospital admissions, taking medical histories, shift handovers, and emergencies, you can permanently embed them in your memory using our flashcards and Spaced Repetition system.">Hastanede hasta kabulü (Aufnahme), anamnez alma, nöbet teslimi (Übergabe) ve acil durumlarda kullanılan kalıpları ezberlemek yerine, "Flashcard" ve "Aralıklı Tekrar" (Spaced Repetition) sistemimizle kalıcı olarak hafızanıza kazıyabilirsiniz.</p>
         </div>
         
         <div class="blog-preview-block">
-            <h3>📖 Rehber'den Son Yazılar</h3>
+            <h3 data-tr="📖 Rehber'den Son Yazılar" data-en="📖 Latest from the Guide">📖 Rehber'den Son Yazılar</h3>
             <a href="rehber.html" class="blog-link-item">
-                <strong>Anamnez Alırken Kullanılan Kalıplar</strong>
-                Hastanın tıbbi geçmişini öğrenirken doğru soruları nasıl sorarsınız?
+                <strong data-tr="Anamnez Alırken Kullanılan Kalıplar" data-en="Taking a Patient's Medical History">Anamnez Alırken Kullanılan Kalıplar</strong>
+                <span data-tr="Hastanın tıbbi geçmişini öğrenirken doğru soruları nasıl sorarsınız?" data-en="How to ask the right questions when learning about a patient's medical background.">Hastanın tıbbi geçmişini öğrenirken doğru soruları nasıl sorarsınız?</span>
             </a>
             <a href="goethe.html" class="blog-link-item">
-                <strong>Goethe B1-B2 Sınavı Tüyoları</strong>
-                Sözlü sınavda yüksek puan almanın ve hastayla empati kurmanın yolları.
+                <strong data-tr="Goethe B1-B2 Sınavı Tüyoları" data-en="Goethe B1-B2 Exam Tips">Goethe B1-B2 Sınavı Tüyoları</strong>
+                <span data-tr="Sözlü sınavda yüksek puan almanın ve hastayla empati kurmanın yolları." data-en="Ways to score high in the oral exam and empathize with the patient.">Sözlü sınavda yüksek puan almanın ve hastayla empati kurmanın yolları.</span>
             </a>
             <a href="rehber.html" class="blog-link-item">
-                <strong>Üroloji ve Genel Cerrahi Terimleri</strong>
-                Klinik rotasyonlarda karşınıza çıkacak en önemli Almanca kelimeler ve cihaz adları.
+                <strong data-tr="Üroloji ve Genel Cerrahi Terimleri" data-en="Urology and General Surgery Terms">Üroloji ve Genel Cerrahi Terimleri</strong>
+                <span data-tr="Klinik rotasyonlarda karşınıza çıkacak en önemli Almanca kelimeler ve cihaz adları." data-en="The most important German words and device names you will encounter in clinical rotations.">Klinik rotasyonlarda karşınıza çıkacak en önemli Almanca kelimeler ve cihaz adları.</span>
             </a>
         </div>
     </section>
 
     <footer style="width: 100%; text-align: center; margin-bottom: 30px; font-size: 0.9rem; padding-top: 30px; border-top: 1px solid var(--border-color);">
         <div style="margin-bottom: 15px;">
-            <a href="datenschutz.html" style="color: var(--text-muted); text-decoration: none; margin: 0 10px; font-weight: 600;">Datenschutzerklärung</a>
+            <a href="datenschutz.html" style="color: var(--text-muted); text-decoration: none; margin: 0 10px; font-weight: 600;" data-tr="Gizlilik Politikası" data-en="Privacy Policy">Datenschutzerklärung</a>
             <span style="color: var(--border-color);">|</span>
-            <a href="impressum.html" style="color: var(--text-muted); text-decoration: none; margin: 0 10px; font-weight: 600;">Impressum</a>
+            <a href="impressum.html" style="color: var(--text-muted); text-decoration: none; margin: 0 10px; font-weight: 600;" data-tr="Künye (Impressum)" data-en="Legal Notice">Impressum</a>
             <span style="color: var(--border-color);">|</span>
-            <a href="iletisim.html" style="color: var(--text-muted); text-decoration: none; margin: 0 10px; font-weight: 600;">Kontakt</a>
+            <a href="iletisim.html" style="color: var(--text-muted); text-decoration: none; margin: 0 10px; font-weight: 600;" data-tr="İletişim" data-en="Contact">Kontakt</a>
         </div>
         <div style="color: var(--text-muted); font-weight: 600;">
-            © 2026 Oluşturan Azad | Tüm Hakları Saklıdır
+            © 2026 <span data-tr="Oluşturan Azad | Tüm Hakları Saklıdır" data-en="Created by Azad | All Rights Reserved">Oluşturan Azad | Tüm Hakları Saklıdır</span>
         </div>
     </footer>
 
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
-    <script src="data.js?v=9"></script>
-    <script src="script.js?v=9"></script>
+    <script src="data.js?v=10"></script>
+    <script src="script.js?v=10"></script>
     
     <script>
         let currentLang = localStorage.getItem('medVokabeln_lang') || 'tr';
+
+        // --- YENİ: ARAYÜZ ÇEVİRİ FONKSİYONU ---
+        function applyUILanguage() {
+            // Normal metinleri çevir
+            document.querySelectorAll('[data-tr]').forEach(el => {
+                el.innerHTML = el.getAttribute(`data-${currentLang}`);
+            });
+            // Placeholder'ları (Arama kutusu vb.) çevir
+            document.querySelectorAll('[data-tr-ph]').forEach(el => {
+                el.setAttribute('placeholder', el.getAttribute(`data-${currentLang}-ph`));
+            });
+        }
+
         function toggleLanguage() {
             currentLang = currentLang === 'tr' ? 'en' : 'tr';
             localStorage.setItem('medVokabeln_lang', currentLang);
             document.getElementById('langToggle').innerText = currentLang.toUpperCase();
-            if(typeof loadCard === 'function') loadCard();
+            
+            applyUILanguage(); // Arayüzü çevir
+            if(typeof loadCard === 'function') loadCard(); // Kartı çevir
+            initWotd(); // Günün kelimesi alt yazısını çevir
         }
 
         function initWotd() {
@@ -315,6 +334,7 @@
 
         window.addEventListener('DOMContentLoaded', () => {
             document.getElementById('langToggle').innerText = currentLang.toUpperCase();
+            applyUILanguage(); // Sayfa ilk açıldığında seçili dildeki arayüzü yükle
             setTimeout(initWotd, 500);
         });
     </script>
