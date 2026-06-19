@@ -12,48 +12,96 @@
     
     <title>Favoriler ⭐ | PflegeDeutsch</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css?v=8">
     <style>
-        body { background-color: var(--bg-color); min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding-bottom: 50px;}
+        /* SİYAH/SARI TEMA DEĞİŞKENLERİ */
+        :root {
+            --primary: #FFCC00;
+            --bg-body: #121212;
+            --card-bg: #1e1e1e;
+            --text-main: #ffffff;
+            --text-muted: #a3a3a3;
+            --border-color: #333333;
+            --switch-bg: #2a2a2a;
+        }
+
+        body { 
+            background-color: var(--bg-body); 
+            color: var(--text-main); 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            padding-bottom: 50px; 
+            font-family: 'Inter', sans-serif; 
+            margin: 0;
+        }
         
-        .back-nav { width: 100%; max-width: 600px; display: flex; align-items: center; justify-content: space-between; margin-top: 20px; padding: 0 15px; }
-        .btn-back { background: var(--card-bg); border: 2px solid var(--border-color); color: var(--text-dark); padding: 10px 15px; border-radius: 12px; text-decoration: none; font-weight: bold; transition: 0.2s; display: flex; align-items: center; gap: 6px; cursor: pointer; }
-        .btn-back:hover { background: var(--switch-bg); border-color: var(--primary); }
-        .btn-back img { width: 18px; height: auto; border-radius: 2px; box-shadow: 0 0 2px rgba(0,0,0,0.2); }
+        /* MODERN GLASSMORPHISM HEADER */
+        .back-nav { 
+            width: 100%; max-width: 600px; 
+            display: flex; align-items: center; justify-content: space-between; 
+            padding: 15px 20px; 
+            background: rgba(30, 30, 30, 0.85); 
+            backdrop-filter: blur(12px); 
+            border-bottom: 1px solid var(--border-color); 
+            position: sticky; top: 0; z-index: 10; box-sizing: border-box; 
+        }
+        .btn-back { 
+            background: var(--card-bg); border: 1px solid var(--border-color); 
+            color: var(--text-main); padding: 8px 15px; border-radius: 12px; 
+            text-decoration: none; font-weight: bold; transition: 0.2s; 
+            display: flex; align-items: center; gap: 6px; cursor: pointer; 
+        }
+        .btn-back:hover { background: var(--switch-bg); border-color: var(--primary); color: var(--primary); }
         
         .page-header { text-align: center; margin: 30px 0 20px 0; padding: 0 15px; }
-        .page-header h2 { color: #f1c40f; font-size: 1.8rem; margin-bottom: 5px; text-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-        .page-header p { color: var(--text-muted); font-size: 0.95rem; }
+        .page-header h2 { color: var(--primary); font-size: 1.8rem; margin-top: 0; margin-bottom: 10px; font-weight: 800; }
+        .page-header p { color: var(--text-muted); font-size: 1rem; margin: 0; }
 
-        .fav-list { width: 100%; max-width: 600px; display: flex; flex-direction: column; gap: 15px; padding: 0 15px; }
+        .fav-list { width: 100%; max-width: 600px; display: flex; flex-direction: column; gap: 15px; padding: 0 20px; box-sizing: border-box; }
         
-        .fav-card { background: var(--card-bg); border: 2px solid var(--border-color); border-radius: 16px; padding: 20px; display: flex; justify-content: space-between; align-items: center; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
-        .fav-card:hover { transform: translateY(-3px); box-shadow: 0 8px 15px rgba(0,0,0,0.05); border-color: #f1c40f; }
+        /* FAVORİ KARTLARI */
+        .fav-card { 
+            background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; 
+            padding: 20px; display: flex; justify-content: space-between; align-items: center; 
+            transition: 0.2s; box-shadow: 0 4px 15px rgba(0,0,0,0.2); border-left: 4px solid var(--primary); 
+        }
+        .fav-card:hover { transform: translateY(-3px); border-color: var(--primary); }
         
         .fav-info { display: flex; flex-direction: column; gap: 5px; }
-        .fav-german { font-size: 1.3rem; font-weight: 800; color: var(--text-dark); display: flex; align-items: center; gap: 10px; }
-        .fav-type { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+        .fav-german { font-size: 1.4rem; font-weight: 800; color: var(--text-main); display: flex; align-items: center; gap: 10px; }
+        .fav-type { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-weight: bold; }
         .fav-translation { font-size: 1.1rem; font-weight: 600; color: var(--primary); }
         
-        .btn-speak-small { background: var(--switch-bg); border: none; border-radius: 50%; width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.1rem; transition: 0.2s; }
-        .btn-speak-small:hover { background: var(--primary); color: white; transform: scale(1.1); }
+        .btn-speak-small { 
+            background: var(--switch-bg); border: 1px solid var(--border-color); border-radius: 50%; 
+            width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; 
+            cursor: pointer; font-size: 1.1rem; transition: 0.2s; color: var(--text-main); 
+        }
+        .btn-speak-small:hover { background: var(--primary); color: #000; transform: scale(1.1); border-color: var(--primary); }
 
-        .btn-remove-fav { background: none; border: none; font-size: 1.8rem; cursor: pointer; color: #f1c40f; transition: 0.2s; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); }
-        .btn-remove-fav:hover { transform: scale(1.2) rotate(15deg); color: #e74c3c; }
+        .btn-remove-fav { background: none; border: none; font-size: 1.8rem; cursor: pointer; color: var(--primary); transition: 0.2s; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2)); }
+        .btn-remove-fav:hover { transform: scale(1.2) rotate(15deg); color: #ef4444; }
 
         .empty-state { text-align: center; margin-top: 50px; padding: 0 20px; display: none; }
         .empty-state.visible { display: block; }
-        .empty-icon { font-size: 4rem; filter: grayscale(100%); opacity: 0.5; margin-bottom: 15px; }
-        .empty-text { color: var(--text-muted); font-size: 1rem; line-height: 1.5; }
+        .empty-icon { font-size: 4rem; opacity: 0.5; margin-bottom: 15px; }
+        .empty-text { color: var(--text-muted); font-size: 1rem; line-height: 1.6; }
+
+        /* SEO / BİLGİ KUTUSU (AdSense İçin) */
+        .seo-box { max-width: 600px; width: 90%; margin: 50px auto 40px auto; padding: 25px; background: var(--card-bg); border-radius: 16px; border: 1px solid var(--border-color); text-align: left; box-sizing: border-box; }
+        .seo-box h3 { color: var(--primary); font-size: 1.2rem; margin-top: 0; margin-bottom: 12px; }
+        .seo-box p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin: 0; }
     </style>
 </head>
 <body onload="initPage()">
 
     <div class="back-nav">
         <a href="index.html" class="btn-back" id="uiBackBtn">← Geri</a>
-        <button id="langToggle" class="btn-back" onclick="toggleLanguage()">
-            <img src="https://flagcdn.com/w20/tr.png" alt="TR"> TR
+        <button id="langToggle" class="btn-back" onclick="toggleLanguage()" style="background: transparent;">
+            TR
         </button>
     </div>
 
@@ -70,21 +118,22 @@
     <div class="fav-list" id="favListContainer">
         </div>
 
+    <div class="seo-box">
+        <h3>Tıbbi Almanca Pratiğinin Önemi</h3>
+        <p>Almanya'da Pflegefachkraft (Hemşire) olarak çalışırken hastane ortamında binlerce yeni kelime ve diyalog duyacaksınız. Telc veya Goethe B1/B2 sınavlarını geçmek için bu mesleki kelimeleri sadece görmek yetmez, onları aktif olarak kullanmanız gerekir. Favori kelimeler listeniz, sizin en çok zorlandığınız ve klinik hayatta (z.B. bei der Übergabe oder Patientenaufnahme) en çok ihtiyaç duyacağınız terimlerden oluşur. Düzenli aralıklarla (Spaced Repetition) bu listeyi tekrar etmek, Almanca düşünme hızınızı artıracaktır.</p>
+    </div>
+
     <script src="data.js?v=8"></script>
     <script>
         // --- DİL SÖZLÜĞÜ (FAVORİLER İÇİN) ---
         const uiDictFavs = {
             tr: {
-                flag: '<img src="https://flagcdn.com/w20/tr.png" alt="TR"> TR',
-                back: "← Geri",
-                title: "⭐ Favori Kelimelerin",
+                flag: 'TR', back: "← Geri", title: "⭐ Favori Kelimelerin",
                 sub: "Sık sık tekrar etmen gereken, yıldızladığın kelimeler.",
                 emptyText: "Henüz favori kelimen yok.<br>Kartların üzerindeki yıldıza basarak ekleyebilirsin!"
             },
             en: {
-                flag: '<img src="https://flagcdn.com/w20/gb.png" alt="EN"> EN',
-                back: "← Back",
-                title: "⭐ Favorite Words",
+                flag: 'EN', back: "← Back", title: "⭐ Favorite Words",
                 sub: "Words you have starred and need to review often.",
                 emptyText: "No favorite words yet.<br>You can add them by tapping the star on the cards!"
             }
@@ -100,7 +149,6 @@
             document.getElementById('uiSub').innerText = dict.sub;
             document.getElementById('uiEmptyText').innerHTML = dict.emptyText;
 
-            // Dili değiştirdiğimizde listeyi yeniden çiz ki kelimelerin anlamları İngilizce/Türkçe olarak güncellensin
             renderFavList();
         }
 
@@ -110,12 +158,7 @@
             applyLanguage();
         }
 
-        function initTheme() {
-            if (localStorage.getItem('medVokabeln_theme') === 'dark') document.body.classList.add('dark-mode');
-        }
-
         function initPage() {
-            initTheme();
             applyLanguage();
         }
 
@@ -133,8 +176,6 @@
             let favorites = JSON.parse(localStorage.getItem('medVokabeln_favs')) || [];
             favorites = favorites.filter(favId => favId !== id);
             localStorage.setItem('medVokabeln_favs', JSON.stringify(favorites));
-            
-            // Listeyi yeniden çiz
             renderFavList();
         }
 
@@ -144,22 +185,18 @@
             
             let favorites = JSON.parse(localStorage.getItem('medVokabeln_favs')) || [];
             
-            // Eğer hiç favori yoksa, boş durumu göster
             if (favorites.length === 0) {
                 container.innerHTML = "";
                 emptyState.classList.add('visible');
                 return;
             }
 
-            // Favori kelimeleri ana datadan filtrele
-            // data.js dosyasındaki vocabularyData'yı kullanıyoruz.
             let favWords = vocabularyData.filter(word => favorites.includes(word.id));
             
             emptyState.classList.remove('visible');
             container.innerHTML = "";
 
             favWords.forEach(word => {
-                // Hangi dil seçiliyse onu al (İngilizcesi yoksa Türkçeyi basar)
                 const displayedTranslation = (currentLang === 'en' && word.english) ? word.english : word.turkish;
                 const wordType = word.type || "Wort";
 
