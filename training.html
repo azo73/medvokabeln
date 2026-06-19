@@ -5,81 +5,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Günlük Antrenman 🧠 | PflegeDeutsch</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css?v=8">
     <style>
-        /* TEMEL STİLLER VE RENKLER */
         :root {
-            --primary: #FFCC00;
-            --primary-hover: #e6b800;
-            --bg-body: #121212;
-            --card-bg: #1e1e1e;
-            --text-main: #ffffff;
-            --text-muted: #a3a3a3;
-            --border-color: #333333;
-            --switch-bg: #2a2a2a;
+            --primary: #FFCC00; --bg-body: #121212; --card-bg: #1e1e1e; --text-main: #ffffff; 
+            --text-muted: #a3a3a3; --border-color: #333333; --switch-bg: #2a2a2a;
         }
-
         body { display: flex; flex-direction: column; min-height: 100vh; background-color: var(--bg-body); color: var(--text-main); font-family: 'Inter', sans-serif; margin: 0; }
         
-        /* ÜST BAR */
-        .top-bar { padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; max-width: 800px; margin: 0 auto; width: 100%; box-sizing: border-box;}
-        .btn-back { background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-main); padding: 8px 15px; border-radius: 12px; text-decoration: none; font-weight: bold; transition: 0.2s; display: flex; align-items: center; gap: 8px; cursor: pointer;}
-        .btn-back:hover { background: var(--switch-bg); border-color: var(--primary); }
-        .btn-back img { width: 18px; height: auto; border-radius: 2px; box-shadow: 0 0 2px rgba(0,0,0,0.2); }
+        .top-bar { padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; max-width: 800px; margin: 0 auto; width: 100%; box-sizing: border-box; background: rgba(30, 30, 30, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 10;}
+        .btn-back { background: var(--switch-bg); border: 1px solid var(--border-color); color: var(--text-main); padding: 8px 15px; border-radius: 12px; text-decoration: none; font-weight: bold; transition: 0.2s; display: flex; align-items: center; gap: 8px; cursor: pointer;}
+        .btn-back:hover { border-color: var(--primary); color: var(--primary); }
         
-        .progress-container { max-width: 600px; margin: 10px auto; width: 90%; background: var(--border-color); height: 8px; border-radius: 4px; overflow: hidden; }
+        .progress-container { max-width: 600px; margin: 15px auto 10px auto; width: 90%; background: var(--border-color); height: 8px; border-radius: 4px; overflow: hidden; }
         .progress-bar { height: 100%; background: var(--primary); width: 0%; transition: width 0.3s; }
         
-        /* ANTRENMAN ALANI (FLASHCARD) */
         .training-area { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 20px; max-width: 600px; margin: 0 auto; width: 100%; box-sizing: border-box;}
         
-        .flashcard-container { perspective: 1000px; width: 100%; height: 280px; margin-bottom: 30px; cursor: pointer; }
-        .flashcard { width: 100%; height: 100%; position: relative; transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1); transform-style: preserve-3d; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+        .flashcard-container { perspective: 1000px; width: 100%; height: 300px; margin-bottom: 30px; cursor: pointer; }
+        .flashcard { width: 100%; height: 100%; position: relative; transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1); transform-style: preserve-3d; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
         .flashcard-container.flipped .flashcard { transform: rotateX(180deg); }
         
-        .flashcard-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; text-align: center; background: var(--card-bg); border: 1px solid var(--border-color); box-sizing: border-box;}
-        .flashcard-front { z-index: 2; }
+        .flashcard-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; text-align: center; background: var(--card-bg); border: 1px solid var(--border-color); box-sizing: border-box;}
         .flashcard-back { transform: rotateX(180deg); background: #1a1a1a; border-color: var(--primary); }
         
         .word-category { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; }
-        .word-de { font-size: 2.2rem; font-weight: 800; color: var(--text-main); margin-bottom: 5px; }
-        .word-type { font-size: 0.95rem; color: var(--primary); font-weight: bold; }
+        .word-de { font-size: 2.5rem; font-weight: 800; color: var(--text-main); margin-bottom: 5px; }
+        .word-type { font-size: 1rem; color: var(--primary); font-weight: bold; }
         
         .word-tr { font-size: 1.8rem; font-weight: 700; color: var(--primary); margin-bottom: 15px; }
-        .word-ex { font-size: 1.05rem; color: var(--text-muted); font-style: italic; line-height: 1.5; padding: 15px; background: rgba(255,255,255,0.03); border-radius: 12px; width: 100%; box-sizing: border-box;}
+        .word-ex { font-size: 1.05rem; color: var(--text-muted); font-style: italic; line-height: 1.5; padding: 15px; background: rgba(0,0,0,0.2); border-radius: 12px; width: 100%; box-sizing: border-box;}
 
-        /* SRS BUTONLARI */
         .action-buttons { display: none; width: 100%; gap: 15px; }
         .action-buttons.visible { display: flex; }
-        .btn-srs { flex: 1; padding: 15px 5px; border: none; border-radius: 12px; font-weight: 600; font-size: 1rem; cursor: pointer; transition: 0.2s; color: white; display: flex; flex-direction: column; align-items: center; gap: 5px; }
-        .btn-srs:active { transform: scale(0.95); }
+        .btn-srs { flex: 1; padding: 16px 5px; border: none; border-radius: 16px; font-weight: 800; font-size: 1.05rem; cursor: pointer; transition: 0.2s; color: #000; display: flex; flex-direction: column; align-items: center; gap: 5px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);}
+        .btn-srs:hover { transform: translateY(-3px); }
         
-        .btn-hard { background: #e74c3c; } 
-        .btn-good { background: #f39c12; } 
-        .btn-easy { background: #2ecc71; } 
-        .btn-srs span { font-size: 0.75rem; opacity: 0.9; }
+        .btn-hard { background: #ef4444; color: white; } 
+        .btn-good { background: var(--primary); } 
+        .btn-easy { background: #10b981; } 
+        .btn-srs span { font-size: 0.8rem; opacity: 0.9; }
 
-        /* BİTİŞ EKRANI */
-        .finish-screen { display: none; flex-direction: column; align-items: center; text-align: center; margin-top: 50px; background: var(--card-bg); padding: 40px; border-radius: 20px; border: 1px solid var(--border-color); width: 100%; box-sizing: border-box;}
+        .finish-screen { display: none; flex-direction: column; align-items: center; text-align: center; margin-top: 50px; background: var(--card-bg); padding: 40px; border-radius: 24px; border: 1px solid var(--border-color); width: 100%; box-sizing: border-box;}
         .finish-icon { font-size: 4rem; margin-bottom: 20px; }
 
-        /* --- YENİ EKLENEN SEO METİN BÖLÜMÜ (Botlar İçin) --- */
+        /* SEO METİN BÖLÜMÜ */
         .seo-explanation { max-width: 800px; margin: 50px auto; padding: 30px; background: var(--card-bg); border-radius: 16px; border: 1px solid var(--border-color); box-sizing: border-box; width: 90%;}
         .seo-explanation h2 { color: var(--primary); font-size: 1.5rem; margin-top: 0; margin-bottom: 15px; }
         .seo-explanation p { color: var(--text-muted); font-size: 1rem; line-height: 1.7; margin-bottom: 15px; }
         .seo-explanation ul { color: var(--text-muted); padding-left: 20px; line-height: 1.7; }
         .seo-explanation li { margin-bottom: 10px; }
-        .seo-explanation strong { color: var(--text-main); }
     </style>
 </head>
 <body onload="initPage()">
 
     <div class="top-bar">
         <a href="index.html" class="btn-back" id="uiBackBtn">← Geri</a>
-        <div style="font-weight: bold; color: var(--text-muted);" id="counterText">0 / 0</div>
-        <button id="langToggle" class="btn-back" onclick="toggleLanguage()">
-            <img src="https://flagcdn.com/w20/tr.png" alt="TR"> TR
+        <div style="font-weight: bold; color: var(--text-muted); letter-spacing: 1px;" id="counterText">0 / 0</div>
+        <button id="langToggle" class="btn-back" onclick="toggleLanguage()" style="background: transparent;">
+            TR
         </button>
     </div>
     
@@ -93,7 +78,7 @@
                     <div class="word-category" id="fCategory">Kategori</div>
                     <div class="word-de" id="fGerman">Laden...</div>
                     <div class="word-type" id="fType">Yükleniyor</div>
-                    <p style="margin-top: 30px; font-size: 0.85rem; color: var(--text-muted);" id="uiTapHint">Çevirmek için dokun 👆</p>
+                    <p style="margin-top: 30px; font-size: 0.9rem; color: var(--text-muted);" id="uiTapHint">Çevirmek için dokun 👆</p>
                 </div>
                 <div class="flashcard-face flashcard-back">
                     <div class="word-tr" id="fTurkish">...</div>
@@ -116,9 +101,9 @@
 
         <div class="finish-screen" id="finishScreen">
             <div class="finish-icon">🏆</div>
-            <h2 style="color: var(--primary);" id="uiFinTitle">Tebrikler Başhekim!</h2>
+            <h2 style="color: var(--primary); margin-top: 0;" id="uiFinTitle">Tebrikler Başhekim!</h2>
             <p style="color: var(--text-muted); margin-top: 10px;" id="uiFinSub">Bugünkü antrenmanını tamamladın.<br>Beynin bu kelimeleri kalıcı hafızaya yazıyor.</p>
-            <a href="index.html" style="margin-top: 30px; display: inline-block; padding: 12px 25px; background: var(--primary); color: #000; border-radius: 30px; text-decoration: none; font-weight: bold; transition: 0.2s;" id="uiFinBtn" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">Ana Sayfaya Dön</a>
+            <a href="index.html" style="margin-top: 30px; display: inline-block; padding: 15px 30px; background: var(--primary); color: #000; border-radius: 30px; text-decoration: none; font-weight: 800; transition: 0.2s;" id="uiFinBtn" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">Ana Sayfaya Dön</a>
         </div>
 
     </div>
@@ -128,10 +113,10 @@
         <p>medvokabeln.com'un <strong>Günlük Antrenman</strong> modülü, tıbbi Almanca (Fachsprache) kelimelerini kısa süreli hafızadan uzun süreli hafızaya aktarmak için bilimsel olarak kanıtlanmış <em>Spaced Repetition System (Aralıklı Tekrar Sistemi)</em> algoritmasını kullanır.</p>
         
         <ul>
-            <li><strong>Nasıl Çalışır?</strong> Öğrenmekte zorlandığınız kelimeler (örneğin; acil servis veya üroloji ve androloji rotasyonlarında karşınıza çıkan karmaşık klinik terimler) sistem tarafından daha sık karşınıza çıkarılır. Kolay bulduğunuz kelimelerin tekrar süresi ise uzatılır (3 gün veya 6 gün sonra).</li>
-            <li><strong>Telc B1/B2 Pflege Hazırlığı:</strong> Almanya'daki hastanelerde çalışmak için gerekli olan dil yeterlilik sınavlarında, kelimeleri sadece Türkçe karşılıklarıyla değil, klinik senaryolar (örnek cümleler) içinde bağlamsal olarak hatırlamanız gerekir.</li>
+            <li><strong>Nasıl Çalışır?</strong> Öğrenmekte zorlandığınız kelimeler sistem tarafından daha sık karşınıza çıkarılır. Kolay bulduğunuz kelimelerin tekrar süresi ise uzatılır (3 gün veya 6 gün sonra).</li>
+            <li><strong>Goethe B1/B2 Pflege Hazırlığı:</strong> Almanya'daki hastanelerde çalışmak için gerekli olan dil yeterlilik sınavlarında, kelimeleri sadece Türkçe karşılıklarıyla değil, klinik senaryolar (örnek cümleler) içinde bağlamsal olarak hatırlamanız gerekir.</li>
         </ul>
-        <p>Düzenli olarak yapılan günlük antrenmanlar, hastanede nöbet teslimi (Übergabe) yaparken veya hasta anamnezi alırken doğru kelimeyi düşünmeden, refleks olarak kullanmanızı sağlar. Daha fazla ipucu için <a href="rehber.html" style="color: var(--primary); text-decoration: none;">Almanya'da Hemşirelik Rehberi</a> sayfamızı inceleyebilirsiniz.</p>
+        <p>Daha fazla ipucu için <a href="goethe.html" style="color: var(--primary); text-decoration: none; font-weight: bold;">Goethe Hazırlık</a> sayfamızı inceleyebilirsiniz.</p>
     </div>
 
     <footer style="width: 100%; text-align: center; margin-bottom: 30px; font-size: 0.85rem; padding-top: 20px; border-top: 1px solid var(--border-color);">
@@ -151,28 +136,16 @@
     <script>
         const uiDictTrain = {
             tr: {
-                flag: '<img src="https://flagcdn.com/w20/tr.png" alt="TR"> TR',
-                back: "← Geri",
-                tapHint: "Çevirmek için dokun 👆",
-                hard1: "Zordu", hard2: "Tekrar Et",
-                good1: "İyiydi", good2: "3 Gün Sonra",
-                easy1: "Kolaydı", easy2: "6 Gün Sonra",
-                finTitle: "Tebrikler Başhekim!",
-                finSub: "Bugünkü antrenmanını tamamladın.<br>Beynin bu kelimeleri kalıcı hafızaya yazıyor.",
-                finBtn: "Ana Sayfaya Dön",
-                doneCount: "Tamamlandı"
+                flag: 'TR', back: "← Geri", tapHint: "Çevirmek için dokun 👆",
+                hard1: "Zordu", hard2: "Tekrar Et", good1: "İyiydi", good2: "3 Gün Sonra", easy1: "Kolaydı", easy2: "6 Gün Sonra",
+                finTitle: "Tebrikler Başhekim!", finSub: "Bugünkü antrenmanını tamamladın.<br>Beynin bu kelimeleri kalıcı hafızaya yazıyor.",
+                finBtn: "Ana Sayfaya Dön", doneCount: "Tamamlandı"
             },
             en: {
-                flag: '<img src="https://flagcdn.com/w20/gb.png" alt="EN"> EN',
-                back: "← Back",
-                tapHint: "Tap to flip 👆",
-                hard1: "Hard", hard2: "Repeat",
-                good1: "Good", good2: "In 3 Days",
-                easy1: "Easy", easy2: "In 6 Days",
-                finTitle: "Well done, Doc!",
-                finSub: "You've completed today's training.<br>Your brain is writing these words into long-term memory.",
-                finBtn: "Return Home",
-                doneCount: "Completed"
+                flag: 'EN', back: "← Back", tapHint: "Tap to flip 👆",
+                hard1: "Hard", hard2: "Repeat", good1: "Good", good2: "In 3 Days", easy1: "Easy", easy2: "In 6 Days",
+                finTitle: "Well done, Doc!", finSub: "You've completed today's training.<br>Your brain is writing these words into long-term memory.",
+                finBtn: "Return Home", doneCount: "Completed"
             }
         };
 
@@ -183,21 +156,17 @@
             document.getElementById('langToggle').innerHTML = dict.flag;
             document.getElementById('uiBackBtn').innerText = dict.back;
             document.getElementById('uiTapHint').innerText = dict.tapHint;
-            
             document.getElementById('btnHard1').innerText = dict.hard1;
             document.getElementById('btnHard2').innerText = dict.hard2;
             document.getElementById('btnGood1').innerText = dict.good1;
             document.getElementById('btnGood2').innerText = dict.good2;
             document.getElementById('btnEasy1').innerText = dict.easy1;
             document.getElementById('btnEasy2').innerText = dict.easy2;
-            
             document.getElementById('uiFinTitle').innerText = dict.finTitle;
             document.getElementById('uiFinSub').innerHTML = dict.finSub;
             document.getElementById('uiFinBtn').innerText = dict.finBtn;
 
-            if(sessionWords.length > 0 && currentIndex < sessionWords.length) {
-                loadCard(currentIndex);
-            }
+            if(sessionWords.length > 0 && currentIndex < sessionWords.length) { loadCard(currentIndex); }
         }
 
         function toggleLanguage() {
@@ -206,13 +175,9 @@
             applyLanguage();
         }
 
-        function initPage() {
-            applyLanguage();
-            initTraining();
-        }
+        function initPage() { applyLanguage(); initTraining(); }
 
-        let sessionWords = [];
-        let currentIndex = 0;
+        let sessionWords = []; let currentIndex = 0;
         let srsData = JSON.parse(localStorage.getItem('medVokabeln_srs')) || {};
 
         function initTraining() {
@@ -221,34 +186,21 @@
                 if (!srsData[word.id]) return true; 
                 return srsData[word.id].nextReview <= now; 
             });
-
             sessionWords = dueWords.sort(() => 0.5 - Math.random()).slice(0, 20);
-
-            if (sessionWords.length === 0) {
-                showFinishScreen();
-            } else {
-                loadCard(0);
-            }
+            if (sessionWords.length === 0) { showFinishScreen(); } else { loadCard(0); }
         }
 
         function loadCard(index) {
-            if (index >= sessionWords.length) {
-                showFinishScreen();
-                return;
-            }
-
+            if (index >= sessionWords.length) { showFinishScreen(); return; }
             currentIndex = index;
             const word = sessionWords[index];
-
             document.getElementById('fCategory').innerText = word.category;
             document.getElementById('fGerman').innerText = word.german;
             document.getElementById('fType').innerText = word.type || "";
             document.getElementById('fTurkish').innerText = (currentLang === 'en' && word.english) ? word.english : word.turkish;
             document.getElementById('fExample').innerText = `"${word.example}"`;
-
             document.getElementById('cardContainer').classList.remove('flipped');
             document.getElementById('actionButtons').classList.remove('visible');
-
             document.getElementById('counterText').innerText = `${index + 1} / ${sessionWords.length}`;
             const progress = ((index) / sessionWords.length) * 100;
             document.getElementById('progressBar').style.width = `${progress}%`;
@@ -258,21 +210,14 @@
             const container = document.getElementById('cardContainer');
             if (!container.classList.contains('flipped')) {
                 container.classList.add('flipped');
-                setTimeout(() => {
-                    document.getElementById('actionButtons').classList.add('visible');
-                }, 300);
+                setTimeout(() => { document.getElementById('actionButtons').classList.add('visible'); }, 300);
             }
         }
 
         function rateWord(days) {
             const wordId = sessionWords[currentIndex].id;
             const nextReviewDate = Date.now() + (days * 24 * 60 * 60 * 1000); 
-            
-            srsData[wordId] = {
-                nextReview: nextReviewDate,
-                lastRating: days
-            };
-            
+            srsData[wordId] = { nextReview: nextReviewDate, lastRating: days };
             localStorage.setItem('medVokabeln_srs', JSON.stringify(srsData));
             loadCard(currentIndex + 1);
         }
