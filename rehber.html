@@ -1,79 +1,54 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Almanca Rehberi | PflegeDeutsch</title>
+    <title>Hemşirelik Almancası Rehberi | PflegeDeutsch</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=6">
+    <link rel="stylesheet" href="style.css">
     <style>
-        .modern-header { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 15px 5%; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(0, 0, 0, 0.05); position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03); }
-        .header-left { display: flex; gap: 12px; justify-content: flex-start; }
-        .header-center { text-align: center; }
-        .brand-logo { text-decoration: none; display: block; transition: transform 0.2s; }
-        .brand-logo:hover { transform: scale(1.05); }
-        .brand-logo h1 { margin: 0; font-size: 1.8rem; color: var(--text-dark); letter-spacing: -0.5px; font-weight: 800; }
-        .brand-logo span { color: var(--primary); }
-        .brand-subtitle { margin: 0; font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
-        .header-right { display: flex; justify-content: flex-end; }
-        .nav-links { list-style: none; display: flex; gap: 15px; margin: 0; padding: 0; align-items: center;}
-        .nav-links a { text-decoration: none; color: var(--text-muted); font-size: 0.95rem; font-weight: 600; transition: all 0.3s ease; padding: 8px 12px; border-radius: 12px; }
-        .nav-links a:hover, .nav-links a.active { color: var(--primary); background: rgba(234, 88, 12, 0.1); transform: translateY(-2px); }
-        @media (max-width: 850px) { .modern-header { grid-template-columns: 1fr; gap: 15px; padding: 15px; } .header-left { justify-content: center; } .header-right { justify-content: center; width: 100%; } .nav-links { flex-wrap: wrap; justify-content: center; gap: 10px; } }
-
-        .page-container { max-width: 800px; margin: 40px auto; padding: 30px; background: var(--card-bg); border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        .page-content h1 { color: var(--primary); margin-bottom: 20px; font-size: 1.8rem;}
-        .page-content h2 { color: var(--text-dark); margin-top: 30px; margin-bottom: 15px; font-size: 1.4rem; border-bottom: 2px solid var(--switch-bg); padding-bottom: 5px;}
-        .page-content p { color: var(--text-muted); line-height: 1.7; margin-bottom: 15px; font-size: 1rem;}
-        .page-content ul { margin-left: 20px; color: var(--text-muted); line-height: 1.6; margin-bottom: 15px;}
-        .page-content li { margin-bottom: 8px; }
+        .blog-container { max-width: 850px; margin: 40px auto; padding: 20px; }
+        .blog-header { text-align: center; margin-bottom: 40px; }
+        .blog-header h1 { color: var(--primary, #ea580c); font-size: 2.5rem; margin-bottom: 10px; }
+        .blog-header p { color: var(--text-muted, #64748b); font-size: 1.1rem; }
+        
+        .article-card { background: var(--card-bg, #fff); padding: 25px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 25px; border: 1px solid #f1f5f9; transition: transform 0.2s; }
+        .article-card:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); border-color: var(--primary, #ea580c); }
+        .article-card h2 { color: var(--text-dark, #1e293b); margin-top: 0; margin-bottom: 10px; font-size: 1.4rem; }
+        .article-card p { color: var(--text-muted, #64748b); line-height: 1.6; margin-bottom: 15px; }
+        .read-more { display: inline-block; padding: 8px 16px; background: rgba(234, 88, 12, 0.1); color: var(--primary, #ea580c); text-decoration: none; border-radius: 8px; font-weight: 600; }
     </style>
 </head>
 <body>
 
-    <header class="modern-header">
-        <div class="header-left">
-            <a href="index.html" style="text-decoration: none; color: var(--text-dark); font-weight: bold; padding: 8px 15px; background: var(--switch-bg); border-radius: 20px; font-size: 0.9rem;">&larr; Ana Sayfa</a>
-        </div>
-        <div class="header-center">
-            <a href="index.html" class="brand-logo">
-                <h1>med-<span>vokabeln</span></h1>
-            </a>
-            <p class="brand-subtitle">Pflegefachkräfte Trainer</p>
-        </div>
-        <div class="header-right">
-            <nav class="main-nav">
-                <ul class="nav-links">
-                    <li><a href="telc.html" style="color: var(--primary); border: 1px solid var(--primary); background: rgba(234, 88, 12, 0.05);">telc Hazırlık 🔥</a></li>
-                    <li><a href="rehber.html" class="active">Rehber</a></li>
-                    <li><a href="hakkimizda.html">Hakkımızda</a></li>
-                    <li><a href="iletisim.html">İletişim</a></li>
-                </ul>
-            </nav>
-        </div>
+    <header style="padding: 20px 5%;">
+        <a href="index.html" style="text-decoration: none; color: #333; font-weight: bold;">&larr; Ana Sayfa</a>
     </header>
 
-    <div class="page-container">
-        <div class="page-content">
-            <h1>Almanya'da Hemşirelik Denkliği ve Tıbbi Almanca Rehberi</h1>
-            <p>Almanya, Avusturya veya İsviçre'de hemşire (Pflegefachkraft) olarak çalışmak, uluslararası sağlık profesyonelleri için en büyük kariyer hedeflerinden biridir. Bu süreçte en kritik adım Anerkennung ve dil yeterliliğidir.</p>
-            <h2>1. Anerkennung (Denklik) Süreci</h2>
-            <p>Eğitiminizin Almanya standartlarına uygunluğu incelenir. Eğer eksik saatleriniz varsa Kenntnisprüfung sınavına girmeniz veya bir uyum kursuna katılmanız istenir.</p>
-            <h2>2. Dil Seviyesi ve B2 Şartı</h2>
-            <p>Meslek icra izni (Urkunde) alabilmek için B2 seviyesinde Almanca şarttır. Özellikle tıbbi terminolojiye hakimiyet, hem sınavda hem de klinik hayatta başarılı olmanızı sağlar.</p>
-            <p>PflegeDeutsch olarak biz, bu zorlu süreci kolaylaştırmak için interaktif araçlar sunuyoruz.</p>
+    <div class="blog-container">
+        <div class="blog-header">
+            <h1>Almanya'da Hemşirelik Rehberi</h1>
+            <p>Klinik iletişim, telc sınav taktikleri ve hastane hayatı hakkında derinlemesine makaleler.</p>
+        </div>
+
+        <div class="article-card">
+            <h2>Almanya'da Anamnez Alırken Hayat Kurtaran 20 Almanca Kalıp</h2>
+            <p>Hastanın tıbbi geçmişini öğrenmek, doğru tedavi planının ilk adımıdır. Almanya'daki hastanelerde anamnez alırken kullanabileceğiniz profesyonel kalıplar ve dikkat etmeniz gereken kültürel iletişim detayları...</p>
+            <a href="makale-anamnez.html" class="read-more">Devamını Oku &rarr;</a>
+        </div>
+
+        <div class="article-card">
+            <h2>telc B1-B2 Pflege Sözlü Sınavı: Rol Yapma (Rollenspiel) Tüyoları</h2>
+            <p>Sınav komisyonu sizden sadece gramer beklemez, empati ve mesleki yeterlilik arar. Hasta yakınını sakinleştirme ve doktora rapor verme senaryolarında nasıl yüksek puan alırsınız?</p>
+            <a href="makale-telc-sozlu.html" class="read-more">Devamını Oku &rarr;</a>
+        </div>
+
+        <div class="article-card">
+            <h2>Üroloji ve Genel Cerrahi Servislerinde Sık Kullanılan Terimler</h2>
+            <p>Klinik rotasyonlarda ve uzmanlık servislerinde karşınıza çıkacak spesifik aletler, semptomlar ve hasta diyalogları. Kateter bakımı ve ameliyat öncesi hazırlık kelimeleri...</p>
+            <a href="makale-uroloji.html" class="read-more">Devamını Oku &rarr;</a>
         </div>
     </div>
 
-    <footer style="width: 100%; text-align: center; margin-bottom: 30px; font-size: 0.85rem;">
-        <div style="margin-bottom: 10px;">
-            <a href="datenschutz.html" style="color: var(--primary); text-decoration: none; margin: 0 10px;">Datenschutzerklärung</a>
-            <span style="color: var(--text-muted);">|</span>
-            <a href="iletisim.html" style="color: var(--primary); text-decoration: none; margin: 0 10px;">Kontakt</a>
-        </div>
-        <div style="color: var(--text-muted); margin-top: 10px; font-weight: 600;">
-            © 2026 Oluşturan Azad | Tüm Hakları Saklıdır
-        </div>
-    </footer>
 </body>
 </html>
