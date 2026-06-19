@@ -48,17 +48,44 @@ function toggleTheme() {
     localStorage.setItem('medVokabeln_theme', isLight ? 'light' : 'dark');
 }
 
+// --- YENİ EKLENEN ARAMA MANTIĞI ---
 function searchWord() {
     const searchInput = document.getElementById("searchInput");
     if(!searchInput) return;
     const query = searchInput.value.toLowerCase();
-    const selectedCategory = document.getElementById("categorySelect").value;
+    const selectedCategory = document.getElementById("categorySelect") ? document.getElementById("categorySelect").value : "Alle";
     
     let basePool = selectedCategory === "Alle" ? fullVocabulary : fullVocabulary.filter(w => w.category === selectedCategory);
     
-    currentCards = query === "" ? basePool : basePool.filter(word => word.german.toLowerCase().includes(query) || word.turkish.toLowerCase().includes(query)); 
+    currentCards = query === "" ? basePool : basePool.filter(word => word.german.toLowerCase().includes(query) || word.turkish.toLowerCase().includes(query) || (word.english && word.english.toLowerCase().includes(query))); 
+    
     currentIndex = 0;
-    updateCard(); 
+    if(currentCards.length === 0) {
+        let currentLang = localStorage.getItem('medVokabeln_lang') || 'tr';
+        if(document.getElementById("germanWord")) document.getElementById("germanWord").innerText = "Yok 😔";
+        if(document.getElementById("turkishWord")) document.getElementById("turkishWord").innerText = currentLang==='en' ? "No results found." : "Sonuç bulunamadı.";
+        if(document.getElementById("wordType")) document.getElementById("wordType").innerText = "";
+        if(document.getElementById("exampleSentence")) document.getElementById("exampleSentence").innerText = "";
+    } else {
+        updateCard(); 
+    }
+}
+
+function executeSearch() {
+    searchWord();
+    // Arama yapıldıktan sonra flashcard kısmına kaydırır
+    const flashcardSection = document.getElementById("flashcardSection");
+    if(flashcardSection) {
+        flashcardSection.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+}
+
+function handleSearchInput(event) {
+    searchWord();
+    // Enter tuşuna basılırsa ekrana kaydır
+    if(event.key === "Enter") {
+        executeSearch();
+    }
 }
 
 function changeCategory() {
@@ -101,4 +128,22 @@ function updateCard() {
 function displayStreak() { 
     const streakEl = document.getElementById('streakText');
     if(streakEl) streakEl.innerText = `🔥 ${localStorage.getItem('medVokabeln_streak') || 0}`; 
+}
+
+function switchMode(mode) {
+    const flashSection = document.getElementById("flashcardSection");
+    const quizSection = document.getElementById("quizSection");
+    const btnFlash = document.getElementById("btnFlashcard");
+    const btnQuiz = document.getElementById("btnQuiz");
+    
+    if(!flashSection || !quizSection) return;
+
+    if(mode === 'flashcard') {
+        flashSection.style.display = "flex"; quizSection.style.display = "none";
+        btnFlash.classList.add("active"); btnQuiz.classList.remove("active");
+    } else {
+        flashSection.style.display = "none"; quizSection.style.display = "flex";
+        btnQuiz.classList.add("active"); btnFlash.classList.remove("active");
+        generateQuizQuestion(); 
+    }
 }
