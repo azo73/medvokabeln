@@ -63,17 +63,20 @@ function removeFromDifficult(wordId) {
 }
 
 function initTheme() {
-    if (localStorage.getItem('medVokabeln_theme') === 'dark') {
-        document.body.classList.add('dark-mode');
-        document.getElementById('themeToggle').innerText = '☀️';
+    // Artık varsayılanımız Siyah/Sarı. Eğer kullanıcı "light" seçmişse light-mode ekliyoruz.
+    if (localStorage.getItem('medVokabeln_theme') === 'light') {
+        document.body.classList.add('light-mode');
+        if(document.getElementById('themeToggle')) document.getElementById('themeToggle').innerText = '🌙';
+    } else {
+        if(document.getElementById('themeToggle')) document.getElementById('themeToggle').innerText = '☀️';
     }
 }
 
 function toggleTheme() {
-    document.body.classList.toggle('dark-mode');
-    const isDark = document.body.classList.contains('dark-mode');
-    document.getElementById('themeToggle').innerText = isDark ? '☀️' : '🌙';
-    localStorage.setItem('medVokabeln_theme', isDark ? 'dark' : 'light');
+    document.body.classList.toggle('light-mode');
+    const isLight = document.body.classList.contains('light-mode');
+    if(document.getElementById('themeToggle')) document.getElementById('themeToggle').innerText = isLight ? '🌙' : '☀️';
+    localStorage.setItem('medVokabeln_theme', isLight ? 'light' : 'dark');
 }
 
 function searchWord() {
