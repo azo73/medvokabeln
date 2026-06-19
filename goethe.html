@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Goethe B1/B2 Hazırlık | PflegeDeutsch</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=8">
+    <link rel="stylesheet" href="style.css?v=10">
     <style>
         :root {
             --primary: #FFCC00; --bg-body: #121212; --card-bg: #1e1e1e; --text-main: #ffffff; 
@@ -56,21 +56,23 @@
 
     <header class="modern-header">
         <div class="header-left">
-            <a href="index.html" style="text-decoration: none; color: var(--text-main); font-weight: bold; padding: 8px 15px; background: var(--switch-bg); border-radius: 20px; font-size: 0.9rem; border: 1px solid var(--border-color);">&larr; Ana Sayfa</a>
+            <a href="index.html" style="text-decoration: none; color: var(--text-main); font-weight: bold; padding: 8px 15px; background: var(--switch-bg); border-radius: 20px; font-size: 0.9rem; border: 1px solid var(--border-color);">&larr; <span data-tr="Ana Sayfa" data-en="Home">Ana Sayfa</span></a>
         </div>
         <div class="header-center">
             <a href="index.html" class="brand-logo">
                 <h1>med-<span>vokabeln</span></h1>
             </a>
-            <p class="brand-subtitle">Pflegefachkräfte Trainer</p>
+            <p class="brand-subtitle" data-tr="Pflegefachkräfte Trainer" data-en="Nursing Trainer">Pflegefachkräfte Trainer</p>
         </div>
         <div class="header-right">
             <nav class="main-nav">
                 <ul class="nav-links">
-                    <li><a href="goethe.html" style="color: #000; border: 1px solid var(--primary); background: var(--primary);">Goethe Hazırlık</a></li>
-                    <li><a href="rehber.html">Rehber</a></li>
-                    <li><a href="hakkimizda.html">Hakkımızda</a></li>
-                    <li><a href="iletisim.html">İletişim</a></li>
+                    <li><a href="goethe.html" class="active" style="color: #000; border: 1px solid var(--primary); background: var(--primary);" data-tr="Goethe Hazırlık" data-en="Goethe Prep">Goethe Hazırlık</a></li>
+                    <li><a href="rehber.html" data-tr="Rehber" data-en="Guide">Rehber</a></li>
+                    <li><a href="youtube.html" data-tr="Videolar" data-en="Videos">Videolar</a></li>
+                    <li><a href="ekle.html" data-tr="Topluluk 🌍" data-en="Community 🌍">Topluluk 🌍</a></li>
+                    <li><a href="iletisim.html" data-tr="İletişim" data-en="Contact">İletişim</a></li>
+                    <li><button id="langToggle" onclick="toggleLanguage()" style="background:transparent; border:1px solid var(--border-color); color:var(--text-main); padding:8px 15px; border-radius:12px; cursor:pointer; font-weight:bold; transition:0.2s;">TR</button></li>
                 </ul>
             </nav>
         </div>
@@ -78,17 +80,19 @@
 
     <div class="page-container">
         <div class="page-content">
-            <h1>Goethe-Zertifikat B1/B2 Hazırlık Modülü</h1>
-            <p class="subtitle">Hemşireler İçin Goethe Sınav Tüyoları, E-posta Şablonları ve Sunum Kalıpları</p>
+            <h1 data-tr="Goethe-Zertifikat B1/B2 Hazırlık Modülü" data-en="Goethe-Zertifikat B1/B2 Prep Module">Goethe-Zertifikat B1/B2 Hazırlık Modülü</h1>
+            <p class="subtitle" data-tr="Hemşireler İçin Goethe Sınav Tüyoları, E-posta Şablonları ve Sunum Kalıpları" data-en="Goethe Exam Tips, Email Templates, and Presentation Phrases for Nurses">Hemşireler İçin Goethe Sınav Tüyoları, E-posta Şablonları ve Sunum Kalıpları</p>
             
             <div class="info-box">
-                <strong>💡 Goethe Sınavının Püf Noktası:</strong> telc'in aksine Goethe sınavı tamamen genel profesyonel iletişim ve argüman kurma üzerine kuruludur. Hastane raporu yazmak yerine başhemşireye resmi e-posta (Formelle E-Mail) yazmanız, sözlü sınavda ise bir sağlık konusu hakkında sunum yapıp partnerinizle tartışmanız beklenir.
+                <strong data-tr="💡 Goethe Sınavının Püf Noktası:" data-en="💡 Key to the Goethe Exam:">💡 Goethe Sınavının Püf Noktası:</strong> 
+                <span data-tr="telc'in aksine Goethe sınavı tamamen genel profesyonel iletişim ve argüman kurma üzerine kuruludur. Hastane raporu yazmak yerine başhemşireye resmi e-posta (Formelle E-Mail) yazmanız, sözlü sınavda ise bir sağlık konusu hakkında sunum yapıp partnerinizle tartışmanız beklenir." data-en="Unlike telc, the Goethe exam focuses entirely on general professional communication and argumentation. Instead of writing a hospital report, you'll be expected to write a formal email to the head nurse, and in the oral exam, you'll present on a health topic and discuss it with your partner.">telc'in aksine Goethe sınavı tamamen genel profesyonel iletişim ve argüman kurma üzerine kuruludur. Hastane raporu yazmak yerine başhemşireye resmi e-posta (Formelle E-Mail) yazmanız, sözlü sınavda ise bir sağlık konusu hakkında sunum yapıp partnerinizle tartışmanız beklenir.</span>
             </div>
 
-            <h2>📝 1. Schreiben (Yazılı İfade / Resmi E-Posta)</h2>
-            <p>Goethe B1/B2 yazma bölümünde genellikle bir üstünüze (Pflegedienstleitung - Başhemşire) resmi bir mazeret, şikayet veya bir eğitime katılma talebi yazmanız istenir. Üslup (Höflichkeit) çok önemlidir.</p>
+            <h2 data-tr="📝 1. Schreiben (Yazılı İfade / Resmi E-Posta)" data-en="📝 1. Schreiben (Writing / Formal Email)">📝 1. Schreiben (Yazılı İfade / Resmi E-Posta)</h2>
+            <p data-tr="Goethe B1/B2 yazma bölümünde genellikle bir üstünüze (Pflegedienstleitung - Başhemşire) resmi bir mazeret, şikayet veya bir eğitime katılma talebi yazmanız istenir. Üslup (Höflichkeit) çok önemlidir." data-en="In the Goethe B1/B2 writing section, you are usually asked to write a formal excuse, complaint, or request to attend training to your superior (Pflegedienstleitung - Head Nurse). Tone and politeness (Höflichkeit) are crucial.">Goethe B1/B2 yazma bölümünde genellikle bir üstünüze (Pflegedienstleitung - Başhemşire) resmi bir mazeret, şikayet veya bir eğitime katılma talebi yazmanız istenir. Üslup (Höflichkeit) çok önemlidir.</p>
 
-            <h3>Örnek Konu: Hasta olduğunuz için nöbete gidemeyeceğinizi başhemşireye bildirme.</h3>
+            <h3 data-tr="Örnek Konu: Hasta olduğunuz için nöbete gidemeyeceğinizi başhemşireye bildirme." data-en="Example Topic: Notifying the head nurse of your absence due to illness.">Örnek Konu: Hasta olduğunuz için nöbete gidemeyeceğinizi başhemşireye bildirme.</h3>
+            
             <div class="template-box">
                 <strong>Betreff:</strong> Krankmeldung – [Adınız Soyadınız]<br><br>
                 Sehr geehrte Frau [Başhemşirenin Soyadı],<br><br>
@@ -101,54 +105,76 @@
                 Gesundheits- und Krankenpfleger
             </div>
 
-            <h2>🗣️ 2. Sprechen (Sözlü Sınav / Sunum ve Tartışma)</h2>
-            <p>Goethe Sözlü sınavı genelde iki aşamadan oluşur: Bir konu hakkında tek başınıza sunum yapmak (Präsentation) und partnerinizle bir plan yapmak veya tartışmak (Diskussion). Hemşirelikte çalışacağınız için sunum konularınız "Sağlıklı beslenme, vardiyalı çalışmanın zorlukları, iş yerinde stres yönetimi" gibi konular olabilir.</p>
+            <h2 data-tr="🗣️ 2. Sprechen (Sözlü Sınav / Sunum ve Tartışma)" data-en="🗣️ 2. Sprechen (Speaking / Presentation and Discussion)">🗣️ 2. Sprechen (Sözlü Sınav / Sunum ve Tartışma)</h2>
+            <p data-tr="Goethe Sözlü sınavı genelde iki aşamadan oluşur: Bir konu hakkında tek başınıza sunum yapmak (Präsentation) und partnerinizle bir plan yapmak veya tartışmak (Diskussion). Hemşirelikte çalışacağınız için sunum konularınız 'Sağlıklı beslenme, vardiyalı çalışmanın zorlukları, iş yerinde stres yönetimi' gibi konular olabilir." data-en="The Goethe Oral exam generally consists of two stages: giving a solo presentation on a topic (Präsentation) and planning or discussing with a partner (Diskussion). Since you work in nursing, your presentation topics might be 'Healthy eating, challenges of shift work, stress management at work'.">Goethe Sözlü sınavı genelde iki aşamadan oluşur: Bir konu hakkında tek başınıza sunum yapmak (Präsentation) und partnerinizle bir plan yapmak veya tartışmak (Diskussion). Hemşirelikte çalışacağınız için sunum konularınız "Sağlıklı beslenme, vardiyalı çalışmanın zorlukları, iş yerinde stres yönetimi" gibi konular olabilir.</p>
 
-            <h3>Örnek Sunum Konusu: "Schichtdienst in der Pflege" (Vardiyalı Çalışma)</h3>
+            <h3 data-tr="Örnek Sunum Konusu: 'Schichtdienst in der Pflege' (Vardiyalı Çalışma)" data-en="Example Presentation Topic: 'Schichtdienst in der Pflege' (Shift Work in Nursing)">Örnek Sunum Konusu: "Schichtdienst in der Pflege" (Vardiyalı Çalışma)</h3>
             <div class="dialogue">
-                <span>Einleitung (Giriş):</span>
+                <span data-tr="Einleitung (Giriş):" data-en="Einleitung (Introduction):">Einleitung (Giriş):</span>
                 "Guten Tag. Das Thema meiner Präsentation ist 'Schichtdienst in der Pflege'. Dieses Thema ist für mich sehr wichtig, da ich als Pflegefachkraft arbeite und der Schichtdienst ein großer Teil meines Berufs ist."
             </div>
             <div class="dialogue">
-                <span>Vor- und Nachteile (Avantaj ve Dezavantajlar):</span>
+                <span data-tr="Vor- und Nachteile (Avantaj ve Dezavantajlar):" data-en="Vor- und Nachteile (Pros and Cons):">Vor- und Nachteile (Avantaj ve Dezavantajlar):</span>
                 "Ein großer Nachteil ist, dass man wenig Zeit für Familie und Hobbys hat. Ein Vorteil ist jedoch, dass man an verschiedenen Tagen frei hat, wenn andere arbeiten, und man bekommt Schichtzulagen."
             </div>
             <div class="dialogue">
-                <span>Schluss (Kapanış):</span>
+                <span data-tr="Schluss (Kapanış):" data-en="Schluss (Conclusion):">Schluss (Kapanış):</span>
                 "Zusammenfassend kann ich sagen, dass der Schichtdienst zwar physisch schwer ist, aber für die Patientenversorgung absolut notwendig ist. Vielen Dank für Ihre Aufmerksamkeit."
             </div>
 
-            <h2>🔑 3. Redemittel (Sunum ve Tartışma Kurtaran Kalıplar)</h2>
+            <h2 data-tr="🔑 3. Redemittel (Sunum ve Tartışma Kurtaran Kalıplar)" data-en="🔑 3. Redemittel (Lifesaving Phrases for Presentations and Discussions)">🔑 3. Redemittel (Sunum ve Tartışma Kurtaran Kalıplar)</h2>
             <ul class="phrases">
                 <li>
                     <span class="ger">"Meiner Meinung nach ist dieses Thema sehr wichtig, weil..."</span>
-                    <span class="tr">Bana göre bu konu çok önemli, çünkü... (Fikir belirtirken)</span>
+                    <span class="tr" data-tr="Bana göre bu konu çok önemli, çünkü... (Fikir belirtirken)" data-en="In my opinion, this topic is very important because... (Expressing an opinion)">Bana göre bu konu çok önemli, çünkü... (Fikir belirtirken)</span>
                 </li>
                 <li>
                     <span class="ger">"Ich bin völlig deiner Meinung, aber wir sollten auch bedenken, dass..."</span>
-                    <span class="tr">Seninle tamamen aynı fikirdeyim ama şunu da düşünmeliyiz ki... (Partnerle tartışırken)</span>
+                    <span class="tr" data-tr="Seninle tamamen aynı fikirdeyim ama şunu da düşünmeliyiz ki... (Partnerle tartışırken)" data-en="I completely agree with you, but we should also consider that... (Discussing with partner)">Seninle tamamen aynı fikirdeyim ama şunu da düşünmeliyiz ki... (Partnerle tartışırken)</span>
                 </li>
                 <li>
                     <span class="ger">"Das war meine Präsentation. Haben Sie noch Fragen?"</span>
-                    <span class="tr">Benim sunumum bu kadardı. Başka sorunuz var mı? (Sunumu profesyonelce bitirirken)</span>
+                    <span class="tr" data-tr="Benim sunumum bu kadardı. Başka sorunuz var mı? (Sunumu profesyonelce bitirirken)" data-en="That concludes my presentation. Do you have any other questions? (Ending the presentation professionally)">Benim sunumum bu kadardı. Başka sorunuz var mı? (Sunumu profesyonelce bitirirken)</span>
                 </li>
             </ul>
 
         </div>
     </div>
 
-    <footer style="width: 100%; text-align: center; margin-bottom: 30px; font-size: 0.85rem; border-top: 1px solid var(--border-color); padding-top: 20px;">
-        <div style="margin-bottom: 10px;">
-            <a href="datenschutz.html" style="color: var(--text-muted); text-decoration: none; margin: 0 10px;">Datenschutzerklärung</a>
+    <footer style="width: 100%; text-align: center; margin-bottom: 30px; font-size: 0.9rem; border-top: 1px solid var(--border-color); padding-top: 20px;">
+        <div style="margin-bottom: 15px;">
+            <a href="datenschutz.html" style="color: var(--text-muted); text-decoration: none; margin: 0 10px; font-weight: 600;" data-tr="Gizlilik Politikası" data-en="Privacy Policy">Datenschutzerklärung</a>
             <span style="color: var(--border-color);">|</span>
-            <a href="impressum.html" style="color: var(--text-muted); text-decoration: none; margin: 0 10px;">Impressum</a>
+            <a href="impressum.html" style="color: var(--text-muted); text-decoration: none; margin: 0 10px; font-weight: 600;" data-tr="Künye (Impressum)" data-en="Legal Notice">Impressum</a>
             <span style="color: var(--border-color);">|</span>
-            <a href="iletisim.html" style="color: var(--text-muted); text-decoration: none; margin: 0 10px;">Kontakt</a>
+            <a href="iletisim.html" style="color: var(--text-muted); text-decoration: none; margin: 0 10px; font-weight: 600;" data-tr="İletişim" data-en="Contact">Kontakt</a>
         </div>
-        <div style="color: var(--text-muted); margin-top: 10px; font-weight: 600;">
-            © 2026 Oluşturan Azad | Tüm Hakları Saklıdır
+        <div style="color: var(--text-muted); font-weight: 600;">
+            © 2026 <span data-tr="Oluşturan Azad | Tüm Hakları Saklıdır" data-en="Created by Azad | All Rights Reserved">Oluşturan Azad | Tüm Hakları Saklıdır</span>
         </div>
     </footer>
 
+    <script>
+        // --- DİL GEÇİŞ MANTIĞI ---
+        let currentLang = localStorage.getItem('medVokabeln_lang') || 'tr';
+
+        function applyUILanguage() {
+            document.querySelectorAll('[data-tr]').forEach(el => {
+                el.innerHTML = el.getAttribute(`data-${currentLang}`);
+            });
+        }
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'tr' ? 'en' : 'tr';
+            localStorage.setItem('medVokabeln_lang', currentLang);
+            document.getElementById('langToggle').innerText = currentLang.toUpperCase();
+            applyUILanguage();
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('langToggle').innerText = currentLang.toUpperCase();
+            applyUILanguage();
+        });
+    </script>
 </body>
 </html>
