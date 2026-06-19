@@ -3,8 +3,8 @@
   "short_name": "PflegeDeutsch",
   "start_url": "index.html",
   "display": "standalone",
-  "background_color": "#f8fafc",
-  "theme_color": "#0284c7",
+  "background_color": "#121212",
+  "theme_color": "#FFCC00",
   "icons": [
     {
       "src": "https://raw.githubusercontent.com/azo73/medvokabeln/main/Detailed%20human%20anatomical%20model%20display.png",
