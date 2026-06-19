@@ -5,22 +5,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Datenschutzerklärung | PflegeDeutsch</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=6">
     <style>
-        .policy-container { max-width: 800px; margin: 40px auto; padding: 30px; background: var(--card-bg, #fff); border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); line-height: 1.7; color: var(--text-dark, #333); }
-        .policy-container h1 { color: var(--primary, #ea580c); margin-bottom: 20px; text-align: center; }
-        .policy-container h2 { color: var(--primary, #ea580c); margin-top: 30px; font-size: 1.3rem; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        .policy-container p { margin-bottom: 15px; color: var(--text-muted, #555); }
+        /* --- MODERN HEADER & NAV --- */
+        .modern-header { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 15px 5%; background: var(--card-bg, #1e1e1e); border-bottom: 1px solid var(--border-color, #333); position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); }
+        .header-left { display: flex; gap: 12px; justify-content: flex-start; }
+        .header-center { text-align: center; }
+        .brand-logo { text-decoration: none; display: block; transition: transform 0.2s; }
+        .brand-logo:hover { transform: scale(1.05); }
+        .brand-logo h1 { margin: 0; font-size: 1.8rem; color: var(--text-main, #fff); letter-spacing: -0.5px; font-weight: 800; }
+        .brand-logo span { color: var(--primary, #FFCC00); }
+        .brand-subtitle { margin: 0; font-size: 0.75rem; color: var(--text-muted, #a3a3a3); text-transform: uppercase; letter-spacing: 1px; }
+        .header-right { display: flex; justify-content: flex-end; }
+        .nav-links { list-style: none; display: flex; gap: 15px; margin: 0; padding: 0; align-items: center;}
+        .nav-links a { text-decoration: none; color: var(--text-muted, #a3a3a3); font-size: 0.95rem; font-weight: 600; transition: all 0.3s ease; padding: 8px 12px; border-radius: 12px; }
+        .nav-links a:hover { color: #000; background: var(--primary, #FFCC00); transform: translateY(-2px); }
+
+        @media (max-width: 850px) {
+            .modern-header { grid-template-columns: 1fr; gap: 15px; padding: 15px; }
+            .header-left { justify-content: center; }
+            .header-right { justify-content: center; width: 100%; }
+            .nav-links { flex-wrap: wrap; justify-content: center; gap: 10px; }
+        }
+
+        /* --- CONTENT --- */
+        .policy-container { max-width: 800px; margin: 40px auto; padding: 40px; background: var(--card-bg, #1e1e1e); border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); border: 1px solid var(--border-color, #333); }
+        .policy-container h1 { color: var(--primary, #FFCC00); font-size: 2.2rem; margin-bottom: 30px; text-align: center; }
+        .policy-container h2 { color: var(--text-main, #fff); margin-top: 35px; margin-bottom: 15px; font-size: 1.3rem; border-bottom: 2px solid var(--switch-bg, #2a2a2a); padding-bottom: 8px; }
+        .policy-container p { color: var(--text-muted, #a3a3a3); line-height: 1.7; margin-bottom: 15px; font-size: 1.05rem; }
     </style>
 </head>
 <body>
 
-    <header style="text-align: center; padding: 20px;">
-        <a href="index.html" style="background: #f1f5f9; padding: 10px 20px; border-radius: 20px; text-decoration: none; color: #333; font-weight: bold;">&larr; Ana Sayfaya Dön</a>
+    <header class="modern-header">
+        <div class="header-left">
+            <a href="index.html" style="text-decoration: none; color: var(--text-main, #fff); font-weight: bold; padding: 8px 15px; background: var(--switch-bg, #2a2a2a); border-radius: 20px; font-size: 0.9rem; border: 1px solid var(--border-color);">&larr; Ana Sayfa</a>
+        </div>
+        <div class="header-center">
+            <a href="index.html" class="brand-logo">
+                <h1>med-<span>vokabeln</span></h1>
+            </a>
+            <p class="brand-subtitle">Pflegefachkräfte Trainer</p>
+        </div>
+        <div class="header-right">
+            <nav class="main-nav">
+                <ul class="nav-links">
+                    <li><a href="goethe.html" style="color: var(--primary, #FFCC00); border: 1px solid var(--primary, #FFCC00); background: rgba(255, 204, 0, 0.05);">Goethe Hazırlık 🇩🇪</a></li>
+                    <li><a href="rehber.html">Rehber</a></li>
+                    <li><a href="hakkimizda.html">Hakkımızda</a></li>
+                    <li><a href="iletisim.html">İletişim</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
     <div class="policy-container">
-        <h1>Datenschutzerklärung / Gizlilik Politikası</h1>
+        <h1>Datenschutzerklärung</h1>
         <p>Wir informieren Sie hier über die Verarbeitung personenbezogener Daten bei der Nutzung unserer Website medvokabeln.com.</p>
 
         <h2>1. Google AdSense & Cookies</h2>
@@ -28,16 +68,29 @@
         <p>Die durch Cookies und Web Beacons erzeugten Informationen über die Benutzung dieser Website (einschließlich Ihrer IP-Adresse) und Auslieferung von Werbeformaten werden an einen Server von Google in den USA übertragen und dort gespeichert. Google wird diese Informationen verwenden, um Ihre Nutzung der Website im Hinblick auf die Anzeigen auszuwerten.</p>
         
         <h2>2. Personalisierte Werbung</h2>
-        <p>Drittanbieter, einschließlich Google, verwenden Cookies zur Schaltung von Anzeigen auf Grundlage vorheriger Besuche eines Nutzers auf unserer Website oder anderen Websites. Die Verwendung von Werbe-Cookies ermöglicht es Google und seinen Partnern, den Nutzern Anzeigen auf Basis ihrer Besuche auf Ihren Websites und/oder anderen Websites im Internet bereitzustellen. Nutzer können die personalisierte Werbung deaktivieren, indem sie die <a href="https://www.google.com/settings/ads" target="_blank">Anzeigeneinstellungen von Google</a> aufrufen.</p>
+        <p>Drittanbieter, einschließlich Google, verwenden Cookies zur Schaltung von Anzeigen auf Grundlage vorheriger Besuche eines Nutzers auf unserer Website oder anderen Websites. Die Verwendung von Werbe-Cookies ermöglicht es Google und seinen Partnern, den Nutzern Anzeigen auf Basis ihrer Besuche auf Ihren Websites und/oder anderen Websites im Internet bereitzustellen. Nutzer können die personalisierte Werbung deaktivieren, indem sie die <a href="https://www.google.com/settings/ads" target="_blank" style="color: var(--primary);">Anzeigeneinstellungen von Google</a> aufrufen.</p>
 
-        <h2>3. Local Storage (Yerel Depolama)</h2>
-        <p>Zur Speicherung Ihres Lernfortschritts (Vokabel-Status, Streak, SRS-Daten) verwenden wir die Local Storage-Technologie Ihres Browsers. Diese Daten werden nur lokal auf Ihrem Gerät gespeichert, nicht an unsere Server übertragen und dienen ausschließlich der Verbesserung Ihrer persönlichen Lernerfahrung.</p>
+        <h2>3. Local Storage</h2>
+        <p>Zur Speicherung Ihres Lernfortschritts (Vokabel-Status, Streak) verwenden wir die Local Storage-Technologie Ihres Browsers. Diese Daten werden nur lokal auf Ihrem Gerät gespeichert und nicht an unsere Server übertragen.</p>
 
-        <h2>4. Ihre Rechte (Haklarınız)</h2>
-        <p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung Ihrer personenbezogenen Daten. Da wir jedoch keine persönlichen Nutzerkonten anlegen und Daten nur in Ihrem lokalen Browser speichern, haben Sie die volle Kontrolle über diese Daten (durch Löschen des Browser-Caches).</p>
+        <h2>4. Ihre Rechte</h2>
+        <p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung Ihrer personenbezogenen Daten.</p>
 
-        <p style="margin-top: 40px; font-size: 0.85rem; text-align: center;">Zuletzt aktualisiert: Juni 2026</p>
+        <p style="margin-top: 40px; font-size: 0.85rem; text-align: center;">Zuletzt aktualisiert: 2026</p>
     </div>
+
+    <footer style="width: 100%; text-align: center; margin: 40px 0 30px 0; font-size: 0.9rem;">
+        <div style="margin-bottom: 10px;">
+            <a href="datenschutz.html" style="color: var(--primary, #FFCC00); text-decoration: none; margin: 0 10px; font-weight: 600;">Datenschutzerklärung</a>
+            <span style="color: var(--text-muted, #a3a3a3);">|</span>
+            <a href="impressum.html" style="color: var(--primary, #FFCC00); text-decoration: none; margin: 0 10px; font-weight: 600;">Impressum</a>
+            <span style="color: var(--text-muted, #a3a3a3);">|</span>
+            <a href="iletisim.html" style="color: var(--primary, #FFCC00); text-decoration: none; margin: 0 10px; font-weight: 600;">Kontakt</a>
+        </div>
+        <div style="color: var(--text-muted, #a3a3a3); margin-top: 15px; font-weight: 600;">
+            © 2026 Oluşturan Azad | Tüm Hakları Saklıdır
+        </div>
+    </footer>
 
 </body>
 </html>
