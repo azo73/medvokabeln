@@ -12,42 +12,137 @@
     
     <title>Eşleştirme Oyunu | PflegeDeutsch</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css?v=8">
     <style>
-        .back-nav { width: 100%; max-width: 400px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; margin-top: 10px; }
-        .btn-back { background: var(--card-bg); border: 2px solid var(--border-color); color: var(--text-dark); padding: 10px 15px; border-radius: 12px; text-decoration: none; font-weight: bold; transition: 0.2s; display: flex; align-items: center; gap: 6px; cursor: pointer;}
+        /* --- TEMA AYARLARI --- */
+        :root {
+            --primary: #FFCC00; 
+            --primary-hover: #e6b800; 
+            --success: #10b981; 
+            --danger: #ef4444; 
+            --bg-body: #121212; 
+            --card-bg: #1e1e1e; 
+            --text-main: #ffffff; 
+            --text-muted: #a3a3a3; 
+            --border-color: #333333; 
+            --switch-bg: #2a2a2a; 
+        }
+
+        body { 
+            background-color: var(--bg-body); 
+            color: var(--text-main); 
+            font-family: 'Inter', sans-serif; 
+            margin: 0; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            min-height: 100vh;
+        }
+
+        /* --- ÜST BAR VE NAVİGASYON --- */
+        .back-nav { 
+            width: 100%; max-width: 600px; 
+            display: flex; align-items: center; justify-content: space-between; 
+            padding: 15px 20px; box-sizing: border-box;
+            background: rgba(30,30,30,0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky; top: 0; z-index: 10;
+        }
+        
+        .btn-back { 
+            background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-main); 
+            padding: 8px 15px; border-radius: 12px; text-decoration: none; font-weight: bold; 
+            transition: 0.2s; display: flex; align-items: center; gap: 8px; cursor: pointer;
+        }
         .btn-back:hover { background: var(--switch-bg); border-color: var(--primary); }
-        .btn-back img { width: 18px; height: auto; border-radius: 2px; box-shadow: 0 0 2px rgba(0,0,0,0.2); }
+        .btn-back img { width: 18px; height: auto; border-radius: 2px; }
+
+        .game-title { flex: 1; text-align: center; color: var(--primary); font-size: 1.3rem; font-weight: 800; margin: 0; }
+        .game-hint { color: var(--text-muted); text-align: center; font-size: 0.95rem; margin-top: 25px; margin-bottom: 10px;}
+
+        /* --- OYUN ALANI VE BUTONLAR --- */
+        .game-container { 
+            width: 100%; max-width: 700px; 
+            display: flex; justify-content: space-between; gap: 20px; 
+            padding: 0 20px; margin-top: 10px; box-sizing: border-box;
+        }
         
-        .game-container { width: 100%; max-width: 400px; display: flex; justify-content: space-between; gap: 10px; margin-top: 20px; }
-        .column { flex: 1; display: flex; flex-direction: column; gap: 10px; }
+        .column { flex: 1; display: flex; flex-direction: column; gap: 12px; }
         
-        /* Oyun Butonları */
-        .game-btn { padding: 15px 10px; border: 2px solid var(--border-color); background: var(--card-bg); border-radius: 12px; cursor: pointer; font-weight: 600; color: var(--text-dark); transition: all 0.2s; font-size: 0.9rem; text-align: center; }
-        .game-btn.selected { border-color: var(--primary); background: var(--switch-bg); transform: scale(1.05); box-shadow: 0 4px 10px rgba(2,132,199,0.2); }
-        .game-btn.correct { background: var(--success); color: white; border-color: var(--success); pointer-events: none; opacity: 0; transition: opacity 0.5s; }
-        .game-btn.wrong { background: var(--danger); color: white; border-color: var(--danger); animation: shake 0.4s; }
+        .game-btn { 
+            padding: 18px 12px; border: 2px solid var(--border-color); background: var(--card-bg); 
+            border-radius: 16px; cursor: pointer; font-weight: 700; color: var(--text-main); 
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); font-size: 1.05rem; text-align: center; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
         
-        @keyframes shake { 0%, 100% {transform: translateX(0);} 25% {transform: translateX(-5px);} 75% {transform: translateX(5px);} }
+        .game-btn:hover { border-color: var(--primary); background: var(--switch-bg); }
         
-        .win-msg { display: none; text-align: center; margin-top: 30px; font-size: 1.4rem; color: var(--success); font-weight: bold; animation: popIn 0.5s; }
+        .game-btn.selected { 
+            border-color: var(--primary); background: var(--primary); color: #000; 
+            transform: scale(1.03); box-shadow: 0 6px 15px rgba(255, 204, 0, 0.3); 
+        }
+        
+        .game-btn.correct { 
+            background: var(--success); color: #000; border-color: var(--success); 
+            pointer-events: none; opacity: 0; transform: scale(0.9); transition: all 0.5s; 
+        }
+        
+        .game-btn.wrong { 
+            background: var(--danger); color: white; border-color: var(--danger); 
+            animation: shake 0.4s; 
+        }
+        
+        @keyframes shake { 
+            0%, 100% {transform: translateX(0);} 
+            25% {transform: translateX(-6px);} 
+            75% {transform: translateX(6px);} 
+        }
+        
+        /* --- KAZANMA VE RESTART --- */
+        .win-msg { 
+            display: none; text-align: center; margin-top: 40px; font-size: 1.6rem; 
+            color: var(--primary); font-weight: 800; animation: popIn 0.5s; 
+        }
         @keyframes popIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
         
-        .btn-restart { display: none; background: var(--primary); color: white; border: none; padding: 15px; border-radius: 12px; width: 100%; max-width: 400px; font-weight: bold; cursor: pointer; margin-top: 20px; font-size: 1.1rem; box-shadow: 0 4px 10px rgba(2,132,199,0.3); }
+        .btn-restart { 
+            display: none; background: var(--primary); color: #000; border: none; 
+            padding: 16px; border-radius: 30px; width: 100%; max-width: 300px; 
+            font-weight: 800; cursor: pointer; margin-top: 25px; font-size: 1.1rem; 
+            transition: 0.3s; box-shadow: 0 6px 15px rgba(255, 204, 0, 0.2);
+        }
+        .btn-restart:hover { background: var(--primary-hover); transform: translateY(-3px); }
+
+        /* --- SEO / BİLGİ KUTUSU (AdSense İçin) --- */
+        .seo-box {
+            max-width: 700px; width: 90%; margin: 60px auto 40px auto; 
+            padding: 25px; background: var(--card-bg); border-radius: 16px; 
+            border: 1px solid var(--border-color); text-align: left;
+        }
+        .seo-box h3 { color: var(--primary); font-size: 1.2rem; margin-top: 0; margin-bottom: 10px; }
+        .seo-box p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+        @media (max-width: 600px) {
+            .game-container { flex-direction: column; }
+            .column { gap: 10px; }
+            .game-btn { padding: 15px; font-size: 1rem; }
+        }
     </style>
 </head>
 <body onload="initPage()">
 
     <div class="back-nav">
         <a href="index.html" class="btn-back" id="uiBackBtn">← Geri</a>
-        <h2 style="flex:1; text-align:center; color:var(--primary); font-size: 1.2rem;" id="uiTitle">Eşleştirme Oyunu</h2>
+        <h2 class="game-title" id="uiTitle">Eşleştirme Oyunu</h2>
         <button id="langToggle" class="btn-back" onclick="toggleLanguage()">
             <img src="https://flagcdn.com/w20/tr.png" alt="TR"> TR
         </button>
     </div>
 
-    <p style="color:var(--text-muted); text-align:center; font-size:0.9rem;" id="uiSub">💡 Önce Almancasına, sonra Türkçesine dokun.</p>
+    <p class="game-hint" id="uiSub">💡 Önce Almancasına, sonra çevirisine dokun.</p>
     
     <div class="game-container">
         <div class="column" id="colGerman"></div>
@@ -57,16 +152,20 @@
     <div class="win-msg" id="winMessage">Tebrikler! Hepsini buldun 🎉</div>
     <button class="btn-restart" id="btnRestart" onclick="startGame()">🔄 Yeni Kelimeler Getir</button>
 
+    <div class="seo-box">
+        <h3>Tıbbi Almanca (PflegeDeutsch) Eşleştirme Pratiği</h3>
+        <p>Almanya'da hastane ortamında (Krankenhaus) çalışacak sağlık personelleri için kelime ezberlemek tek başına yeterli değildir. Goethe B1/B2 sınavlarında başarılı olmak ve klinik rotasyonlarda hızlı refleks göstermek için tıbbi terimlerin <em>(Fachsprache)</em> anlamlarını saniyeler içinde zihninizde eşleştirebilmeniz gerekir. Bu interaktif oyun, görsel ve dokunsal hafızanızı çalıştırarak Almanca hemşirelik kelimelerini refleks haline getirmenizi sağlar.</p>
+    </div>
+
     <script src="data.js?v=8"></script>
     
     <script>
-        // --- DİL SÖZLÜĞÜ ---
         const uiDictGame = {
             tr: {
                 flag: '<img src="https://flagcdn.com/w20/tr.png" alt="TR"> TR',
                 back: "← Geri",
                 title: "Eşleştirme Oyunu",
-                sub: "💡 Önce Almancasına, sonra Türkçesine dokun.",
+                sub: "💡 Önce Almancasına, sonra çevirisine dokun.",
                 win: "Tebrikler! Hepsini buldun 🎉",
                 restart: "🔄 Yeni Kelimeler Getir"
             },
@@ -91,7 +190,7 @@
             document.getElementById('winMessage').innerText = dict.win;
             document.getElementById('btnRestart').innerText = dict.restart;
             
-            startGame(); // Dili değiştirince kelimeler de o dile dönsün diye oyunu sıfırlıyoruz.
+            startGame(); 
         }
 
         function toggleLanguage() {
@@ -102,12 +201,9 @@
 
         let fullGamePool = []; 
 
-        function initPage() { 
-            if (localStorage.getItem('medVokabeln_theme') === 'dark') document.body.classList.add('dark-mode'); 
-            
+        function initPage() {             
             let communityWords = JSON.parse(localStorage.getItem('medVokabeln_communityWords')) || [];
             fullGamePool = [...vocabularyData, ...communityWords];
-
             applyLanguage(); 
         }
         
@@ -142,7 +238,6 @@
             turkishList.forEach(item => {
                 let btn = document.createElement('button');
                 btn.className = 'game-btn';
-                // Dile göre İngilizce veya Türkçe basıyoruz!
                 btn.innerText = (currentLang === 'en' && item.english) ? item.english : item.turkish;
                 btn.onclick = () => selectItem(btn, 'turkish', item.id);
                 colTur.appendChild(btn);
