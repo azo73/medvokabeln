@@ -9,11 +9,11 @@
     <link rel="icon" href="favicon.png" type="image/png">
     <link rel="apple-touch-icon" href="favicon.png">
     
-    <title>med-vokabeln.com | PflegeDeutsch</title>
+    <title>med-vokabeln.com | PflegeDeutsch - Tıbbi Almanca ve Hemşirelik Sözlüğü</title>
     
-    <meta name="description" content="Almanya ve İsviçre'deki hemşireler için tıbbi Almanca sözlüğü.">
+    <meta name="description" content="Almanya ve İsviçre'deki hemşireler için tıbbi Almanca (PflegeDeutsch) sözlüğü. Telc B1/B2 Pflege sınavına hazırlık, hastane kelimeleri ve interaktif flashcardlar.">
     <meta property="og:title" content="PflegeDeutsch | Tıbbi Almanca Kartları">
-    <meta property="og:url" content="https://med-vokabeln.com/">
+    <meta property="og:url" content="https://medvokabeln.com/">
     <meta property="og:type" content="website">
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -38,12 +38,13 @@
             color: var(--text-main);
             margin: 0;
             font-family: 'Inter', sans-serif;
+            line-height: 1.6;
         }
 
         /* --- DICTIONARY.COM STİLİ HEADER & HERO BÖLÜMÜ --- */
         .hero-section {
             background-color: var(--bg-hero);
-            padding: 20px 5% 120px 5%; /* Alt kavis için ekstra boşluk */
+            padding: 20px 5% 120px 5%;
             border-bottom-left-radius: 50% 50px;
             border-bottom-right-radius: 50% 50px;
             text-align: center;
@@ -64,136 +65,28 @@
             gap: 10px;
         }
 
-        .brand-logo h1 {
-            margin: 0;
-            font-size: 1.8rem;
-            color: var(--text-main);
-            letter-spacing: -0.5px;
-            font-weight: 800;
-        }
+        .brand-logo h1 { margin: 0; font-size: 1.8rem; color: var(--text-main); letter-spacing: -0.5px; font-weight: 800; }
+        .brand-logo span { color: var(--primary); }
 
-        .brand-logo span {
-            color: var(--primary);
-        }
+        .nav-links { list-style: none; display: flex; gap: 20px; margin: 0; padding: 0; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--text-main); font-size: 0.95rem; font-weight: 600; transition: color 0.2s; text-transform: uppercase; letter-spacing: 0.5px; }
+        .nav-links a:hover { color: var(--primary); }
 
-        .nav-links {
-            list-style: none;
-            display: flex;
-            gap: 20px;
-            margin: 0;
-            padding: 0;
-            align-items: center;
-        }
+        .hero-title { font-size: 3rem; font-weight: 800; color: var(--text-main); margin-bottom: 30px; letter-spacing: -1px; }
 
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-main);
-            font-size: 0.95rem;
-            font-weight: 600;
-            transition: color 0.2s;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
+        .dict-search-wrapper { max-width: 800px; margin: 0 auto; background: #ffffff; border-radius: 50px; display: flex; align-items: center; padding: 6px; }
+        .dict-search-wrapper input { flex: 1; border: none; background: transparent; padding: 15px 25px; font-size: 1.2rem; outline: none; color: #000000; font-family: inherit; }
+        .dict-search-wrapper button { background: var(--primary); color: #000000; border: none; border-radius: 50px; padding: 15px 40px; font-weight: 700; font-size: 1.1rem; cursor: pointer; transition: background 0.2s; }
+        .dict-search-wrapper button:hover { background: var(--primary-hover); }
 
-        .nav-links a:hover {
-            color: var(--primary);
-        }
+        .popular-searches { margin-top: 25px; display: flex; justify-content: center; gap: 10px; color: var(--text-muted); font-size: 0.9rem; align-items: center; flex-wrap: wrap; }
+        .popular-searches span.pill { background: #222222; color: var(--text-main); padding: 6px 15px; border-radius: 20px; cursor: pointer; transition: 0.2s; border: 1px solid #333; }
+        .popular-searches span.pill:hover { background: var(--primary); color: #000; border-color: var(--primary); }
 
-        /* Hero Yazı ve Arama Çubuğu */
-        .hero-title {
-            font-size: 3rem;
-            font-weight: 800;
-            color: var(--text-main);
-            margin-bottom: 30px;
-            letter-spacing: -1px;
-        }
+        /* --- OVERLAP KARTLAR --- */
+        .overlap-container { display: flex; gap: 20px; max-width: 1000px; margin: -70px auto 40px auto; padding: 0 20px; position: relative; z-index: 10; }
+        .dict-card { background: var(--card-bg); border-radius: 20px; padding: 30px; flex: 1; box-shadow: 0 10px 30px rgba(0,0,0,0.4); border: 1px solid var(--border-color); text-align: left; }
 
-        .dict-search-wrapper {
-            max-width: 800px;
-            margin: 0 auto;
-            background: #ffffff;
-            border-radius: 50px;
-            display: flex;
-            align-items: center;
-            padding: 6px;
-        }
-
-        .dict-search-wrapper input {
-            flex: 1;
-            border: none;
-            background: transparent;
-            padding: 15px 25px;
-            font-size: 1.2rem;
-            outline: none;
-            color: #000000;
-            font-family: inherit;
-        }
-
-        .dict-search-wrapper button {
-            background: var(--primary);
-            color: #000000;
-            border: none;
-            border-radius: 50px;
-            padding: 15px 40px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .dict-search-wrapper button:hover {
-            background: var(--primary-hover);
-        }
-
-        .popular-searches {
-            margin-top: 25px;
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .popular-searches span.pill {
-            background: #222222;
-            color: var(--text-main);
-            padding: 6px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: 0.2s;
-            border: 1px solid #333;
-        }
-
-        .popular-searches span.pill:hover {
-            background: var(--primary);
-            color: #000;
-            border-color: var(--primary);
-        }
-
-        /* --- OVERLAP KARTLAR (Kavisin üstüne binen kısım) --- */
-        .overlap-container {
-            display: flex;
-            gap: 20px;
-            max-width: 1000px;
-            margin: -70px auto 40px auto; /* Yukarı çeker */
-            padding: 0 20px;
-            position: relative;
-            z-index: 10;
-        }
-
-        .dict-card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 30px;
-            flex: 1;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-            border: 1px solid var(--border-color);
-            text-align: left;
-        }
-
-        /* Sol Kart (Word of the Day) */
         .wotd-header { font-size: 1rem; color: var(--text-main); font-weight: 600; margin-bottom: 5px; }
         .wotd-date { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 25px; }
         .wotd-german { font-size: 2.5rem; color: var(--primary); font-weight: 800; margin-bottom: 5px; }
@@ -201,29 +94,27 @@
         .dict-btn { background: var(--primary); color: #000; border: none; padding: 12px 25px; border-radius: 30px; font-weight: bold; cursor: pointer; font-size: 1rem; width: 100%; transition: 0.2s; }
         .dict-btn:hover { background: var(--primary-hover); }
 
-        /* Sağ Kart (Featured Game / Flashcards) */
         .game-icon { font-size: 3rem; margin-bottom: 10px; text-align: center; }
         .game-title { text-align: center; font-size: 1.2rem; font-weight: 700; margin-bottom: 20px; }
-        
         .mode-switch-dict { display: flex; flex-direction: column; gap: 10px; }
-        .mode-btn-dict { background: var(--switch-bg); color: var(--text-main); border: 1px solid var(--border-color); padding: 12px; border-radius: 12px; cursor: pointer; font-weight: 600; transition: 0.2s; text-align: center; text-decoration: none; }
+        .mode-btn-dict { background: var(--switch-bg); color: var(--text-main); border: 1px solid var(--border-color); padding: 12px; border-radius: 12px; cursor: pointer; font-weight: 600; transition: 0.2s; text-align: center; text-decoration: none; display: block;}
         .mode-btn-dict:hover, .mode-btn-dict.active { background: var(--primary); color: #000; border-color: var(--primary); }
 
-        /* Eski Sistem Uyumluluk CSS'leri (Siyah/Sarıya göre uyarlandı) */
+        /* Dashboard & Flashcards */
         .dashboard { max-width: 800px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;}
         select { background: var(--card-bg); color: var(--text-main); border: 1px solid var(--border-color); padding: 10px 15px; border-radius: 8px; font-family: inherit; outline: none; }
         .stats-container { display: flex; gap: 15px; align-items: center; }
         .streak { background: #2a2a2a; color: var(--primary); padding: 8px 15px; border-radius: 20px; font-weight: bold; cursor: pointer; border: 1px solid #444;}
         
-        #flashcardSection { max-width: 800px; margin: 0 auto; padding: 0 20px; }
+        #flashcardSection { max-width: 800px; margin: 0 auto; padding: 0 20px; margin-bottom: 50px; }
         .flashcard-container { perspective: 1000px; width: 100%; height: 350px; cursor: pointer; margin-bottom: 20px; position: relative; }
         .flashcard { width: 100%; height: 100%; position: relative; transition: transform 0.6s; transform-style: preserve-3d; }
         .flashcard.is-flipped { transform: rotateX(180deg); }
         .card-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; background: var(--card-bg); border-radius: 24px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; border: 2px solid var(--border-color); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
         .card-back { transform: rotateX(180deg); background: #1a1a1a; border-color: var(--primary); }
         
-        .word-german { font-size: 2.5rem; font-weight: 800; color: var(--text-main); margin-bottom: 10px; }
-        .word-turkish { font-size: 1.8rem; font-weight: 700; color: var(--primary); margin-bottom: 15px; }
+        .word-german { font-size: 2.5rem; font-weight: 800; color: var(--text-main); margin-bottom: 10px; text-align: center; }
+        .word-turkish { font-size: 1.8rem; font-weight: 700; color: var(--primary); margin-bottom: 15px; text-align: center; }
         .example-sentence { font-size: 1rem; color: var(--text-muted); font-style: italic; text-align: center; }
         
         .controls { display: flex; justify-content: space-between; gap: 10px; }
@@ -235,10 +126,20 @@
         .fav-btn-main { position: absolute; top: 20px; right: 20px; background: none; border: none; font-size: 2rem; cursor: pointer; z-index: 10; }
         .fav-btn-main.active { color: var(--primary); }
         .fav-btn-main.inactive { color: #555; }
-
         .btn-speak { position: absolute; top: 20px; left: 20px; background: var(--switch-bg); border: none; border-radius: 50%; width: 45px; height: 45px; cursor: pointer; font-size: 1.2rem; display: flex; justify-content: center; align-items: center; color: var(--text-main); }
         
-        /* Mobil Menü */
+        /* --- YENİ EKLENEN ADSENSE (SEO) METİN BÖLÜMÜ CSS --- */
+        .seo-content-section { max-width: 1000px; margin: 0 auto 50px auto; padding: 0 20px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; }
+        .seo-text-block h2 { color: var(--primary); font-size: 1.8rem; margin-bottom: 15px; }
+        .seo-text-block p { color: var(--text-muted); font-size: 1rem; margin-bottom: 15px; }
+        
+        .blog-preview-block { background: var(--card-bg); border-radius: 16px; padding: 25px; border: 1px solid var(--border-color); }
+        .blog-preview-block h3 { color: var(--text-main); margin-top: 0; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
+        .blog-link-item { display: block; color: var(--text-muted); text-decoration: none; padding: 12px 0; border-bottom: 1px dashed var(--border-color); transition: 0.2s; }
+        .blog-link-item:last-child { border-bottom: none; }
+        .blog-link-item:hover { color: var(--primary); padding-left: 10px; }
+        .blog-link-item strong { color: var(--text-main); display: block; margin-bottom: 5px; }
+
         @media (max-width: 850px) {
             .hero-title { font-size: 2rem; }
             .top-nav { flex-direction: column; gap: 20px; }
@@ -246,6 +147,7 @@
             .dict-search-wrapper input { padding: 12px; font-size: 1rem; }
             .dict-search-wrapper button { padding: 12px 25px; }
             .hero-section { border-bottom-left-radius: 0; border-bottom-right-radius: 0; padding-bottom: 40px; }
+            .seo-content-section { grid-template-columns: 1fr; gap: 20px; }
         }
     </style>
 </head>
@@ -256,7 +158,6 @@
             <a href="index.html" class="brand-logo">
                 <h1>med-<span>vokabeln</span></h1>
             </a>
-            
             <nav>
                 <ul class="nav-links">
                     <li><a href="telc.html" style="color: var(--primary);">telc Hazırlık 🔥</a></li>
@@ -264,9 +165,7 @@
                     <li><a href="topluluk.html">Topluluk 🌍</a></li>
                     <li><a href="hakkimizda.html">Hakkımızda</a></li>
                     <li><a href="iletisim.html">İletişim</a></li>
-                    <li>
-                        <button id="langToggle" onclick="toggleLanguage()" style="background:transparent; border:1px solid #555; color:white; padding:5px 10px; border-radius:15px; cursor:pointer; transition:0.2s;">TR</button>
-                    </li>
+                    <li><button id="langToggle" onclick="toggleLanguage()" style="background:transparent; border:1px solid #555; color:white; padding:5px 10px; border-radius:15px; cursor:pointer; transition:0.2s;">TR</button></li>
                 </ul>
             </nav>
         </div>
@@ -289,12 +188,10 @@
     <div class="overlap-container">
         <div class="dict-card">
             <div class="wotd-header" id="uiWotdTitle">Word of the Day</div>
-            <div class="wotd-date">25 Nisan 2026</div>
+            <div class="wotd-date">Günün Kelimesi</div>
             <div class="wotd-german" id="wotdGerman">Yükleniyor...</div>
-            <div class="wotd-turkish">
-                <span id="wotdTurkish">...</span>
-            </div>
-            <button class="dict-btn" id="uiAudioBtn" onclick="speakWotd()">🔊 Günün Kelimesini Dinle</button>
+            <div class="wotd-turkish"><span id="wotdTurkish">...</span></div>
+            <button class="dict-btn" id="uiAudioBtn" onclick="speakWotd()">🔊 Dinle ve Pratik Yap</button>
         </div>
 
         <div class="dict-card">
@@ -330,7 +227,6 @@
     <div id="flashcardSection">
         <div class="flashcard-container" onclick="flipCard()">
             <button id="mainFavBtn" class="fav-btn-main inactive" onclick="event.stopPropagation(); handleFavClick();">⭐</button>
-            
             <div class="flashcard" id="myCard">
                 <div class="card-face card-front">
                     <div class="learned-badge" id="frontBadge" style="position:absolute; top:20px; right:60px; font-size:1.5rem;">✅</div>
@@ -346,7 +242,6 @@
                 </div>
             </div>
         </div>
-
         <div class="controls">
             <button class="action-btn" id="btnPrev" onclick="prevWord()">&larr; Önceki</button>
             <button class="action-btn btn-learn" id="btnLearn" onclick="toggleLearned()">✅ Öğrendim</button>
@@ -354,7 +249,7 @@
         </div>
     </div>
 
-    <div id="quizSection" style="display: none; max-width: 800px; margin: 0 auto; padding: 20px;">
+    <div id="quizSection" style="display: none; max-width: 800px; margin: 0 auto; padding: 20px; margin-bottom: 50px;">
         <div class="quiz-card" style="background: var(--card-bg); padding: 30px; border-radius: 20px; border: 1px solid var(--border-color); text-align: center;">
             <div class="quiz-question" id="quizWord" style="font-size: 2rem; color: var(--primary); margin-bottom: 20px;">...</div>
             <div class="quiz-options" id="quizOptionsContainer" style="display: flex; flex-direction: column; gap: 10px;"></div>
@@ -363,7 +258,31 @@
         </div>
     </div>
 
-    <footer style="width: 100%; text-align: center; margin-top: 60px; margin-bottom: 30px; font-size: 0.85rem; padding-top: 20px; border-top: 1px solid var(--border-color);">
+    <section class="seo-content-section">
+        <div class="seo-text-block">
+            <h2>Almanya'da Hemşirelik İçin Tıbbi Almanca (PflegeDeutsch)</h2>
+            <p>Almanya'da sağlık sektöründe çalışmak isteyen hemşireler (Pflegefachkräfte), doktorlar ve hasta bakıcılar için dil bariyeri en büyük zorluklardan biridir. <strong>medvokabeln.com</strong>, B1 ve B2 seviyesindeki sağlık çalışanlarının klinik ortamda ihtiyaç duyduğu <em>Fachsprache</em> (Mesleki Dil) kelimelerini öğrenmesini sağlayan interaktif bir tıbbi sözlüktür.</p>
+            <p>Hastanede hasta kabulü (Aufnahme), anamnez alma, nöbet teslimi (Übergabe) ve acil durumlarda kullanılan kalıpları ezberlemek yerine, "Flashcard" ve "Aralıklı Tekrar" (Spaced Repetition) sistemimizle kalıcı olarak hafızanıza kazıyabilirsiniz. Ayrıca <strong>Telc B1/B2 Pflege</strong> sınavına hazırlık modülümüzle rol yapma (Rollenspiel) ve mektup yazma (Brief schreiben) pratiği yapabilirsiniz.</p>
+        </div>
+        
+        <div class="blog-preview-block">
+            <h3>📖 Rehber'den Son Yazılar</h3>
+            <a href="rehber.html" class="blog-link-item">
+                <strong>Anamnez Alırken Kullanılan Kalıplar</strong>
+                Hastanın tıbbi geçmişini öğrenirken doğru soruları nasıl sorarsınız?
+            </a>
+            <a href="rehber.html" class="blog-link-item">
+                <strong>Telc B1-B2 Pflege Sınavı Tüyoları</strong>
+                Sözlü sınavda yüksek puan almanın ve hastayla empati kurmanın yolları.
+            </a>
+            <a href="rehber.html" class="blog-link-item">
+                <strong>Üroloji ve Genel Cerrahi Terimleri</strong>
+                Klinik rotasyonlarda karşınıza çıkacak en önemli Almanca kelimeler ve cihaz adları.
+            </a>
+        </div>
+    </section>
+
+    <footer style="width: 100%; text-align: center; margin-bottom: 30px; font-size: 0.85rem; padding-top: 20px; border-top: 1px solid var(--border-color);">
         <div style="margin-bottom: 10px;">
             <a href="datenschutz.html" style="color: var(--text-muted); text-decoration: none; margin: 0 10px;">Datenschutzerklärung</a>
             <span style="color: #444;">|</span>
@@ -374,18 +293,13 @@
         </div>
     </footer>
 
-    <div id="shareModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:10000; justify-content:center; align-items:center; padding:20px;">
-        </div>
-    
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
     <script src="data.js?v=6"></script>
     <script src="script.js?v=6"></script>
     
     <script>
-        // Dil ve WotD Ayarları
         let currentLang = localStorage.getItem('medVokabeln_lang') || 'tr';
-        
         function toggleLanguage() {
             currentLang = currentLang === 'tr' ? 'en' : 'tr';
             localStorage.setItem('medVokabeln_lang', currentLang);
