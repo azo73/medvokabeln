@@ -8,35 +8,49 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css?v=8">
     <style>
-        body { display: flex; flex-direction: column; min-height: 100vh; background-color: var(--bg-color); }
-        .top-bar { padding: 15px; display: flex; justify-content: space-between; align-items: center; max-width: 600px; margin: 0 auto; width: 100%; }
-        .btn-back { background: var(--card-bg); border: 2px solid var(--border-color); color: var(--text-dark); padding: 8px 15px; border-radius: 12px; text-decoration: none; font-weight: bold; transition: 0.2s; display: flex; align-items: center; gap: 6px; cursor: pointer;}
+        /* TEMEL STİLLER VE RENKLER */
+        :root {
+            --primary: #FFCC00;
+            --primary-hover: #e6b800;
+            --bg-body: #121212;
+            --card-bg: #1e1e1e;
+            --text-main: #ffffff;
+            --text-muted: #a3a3a3;
+            --border-color: #333333;
+            --switch-bg: #2a2a2a;
+        }
+
+        body { display: flex; flex-direction: column; min-height: 100vh; background-color: var(--bg-body); color: var(--text-main); font-family: 'Inter', sans-serif; margin: 0; }
+        
+        /* ÜST BAR */
+        .top-bar { padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; max-width: 800px; margin: 0 auto; width: 100%; box-sizing: border-box;}
+        .btn-back { background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-main); padding: 8px 15px; border-radius: 12px; text-decoration: none; font-weight: bold; transition: 0.2s; display: flex; align-items: center; gap: 8px; cursor: pointer;}
         .btn-back:hover { background: var(--switch-bg); border-color: var(--primary); }
         .btn-back img { width: 18px; height: auto; border-radius: 2px; box-shadow: 0 0 2px rgba(0,0,0,0.2); }
         
-        .progress-container { width: 100%; background: var(--border-color); height: 8px; border-radius: 4px; overflow: hidden; margin-top: 10px; }
+        .progress-container { max-width: 600px; margin: 10px auto; width: 90%; background: var(--border-color); height: 8px; border-radius: 4px; overflow: hidden; }
         .progress-bar { height: 100%; background: var(--primary); width: 0%; transition: width 0.3s; }
         
-        .training-area { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 20px; max-width: 600px; margin: 0 auto; width: 100%; }
+        /* ANTRENMAN ALANI (FLASHCARD) */
+        .training-area { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 20px; max-width: 600px; margin: 0 auto; width: 100%; box-sizing: border-box;}
         
-        /* Flashcard CSS */
-        .flashcard-container { perspective: 1000px; width: 100%; height: 250px; margin-bottom: 30px; cursor: pointer; }
-        .flashcard { width: 100%; height: 100%; position: relative; transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1); transform-style: preserve-3d; border-radius: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
+        .flashcard-container { perspective: 1000px; width: 100%; height: 280px; margin-bottom: 30px; cursor: pointer; }
+        .flashcard { width: 100%; height: 100%; position: relative; transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1); transform-style: preserve-3d; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
         .flashcard-container.flipped .flashcard { transform: rotateX(180deg); }
         
-        .flashcard-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; text-align: center; background: var(--card-bg); border: 2px solid var(--border-color); }
+        .flashcard-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; text-align: center; background: var(--card-bg); border: 1px solid var(--border-color); box-sizing: border-box;}
         .flashcard-front { z-index: 2; }
-        .flashcard-back { transform: rotateX(180deg); background: var(--switch-bg); border-color: var(--primary); }
+        .flashcard-back { transform: rotateX(180deg); background: #1a1a1a; border-color: var(--primary); }
         
-        .word-category { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
-        .word-de { font-size: 2rem; font-weight: 800; color: var(--text-dark); margin-bottom: 5px; }
-        .word-type { font-size: 0.9rem; color: var(--text-muted); }
+        .word-category { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; }
+        .word-de { font-size: 2.2rem; font-weight: 800; color: var(--text-main); margin-bottom: 5px; }
+        .word-type { font-size: 0.95rem; color: var(--primary); font-weight: bold; }
         
         .word-tr { font-size: 1.8rem; font-weight: 700; color: var(--primary); margin-bottom: 15px; }
-        .word-ex { font-size: 1rem; color: var(--text-dark); font-style: italic; line-height: 1.4; padding: 10px; background: rgba(0,0,0,0.05); border-radius: 10px; width: 100%; }
+        .word-ex { font-size: 1.05rem; color: var(--text-muted); font-style: italic; line-height: 1.5; padding: 15px; background: rgba(255,255,255,0.03); border-radius: 12px; width: 100%; box-sizing: border-box;}
 
-        /* SRS Butonları */
-        .action-buttons { display: none; width: 100%; gap: 10px; }
+        /* SRS BUTONLARI */
+        .action-buttons { display: none; width: 100%; gap: 15px; }
         .action-buttons.visible { display: flex; }
         .btn-srs { flex: 1; padding: 15px 5px; border: none; border-radius: 12px; font-weight: 600; font-size: 1rem; cursor: pointer; transition: 0.2s; color: white; display: flex; flex-direction: column; align-items: center; gap: 5px; }
         .btn-srs:active { transform: scale(0.95); }
@@ -44,12 +58,19 @@
         .btn-hard { background: #e74c3c; } 
         .btn-good { background: #f39c12; } 
         .btn-easy { background: #2ecc71; } 
-        
         .btn-srs span { font-size: 0.75rem; opacity: 0.9; }
 
-        /* Bitiş Ekranı */
-        .finish-screen { display: none; flex-direction: column; align-items: center; text-align: center; margin-top: 50px; }
+        /* BİTİŞ EKRANI */
+        .finish-screen { display: none; flex-direction: column; align-items: center; text-align: center; margin-top: 50px; background: var(--card-bg); padding: 40px; border-radius: 20px; border: 1px solid var(--border-color); width: 100%; box-sizing: border-box;}
         .finish-icon { font-size: 4rem; margin-bottom: 20px; }
+
+        /* --- YENİ EKLENEN SEO METİN BÖLÜMÜ (Botlar İçin) --- */
+        .seo-explanation { max-width: 800px; margin: 50px auto; padding: 30px; background: var(--card-bg); border-radius: 16px; border: 1px solid var(--border-color); box-sizing: border-box; width: 90%;}
+        .seo-explanation h2 { color: var(--primary); font-size: 1.5rem; margin-top: 0; margin-bottom: 15px; }
+        .seo-explanation p { color: var(--text-muted); font-size: 1rem; line-height: 1.7; margin-bottom: 15px; }
+        .seo-explanation ul { color: var(--text-muted); padding-left: 20px; line-height: 1.7; }
+        .seo-explanation li { margin-bottom: 10px; }
+        .seo-explanation strong { color: var(--text-main); }
     </style>
 </head>
 <body onload="initPage()">
@@ -62,9 +83,7 @@
         </button>
     </div>
     
-    <div style="padding: 0 15px; max-width: 600px; margin: 0 auto; width: 100%;">
-        <div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
-    </div>
+    <div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
 
     <div class="training-area">
         
@@ -74,7 +93,7 @@
                     <div class="word-category" id="fCategory">Kategori</div>
                     <div class="word-de" id="fGerman">Laden...</div>
                     <div class="word-type" id="fType">Yükleniyor</div>
-                    <p style="margin-top: 20px; font-size: 0.8rem; color: var(--text-muted);" id="uiTapHint">Çevirmek için dokun 👆</p>
+                    <p style="margin-top: 30px; font-size: 0.85rem; color: var(--text-muted);" id="uiTapHint">Çevirmek için dokun 👆</p>
                 </div>
                 <div class="flashcard-face flashcard-back">
                     <div class="word-tr" id="fTurkish">...</div>
@@ -97,16 +116,39 @@
 
         <div class="finish-screen" id="finishScreen">
             <div class="finish-icon">🏆</div>
-            <h2 style="color: var(--text-dark);" id="uiFinTitle">Tebrikler Başhekim!</h2>
+            <h2 style="color: var(--primary);" id="uiFinTitle">Tebrikler Başhekim!</h2>
             <p style="color: var(--text-muted); margin-top: 10px;" id="uiFinSub">Bugünkü antrenmanını tamamladın.<br>Beynin bu kelimeleri kalıcı hafızaya yazıyor.</p>
-            <a href="index.html" style="margin-top: 30px; display: inline-block; padding: 12px 24px; background: var(--primary); color: white; border-radius: 12px; text-decoration: none; font-weight: bold;" id="uiFinBtn">Ana Sayfaya Dön</a>
+            <a href="index.html" style="margin-top: 30px; display: inline-block; padding: 12px 25px; background: var(--primary); color: #000; border-radius: 30px; text-decoration: none; font-weight: bold; transition: 0.2s;" id="uiFinBtn" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">Ana Sayfaya Dön</a>
         </div>
 
     </div>
 
+    <div class="seo-explanation">
+        <h2>Aralıklı Tekrar Sistemi (SRS) Nedir?</h2>
+        <p>medvokabeln.com'un <strong>Günlük Antrenman</strong> modülü, tıbbi Almanca (Fachsprache) kelimelerini kısa süreli hafızadan uzun süreli hafızaya aktarmak için bilimsel olarak kanıtlanmış <em>Spaced Repetition System (Aralıklı Tekrar Sistemi)</em> algoritmasını kullanır.</p>
+        
+        <ul>
+            <li><strong>Nasıl Çalışır?</strong> Öğrenmekte zorlandığınız kelimeler (örneğin; acil servis veya üroloji ve androloji rotasyonlarında karşınıza çıkan karmaşık klinik terimler) sistem tarafından daha sık karşınıza çıkarılır. Kolay bulduğunuz kelimelerin tekrar süresi ise uzatılır (3 gün veya 6 gün sonra).</li>
+            <li><strong>Telc B1/B2 Pflege Hazırlığı:</strong> Almanya'daki hastanelerde çalışmak için gerekli olan dil yeterlilik sınavlarında, kelimeleri sadece Türkçe karşılıklarıyla değil, klinik senaryolar (örnek cümleler) içinde bağlamsal olarak hatırlamanız gerekir.</li>
+        </ul>
+        <p>Düzenli olarak yapılan günlük antrenmanlar, hastanede nöbet teslimi (Übergabe) yaparken veya hasta anamnezi alırken doğru kelimeyi düşünmeden, refleks olarak kullanmanızı sağlar. Daha fazla ipucu için <a href="rehber.html" style="color: var(--primary); text-decoration: none;">Almanya'da Hemşirelik Rehberi</a> sayfamızı inceleyebilirsiniz.</p>
+    </div>
+
+    <footer style="width: 100%; text-align: center; margin-bottom: 30px; font-size: 0.85rem; padding-top: 20px; border-top: 1px solid var(--border-color);">
+        <div style="margin-bottom: 10px;">
+            <a href="datenschutz.html" style="color: var(--text-muted); text-decoration: none; margin: 0 10px;">Datenschutzerklärung</a>
+            <span style="color: #444;">|</span>
+            <a href="impressum.html" style="color: var(--text-muted); text-decoration: none; margin: 0 10px;">Impressum</a>
+            <span style="color: #444;">|</span>
+            <a href="iletisim.html" style="color: var(--text-muted); text-decoration: none; margin: 0 10px;">Kontakt</a>
+        </div>
+        <div style="color: var(--text-muted); margin-top: 10px; font-weight: 600;">
+            © 2026 Oluşturan Azad | Tüm Hakları Saklıdır
+        </div>
+    </footer>
+
     <script src="data.js?v=8"></script>
     <script>
-        // --- DİL SÖZLÜĞÜ ---
         const uiDictTrain = {
             tr: {
                 flag: '<img src="https://flagcdn.com/w20/tr.png" alt="TR"> TR',
@@ -153,7 +195,6 @@
             document.getElementById('uiFinSub').innerHTML = dict.finSub;
             document.getElementById('uiFinBtn').innerText = dict.finBtn;
 
-            // Zaten bir kart açıksa onun dilini de değiştir
             if(sessionWords.length > 0 && currentIndex < sessionWords.length) {
                 loadCard(currentIndex);
             }
@@ -166,7 +207,6 @@
         }
 
         function initPage() {
-            if (localStorage.getItem('medVokabeln_theme') === 'dark') document.body.classList.add('dark-mode');
             applyLanguage();
             initTraining();
         }
@@ -177,7 +217,6 @@
 
         function initTraining() {
             const now = Date.now();
-            
             let dueWords = vocabularyData.filter(word => {
                 if (!srsData[word.id]) return true; 
                 return srsData[word.id].nextReview <= now; 
@@ -204,8 +243,6 @@
             document.getElementById('fCategory').innerText = word.category;
             document.getElementById('fGerman').innerText = word.german;
             document.getElementById('fType').innerText = word.type || "";
-
-            // DİLE GÖRE ÇEVİRİ BASIMI!
             document.getElementById('fTurkish').innerText = (currentLang === 'en' && word.english) ? word.english : word.turkish;
             document.getElementById('fExample').innerText = `"${word.example}"`;
 
