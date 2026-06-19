@@ -18,8 +18,7 @@ const assets = [
   "/script.js",
   "/data.js",
   "/manifest.json",
-  "/favicon.png",
-  "https://raw.githubusercontent.com/azo73/medvokabeln/main/Detailed%20human%20anatomical%20model%20display.png"
+  "/favicon.png"
 ];
 
 self.addEventListener("install", installEvent => {
@@ -36,9 +35,7 @@ self.addEventListener("activate", activateEvent => {
     caches.keys().then(cacheNames => {
       return Promise.all(
         cacheNames.map(cache => {
-          if (cache !== CACHE_NAME) {
-            return caches.delete(cache);
-          }
+          if (cache !== CACHE_NAME) return caches.delete(cache);
         })
       );
     })
@@ -48,11 +45,7 @@ self.addEventListener("activate", activateEvent => {
 self.addEventListener("fetch", fetchEvent => {
   fetchEvent.respondWith(
     caches.match(fetchEvent.request).then(res => {
-      return res || fetch(fetchEvent.request).catch(() => {
-        if (fetchEvent.request.mode === 'navigate') {
-          return caches.match('/index.html');
-        }
-      });
+      return res || fetch(fetchEvent.request);
     })
   );
 });
