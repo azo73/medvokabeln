@@ -9,13 +9,18 @@ const firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
-// ---------------------------
 
 let fullVocabulary = []; 
 let currentCards = []; 
 let currentIndex = 0;
-let learnedIds = JSON.parse(localStorage.getItem('medVokabeln_learned')) || [];
-let difficultIds = JSON.parse(localStorage.getItem('medVokabeln_difficult')) || [];
+
+// Sıfır hatasını çözen güvenlik önlemleri
+let learnedIds = JSON.parse(localStorage.getItem('medVokabeln_learned'));
+if (!Array.isArray(learnedIds)) learnedIds = [];
+
+let difficultIds = JSON.parse(localStorage.getItem('medVokabeln_difficult'));
+if (!Array.isArray(difficultIds)) difficultIds = [];
+
 let currentQuizCorrectWord = null; 
 
 window.onload = () => { 
@@ -37,7 +42,6 @@ function loadDatabase() {
     }
 }
 
-// --- ARAMA VE KATEGORİ MANTIĞI ---
 function searchWord() {
     const searchInput = document.getElementById("searchInput");
     if(!searchInput) return;
@@ -62,6 +66,11 @@ function searchWord() {
         if(document.getElementById("turkishWord")) document.getElementById("turkishWord").innerText = currentLang==='en' ? "No results found." : "Sonuç bulunamadı.";
         if(document.getElementById("wordType")) document.getElementById("wordType").innerText = "";
         if(document.getElementById("exampleSentence")) document.getElementById("exampleSentence").innerText = "";
+        
+        // Sıfır kart kaldığında sayacı 0/0 olarak güncelle
+        if(document.getElementById("progressText")) {
+            document.getElementById("progressText").innerText = "0 / 0";
+        }
     } else {
         updateCard(); 
     }
@@ -88,7 +97,6 @@ function changeCategory() {
     searchWord();
 }
 
-// --- KART KONTROLLERİ ---
 function speakWord(event) {
     if(event) event.stopPropagation(); 
     if(currentCards.length === 0) return; 
@@ -112,7 +120,6 @@ function updateCard() {
     const currentWord = currentCards[currentIndex];
     if(document.getElementById("germanWord")) document.getElementById("germanWord").innerText = currentWord.german;
     
-    // "Das/Die/Der" Takılarını Otomatik Temizleme
     let cleanType = (currentWord.type || "").replace(/(Das|Die|Der)\s/gi, '');
     if(document.getElementById("wordType")) document.getElementById("wordType").innerText = cleanType;
     
@@ -123,20 +130,18 @@ function updateCard() {
     if(document.getElementById("exampleSentence")) document.getElementById("exampleSentence").innerText = currentWord.example || "";
     
     checkLearnedStatus(currentWord.id);
-    refreshStarUI(); // Her kart değiştiğinde yıldızı kontrol et!
+    refreshStarUI(); 
 }
 
-// --- FAVORİ (YILDIZ) SİSTEMİ ---
 function handleFavClick() {
     if(currentCards.length === 0) return;
     const currentWordId = currentCards[currentIndex].id;
     
-    // data.js içindeki toggleFavorite fonksiyonunu çağırıyoruz
     if (typeof toggleFavorite === 'function') {
         toggleFavorite(currentWordId);
     } else {
-        // Yedek güvenlik
-        let favorites = JSON.parse(localStorage.getItem('medVokabeln_favs')) || [];
+        let favorites = JSON.parse(localStorage.getItem('medVokabeln_favs'));
+        if (!Array.isArray(favorites)) favorites = [];
         const index = favorites.indexOf(currentWordId);
         if (index > -1) favorites.splice(index, 1);
         else favorites.push(currentWordId);
@@ -156,7 +161,8 @@ function refreshStarUI() {
     if (typeof isFavorite === 'function') {
         isFav = isFavorite(currentWordId);
     } else {
-        let favorites = JSON.parse(localStorage.getItem('medVokabeln_favs')) || [];
+        let favorites = JSON.parse(localStorage.getItem('medVokabeln_favs'));
+        if (!Array.isArray(favorites)) favorites = [];
         isFav = favorites.includes(currentWordId);
     }
     
@@ -169,7 +175,6 @@ function refreshStarUI() {
     }
 }
 
-// --- ÖĞRENİLDİ & ZORLANDIKLARIM ---
 function checkLearnedStatus(wordId) {
     const isLearned = learnedIds.includes(wordId);
     const learnBtn = document.getElementById("btnLearn");
@@ -189,9 +194,11 @@ function checkLearnedStatus(wordId) {
         }
     }
     
-    const learnedInCurrentView = currentCards.filter(card => learnedIds.includes(card.id)).length;
-    if(document.getElementById("progressText")) {
-        document.getElementById("progressText").innerText = `${learnedInCurrentView} / ${currentCards.length}`;
+    if(currentCards.length > 0) {
+        const learnedInCurrentView = currentCards.filter(card => learnedIds.includes(card.id)).length;
+        if(document.getElementById("progressText")) {
+            document.getElementById("progressText").innerText = `${learnedInCurrentView} / ${currentCards.length}`;
+        }
     }
 }
 
@@ -221,7 +228,6 @@ function removeFromDifficult(wordId) {
     localStorage.setItem('medVokabeln_difficult', JSON.stringify(difficultIds));
 }
 
-// --- SERİ (STREAK) MANTIĞI ---
 function displayStreak() { 
     const streakEl = document.getElementById('streakText');
     if(streakEl) streakEl.innerText = `🔥 ${localStorage.getItem('medVokabeln_streak') || 0}`; 
@@ -237,7 +243,6 @@ function updateStreak() {
     displayStreak();
 }
 
-// --- QUIZ & MOD DEĞİŞTİRİCİ ---
 function switchMode(mode) {
     const flashSection = document.getElementById("flashcardSection");
     const quizSection = document.getElementById("quizSection");
@@ -248,10 +253,12 @@ function switchMode(mode) {
 
     if(mode === 'flashcard') {
         flashSection.style.display = "flex"; quizSection.style.display = "none";
-        btnFlash.classList.add("active"); btnQuiz.classList.remove("active");
+        if(btnFlash) btnFlash.classList.add("active"); 
+        if(btnQuiz) btnQuiz.classList.remove("active");
     } else {
         flashSection.style.display = "none"; quizSection.style.display = "flex";
-        btnQuiz.classList.add("active"); btnFlash.classList.remove("active");
+        if(btnQuiz) btnQuiz.classList.add("active"); 
+        if(btnFlash) btnFlash.classList.remove("active");
         generateQuizQuestion(); 
     }
 }
@@ -314,7 +321,6 @@ function checkAnswer(clickedButton, selectedId) {
     if(document.getElementById("nextQuizBtn")) document.getElementById("nextQuizBtn").style.display = "block";
 }
 
-// --- FIREBASE TOPLULUK VERİSİ ---
 let communityWordsCache = [];
 db.collection("communityWords").onSnapshot((snapshot) => {
     snapshot.docChanges().forEach((change) => {
