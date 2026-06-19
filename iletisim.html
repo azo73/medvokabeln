@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,33 +7,61 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css?v=6">
     <style>
+        /* --- MODERN HEADER & NAV --- */
         .modern-header { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 15px 5%; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(0, 0, 0, 0.05); position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03); }
         .header-left { display: flex; gap: 12px; justify-content: flex-start; }
         .header-center { text-align: center; }
         .brand-logo { text-decoration: none; display: block; transition: transform 0.2s; }
         .brand-logo:hover { transform: scale(1.05); }
-        .brand-logo h1 { margin: 0; font-size: 1.8rem; color: var(--text-dark); letter-spacing: -0.5px; font-weight: 800; }
-        .brand-logo span { color: var(--primary); }
-        .brand-subtitle { margin: 0; font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+        .brand-logo h1 { margin: 0; font-size: 1.8rem; color: var(--text-dark, #1e293b); letter-spacing: -0.5px; font-weight: 800; }
+        .brand-logo span { color: var(--primary, #ea580c); }
+        .brand-subtitle { margin: 0; font-size: 0.75rem; color: var(--text-muted, #64748b); text-transform: uppercase; letter-spacing: 1px; }
         .header-right { display: flex; justify-content: flex-end; }
         .nav-links { list-style: none; display: flex; gap: 15px; margin: 0; padding: 0; align-items: center;}
-        .nav-links a { text-decoration: none; color: var(--text-muted); font-size: 0.95rem; font-weight: 600; transition: all 0.3s ease; padding: 8px 12px; border-radius: 12px; }
-        .nav-links a:hover, .nav-links a.active { color: var(--primary); background: rgba(234, 88, 12, 0.1); transform: translateY(-2px); }
-        @media (max-width: 850px) { .modern-header { grid-template-columns: 1fr; gap: 15px; padding: 15px; } .header-left { justify-content: center; } .header-right { justify-content: center; width: 100%; } .nav-links { flex-wrap: wrap; justify-content: center; gap: 10px; } }
+        .nav-links a { text-decoration: none; color: var(--text-muted, #64748b); font-size: 0.95rem; font-weight: 600; transition: all 0.3s ease; padding: 8px 12px; border-radius: 12px; }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary, #ea580c); background: rgba(234, 88, 12, 0.1); transform: translateY(-2px); }
+        
+        @media (max-width: 850px) { 
+            .modern-header { grid-template-columns: 1fr; gap: 15px; padding: 15px; } 
+            .header-left { justify-content: center; } 
+            .header-right { justify-content: center; width: 100%; } 
+            .nav-links { flex-wrap: wrap; justify-content: center; gap: 10px; } 
+        }
 
-        .page-container { max-width: 600px; margin: 40px auto; padding: 30px; background: var(--card-bg); border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        /* --- CONTACT PAGE CSS --- */
+        .contact-wrapper { max-width: 1000px; margin: 40px auto; padding: 0 20px; display: grid; grid-template-columns: 1fr 1.2fr; gap: 30px; align-items: start; }
+        @media (max-width: 768px) { .contact-wrapper { grid-template-columns: 1fr; } }
+        
+        /* Sol Taraf: Bilgi Alanı (Botların okuyacağı metinler) */
+        .info-section { background: var(--card-bg, #fff); padding: 35px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-left: 4px solid var(--primary, #ea580c); }
+        .info-section h2 { color: var(--text-dark, #1e293b); margin-top: 0; margin-bottom: 15px; font-size: 1.6rem; }
+        .info-section p { color: var(--text-muted, #64748b); line-height: 1.7; margin-bottom: 25px; font-size: 1.05rem; }
+        
+        .contact-detail { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; font-weight: 600; color: var(--text-dark, #1e293b); padding: 15px; background: rgba(234, 88, 12, 0.05); border-radius: 12px;}
+        .contact-detail a { color: var(--primary, #ea580c); text-decoration: none; font-size: 1.1rem;}
+        .contact-detail a:hover { text-decoration: underline; }
+
+        .faq-list { list-style: none; padding: 0; margin: 0; }
+        .faq-list li { margin-bottom: 10px; padding-left: 20px; position: relative; color: var(--text-muted, #64748b); font-size: 0.95rem; }
+        .faq-list li::before { content: "✓"; position: absolute; left: 0; color: var(--primary, #ea580c); font-weight: bold; }
+
+        /* Sağ Taraf: İletişim Formu */
+        .form-section { background: var(--card-bg, #fff); padding: 35px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid var(--border-color, #e2e8f0); }
         .form-group { margin-bottom: 20px; text-align: left; }
-        .form-group label { display: block; margin-bottom: 8px; color: var(--text-dark); font-weight: 600; }
-        .form-group input, .form-group textarea { width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; font-family: inherit; }
-        .submit-btn { width: 100%; background: var(--primary); color: white; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.2s;}
-        .submit-btn:hover { opacity: 0.9; }
+        .form-group label { display: block; margin-bottom: 8px; color: var(--text-dark, #1e293b); font-weight: 600; font-size: 0.95rem; }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 14px; border: 1px solid var(--border-color, #e2e8f0); border-radius: 10px; font-family: inherit; font-size: 1rem; color: var(--text-dark, #1e293b); background: var(--bg-color, #f8fafc); transition: border-color 0.2s; box-sizing: border-box; }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: var(--primary, #ea580c); background: #fff; }
+        .form-group textarea { min-height: 140px; resize: vertical; }
+        
+        .submit-btn { width: 100%; background: var(--primary, #ea580c); color: white; border: none; padding: 16px; border-radius: 10px; font-weight: bold; font-size: 1.1rem; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 10px rgba(234, 88, 12, 0.2); margin-top: 10px; }
+        .submit-btn:hover { background: #c2410c; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(234, 88, 12, 0.3); }
     </style>
 </head>
 <body>
 
     <header class="modern-header">
         <div class="header-left">
-            <a href="index.html" style="text-decoration: none; color: var(--text-dark); font-weight: bold; padding: 8px 15px; background: var(--switch-bg); border-radius: 20px; font-size: 0.9rem;">&larr; Ana Sayfa</a>
+            <a href="index.html" style="text-decoration: none; color: var(--text-dark, #1e293b); font-weight: bold; padding: 8px 15px; background: var(--switch-bg, #f1f5f9); border-radius: 20px; font-size: 0.9rem;">&larr; Ana Sayfa</a>
         </div>
         <div class="header-center">
             <a href="index.html" class="brand-logo">
@@ -44,7 +72,7 @@
         <div class="header-right">
             <nav class="main-nav">
                 <ul class="nav-links">
-                    <li><a href="telc.html" style="color: var(--primary); border: 1px solid var(--primary); background: rgba(234, 88, 12, 0.05);">telc Hazırlık 🔥</a></li>
+                    <li><a href="telc.html" style="color: var(--primary, #ea580c); border: 1px solid var(--primary, #ea580c); background: rgba(234, 88, 12, 0.05);">telc Hazırlık 🔥</a></li>
                     <li><a href="rehber.html">Rehber</a></li>
                     <li><a href="hakkimizda.html">Hakkımızda</a></li>
                     <li><a href="iletisim.html" class="active">İletişim</a></li>
@@ -53,27 +81,69 @@
         </div>
     </header>
 
-    <div class="page-container">
-        <h1 style="color: var(--primary); margin-bottom: 20px;">İletişim</h1>
-        <p style="color: var(--text-muted); margin-bottom: 25px;">Soru veya önerileriniz için bize ulaşın.</p>
-        <p style="font-weight: bold; margin-bottom: 20px;">✉️ info@med-vokabeln.com</p>
-        <form onsubmit="event.preventDefault(); alert('Mesajınız alındı!');">
-            <div class="form-group"><label>Adınız</label><input type="text" required></div>
-            <div class="form-group"><label>E-Posta</label><input type="email" required></div>
-            <div class="form-group"><label>Mesajınız</label><textarea required></textarea></div>
-            <button type="submit" class="submit-btn">Gönder</button>
-        </form>
+    <div class="contact-wrapper">
+        
+        <div class="info-section">
+            <h2>Bize Ulaşın / Kontakt</h2>
+            <p>medvokabeln.com, Almanya'da hemşirelik ve sağlık profesyonelliği hedefleyenler için sürekli gelişen bir platformdur. Sorularınız, önerileriniz veya iş birlikleri için mesajlarınızı bekliyoruz.</p>
+            
+            <div class="contact-detail">
+                ✉️ E-Posta: <a href="mailto:info@medvokabeln.com">info@medvokabeln.com</a>
+            </div>
+
+            <h3 style="color: var(--text-dark, #1e293b); margin-top: 30px; font-size: 1.1rem;">Hangi Konularda Yazabilirsiniz?</h3>
+            <ul class="faq-list">
+                <li>Sözlüğe yeni kelime ekleme talepleri veya düzeltmeler.</li>
+                <li>Telc B1/B2 Pflege sınavı ile ilgili tecrübe paylaşımları.</li>
+                <li>Teknik sorunlar (Flashcard açılmama, ses okumama vb.).</li>
+                <li>Reklam, sponsorluk ve ortak proje fikirleri.</li>
+            </ul>
+        </div>
+
+        <div class="form-section">
+            <form onsubmit="event.preventDefault(); alert('Mesajınız başarıyla alınmıştır. En kısa sürede dönüş yapacağız!');">
+                <div class="form-group">
+                    <label for="name">Adınız Soyadınız</label>
+                    <input type="text" id="name" placeholder="Örn: Azad..." required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">E-Posta Adresiniz</label>
+                    <input type="email" id="email" placeholder="ornek@mail.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="subject">Konu</label>
+                    <select id="subject" required>
+                        <option value="" disabled selected>Lütfen bir konu seçin...</option>
+                        <option value="kelime">Sözlük & Kelime Önerisi</option>
+                        <option value="hata">Teknik Bir Hata Bildirimi</option>
+                        <option value="isbirligi">İş Birliği & Sponsorluk</option>
+                        <option value="diger">Diğer Konular</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Mesajınız</label>
+                    <textarea id="message" placeholder="Size nasıl yardımcı olabiliriz?" required></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn">Mesajı Gönder 🚀</button>
+            </form>
+        </div>
+
     </div>
 
-    <footer style="width: 100%; text-align: center; margin-bottom: 30px; font-size: 0.85rem;">
+    <footer style="width: 100%; text-align: center; margin: 40px 0 30px 0; font-size: 0.9rem;">
         <div style="margin-bottom: 10px;">
-            <a href="datenschutz.html" style="color: var(--primary); text-decoration: none; margin: 0 10px;">Datenschutzerklärung</a>
-            <span style="color: var(--text-muted);">|</span>
-            <a href="iletisim.html" style="color: var(--primary); text-decoration: none; margin: 0 10px;">Kontakt</a>
+            <a href="datenschutz.html" style="color: var(--primary, #ea580c); text-decoration: none; margin: 0 10px; font-weight: 600;">Datenschutzerklärung</a>
+            <span style="color: var(--text-muted, #64748b);">|</span>
+            <a href="iletisim.html" style="color: var(--primary, #ea580c); text-decoration: none; margin: 0 10px; font-weight: 600;">Kontakt</a>
         </div>
-        <div style="color: var(--text-muted); margin-top: 10px; font-weight: 600;">
+        <div style="color: var(--text-muted, #64748b); margin-top: 15px; font-weight: 600;">
             © 2026 Oluşturan Azad | Tüm Hakları Saklıdır
         </div>
     </footer>
+
 </body>
 </html>
