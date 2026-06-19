@@ -8,7 +8,7 @@
     --bg-hero: #000000;
     --card-bg: #1e1e1e;
     --text-main: #ffffff;
-    --text-dark: #ffffff; /* Eski class'lar için geriye dönük uyumluluk */
+    --text-dark: #ffffff; 
     --text-muted: #a3a3a3;
     --border-color: #333333;
     --switch-bg: #2a2a2a;
@@ -56,7 +56,7 @@ body { font-family: 'Inter', sans-serif; background-color: var(--bg-body); color
     .nav-links { flex-wrap: wrap; justify-content: center; gap: 10px; }
 }
 
-/* --- ORTAK COMPONENT'LAR --- */
+/* --- COMPONENTLAR --- */
 .dashboard { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 800px; background: var(--card-bg); padding: 15px; border-radius: 12px; margin-bottom: 20px; border: 1px solid var(--border-color); }
 select { padding: 10px 15px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-body); color: var(--text-main); font-weight: 600; outline: none; font-family: inherit; }
 .stats-container { display: flex; gap: 15px; align-items: center; }
@@ -74,22 +74,14 @@ select { padding: 10px 15px; border-radius: 8px; border: 1px solid var(--border-
 .word-turkish { font-size: 2rem; font-weight: 700; color: var(--primary); margin-bottom: 15px; text-align: center; }
 .example-sentence { font-size: 1.1rem; color: var(--text-muted); font-style: italic; text-align: center; }
 .word-type { font-size: 1rem; color: var(--primary); font-weight: bold; margin-bottom: 10px;}
-.learned-badge { position: absolute; top: 20px; right: 60px; font-size: 1.5rem; display: none; }
 
 .btn-speak { position: absolute; top: 20px; left: 20px; background: var(--switch-bg); border: 1px solid var(--border-color); border-radius: 50%; width: 45px; height: 45px; font-size: 1.2rem; cursor: pointer; color: var(--text-main); display: flex; justify-content: center; align-items: center; transition: 0.2s; }
 .btn-speak:hover { background: var(--primary); color: #000; }
 .fav-btn-main, .fav-btn { position: absolute; top: 20px; right: 20px; background: none; border: none; font-size: 2rem; cursor: pointer; z-index: 10; transition: transform 0.2s; }
 .fav-btn-main:hover, .fav-btn:hover { transform: scale(1.1); }
 .fav-btn-main.active, .fav-btn.active { color: var(--primary); }
-.fav-btn-main.inactive, .fav-btn.inactive { color: #555; }
 
-.controls { display: flex; gap: 15px; width: 100%; justify-content: space-between; margin-bottom: 30px;}
-.action-btn { flex: 1; padding: 15px; font-size: 1rem; font-weight: bold; border: none; border-radius: 12px; background: var(--switch-bg); color: var(--text-main); cursor: pointer; transition: 0.2s; }
-.action-btn:hover { background: #444; }
-.btn-learn { background: #22c55e; color: #000; }
-.btn-learn:hover { background: #16a34a; }
-
-/* --- QUIZ --- */
+/* --- QUIZ & DİĞER --- */
 .quiz-card { background: var(--card-bg); width: 100%; padding: 30px; border-radius: 20px; border: 1px solid var(--border-color); text-align: center; }
 .quiz-question { font-size: 2rem; font-weight: 800; color: var(--primary); margin-bottom: 25px; }
 .quiz-options { display: flex; flex-direction: column; gap: 12px; }
@@ -97,9 +89,4 @@ select { padding: 10px 15px; border-radius: 8px; border: 1px solid var(--border-
 .quiz-option:hover { border-color: var(--primary); }
 .quiz-option.correct { background: var(--success); color: #000; border-color: var(--success); }
 .quiz-option.wrong { background: var(--danger); color: #000; border-color: var(--danger); }
-.quiz-feedback { margin-top: 20px; font-weight: 700; height: 25px; font-size: 1.1rem;}
-
-/* --- GENEL SAYFALAR İÇİN KAPSAYICI --- */
 .page-container { max-width: 850px; margin: 40px auto; padding: 40px; background: var(--card-bg); border-radius: 16px; border: 1px solid var(--border-color); }
-.page-container h1 { color: var(--primary); margin-bottom: 20px; text-align: center;}
-.page-container p { color: var(--text-muted); line-height: 1.7; margin-bottom: 15px; }
