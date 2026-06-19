@@ -4,63 +4,94 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Topluluk Sözlüğü | PflegeDeutsch</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=1">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=8">
     
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
     
     <style>
-        .community-card {
-            background: var(--card-bg);
-            border-left: 4px solid var(--primary);
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            animation: popInModal 0.3s forwards;
-        }
-        .community-card h4 { margin: 0 0 5px 0; color: var(--text-dark); font-size: 1.1rem; }
-        .community-card p { margin: 0 0 8px 0; color: var(--text-muted); font-size: 0.95rem; }
-        .author-badge { background: var(--switch-bg); color: var(--primary); padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; display: inline-block; }
+        body { background-color: var(--bg-body, #121212); color: var(--text-main, #fff); font-family: 'Inter', sans-serif; }
+        
+        .modern-header { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 15px 5%; background: rgba(30, 30, 30, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-color, #333); position: sticky; top: 0; z-index: 1000; }
+        .header-left { display: flex; gap: 12px; justify-content: flex-start; }
+        .header-center { text-align: center; }
+        .brand-logo { text-decoration: none; display: block; }
+        .brand-logo h1 { margin: 0; font-size: 1.8rem; color: var(--text-main); font-weight: 800; }
+        .brand-logo span { color: var(--primary); }
+        .brand-subtitle { margin: 0; font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+
+        .form-container { padding: 30px; max-width: 600px; margin: 40px auto 30px auto; background: var(--card-bg, #1e1e1e); border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); border: 1px solid var(--border-color, #333); border-top: 4px solid var(--primary, #FFCC00); }
+        .form-container h3 { margin-top: 0; color: var(--primary); text-align: center; font-size: 1.5rem; margin-bottom: 25px;}
+        
+        .input-group { margin-bottom: 20px; }
+        .input-group label { display: block; font-size: 0.95rem; margin-bottom: 8px; color: var(--text-main); font-weight: bold; }
+        .input-group input { width: 100%; padding: 15px; border-radius: 10px; border: 1px solid var(--border-color); background: var(--bg-body); color: var(--text-main); font-size: 1rem; font-family: inherit; transition: 0.2s; box-sizing: border-box; }
+        .input-group input:focus { outline: none; border-color: var(--primary); }
+
+        .btn-submit { width: 100%; padding: 16px; background: var(--primary); color: #000; border: none; border-radius: 10px; font-weight: 800; font-size: 1.1rem; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 15px rgba(255, 204, 0, 0.2); }
+        .btn-submit:hover { transform: translateY(-2px); background: var(--primary-hover); }
+
+        .list-container { max-width: 600px; margin: 0 auto; padding: 0 20px 40px 20px; }
+        .list-title { color: var(--text-main); border-bottom: 2px solid var(--border-color); padding-bottom: 10px; margin-bottom: 20px; font-size: 1.3rem; }
+        
+        .community-card { background: var(--card-bg); border-left: 4px solid var(--primary); padding: 20px; margin-bottom: 15px; border-radius: 12px; border: 1px solid var(--border-color); border-left-width: 4px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); animation: popInModal 0.3s forwards; }
+        .community-card h4 { margin: 0 0 8px 0; color: var(--text-main); font-size: 1.2rem; font-weight: 800; }
+        .community-card p { margin: 0 0 12px 0; color: var(--primary); font-size: 1.05rem; font-weight: 600; }
+        .author-badge { background: var(--switch-bg); color: var(--text-muted); padding: 6px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: bold; display: inline-block; border: 1px solid var(--border-color); }
+
+        .seo-box { max-width: 600px; margin: 0 auto 50px auto; padding: 25px; background: var(--card-bg); border-radius: 16px; border: 1px solid var(--border-color); text-align: left; }
+        .seo-box h3 { color: var(--primary); font-size: 1.2rem; margin-top: 0; margin-bottom: 12px; }
+        .seo-box p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 10px; }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="header-top">
-            <h1>🌍 Topluluk Sözlüğü</h1>
-            <a href="index.html" style="background: var(--switch-bg); padding: 8px 15px; border-radius: 20px; text-decoration: none; color: var(--text-dark); font-weight: bold; font-size: 0.9rem;">&larr; Geri Dön</a>
+    <header class="modern-header">
+        <div class="header-left">
+            <a href="index.html" style="text-decoration: none; color: var(--text-main); font-weight: bold; padding: 8px 15px; background: var(--switch-bg); border-radius: 20px; font-size: 0.9rem; border: 1px solid var(--border-color);">&larr; Ana Sayfa</a>
         </div>
-        <p>Diğer hemşirelerin eklediği kelimeleri gör und sen de katkıda bulun!</p>
+        <div class="header-center">
+            <a href="index.html" class="brand-logo">
+                <h1>med-<span>vokabeln</span></h1>
+            </a>
+            <p class="brand-subtitle">Topluluk Sözlüğü</p>
+        </div>
+        <div class="header-right"></div>
     </header>
 
-    <div style="padding: 20px; max-width: 500px; margin: 0 auto; background: var(--card-bg); border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 2px solid #10b981; margin-bottom: 30px;">
-        <h3 style="margin-top: 0; color: #10b981; text-align: center;">➕ Yeni Kelime Fırlat</h3>
+    <div class="form-container">
+        <h3>➕ Yeni Kelime Fırlat</h3>
         
-        <div style="margin-bottom: 15px;">
-            <label style="display: block; font-size: 0.9rem; margin-bottom: 5px; color: var(--text-dark); font-weight: bold;">Almanca (Örn: die Braunüle)</label>
-            <input type="text" id="newWordDe" style="width: 100%; padding: 12px; border-radius: 8px; border: 2px solid var(--border-color); background: var(--bg-color); color: var(--text-dark); font-size: 1rem;">
+        <div class="input-group">
+            <label>Almanca (Örn: die Braunüle)</label>
+            <input type="text" id="newWordDe" placeholder="Tıbbi Almanca kelime...">
         </div>
 
-        <div style="margin-bottom: 15px;">
-            <label style="display: block; font-size: 0.9rem; margin-bottom: 5px; color: var(--text-dark); font-weight: bold;">Türkçe (Örn: Damar Yolu)</label>
-            <input type="text" id="newWordTr" style="width: 100%; padding: 12px; border-radius: 8px; border: 2px solid var(--border-color); background: var(--bg-color); color: var(--text-dark); font-size: 1rem;">
+        <div class="input-group">
+            <label>Türkçe (Örn: Damar Yolu)</label>
+            <input type="text" id="newWordTr" placeholder="Kelimenin anlamı...">
         </div>
 
-        <div style="margin-bottom: 20px;">
-            <label style="display: block; font-size: 0.9rem; margin-bottom: 5px; color: var(--text-dark); font-weight: bold;">Senin Nickin</label>
-            <input type="text" id="newWordAuthor" placeholder="Örn: Hemşire Ayşe..." style="width: 100%; padding: 12px; border-radius: 8px; border: 2px solid var(--border-color); background: var(--bg-color); color: var(--text-dark); font-size: 1rem;">
+        <div class="input-group">
+            <label>Senin Nickin</label>
+            <input type="text" id="newWordAuthor" placeholder="Örn: Hemşire Azad...">
         </div>
 
-        <button onclick="saveWordToFirebase()" style="width: 100%; padding: 12px; background: #10b981; color: white; border: none; border-radius: 8px; font-weight: bold; font-size: 1.1rem; cursor: pointer; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);">Dünyaya Gönder 🚀</button>
+        <button onclick="saveWordToFirebase()" class="btn-submit">Dünyaya Gönder 🚀</button>
     </div>
 
-    <div style="max-width: 500px; margin: 0 auto; padding: 0 20px 100px 20px;">
-        <h3 style="color: var(--text-dark); border-bottom: 2px solid var(--border-color); padding-bottom: 10px; margin-bottom: 20px;">📜 Son Eklenenler</h3>
+    <div class="list-container">
+        <h3 class="list-title">📜 Topluluk Tarafından Eklenenler</h3>
         <div id="communityList">
-            <div style="text-align: center; color: var(--text-muted);">Yükleniyor...</div>
+            <div style="text-align: center; color: var(--text-muted); padding: 20px;">Yükleniyor...</div>
         </div>
+    </div>
+
+    <div class="seo-box">
+        <h3>PflegeDeutsch Topluluğuna Neden Katılmalısın?</h3>
+        <p>Almanya'da sağlık sektöründe (Krankenhaus, Pflegeheim) çalışırken kitaplarda yazmayan birçok pratik tıbbi kelime (Fachsprache) ve günlük hastane jargonu (Umgangssprache) ile karşılaşırsınız. Goethe B1 ve B2 sertifikalarına hazırlanırken sadece standart kelimeleri değil, meslektaşlarınızın klinikte bizzat duyduğu terimleri de öğrenmek sizi bir adım öne taşır.</p>
+        <p>Bu platformda nöbetlerde, vizitlerde (Visite) veya acil durumlarda duyduğunuz yeni kelimeleri ekleyebilir, binlerce sağlık profesyonelinin dil öğrenim sürecine katkıda bulunabilirsiniz.</p>
     </div>
 
     <script>
@@ -98,7 +129,7 @@
             listContainer.innerHTML = ''; 
             
             if(snapshot.empty) {
-                listContainer.innerHTML = '<div style="text-align:center; color:gray;">Henüz kimse kelime eklemedi. İlk sen ol!</div>';
+                listContainer.innerHTML = '<div style="text-align:center; color:gray; padding: 20px;">Henüz kimse kelime eklemedi. İlk sen ol!</div>';
                 return;
             }
 
