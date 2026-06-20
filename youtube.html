@@ -3,46 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5935458968037999" crossorigin="anonymous"></script>
     <link rel="manifest" href="manifest.json">
     <link rel="icon" href="favicon.png" type="image/png">
     <link rel="apple-touch-icon" href="favicon.png">
     
-    <title>Videolar & Eğitimler | PflegeDeutsch</title>
+    <title>Almanca Öğreniyorum | Azad</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=10">
+    <link rel="stylesheet" href="style.css?v=11">
     
     <style>
         :root {
-            --primary: #FFCC00; 
-            --primary-hover: #e6b800;
-            --bg-body: #121212; 
-            --card-bg: #1e1e1e;
-            --text-main: #ffffff; 
-            --text-muted: #a3a3a3;
-            --border-color: #333333;
-            --switch-bg: #2a2a2a;
+            --primary: #FFCC00; --primary-hover: #e6b800; --bg-body: #121212; 
+            --card-bg: #1e1e1e; --text-main: #ffffff; --text-muted: #a3a3a3;
+            --border-color: #333333; --switch-bg: #2a2a2a;
         }
 
         body { 
-            background-color: var(--bg-body); 
-            color: var(--text-main); 
-            margin: 0; 
-            font-family: 'Inter', sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
+            background-color: var(--bg-body); color: var(--text-main); margin: 0; 
+            font-family: 'Inter', sans-serif; display: flex; flex-direction: column; align-items: center; min-height: 100vh;
         }
 
         /* MODERN HEADER */
         .modern-header {
             display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 15px 5%; width: 100%;
-            background: rgba(30, 30, 30, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            box-sizing: border-box;
+            background: rgba(30, 30, 30, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-color); 
+            position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); box-sizing: border-box;
         }
         .header-left { display: flex; gap: 12px; justify-content: flex-start; }
         .header-center { text-align: center; }
@@ -81,10 +68,10 @@
         }
         .btn-subscribe:hover { background: #cc0000; transform: translateY(-2px); }
 
-        /* VİDEO GRID SİSTEMİ */
+        /* VİDEO GRID SİSTEMİ (Tek Video İçin Daraltıldı) */
         .video-grid { 
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-            gap: 25px; width: 90%; max-width: 900px; margin-bottom: 50px; box-sizing: border-box;
+            display: grid; grid-template-columns: 1fr; 
+            width: 90%; max-width: 600px; margin-bottom: 50px; box-sizing: border-box; flex: 1;
         }
         
         .video-card { 
@@ -94,13 +81,13 @@
         }
         .video-card:hover { transform: translateY(-5px); border-color: var(--primary); }
         
-        /* Responsive Video Kapsayıcı */
-        .video-embed-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: #000; }
+        /* Shorts videoları için dikey (9:16) format ayarı */
+        .video-embed-wrapper { position: relative; padding-bottom: 177.77%; height: 0; overflow: hidden; background: #000; }
         .video-embed-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
         
-        .video-details { padding: 20px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
-        .video-details h4 { margin: 0 0 10px 0; font-size: 1.15rem; font-weight: 700; line-height: 1.4; color: var(--text-main); }
-        .video-details p { margin: 0; font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; }
+        .video-details { padding: 25px; flex: 1; display: flex; flex-direction: column; justify-content: center; text-align: center;}
+        .video-details h4 { margin: 0 0 10px 0; font-size: 1.2rem; font-weight: 700; line-height: 1.4; color: var(--text-main); }
+        .video-details p { margin: 0; font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; }
 
         @media (max-width: 700px) {
             .channel-hero { flex-direction: column; text-align: center; padding: 25px 15px; }
@@ -113,21 +100,23 @@
 
     <header class="modern-header">
         <div class="header-left">
-            <a href="index.html" style="text-decoration: none; color: var(--text-main); font-weight: bold; padding: 8px 15px; background: var(--switch-bg); border-radius: 20px; font-size: 0.9rem; border: 1px solid var(--border-color);">&larr; Ana Sayfa</a>
+            <a href="index.html" style="text-decoration: none; color: var(--text-main); font-weight: bold; padding: 8px 15px; background: var(--switch-bg); border-radius: 20px; font-size: 0.9rem; border: 1px solid var(--border-color);">&larr; <span data-tr="Ana Sayfa" data-en="Home">Ana Sayfa</span></a>
         </div>
         <div class="header-center">
             <a href="index.html" class="brand-logo">
                 <h1>med-<span>vokabeln</span></h1>
             </a>
-            <p class="brand-subtitle" data-tr="Eğitim Videoları" data-en="Video Lectures">Eğitim Videoları</p>
+            <p class="brand-subtitle" data-tr="Pflegefachkräfte Trainer" data-en="Nursing Trainer">Pflegefachkräfte Trainer</p>
         </div>
         <div class="header-right">
             <nav class="main-nav">
                 <ul class="nav-links">
                     <li><a href="goethe.html" data-tr="Goethe Hazırlık" data-en="Goethe Prep">Goethe Hazırlık</a></li>
                     <li><a href="rehber.html" data-tr="Rehber" data-en="Guide">Rehber</a></li>
-                    <li><a href="youtube.html" class="active" data-tr="Videolar" data-en="Videos">Videolar</a></li>
+                    <li><a href="youtube.html" class="active" style="color: #000; border: 1px solid var(--primary); background: var(--primary);" data-tr="Videolar" data-en="Videos">Videolar</a></li>
+                    <li><a href="ekle.html" data-tr="Topluluk 🌍" data-en="Community 🌍">Topluluk 🌍</a></li>
                     <li><a href="iletisim.html" data-tr="İletişim" data-en="Contact">İletişim</a></li>
+                    <li><button id="langToggle" onclick="toggleLanguage()" style="background:transparent; border:1px solid var(--border-color); color:var(--text-main); padding:8px 15px; border-radius:12px; cursor:pointer; font-weight:bold; transition:0.2s;">TR</button></li>
                 </ul>
             </nav>
         </div>
@@ -135,14 +124,14 @@
 
     <section class="channel-hero">
         <div class="channel-info">
-            <div class="channel-avatar">👨‍⚕️</div>
+            <div class="channel-avatar">🇩🇪</div>
             <div class="channel-text">
-                <h2 data-tr="Azad ile PflegeDeutsch" data-en="PflegeDeutsch with Azad">Azad ile PflegeDeutsch</h2>
-                <p data-tr="Almanya'da Hemşirelik, Goethe B1/B2 Sınav Tüyoları ve Hastane Jargonu" data-en="Nursing in Germany, Goethe B1/B2 Exam Tips & Hospital Jargon">Almanya'da Hemşirelik, Goethe B1/B2 Sınav Tüyoları ve Hastane Jargonu</p>
+                <h2 data-tr="Azad ile Almanca Öğreniyoruz" data-en="Learning German with Azad">Azad ile Almanca Öğreniyoruz</h2>
+                <p data-tr="Sıfırdan B1/B2 seviyesine Almanca öğrenim serüvenim, çalışma taktiklerim ve günlük pratikler." data-en="My German learning journey from scratch to B1/B2, study tactics, and daily practices.">Sıfırdan B1/B2 seviyesine Almanca öğrenim serüvenim, çalışma taktiklerim ve günlük pratikler.</p>
             </div>
         </div>
         <a href="https://youtube.com" target="_blank" class="btn-subscribe">
-            <span>🟥</span> <span data-tr="Abone Ol" data-en="Subscribe">Abone Ol</span>
+            <span>🟥</span> <span data-tr="Kanalıma Abone Ol" data-en="Subscribe to Channel">Kanalıma Abone Ol</span>
         </a>
     </section>
 
@@ -150,31 +139,11 @@
         
         <div class="video-card">
             <div class="video-embed-wrapper">
-                <iframe src="https://www.youtube.com/shorts/awX0X-Jf0dc" allowfullscreen></iframe>
+                <iframe src="https://www.youtube.com/embed/awX0X-Jf0dc" allowfullscreen></iframe>
             </div>
             <div class="video-details">
-                <h4 data-tr="Goethe B2 Pflege Sözlü Sınavına Nasıl Çalışılır?" data-en="How to Study for Goethe B2 Pflege Oral Exam?">Goethe B2 Pflege Sözlü Sınavına Nasıl Çalışılır?</h4>
-                <p data-tr="Sözlü sınav komisyonunun en çok dikkat ettiği Redemittel kalıpları ve panik anında hayat kurtaran taktikler." data-en="The Redemittel phrases that the exam board pays the most attention to and lifesaving tactics in moments of panic.">Sözlü sınav komisyonunun en çok dikkat ettiği Redemittel kalıpları ve panik anında hayat kurtaran taktikler.</p>
-            </div>
-        </div>
-
-        <div class="video-card">
-            <div class="video-embed-wrapper">
-                <iframe src="" allowfullscreen></iframe>
-            </div>
-            <div class="video-details">
-                <h4 data-tr="Klinik Rotasyonları ve Hastane İçi İletişim" data-en="Clinical Rotations & In-Hospital Communication">Klinik Rotasyonları ve Hastane İçi İletişim</h4>
-                <p data-tr="Almanya'daki hastanelerde ilk gün. Doktor vizitleri (Visite) ve nöbet teslimlerinde (Übergabe) en sık duyacağınız terimler." data-en="First day at German hospitals. Terms you will hear most during doctor rounds (Visite) and shift handovers (Übergabe).">Almanya'daki hastanelerde ilk gün. Doktor vizitleri (Visite) ve nöbet teslimlerinde (Übergabe) en sık duyacağınız terimler.</p>
-            </div>
-        </div>
-
-        <div class="video-card">
-            <div class="video-embed-wrapper">
-                <iframe src="https://www.youtube.com/shorts/eXKJPFcUw3k" allowfullscreen></iframe>
-            </div>
-            <div class="video-details">
-                <h4 data-tr="Almanya Hemşirelik Denkliği Süreci (2026)" data-en="German Nursing Recognition Process (2026)">Almanya Hemşirelik Denkliği Süreci (2026)</h4>
-                <p data-tr="Türkiye'den Almanya'ya giden hemşireler için güncel evrak toplama, çeviri ve onay süreçlerinin tüm detayları." data-en="The full details of the current document collection, translation, and approval processes for nurses going from Turkey to Germany.">Türkiye'den Almanya'ya giden hemşireler için güncel evrak toplama, çeviri ve onay süreçlerinin tüm detayları.</p>
+                <h4 data-tr="Almanca Çalışma Rutinim" data-en="My German Study Routine">Almanca Çalışma Rutinim</h4>
+                <p data-tr="Almanca öğrenirken kullandığım kaynaklar, dinleme pratikleri ve motivasyon ipuçları." data-en="Resources I use while learning German, listening practices, and motivation tips.">Almanca öğrenirken kullandığım kaynaklar, dinleme pratikleri ve motivasyon ipuçları.</p>
             </div>
         </div>
 
@@ -182,11 +151,11 @@
 
     <footer style="width: 100%; text-align: center; margin-bottom: 30px; font-size: 0.9rem; border-top: 1px solid var(--border-color); padding-top: 20px;">
         <div style="margin-bottom: 15px;">
-            <a href="datenschutz.html" style="color: var(--primary); text-decoration: none; margin: 0 10px; font-weight: 600;" data-tr="Gizlilik Politikası" data-en="Privacy Policy">Datenschutzerklärung</a>
+            <a href="datenschutz.html" style="color: var(--text-muted); text-decoration: none; margin: 0 10px; font-weight: 600;" data-tr="Gizlilik Politikası" data-en="Privacy Policy">Datenschutzerklärung</a>
             <span style="color: var(--border-color);">|</span>
-            <a href="impressum.html" style="color: var(--primary); text-decoration: none; margin: 0 10px; font-weight: 600;" data-tr="Künye" data-en="Legal Notice">Impressum</a>
+            <a href="impressum.html" style="color: var(--text-muted); text-decoration: none; margin: 0 10px; font-weight: 600;" data-tr="Künye (Impressum)" data-en="Legal Notice">Impressum</a>
             <span style="color: var(--border-color);">|</span>
-            <a href="iletisim.html" style="color: var(--primary); text-decoration: none; margin: 0 10px; font-weight: 600;" data-tr="İletişim" data-en="Contact">Kontakt</a>
+            <a href="iletisim.html" style="color: var(--text-muted); text-decoration: none; margin: 0 10px; font-weight: 600;" data-tr="İletişim" data-en="Contact">Kontakt</a>
         </div>
         <div style="color: var(--text-muted); font-weight: 600;">
             © 2026 <span data-tr="Oluşturan Azad | Tüm Hakları Saklıdır" data-en="Created by Azad | All Rights Reserved">Oluşturan Azad | Tüm Hakları Saklıdır</span>
@@ -202,7 +171,15 @@
             });
         }
 
+        function toggleLanguage() {
+            currentLang = currentLang === 'tr' ? 'en' : 'tr';
+            localStorage.setItem('medVokabeln_lang', currentLang);
+            document.getElementById('langToggle').innerText = currentLang.toUpperCase();
+            applyUILanguage();
+        }
+
         window.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('langToggle').innerText = currentLang.toUpperCase();
             applyUILanguage();
         });
     </script>
