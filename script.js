@@ -67,7 +67,6 @@ function searchWord() {
         if(document.getElementById("wordType")) document.getElementById("wordType").innerText = "";
         if(document.getElementById("exampleSentence")) document.getElementById("exampleSentence").innerText = "";
         
-        // Sıfır kart kaldığında sayacı 0/0 olarak güncelle
         if(document.getElementById("progressText")) {
             document.getElementById("progressText").innerText = "0 / 0";
         }
@@ -132,6 +131,9 @@ function updateCard() {
     checkLearnedStatus(currentWord.id);
     refreshStarUI(); 
 }
+
+// HTML'deki TR/EN butonunun kartı anında çevirebilmesi için köprü
+window.loadCard = updateCard; 
 
 function handleFavClick() {
     if(currentCards.length === 0) return;
@@ -335,11 +337,17 @@ db.collection("communityWords").onSnapshot((snapshot) => {
                 example: "Topluluk tarafından eklendi."
             };
             
+            // Eğer kelime veritabanında yoksa genel havuza ekle
             if (typeof fullVocabulary !== 'undefined' && !fullVocabulary.find(w => w.id === newCard.id)) {
                 fullVocabulary.push(newCard);
-                currentCards.push(newCard);
                 communityWordsCache.push(newCard); 
-                if(currentCards.length === 1) updateCard();
+                
+                // Seçili kategori SADECE "Alle" ise veya yeni eklenen kategori seçiliyse aktif desteye ekle
+                const selectedCategory = document.getElementById("categorySelect") ? document.getElementById("categorySelect").value : "Alle";
+                if (selectedCategory === "Alle") {
+                    currentCards.push(newCard);
+                    if(currentCards.length === 1) updateCard();
+                }
             }
         }
     });
