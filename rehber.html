@@ -43,8 +43,29 @@
         .article-card:hover { transform: translateY(-5px); border-color: var(--primary); }
         .article-card h2 { color: var(--text-main); margin-top: 0; margin-bottom: 15px; font-size: 1.5rem; line-height: 1.3; }
         .article-card p { color: var(--text-muted); line-height: 1.7; margin-bottom: 25px; font-size: 1.05rem; }
-        .read-more { display: inline-block; padding: 10px 20px; background: var(--switch-bg); color: var(--text-main); text-decoration: none; border-radius: 12px; font-weight: 700; border: 1px solid var(--border-color); transition: 0.2s; }
-        .article-card:hover .read-more { background: var(--primary); color: #000; border-color: var(--primary); }
+        
+        /* Butonları güncelledik */
+        button.read-more { display: inline-block; padding: 10px 20px; background: var(--switch-bg); color: var(--text-main); text-decoration: none; border-radius: 12px; font-weight: 700; border: 1px solid var(--border-color); transition: 0.2s; cursor: pointer; font-family: inherit; font-size: 1rem; }
+        .article-card:hover button.read-more { background: var(--primary); color: #000; border-color: var(--primary); }
+
+        /* MODAL (POP-UP) STİLLERİ */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(6px); }
+        .modal-content { background: var(--card-bg); width: 90%; max-width: 800px; max-height: 85vh; overflow-y: auto; padding: 40px; border-radius: 20px; border: 1px solid var(--border-color); position: relative; animation: modalFadeIn 0.3s ease; box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
+        @keyframes modalFadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        .close-modal { position: absolute; top: 15px; right: 25px; font-size: 2.5rem; color: var(--text-muted); cursor: pointer; transition: color 0.2s; line-height: 1; }
+        .close-modal:hover { color: var(--primary); }
+        
+        .modal-content h2 { color: var(--primary); margin-top: 0; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; font-size: 1.8rem; }
+        .modal-content h4 { color: var(--text-main); margin-top: 30px; margin-bottom: 15px; font-size: 1.2rem; }
+        .modal-content ul { padding-left: 20px; color: var(--text-muted); line-height: 1.7; font-size: 1.05rem; }
+        .modal-content li { margin-bottom: 12px; }
+        .modal-content strong { color: #ffffff; }
+        
+        /* Modal Scrollbar */
+        .modal-content::-webkit-scrollbar { width: 8px; }
+        .modal-content::-webkit-scrollbar-track { background: var(--bg-body); border-radius: 10px; }
+        .modal-content::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 10px; }
+        .modal-content::-webkit-scrollbar-thumb:hover { background: var(--primary); }
     </style>
 </head>
 <body>
@@ -82,19 +103,122 @@
         <div class="article-card">
             <h2 data-tr="Almanya'da Anamnez Alırken Hayat Kurtaran 20 Almanca Kalıp" data-en="20 Lifesaving German Phrases for Taking Medical History">Almanya'da Anamnez Alırken Hayat Kurtaran 20 Almanca Kalıp</h2>
             <p data-tr="Hastanın tıbbi geçmişini öğrenmek, doğru tedavi planının ilk adımıdır. Almanya'daki hastanelerde anamnez alırken kullanabileceğiniz profesyonel kalıplar ve dikkat etmeniz gereken kültürel iletişim detayları..." data-en="Learning the patient's medical history is the first step of the right treatment plan. Professional phrases you can use when taking anamnesis in German hospitals and cultural communication details you should pay attention to...">Hastanın tıbbi geçmişini öğrenmek, doğru tedavi planının ilk adımıdır. Almanya'daki hastanelerde anamnez alırken kullanabileceğiniz profesyonel kalıplar ve dikkat etmeniz gereken kültürel iletişim detayları...</p>
-            <a href="makale-anamnez.html" class="read-more" data-tr="Devamını Oku &rarr;" data-en="Read More &rarr;">Devamını Oku &rarr;</a>
+            <button onclick="openModal('modal-anamnez')" class="read-more" data-tr="Devamını Oku &rarr;" data-en="Read More &rarr;">Devamını Oku &rarr;</button>
         </div>
 
         <div class="article-card">
             <h2 data-tr="Goethe B1-B2 Pflege Sözlü Sınavı: Sunum ve Tartışma Tüyoları" data-en="Goethe B1-B2 Nursing Oral Exam: Presentation & Discussion Tips">Goethe B1-B2 Pflege Sözlü Sınavı: Sunum ve Tartışma Tüyoları</h2>
             <p data-tr="Sınav komisyonu sizden sadece gramer beklemez, profesyonel argüman kurma ve mesleki yeterlilik arar. Bir sağlık konusu hakkında sunum yaparken ve tartışırken nasıl yüksek puan alırsınız?" data-en="The exam board expects not just grammar, but professional argumentation and competence. How do you score high when presenting and discussing a health topic?">Sınav komisyonu sizden sadece gramer beklemez, profesyonel argüman kurma ve mesleki yeterlilik arar. Bir sağlık konusu hakkında sunum yaparken ve tartışırken nasıl yüksek puan alırsınız?</p>
-            <a href="makale-goethe-sozlu.html" class="read-more" data-tr="Devamını Oku &rarr;" data-en="Read More &rarr;">Devamını Oku &rarr;</a>
+            <button onclick="openModal('modal-goethe')" class="read-more" data-tr="Devamını Oku &rarr;" data-en="Read More &rarr;">Devamını Oku &rarr;</button>
         </div>
 
         <div class="article-card">
             <h2 data-tr="Üroloji ve Genel Cerrahi Servislerinde Sık Kullanılan Terimler" data-en="Commonly Used Terms in Urology and General Surgery Departments">Üroloji ve Genel Cerrahi Servislerinde Sık Kullanılan Terimler</h2>
             <p data-tr="Klinik rotasyonlarda ve uzmanlık servislerinde karşınıza çıkacak spesifik aletler, semptomlar ve hasta diyalogları. Kateter bakımı ve ameliyat öncesi hazırlık kelimeleri..." data-en="Specific tools, symptoms, and patient dialogues you will encounter in clinical rotations and specialized departments. Catheter care and pre-op preparation vocabulary...">Klinik rotasyonlarda ve uzmanlık servislerinde karşınıza çıkacak spesifik aletler, semptomlar ve hasta diyalogları. Kateter bakımı ve ameliyat öncesi hazırlık kelimeleri...</p>
-            <a href="makale-uroloji.html" class="read-more" data-tr="Devamını Oku &rarr;" data-en="Read More &rarr;">Devamını Oku &rarr;</a>
+            <button onclick="openModal('modal-uroloji')" class="read-more" data-tr="Devamını Oku &rarr;" data-en="Read More &rarr;">Devamını Oku &rarr;</button>
+        </div>
+    </div>
+
+    <div id="modal-anamnez" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('modal-anamnez')">&times;</span>
+            <h2>Almanya'da Anamnez Alırken Hayat Kurtaran 20 Almanca Kalıp</h2>
+            
+            <h4>Giriş ve Şikayet Tespiti</h4>
+            <ul>
+                <li><strong>Guten Tag, ich bin [İsmin], ich werde heute Ihre Anamnese aufnehmen.</strong> (Merhaba, ben [İsmin], bugün anamnezinizi alacağım.)</li>
+                <li><strong>Was führt Sie zu uns?</strong> (Sizi bize getiren şikayet nedir?)</li>
+                <li><strong>Seit wann haben Sie diese Beschwerden?</strong> (Bu şikayetleriniz ne zamandan beri var?)</li>
+            </ul>
+
+            <h4>Ağrı Değerlendirmesi (Schmerzanamnese)</h4>
+            <ul>
+                <li><strong>Wo genau haben Sie Schmerzen?</strong> (Tam olarak nerenizde ağrı var?)</li>
+                <li><strong>Können Sie den Schmerz beschreiben? Ist er stechend, ziehend oder dumpf?</strong> (Ağrıyı tarif edebilir misiniz? Saplanıcı mı, çekici mi yoksa künt mü?)</li>
+                <li><strong>Auf einer Skala von 1 bis 10, wie stark sind die Schmerzen?</strong> (1'den 10'a kadar bir ölçekte ağrınız ne kadar şiddetli?)</li>
+                <li><strong>Strahlen die Schmerzen in eine andere Körperregion aus?</strong> (Ağrı başka bir vücut bölgesine yayılıyor mu?)</li>
+            </ul>
+
+            <h4>Kronik Hastalıklar ve İlaçlar (Vorerkrankungen & Medikamente)</h4>
+            <ul>
+                <li><strong>Leiden Sie unter chronischen Erkrankungen wie Diabetes oder Bluthochdruck?</strong> (Diyabet veya yüksek tansiyon gibi kronik hastalıklarınız var mı?)</li>
+                <li><strong>Nehmen Sie regelmäßig Medikamente ein?</strong> (Düzenli olarak ilaç kullanıyor musunuz?)</li>
+                <li><strong>Haben Sie einen aktuellen Medikamentenplan dabei?</strong> (Yanınızda güncel bir ilaç planı var mı?)</li>
+                <li><strong>Wurden Sie schon einmal operiert? Wenn ja, weswegen?</strong> (Daha önce hiç ameliyat oldunuz mu? Cevap evet ise neyden?)</li>
+            </ul>
+
+            <h4>Alerjiler ve İntolerans (Allergien)</h4>
+            <ul>
+                <li><strong>Sind Sie gegen etwas allergisch?</strong> (Bir şeye karşı alerjiniz var mı?)</li>
+                <li><strong>Haben Sie Unverträglichkeiten gegen bestimmte Lebensmittel?</strong> (Belirli gıdalara karşı intoleransınız/hassasiyetiniz var mı?)</li>
+            </ul>
+
+            <h4>Yaşam Tarzı ve Günlük Yaşam (Vegatative Anamnese & Pflegebedarf)</h4>
+            <ul>
+                <li><strong>Rauchen Sie oder trinken Sie regelmäßig Alkohol?</strong> (Sigara içiyor musunuz veya düzenli alkol tüketiyor musunuz?)</li>
+                <li><strong>Haben Sie in letzter Zeit ungewollt an Gewicht verloren oder zugenommen?</strong> (Son zamanlarda istem dışı kilo verdiniz mi veya aldınız mı?)</li>
+                <li><strong>Leiden Sie unter Atembeschwerden oder Kurzatmigkeit?</strong> (Solunum sıkıntısı veya nefes darlığı çekiyor musunuz?)</li>
+                <li><strong>Wie steht es mit Ihrem Stuhlgang und Wasserlassen? Alles normal?</strong> (Büyük ve küçük abdestiniz ne durumda? Her şey normal mi?)</li>
+                <li><strong>Benötigen Sie Hilfe im Alltag, zum Beispiel beim Aufstehen oder Waschen?</strong> (Günlük hayatta yardıma ihtiyacınız var mı?)</li>
+            </ul>
+
+            <h4>Kapanış ve Resmi Süreç</h4>
+            <ul>
+                <li><strong>Haben Sie eine Patientenverfügung oder eine Vorsorgevollmacht dabei?</strong> (Yanınızda hasta vasiyeti veya sağlık vekaletnamesi var mı?)</li>
+                <li><strong>Vielen Dank für Ihre Antworten. Ich leite die Informationen an den Stationsarzt weiter.</strong> (Cevaplarınız için çok teşekkürler. Bilgileri servis doktoruna ileteceğim.)</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="modal-goethe" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('modal-goethe')">&times;</span>
+            <h2>Goethe B1-B2 Pflege Sözlü Sınavı: Sunum ve Tartışma Tüyoları</h2>
+            
+            <h4>Sunum (Präsentation) Yapısı ve Kalıpları</h4>
+            <ul>
+                <li><strong>Einleitung (Giriş):</strong> Konuyu ve yapacağın sunumu tanıt.<br>
+                <em>"Ich möchte heute über das Thema [X] sprechen. Mein Vortrag besteht aus folgenden Teilen..."</em></li>
+                <li><strong>Eigene Erfahrung & Situation im Heimatland (Kendi Deneyimin ve Ülkendeki Durum):</strong> Türkiye'deki durumu Almanya ile kıyasla.<br>
+                <em>"In meinem Heimatland, der Türkei, ist die Situation so, dass..."</em></li>
+                <li><strong>Vor- und Nachteile (Avantaj ve Dezavantajlar):</strong> Konuya mesleki bir gözle bak.<br>
+                <em>"Ein großer Vorteil für die Pflegekräfte ist... Ein Nachteil hingegen könnte sein..."</em></li>
+                <li><strong>Fazit (Kapanış):</strong> Kendi profesyonel görüşünle bitir.<br>
+                <em>"Zusammenfassend lässt sich sagen, dass..."</em></li>
+            </ul>
+
+            <h4>Tartışma (Diskussion) Bölümü İçin Tüyolar</h4>
+            <ul>
+                <li><strong>Asla Sessiz Kalma:</strong> Kelimeyi hatırlayamazsan hemen <em>"Wie sagt man das auf Fachsprache..."</em> diyerek durumu tanımlamaya çalış.</li>
+                <li><strong>Katılırken:</strong> <em>"Ich stimme dir vollkommen zu. Das ist ein wichtiger Punkt für die Patientensicherheit."</em> (Sana tamamen katılıyorum. Bu, hasta güvenliği için önemli bir nokta.)</li>
+                <li><strong>Kibarca Karşı Çıkarken:</strong> <em>"Das sehe ich etwas anders, denn aus pflegerischer Sicht müssen wir bedenken, dass..."</em> (Bunu biraz farklı görüyorum, çünkü hemşirelik açısından düşünmeliyiz ki...)</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="modal-uroloji" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('modal-uroloji')">&times;</span>
+            <h2>Üroloji ve Genel Cerrahi Servislerinde Sık Kullanılan Terimler</h2>
+            
+            <h4>Üroloji Servisi (Urologie)</h4>
+            <ul>
+                <li><strong>der Dauerkatheter (DK):</strong> Kalıcı idrar sondası.<br><em>“Ich muss heute bei Herrn Müller einen Dauerkatheter legen.”</em></li>
+                <li><strong>der Einmalkatheter:</strong> Anlık idrar boşaltımı için kullanılan tek seferlik kateter.</li>
+                <li><strong>der Harnwegsinfekt (HWI):</strong> İdrar yolu enfeksiyonu (Klinikte hep kısaltması "HWI" kullanılır).</li>
+                <li><strong>die Hämaturie:</strong> Makroskopik veya mikroskopik idrarda kan görülmesi durumu.</li>
+                <li><strong>die Flüssigkeitsbilanzierung:</strong> Sıvı takibi (Giren-çıkan sıvı takibi, ürolojide hayati önem taşır).</li>
+                <li><strong>die Harnretention:</strong> İdrar retansiyonu (idrar yapamama durumu).</li>
+            </ul>
+
+            <h4>Genel Cerrahi Servisi (Allgemeinchirurgie)</h4>
+            <ul>
+                <li><strong>nüchtern sein:</strong> Aç olmak (Ameliyat öncesi kesin kural).<br><em>“Der Patient muss ab Mitternacht absolut nüchtern bleiben, auch kein Wasser.”</em></li>
+                <li><strong>präoperativ / postoperativ:</strong> Ameliyat öncesi / Ameliyat sonrası dönem.</li>
+                <li><strong>die Wundversorgung / der Verbandswechsel:</strong> Yara bakımı / Pansuman değişimi.</li>
+                <li><strong>die Drainage:</strong> Drenaj (Ameliyat bölgesindeki sıvıyı dışarı atan tüp).<br><em>“Bitte kontrollieren Sie die chirurgische Drainage und dokumentieren Sie die Fördermenge.”</em></li>
+                <li><strong>die Thromboseprophylaxe:</strong> Tomboz profaksisi (Genelde ameliyat sonrası Antithrombosestrümpfe yani varis çorabı giydirilir veya heparin iğnesi yapılır).</li>
+            </ul>
         </div>
     </div>
 
@@ -132,6 +256,25 @@
             document.getElementById('langToggle').innerText = currentLang.toUpperCase();
             applyUILanguage();
         });
+
+        // --- MODAL MANTIĞI EKLENDİ ---
+        function openModal(id) {
+            document.getElementById(id).style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // Arka plan kaymasını engeller
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).style.display = 'none';
+            document.body.style.overflow = 'auto'; // Kaymayı tekrar açar
+        }
+
+        // Modal dışına tıklandığında pencereyi kapatma
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal-overlay')) {
+                event.target.style.display = "none";
+                document.body.style.overflow = 'auto';
+            }
+        }
     </script>
 </body>
 </html>
