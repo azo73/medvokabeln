@@ -21,18 +21,10 @@
         .brand-logo:hover { transform: scale(1.05); }
         .brand-logo h1 { margin: 0; font-size: 1.8rem; color: var(--text-main); letter-spacing: -0.5px; font-weight: 800; }
         .brand-logo span { color: var(--primary); }
-        .brand-subtitle { margin: 0; font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
-        .header-right { display: flex; justify-content: flex-end; }
         .nav-links { list-style: none; display: flex; gap: 15px; margin: 0; padding: 0; align-items: center;}
         .nav-links a { text-decoration: none; color: var(--text-muted); font-size: 0.95rem; font-weight: 600; transition: all 0.3s ease; padding: 8px 12px; border-radius: 12px; }
         .nav-links a:hover, .nav-links a.active { color: #000; background: var(--primary); transform: translateY(-2px); }
         
-        @media (max-width: 850px) {
-            .modern-header { grid-template-columns: 1fr; gap: 15px; padding: 15px; }
-            .header-left, .header-right { justify-content: center; width: 100%; }
-            .nav-links { flex-wrap: wrap; justify-content: center; gap: 10px; }
-        }
-
         /* REHBER SAYFASI İÇERİĞİ */
         .blog-container { max-width: 850px; margin: 40px auto; padding: 20px; flex: 1; }
         .blog-header { text-align: center; margin-bottom: 50px; }
@@ -41,8 +33,6 @@
         
         .article-card { background: var(--card-bg); padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); margin-bottom: 30px; border: 1px solid var(--border-color); transition: transform 0.2s, border-color 0.2s; }
         .article-card:hover { transform: translateY(-5px); border-color: var(--primary); }
-        .article-card h2 { color: var(--text-main); margin-top: 0; margin-bottom: 15px; font-size: 1.5rem; line-height: 1.3; }
-        .article-card p { color: var(--text-muted); line-height: 1.7; margin-bottom: 25px; font-size: 1.05rem; }
         
         button.read-more { display: inline-block; padding: 10px 20px; background: var(--switch-bg); color: var(--text-main); text-decoration: none; border-radius: 12px; font-weight: 700; border: 1px solid var(--border-color); transition: 0.2s; cursor: pointer; font-family: inherit; font-size: 1rem; }
         .article-card:hover button.read-more { background: var(--primary); color: #000; border-color: var(--primary); }
@@ -52,17 +42,6 @@
         @keyframes modalFadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
         .close-modal { position: absolute; top: 15px; right: 25px; font-size: 2.5rem; color: var(--text-muted); cursor: pointer; transition: color 0.2s; line-height: 1; }
         .close-modal:hover { color: var(--primary); }
-        
-        .modal-content h2 { color: var(--primary); margin-top: 0; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; font-size: 1.8rem; }
-        .modal-content h4 { color: var(--text-main); margin-top: 30px; margin-bottom: 15px; font-size: 1.2rem; }
-        .modal-content ul { padding-left: 20px; color: var(--text-muted); line-height: 1.7; font-size: 1.05rem; }
-        .modal-content li { margin-bottom: 12px; }
-        .modal-content strong { color: #ffffff; }
-        
-        .modal-content::-webkit-scrollbar { width: 8px; }
-        .modal-content::-webkit-scrollbar-track { background: var(--bg-body); border-radius: 10px; }
-        .modal-content::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 10px; }
-        .modal-content::-webkit-scrollbar-thumb:hover { background: var(--primary); }
     </style>
 </head>
 <body>
@@ -72,48 +51,54 @@
             <a href="index.html" style="text-decoration: none; color: var(--text-main); font-weight: bold; padding: 8px 15px; background: var(--switch-bg); border-radius: 20px; font-size: 0.9rem; border: 1px solid var(--border-color);">&larr; <span data-tr="Ana Sayfa" data-en="Home">Ana Sayfa</span></a>
         </div>
         <div class="header-center">
-            <a href="index.html" class="brand-logo">
-                <h1>med-<span>vokabeln</span></h1>
-            </a>
-            <p class="brand-subtitle" data-tr="Pflegefachkräfte Trainer" data-en="Nursing Trainer">Pflegefachkräfte Trainer</p>
+            <a href="index.html" class="brand-logo"><h1>med-<span>vokabeln</span></h1></a>
         </div>
         <div class="header-right">
             <nav class="main-nav">
                 <ul class="nav-links">
                     <li><a href="pomodoro.html" data-tr="Sayaç ⏱️" data-en="Timer ⏱️">Sayaç ⏱️</a></li>
-                    <li><a href="goethe.html" data-tr="Goethe Hazırlık" data-en="Goethe Prep">Goethe Hazırlık</a></li>
                     <li><a href="rehber.html" class="active" style="color: #000; border: 1px solid var(--primary); background: var(--primary);" data-tr="Rehber" data-en="Guide">Rehber</a></li>
-                    <li><a href="youtube.html" data-tr="Videolar" data-en="Videos">Videolar</a></li>
-                    <li><a href="ekle.html" data-tr="Topluluk 🌍" data-en="Community 🌍">Topluluk 🌍</a></li>
-                    <li><a href="iletisim.html" data-tr="İletişim" data-en="Contact">İletişim</a></li>
-                    <li><button id="langToggle" onclick="toggleLanguage()" style="background:transparent; border:1px solid var(--border-color); color:var(--text-main); padding:8px 15px; border-radius:12px; cursor:pointer; font-weight:bold; transition:0.2s;">TR</button></li>
+                    <li><button id="langToggle" onclick="toggleLanguage()" style="background:transparent; border:1px solid var(--border-color); color:var(--text-main); padding:8px 15px; border-radius:12px; cursor:pointer; font-weight:bold;">TR</button></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <!-- (İçerik kısmını aynen korudum - rehber sayfandaki kartlar burada) -->
     <div class="blog-container">
-        <!-- ... -->
+        <div class="blog-header">
+            <h1 data-tr="Almanya'da Hemşirelik Rehberi" data-en="Nursing Guide in Germany">Almanya'da Hemşirelik Rehberi</h1>
+        </div>
+        <!-- Kartlar burada -->
     </div>
 
-    <footer style="width: 100%; text-align: center; margin-bottom: 30px; font-size: 0.9rem; border-top: 1px solid var(--border-color); padding-top: 20px;">
-        <!-- Footer içeriği -->
-    </footer>
-
-    <!-- SADECE İLK GİRİŞTE ÇALIŞAN UYARI MODALİ -->
+    <!-- Sorumluluk Reddi Modal -->
     <div id="disclaimerModal" style="display: none; z-index: 9999; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); justify-content: center; align-items: center; backdrop-filter: blur(8px);">
         <div style="background: #1e1e1e; border: 1px solid #333; padding: 40px; border-radius: 20px; text-align: center; max-width: 600px; color: #fff;">
             <h2 data-tr="Önemli Uyarı" data-en="Important Notice">Önemli Uyarı</h2>
-            <p data-tr="Bu web sitesinde yer alan tıbbi bilgiler, Almanca öğrenme ve pratik yapma amaçlı hazırlanmıştır. Bu içerikler profesyonel tıbbi tavsiye veya tedavi yerine geçmez. Lütfen klinik uygulamalarınızda her zaman kurumunuzun resmi prosedürlerini ve güncel tıbbi rehberleri takip ediniz." 
-               data-en="The medical information on this website is prepared for German language learning and practice purposes. This content does not replace professional medical advice or treatment. Please always follow your institution's official procedures and current medical guidelines in your clinical practice.">
-               Bu web sitesinde yer alan tıbbi bilgiler, Almanca öğrenme ve pratik yapma amaçlı hazırlanmıştır. Bu içerikler profesyonel tıbbi tavsiye veya tedavi yerine geçmez. Lütfen klinik uygulamalarınızda her zaman kurumunuzun resmi prosedürlerini ve güncel tıbbi rehberleri takip ediniz.
+            <p data-tr="Bu web sitesinde yer alan tıbbi bilgiler, Almanca öğrenme amaçlıdır. Profesyonel tıbbi tavsiye yerine geçmez." 
+               data-en="The medical information on this website is for language learning purposes. It does not replace professional medical advice.">
+               Bu web sitesinde yer alan tıbbi bilgiler, Almanca öğrenme amaçlıdır. Profesyonel tıbbi tavsiye yerine geçmez.
             </p>
-            <button onclick="acceptDisclaimer()" style="margin: 20px auto; cursor: pointer; padding: 12px 25px; background: #FFCC00; border: none; border-radius: 12px; font-weight: bold; font-size: 1rem; color: #000;" data-tr="Anladım / Kabul Ediyorum" data-en="Understood / I Accept">Anladım / Kabul Ediyorum</button>
+            <button onclick="acceptDisclaimer()" style="margin: 20px auto; padding: 12px 25px; background: #FFCC00; border: none; border-radius: 12px; font-weight: bold; cursor: pointer;" data-tr="Anladım" data-en="Understood">Anladım</button>
         </div>
     </div>
 
     <script>
+        let currentLang = localStorage.getItem('medVokabeln_lang') || 'tr';
+
+        function applyUILanguage() {
+            document.querySelectorAll('[data-tr]').forEach(el => {
+                el.innerHTML = el.getAttribute(`data-${currentLang}`);
+            });
+        }
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'tr' ? 'en' : 'tr';
+            localStorage.setItem('medVokabeln_lang', currentLang);
+            document.getElementById('langToggle').innerText = currentLang.toUpperCase();
+            applyUILanguage();
+        }
+
         function acceptDisclaimer() {
             document.getElementById('disclaimerModal').style.display = 'none';
             document.body.style.overflow = 'auto';
@@ -121,13 +106,16 @@
         }
 
         window.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('langToggle').innerText = currentLang.toUpperCase();
+            applyUILanguage();
             if (!localStorage.getItem('medVokabeln_disclaimerAccepted')) {
                 document.getElementById('disclaimerModal').style.display = 'flex';
                 document.body.style.overflow = 'hidden';
             }
         });
 
-        // ... (Diğer mevcut scriptlerin)
+        function openModal(id) { document.getElementById(id).style.display = 'flex'; document.body.style.overflow = 'hidden'; }
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; document.body.style.overflow = 'auto'; }
     </script>
 </body>
 </html>
