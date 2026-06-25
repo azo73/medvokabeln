@@ -23,10 +23,13 @@
         .brand-subtitle { margin: 0; font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
         .header-right { display: flex; justify-content: flex-end; }
         .nav-links { list-style: none; display: flex; gap: 15px; margin: 0; padding: 0; align-items: center;}
-        .nav-links a { text-decoration: none; color: var(--text-muted); font-size: 0.95rem; font-weight: 600; transition: all 0.3s ease; padding: 8px 12px; border-radius: 12px; }
+        
+        /* DÜZELTME: white-space: nowrap eklendi */
+        .nav-links a { text-decoration: none; color: var(--text-muted); font-size: 0.95rem; font-weight: 600; transition: all 0.3s ease; padding: 8px 12px; border-radius: 12px; white-space: nowrap; }
         .nav-links a:hover, .nav-links a.active { color: #000; background: var(--primary); transform: translateY(-2px); }
         
-        @media (max-width: 850px) {
+        /* DÜZELTME: 850px sınırı 1050px yapıldı */
+        @media (max-width: 1050px) {
             .modern-header { grid-template-columns: 1fr; gap: 15px; padding: 15px; }
             .header-left, .header-right { justify-content: center; width: 100%; }
             .nav-links { flex-wrap: wrap; justify-content: center; gap: 10px; }
