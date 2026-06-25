@@ -119,7 +119,7 @@
         <div class="hourglass-wrapper">
             <svg viewBox="0 0 100 100" class="hourglass-svg">
                 <defs>
-                    <!-- Klipler camın iç yüzeyine sıfıra sıfır oturtuldu, boşluk kalmayacak -->
+                    <!-- Klipler camın iç yüzeyine sıfıra sıfır oturtuldu -->
                     <clipPath id="topClip">
                         <polygon points="27,22 73,22 53,45 47,45" />
                     </clipPath>
@@ -128,8 +128,8 @@
                     </clipPath>
                 </defs>
                 
-                <!-- Cam Çerçeve (Dış Hatlar) -->
-                <path d="M 25 20 L 75 20 L 55 45 L 55 55 L 75 80 L 25 80 Z" fill="none" stroke="var(--primary)" stroke-width="4" stroke-linejoin="round"/>
+                <!-- Cam Çerçeve (Dış Hatlar) DÜZELTİLDİ -->
+                <path d="M 25 20 L 75 20 L 55 45 L 55 55 L 75 80 L 25 80 L 45 55 L 45 45 Z" fill="none" stroke="var(--primary)" stroke-width="4" stroke-linejoin="round"/>
                 <line x1="20" y1="20" x2="80" y2="20" stroke="var(--primary)" stroke-width="4" stroke-linecap="round"/>
                 <line x1="20" y1="80" x2="80" y2="80" stroke="var(--primary)" stroke-width="4" stroke-linecap="round"/>
                 
@@ -138,12 +138,12 @@
                    <rect class="top-sand" x="20" y="20" width="60" height="25" fill="var(--primary)" />
                 </g>
                 
-                <!-- Başlangıçta Dolu Olan Kısım (Tabana tam sıfır oturtuldu) -->
+                <!-- Başlangıçta Dolu Olan Kısım -->
                 <g clip-path="url(#bottomClip)">
                    <rect class="bottom-sand" x="20" y="55" width="60" height="25" fill="var(--primary)" />
                 </g>
                 
-                <!-- Tane Tane Akan Kum Şelalesi (stroke-dasharray ile ayarlandı) -->
+                <!-- Tane Tane Akan Kum Şelalesi -->
                 <line class="stream" x1="50" y1="45" x2="50" y2="22" stroke="var(--primary)" stroke-width="2" />
             </svg>
         </div>
@@ -176,7 +176,7 @@
             clearInterval(countdown);
             isRunning = true;
             
-            // Süreyi saniye cinsinden alıp CSS Değişkenine gönderiyoruz (Animasyon tam bu süre kadar çalışacak)
+            // Süreyi saniye cinsinden alıp CSS Değişkenine gönderiyoruz
             const durationInSeconds = minutes * 60;
             appContainer.style.setProperty('--duration', durationInSeconds + 's');
             
