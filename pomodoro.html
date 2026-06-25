@@ -11,6 +11,7 @@
             --primary: #FFCC00; --bg-body: #121212; --card-bg: #1e1e1e; --text-main: #ffffff; 
             --text-muted: #a3a3a3; --border-color: #333333; --switch-bg: #2a2a2a;
             --danger: #ff4757;
+            --info: #3498db;
         }
         body { background-color: var(--bg-body); color: var(--text-main); margin: 0; font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; }
 
@@ -43,28 +44,26 @@
         .hourglass-wrapper { margin-bottom: 30px; display: inline-block; }
         .hourglass-svg { width: 160px; height: 160px; filter: drop-shadow(0px 0px 20px rgba(255, 204, 0, 0.4)); transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
         
-        /* Sayaç başladığında bütünü ters döner */
         .running .hourglass-svg { transform: rotate(180deg); }
-
-        /* Boş Olan Üst Kısım (Dönünce alta geçer ve dolar) */
         .top-sand { transform-origin: 50px 45px; transform: scaleY(0); }
         .running .top-sand { animation: fillSand var(--duration) linear forwards; animation-delay: 0.6s; }
-
-        /* Dolu Olan Alt Kısım (Dönünce üste geçer ve boşalır) */
         .bottom-sand { transform-origin: 50px 55px; transform: scaleY(1); }
         .running .bottom-sand { animation: drainSand var(--duration) linear forwards; animation-delay: 0.6s; }
-
-        /* Tane tane akan şelale (Dönünce aşağı doğru akar) */
         .stream { stroke-dasharray: 2 6; stroke-linecap: round; opacity: 0; transition: opacity 0.1s; }
         .running .stream { opacity: 1; transition-delay: 0.6s; animation: flowDots 0.4s linear infinite; }
         .finished .stream { opacity: 0; }
 
+        /* DURAKLATMA (PAUSE) CSS EFEKTLERİ */
+        .paused .top-sand, .paused .bottom-sand, .paused .stream {
+            animation-play-state: paused !important;
+        }
+        .paused .stream {
+            opacity: 0 !important; /* Durdurulunca akan şelale kaybolur */
+        }
+
         @keyframes fillSand { 0% { transform: scaleY(0); } 100% { transform: scaleY(1); } }
         @keyframes drainSand { 0% { transform: scaleY(1); } 100% { transform: scaleY(0); } }
-        @keyframes flowDots { 
-            from { stroke-dashoffset: 8; } 
-            to { stroke-dashoffset: 0; } 
-        }
+        @keyframes flowDots { from { stroke-dashoffset: 8; } to { stroke-dashoffset: 0; } }
 
         /* SÜRE GÖSTERGESİ */
         .time-display { font-size: 6rem; font-weight: 800; color: var(--text-main); font-variant-numeric: tabular-nums; letter-spacing: -2px; margin-bottom: 40px; text-shadow: 0 4px 20px rgba(0,0,0,0.5); transition: 0.3s; }
@@ -78,7 +77,10 @@
         
         .btn-german { background: var(--primary); color: #000; border-color: var(--primary); }
         .btn-german:hover { background: #e6b800; color: #000; box-shadow: 0 0 15px rgba(255, 204, 0, 0.4);}
-
+        
+        /* Yeni Buton Renkleri */
+        .btn-pause { background: transparent; color: var(--info); border-color: var(--info); }
+        .btn-pause:hover { background: rgba(52, 152, 219, 0.1); }
         .btn-reset { background: transparent; color: var(--danger); border-color: var(--danger); }
         .btn-reset:hover { background: rgba(255, 71, 87, 0.1); }
         
@@ -115,11 +117,9 @@
         <h2 data-tr="Hardcore Fokus" data-en="Hardcore Focus">Hardcore Fokus</h2>
         <p class="subtitle" data-tr="Dinlenme yok. Sadece hedef." data-en="No breaks. Just the goal.">Dinlenme yok. Sadece hedef.</p>
 
-        <!-- GERÇEK ZAMANLI VE TANE TANE AKAN KUM SAATİ -->
         <div class="hourglass-wrapper">
             <svg viewBox="0 0 100 100" class="hourglass-svg">
                 <defs>
-                    <!-- Klipler camın iç yüzeyine sıfıra sıfır oturtuldu -->
                     <clipPath id="topClip">
                         <polygon points="27,22 73,22 53,45 47,45" />
                     </clipPath>
@@ -127,116 +127,50 @@
                         <polygon points="47,55 53,55 73,78 27,78" />
                     </clipPath>
                 </defs>
-                
-                <!-- Cam Çerçeve (Dış Hatlar) DÜZELTİLDİ -->
                 <path d="M 25 20 L 75 20 L 55 45 L 55 55 L 75 80 L 25 80 L 45 55 L 45 45 Z" fill="none" stroke="var(--primary)" stroke-width="4" stroke-linejoin="round"/>
                 <line x1="20" y1="20" x2="80" y2="20" stroke="var(--primary)" stroke-width="4" stroke-linecap="round"/>
                 <line x1="20" y1="80" x2="80" y2="80" stroke="var(--primary)" stroke-width="4" stroke-linecap="round"/>
-                
-                <!-- Başlangıçta Boş Olan Kısım -->
                 <g clip-path="url(#topClip)">
                    <rect class="top-sand" x="20" y="20" width="60" height="25" fill="var(--primary)" />
                 </g>
-                
-                <!-- Başlangıçta Dolu Olan Kısım -->
                 <g clip-path="url(#bottomClip)">
                    <rect class="bottom-sand" x="20" y="55" width="60" height="25" fill="var(--primary)" />
                 </g>
-                
-                <!-- Tane Tane Akan Kum Şelalesi -->
                 <line class="stream" x1="50" y1="45" x2="50" y2="22" stroke="var(--primary)" stroke-width="2" />
             </svg>
         </div>
 
-        <!-- SÜRE -->
         <div class="time-display" id="timeDisplay">00:00</div>
 
-        <div class="status-text" id="statusText">Hazırsan bloğu seç ve başla!</div>
+        <div class="status-text" id="statusText" data-tr="Hazırsan bloğu seç ve başla!" data-en="Ready? Select a block and start!">Hazırsan bloğu seç ve başla!</div>
 
-        <!-- BUTONLAR (Sadece Almanca kaldı) -->
         <div class="timer-controls">
-            <button class="timer-btn btn-german" onclick="startTimer(60, 'Almanca (Grammatik/Lesen)')">
-             60 Dk Almanca
+            <button class="timer-btn btn-german" onclick="startTimer(60, 'Almanca (Grammatik/Lesen)', 'German (Grammar/Reading)')">
+                <span data-tr="🇩🇪 60 Dk Almanca" data-en="🇩🇪 60 Min German">🇩🇪 60 Dk Almanca</span>
             </button>
+            
+            <button class="timer-btn btn-pause" onclick="togglePause()">
+                <span id="pauseBtnText" data-tr="⏸️ Durdur" data-en="⏸️ Pause">⏸️ Durdur</span>
+            </button>
+            
             <button class="timer-btn btn-reset" onclick="resetTimer()">
-                ⏹️ Durdur & Sıfırla
+                <span data-tr="⏹️ Sıfırla" data-en="⏹️ Reset">⏹️ Sıfırla</span>
             </button>
         </div>
     </div>
 
     <script>
-        // --- POMODORO VE KUM SAATİ MANTIĞI ---
         let countdown;
         let isRunning = false;
+        let isPaused = false;
+        let currentModeTR = "";
+        let currentModeEN = "";
+        let remainingSeconds = 0;
+        
         const display = document.getElementById('timeDisplay');
         const statusText = document.getElementById('statusText');
         const appContainer = document.getElementById('pomodoroApp');
-
-        function startTimer(minutes, modeName) {
-            clearInterval(countdown);
-            isRunning = true;
-            
-            // Süreyi saniye cinsinden alıp CSS Değişkenine gönderiyoruz
-            const durationInSeconds = minutes * 60;
-            appContainer.style.setProperty('--duration', durationInSeconds + 's');
-            
-            // CSS'in yeni süreyi algılaması için küçük bir tetikleyici
-            void appContainer.offsetWidth; 
-            
-            appContainer.classList.add('running');
-            display.classList.remove('finished');
-            
-            const now = Date.now();
-            const then = now + durationInSeconds * 1000;
-            
-            statusText.innerText = `Şu an odaklanılan: ${modeName} - Kesintiye izin verme!`;
-            
-            displayTimeLeft(durationInSeconds);
-
-            countdown = setInterval(() => {
-                const secondsLeft = Math.round((then - Date.now()) / 1000);
-                
-                if(secondsLeft < 0) {
-                    clearInterval(countdown);
-                    isRunning = false;
-                    appContainer.classList.remove('running');
-                    display.classList.add('finished');
-                    statusText.innerText = "Tebrikler! Blok tamamlandı.";
-                    playAlarm();
-                    return;
-                }
-                
-                displayTimeLeft(secondsLeft);
-            }, 1000);
-        }
-
-        function displayTimeLeft(seconds) {
-            const minutes = Math.floor(seconds / 60);
-            const remainderSeconds = seconds % 60;
-            const displayValue = `${minutes < 10 ? '0' : ''}${minutes}:${remainderSeconds < 10 ? '0' : ''}${remainderSeconds}`;
-            display.textContent = displayValue;
-            document.title = `${displayValue} - Hardcore Fokus`;
-        }
-
-        function resetTimer() {
-            clearInterval(countdown);
-            isRunning = false;
-            appContainer.classList.remove('running');
-            display.classList.remove('finished');
-            display.textContent = "00:00";
-            document.title = "Hardcore Pomodoro | med-vokabeln";
-            statusText.innerText = "Sayaç sıfırlandı. Yeni bir blok seçebilirsin.";
-        }
-
-        function playAlarm() {
-            const ctx = new (window.AudioContext || window.webkitAudioContext)();
-            const osc = ctx.createOscillator();
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(800, ctx.currentTime);
-            osc.connect(ctx.destination);
-            osc.start();
-            osc.stop(ctx.currentTime + 0.5);
-        }
+        const pauseBtnText = document.getElementById('pauseBtnText');
 
         // --- DİL GEÇİŞ MANTIĞI ---
         let currentLang = localStorage.getItem('medVokabeln_lang') || 'tr';
@@ -245,6 +179,22 @@
             document.querySelectorAll('[data-tr]').forEach(el => {
                 el.innerHTML = el.getAttribute(`data-${currentLang}`);
             });
+            
+            const modeName = currentLang === 'tr' ? currentModeTR : currentModeEN;
+            
+            if (isRunning && !isPaused) {
+                statusText.innerText = currentLang === 'tr' 
+                    ? `Şu an odaklanılan: ${modeName} - Kesintiye izin verme!` 
+                    : `Focusing on: ${modeName} - No interruptions allowed!`;
+            } else if (isPaused) {
+                statusText.innerText = currentLang === 'tr' 
+                    ? `Durduruldu: ${modeName}` 
+                    : `Paused: ${modeName}`;
+            } else if (display.classList.contains('finished')) {
+                statusText.innerText = currentLang === 'tr' ? "Tebrikler! Blok tamamlandı." : "Congratulations! Block completed.";
+            } else {
+                statusText.innerText = currentLang === 'tr' ? "Hazırsan bloğu seç ve başla!" : "Ready? Select a block and start!";
+            }
         }
 
         function toggleLanguage() {
@@ -258,6 +208,132 @@
             document.getElementById('langToggle').innerText = currentLang.toUpperCase();
             applyUILanguage();
         });
+
+        // --- POMODORO VE DURAKLATMA MANTIĞI ---
+        function startTimer(minutes, modeNameTR, modeNameEN) {
+            clearInterval(countdown);
+            isRunning = true;
+            isPaused = false;
+            currentModeTR = modeNameTR;
+            currentModeEN = modeNameEN;
+            
+            remainingSeconds = minutes * 60;
+            appContainer.style.setProperty('--duration', remainingSeconds + 's');
+            void appContainer.offsetWidth; 
+            
+            appContainer.classList.add('running');
+            appContainer.classList.remove('paused');
+            display.classList.remove('finished');
+            
+            updatePauseButtonUI();
+            
+            const activeModeName = currentLang === 'tr' ? currentModeTR : currentModeEN;
+            statusText.innerText = currentLang === 'tr' 
+                ? `Şu an odaklanılan: ${activeModeName} - Kesintiye izin verme!` 
+                : `Focusing on: ${activeModeName} - No interruptions allowed!`;
+            
+            runInterval();
+        }
+
+        function runInterval() {
+            const then = Date.now() + remainingSeconds * 1000;
+            displayTimeLeft(remainingSeconds);
+
+            countdown = setInterval(() => {
+                remainingSeconds = Math.round((then - Date.now()) / 1000);
+                
+                if(remainingSeconds < 0) {
+                    clearInterval(countdown);
+                    isRunning = false;
+                    appContainer.classList.remove('running');
+                    appContainer.classList.remove('paused');
+                    display.classList.add('finished');
+                    statusText.innerText = currentLang === 'tr' ? "Tebrikler! Blok tamamlandı." : "Congratulations! Block completed.";
+                    playAlarm();
+                    return;
+                }
+                
+                displayTimeLeft(remainingSeconds);
+            }, 1000);
+        }
+
+        function togglePause() {
+            if (!isRunning && !isPaused) return; // Sayaç hiç başlamadıysa butona basılmasın
+
+            if (isPaused) {
+                // Devam Et (Resume)
+                isPaused = false;
+                appContainer.classList.remove('paused');
+                updatePauseButtonUI();
+                
+                const activeModeName = currentLang === 'tr' ? currentModeTR : currentModeEN;
+                statusText.innerText = currentLang === 'tr' 
+                    ? `Şu an odaklanılan: ${activeModeName} - Kesintiye izin verme!` 
+                    : `Focusing on: ${activeModeName} - No interruptions allowed!`;
+                
+                runInterval();
+            } else {
+                // Durdur (Pause)
+                isPaused = true;
+                clearInterval(countdown);
+                appContainer.classList.add('paused');
+                updatePauseButtonUI();
+                
+                const activeModeName = currentLang === 'tr' ? currentModeTR : currentModeEN;
+                statusText.innerText = currentLang === 'tr' 
+                    ? `Durduruldu: ${activeModeName}` 
+                    : `Paused: ${activeModeName}`;
+            }
+        }
+
+        function updatePauseButtonUI() {
+            if (isPaused) {
+                pauseBtnText.setAttribute('data-tr', '▶️ Devam Et');
+                pauseBtnText.setAttribute('data-en', '▶️ Resume');
+            } else {
+                pauseBtnText.setAttribute('data-tr', '⏸️ Durdur');
+                pauseBtnText.setAttribute('data-en', '⏸️ Pause');
+            }
+            // Anında arayüze yansıt
+            applyUILanguage();
+        }
+
+        function displayTimeLeft(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const remainderSeconds = seconds % 60;
+            const displayValue = `${minutes < 10 ? '0' : ''}${minutes}:${remainderSeconds < 10 ? '0' : ''}${remainderSeconds}`;
+            display.textContent = displayValue;
+            document.title = `${displayValue} - Hardcore Fokus`;
+        }
+
+        function resetTimer() {
+            clearInterval(countdown);
+            isRunning = false;
+            isPaused = false;
+            currentModeTR = "";
+            currentModeEN = "";
+            remainingSeconds = 0;
+            
+            appContainer.classList.remove('running');
+            appContainer.classList.remove('paused');
+            display.classList.remove('finished');
+            display.textContent = "00:00";
+            document.title = "Hardcore Pomodoro | med-vokabeln";
+            
+            updatePauseButtonUI();
+            
+            statusText.innerText = currentLang === 'tr' ? "Sayaç sıfırlandı. Yeni bir blok seçebilirsin." : "Timer reset. You can select a new block.";
+        }
+
+        function playAlarm() {
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = ctx.createOscillator();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(800, ctx.currentTime);
+            osc.connect(ctx.destination);
+            osc.start();
+            osc.stop(ctx.currentTime + 0.5);
+        }
     </script>
 </body>
 </html>
