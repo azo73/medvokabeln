@@ -21,10 +21,18 @@
         .brand-logo:hover { transform: scale(1.05); }
         .brand-logo h1 { margin: 0; font-size: 1.8rem; color: var(--text-main); letter-spacing: -0.5px; font-weight: 800; }
         .brand-logo span { color: var(--primary); }
+        .brand-subtitle { margin: 0; font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+        .header-right { display: flex; justify-content: flex-end; }
         .nav-links { list-style: none; display: flex; gap: 15px; margin: 0; padding: 0; align-items: center;}
         .nav-links a { text-decoration: none; color: var(--text-muted); font-size: 0.95rem; font-weight: 600; transition: all 0.3s ease; padding: 8px 12px; border-radius: 12px; }
         .nav-links a:hover, .nav-links a.active { color: #000; background: var(--primary); transform: translateY(-2px); }
         
+        @media (max-width: 850px) {
+            .modern-header { grid-template-columns: 1fr; gap: 15px; padding: 15px; }
+            .header-left, .header-right { justify-content: center; width: 100%; }
+            .nav-links { flex-wrap: wrap; justify-content: center; gap: 10px; }
+        }
+
         /* REHBER SAYFASI İÇERİĞİ */
         .blog-container { max-width: 850px; margin: 40px auto; padding: 20px; flex: 1; }
         .blog-header { text-align: center; margin-bottom: 50px; }
@@ -33,15 +41,31 @@
         
         .article-card { background: var(--card-bg); padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); margin-bottom: 30px; border: 1px solid var(--border-color); transition: transform 0.2s, border-color 0.2s; }
         .article-card:hover { transform: translateY(-5px); border-color: var(--primary); }
+        .article-card h2 { color: var(--text-main); margin-top: 0; margin-bottom: 15px; font-size: 1.5rem; line-height: 1.3; }
+        .article-card p { color: var(--text-muted); line-height: 1.7; margin-bottom: 25px; font-size: 1.05rem; }
         
+        /* Butonları güncelledik */
         button.read-more { display: inline-block; padding: 10px 20px; background: var(--switch-bg); color: var(--text-main); text-decoration: none; border-radius: 12px; font-weight: 700; border: 1px solid var(--border-color); transition: 0.2s; cursor: pointer; font-family: inherit; font-size: 1rem; }
         .article-card:hover button.read-more { background: var(--primary); color: #000; border-color: var(--primary); }
 
+        /* MODAL (POP-UP) STİLLERİ */
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(6px); }
         .modal-content { background: var(--card-bg); width: 90%; max-width: 800px; max-height: 85vh; overflow-y: auto; padding: 40px; border-radius: 20px; border: 1px solid var(--border-color); position: relative; animation: modalFadeIn 0.3s ease; box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
         @keyframes modalFadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
         .close-modal { position: absolute; top: 15px; right: 25px; font-size: 2.5rem; color: var(--text-muted); cursor: pointer; transition: color 0.2s; line-height: 1; }
         .close-modal:hover { color: var(--primary); }
+        
+        .modal-content h2 { color: var(--primary); margin-top: 0; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; font-size: 1.8rem; }
+        .modal-content h4 { color: var(--text-main); margin-top: 30px; margin-bottom: 15px; font-size: 1.2rem; }
+        .modal-content ul { padding-left: 20px; color: var(--text-muted); line-height: 1.7; font-size: 1.05rem; }
+        .modal-content li { margin-bottom: 12px; }
+        .modal-content strong { color: #ffffff; }
+        
+        /* Modal Scrollbar */
+        .modal-content::-webkit-scrollbar { width: 8px; }
+        .modal-content::-webkit-scrollbar-track { background: var(--bg-body); border-radius: 10px; }
+        .modal-content::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 10px; }
+        .modal-content::-webkit-scrollbar-thumb:hover { background: var(--primary); }
     </style>
 </head>
 <body>
@@ -51,14 +75,21 @@
             <a href="index.html" style="text-decoration: none; color: var(--text-main); font-weight: bold; padding: 8px 15px; background: var(--switch-bg); border-radius: 20px; font-size: 0.9rem; border: 1px solid var(--border-color);">&larr; <span data-tr="Ana Sayfa" data-en="Home">Ana Sayfa</span></a>
         </div>
         <div class="header-center">
-            <a href="index.html" class="brand-logo"><h1>med-<span>vokabeln</span></h1></a>
+            <a href="index.html" class="brand-logo">
+                <h1>med-<span>vokabeln</span></h1>
+            </a>
+            <p class="brand-subtitle" data-tr="Pflegefachkräfte Trainer" data-en="Nursing Trainer">Pflegefachkräfte Trainer</p>
         </div>
         <div class="header-right">
             <nav class="main-nav">
                 <ul class="nav-links">
                     <li><a href="pomodoro.html" data-tr="Sayaç ⏱️" data-en="Timer ⏱️">Sayaç ⏱️</a></li>
+                    <li><a href="goethe.html" data-tr="Goethe Hazırlık" data-en="Goethe Prep">Goethe Hazırlık</a></li>
                     <li><a href="rehber.html" class="active" style="color: #000; border: 1px solid var(--primary); background: var(--primary);" data-tr="Rehber" data-en="Guide">Rehber</a></li>
-                    <li><button id="langToggle" onclick="toggleLanguage()" style="background:transparent; border:1px solid var(--border-color); color:var(--text-main); padding:8px 15px; border-radius:12px; cursor:pointer; font-weight:bold;">TR</button></li>
+                    <li><a href="youtube.html" data-tr="Videolar" data-en="Videos">Videolar</a></li>
+                    <li><a href="ekle.html" data-tr="Topluluk 🌍" data-en="Community 🌍">Topluluk 🌍</a></li>
+                    <li><a href="iletisim.html" data-tr="İletişim" data-en="Contact">İletişim</a></li>
+                    <li><button id="langToggle" onclick="toggleLanguage()" style="background:transparent; border:1px solid var(--border-color); color:var(--text-main); padding:8px 15px; border-radius:12px; cursor:pointer; font-weight:bold; transition:0.2s;">TR</button></li>
                 </ul>
             </nav>
         </div>
@@ -67,23 +98,236 @@
     <div class="blog-container">
         <div class="blog-header">
             <h1 data-tr="Almanya'da Hemşirelik Rehberi" data-en="Nursing Guide in Germany">Almanya'da Hemşirelik Rehberi</h1>
+            <p data-tr="Klinik iletişim, Goethe sınav taktikleri ve hastane hayatı hakkında derinlemesine makaleler." data-en="In-depth articles on clinical communication, Goethe exam tactics, and hospital life.">Klinik iletişim, Goethe sınav taktikleri ve hastane hayatı hakkında derinlemesine makaleler.</p>
         </div>
-        <!-- Kartlar burada -->
+
+        <div class="article-card">
+            <h2 data-tr="Almanya'da Anamnez Alırken Hayat Kurtaran 20 Almanca Kalıp" data-en="20 Lifesaving German Phrases for Taking Medical History">Almanya'da Anamnez Alırken Hayat Kurtaran 20 Almanca Kalıp</h2>
+            <p data-tr="Hastanın tıbbi geçmişini öğrenmek, doğru tedavi planının ilk adımıdır. Almanya'daki hastanelerde anamnez alırken kullanabileceğiniz profesyonel kalıplar ve dikkat etmeniz gereken kültürel iletişim detayları..." data-en="Learning the patient's medical history is the first step of the right treatment plan. Professional phrases you can use when taking anamnesis in German hospitals and cultural communication details you should pay attention to...">Hastanın tıbbi geçmişini öğrenmek, doğru tedavi planının ilk adımıdır. Almanya'daki hastanelerde anamnez alırken kullanabileceğiniz profesyonel kalıplar ve dikkat etmeniz gereken kültürel iletişim detayları...</p>
+            <button onclick="openModal('modal-anamnez')" class="read-more" data-tr="Devamını Oku &rarr;" data-en="Read More &rarr;">Devamını Oku &rarr;</button>
+        </div>
+
+        <div class="article-card">
+            <h2 data-tr="Goethe B1-B2 Pflege Sözlü Sınavı: Sunum ve Tartışma Tüyoları" data-en="Goethe B1-B2 Nursing Oral Exam: Presentation & Discussion Tips">Goethe B1-B2 Pflege Sözlü Sınavı: Sunum ve Tartışma Tüyoları</h2>
+            <p data-tr="Sınav komisyonu sizden sadece gramer beklemez, profesyonel argüman kurma ve mesleki yeterlilik arar. Bir sağlık konusu hakkında sunum yaparken ve tartışırken nasıl yüksek puan alırsınız?" data-en="The exam board expects not just grammar, but professional argumentation and competence. How do you score high when presenting and discussing a health topic?">Sınav komisyonu sizden sadece gramer beklemez, profesyonel argüman kurma ve mesleki yeterlilik arar. Bir sağlık konusu hakkında sunum yaparken ve tartışırken nasıl yüksek puan alırsınız?</p>
+            <button onclick="openModal('modal-goethe')" class="read-more" data-tr="Devamını Oku &rarr;" data-en="Read More &rarr;">Devamını Oku &rarr;</button>
+        </div>
+
+        <div class="article-card">
+            <h2 data-tr="Üroloji ve Genel Cerrahi Servislerinde Sık Kullanılan Terimler" data-en="Commonly Used Terms in Urology and General Surgery Departments">Üroloji ve Genel Cerrahi Servislerinde Sık Kullanılan Terimler</h2>
+            <p data-tr="Klinik rotasyonlarda ve uzmanlık servislerinde karşınıza çıkacak spesifik aletler, semptomlar ve hasta diyalogları. Kateter bakımı ve ameliyat öncesi hazırlık kelimeleri..." data-en="Specific tools, symptoms, and patient dialogues you will encounter in clinical rotations and specialized departments. Catheter care and pre-op preparation vocabulary...">Klinik rotasyonlarda ve uzmanlık servislerinde karşınıza çıkacak spesifik aletler, semptomlar ve hasta diyalogları. Kateter bakımı ve ameliyat öncesi hazırlık kelimeleri...</p>
+            <button onclick="openModal('modal-uroloji')" class="read-more" data-tr="Devamını Oku &rarr;" data-en="Read More &rarr;">Devamını Oku &rarr;</button>
+        </div>
+
+        <!-- YENİ EKLENEN KART 4 -->
+        <div class="article-card">
+            <h2 data-tr="Almanya'da Kusursuz Vardiya Teslimi (Pflegeübergabe) Nasıl Yapılır?" data-en="How to Do a Perfect Shift Handover (Pflegeübergabe) in Germany?">Almanya'da Kusursuz Vardiya Teslimi (Pflegeübergabe) Nasıl Yapılır?</h2>
+            <p data-tr="Klinikteki en önemli anlardan biri vardiya teslimidir. ISBAR metodu nedir? Sabah, akşam veya gece vardiyasına hastaları devrederken eksiksiz bilgi aktarımı için kullanmanız gereken standart Alman hastane kalıpları ve iletişim stratejileri..." data-en="One of the most important moments in the clinic is the shift handover. What is the ISBAR method? Standard German hospital phrases and communication strategies you should use for complete information transfer when handing over patients to the morning, evening or night shift...">Klinikteki en önemli anlardan biri vardiya teslimidir. ISBAR metodu nedir? Sabah, akşam veya gece vardiyasına hastaları devrederken eksiksiz bilgi aktarımı için kullanmanız gereken standart Alman hastane kalıpları ve iletişim stratejileri...</p>
+            <button onclick="openModal('modal-ubergabe')" class="read-more" data-tr="Devamını Oku &rarr;" data-en="Read More &rarr;">Devamını Oku &rarr;</button>
+        </div>
+
+        <!-- YENİ EKLENEN KART 5 -->
+        <div class="article-card">
+            <h2 data-tr="Almanya Hemşirelik İş Görüşmesinde (Bewerbungsgespräch) Çıkan 10 Soru" data-en="10 Questions Asked in Nursing Job Interviews (Bewerbungsgespräch) in Germany">Almanya Hemşirelik İş Görüşmesinde (Bewerbungsgespräch) Çıkan 10 Soru</h2>
+            <p data-tr="Alman hastanelerinin İK departmanları (Personalabteilung) mülakatlarda nelere dikkat eder? 'Neden Almanya?', 'Stresle nasıl başa çıkarsınız?' gibi klasikleşmiş mülakat soruları ve B1/B2 seviyesinde profesyonel, etkileyici cevap şablonları..." data-en="What do HR departments of German hospitals pay attention to in interviews? Classic interview questions like 'Why Germany?', 'How do you handle stress?' and professional, impressive answer templates at B1/B2 level...">Alman hastanelerinin İK departmanları (Personalabteilung) mülakatlarda nelere dikkat eder? "Neden Almanya?", "Stresle nasıl başa çıkarsınız?" gibi klasikleşmiş mülakat soruları ve B1/B2 seviyesinde profesyonel, etkileyici cevap şablonları...</p>
+            <button onclick="openModal('modal-mulakat')" class="read-more" data-tr="Devamını Oku &rarr;" data-en="Read More &rarr;">Devamını Oku &rarr;</button>
+        </div>
+
+        <!-- YENİ EKLENEN KART 6 -->
+        <div class="article-card">
+            <h2 data-tr="İlaç Yönetimi ve Hastaya Açıklama (Medikamentenvergabe) Terimleri" data-en="Medication Administration and Patient Explanation (Medikamentenvergabe) Terms">İlaç Yönetimi ve Hastaya Açıklama (Medikamentenvergabe) Terimleri</h2>
+            <p data-tr="Tablet, damla, infüzyon veya enjeksiyon işlemleri sırasında hastayı bilgilendirmek hukuki bir zorunluluktur. İlaç hazırlarken ve hastaya uygularken durumu açıklamak için kullanılacak doğru fiiller ve profesyonel klinik ifadeler..." data-en="It is a legal obligation to inform the patient during tablet, drop, infusion or injection procedures. Correct verbs and professional clinical phrases to use to explain the situation when preparing and administering medication to the patient...">Tablet, damla, infüzyon veya enjeksiyon işlemleri sırasında hastayı bilgilendirmek hukuki bir zorunluluktur. İlaç hazırlarken ve hastaya uygularken durumu açıklamak için kullanılacak doğru fiiller ve profesyonel klinik ifadeler...</p>
+            <button onclick="openModal('modal-ilac')" class="read-more" data-tr="Devamını Oku &rarr;" data-en="Read More &rarr;">Devamını Oku &rarr;</button>
+        </div>
     </div>
 
-    <!-- Sorumluluk Reddi Modal -->
-    <div id="disclaimerModal" style="display: none; z-index: 9999; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); justify-content: center; align-items: center; backdrop-filter: blur(8px);">
-        <div style="background: #1e1e1e; border: 1px solid #333; padding: 40px; border-radius: 20px; text-align: center; max-width: 600px; color: #fff;">
-            <h2 data-tr="Önemli Uyarı" data-en="Important Notice">Önemli Uyarı</h2>
-            <p data-tr="Bu web sitesinde yer alan tıbbi bilgiler, Almanca öğrenme amaçlıdır. Profesyonel tıbbi tavsiye yerine geçmez." 
-               data-en="The medical information on this website is for language learning purposes. It does not replace professional medical advice.">
-               Bu web sitesinde yer alan tıbbi bilgiler, Almanca öğrenme amaçlıdır. Profesyonel tıbbi tavsiye yerine geçmez.
-            </p>
-            <button onclick="acceptDisclaimer()" style="margin: 20px auto; padding: 12px 25px; background: #FFCC00; border: none; border-radius: 12px; font-weight: bold; cursor: pointer;" data-tr="Anladım" data-en="Understood">Anladım</button>
+    <!-- MODALLAR BAŞLANGIÇ -->
+    <div id="modal-anamnez" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('modal-anamnez')">&times;</span>
+            <h2>Almanya'da Anamnez Alırken Hayat Kurtaran 20 Almanca Kalıp</h2>
+            
+            <h4>Giriş ve Şikayet Tespiti</h4>
+            <ul>
+                <li><strong>Guten Tag, ich bin [İsmin], ich werde heute Ihre Anamnese aufnehmen.</strong> (Merhaba, ben [İsmin], bugün anamnezinizi alacağım.)</li>
+                <li><strong>Was führt Sie zu uns?</strong> (Sizi bize getiren şikayet nedir?)</li>
+                <li><strong>Seit wann haben Sie diese Beschwerden?</strong> (Bu şikayetleriniz ne zamandan beri var?)</li>
+            </ul>
+
+            <h4>Ağrı Değerlendirmesi (Schmerzanamnese)</h4>
+            <ul>
+                <li><strong>Wo genau haben Sie Schmerzen?</strong> (Tam olarak nerenizde ağrı var?)</li>
+                <li><strong>Können Sie den Schmerz beschreiben? Ist er stechend, ziehend oder dumpf?</strong> (Ağrıyı tarif edebilir misiniz? Saplanıcı mı, çekici mi yoksa künt mü?)</li>
+                <li><strong>Auf einer Skala von 1 bis 10, wie stark sind die Schmerzen?</strong> (1'den 10'a kadar bir ölçekte ağrınız ne kadar şiddetli?)</li>
+                <li><strong>Strahlen die Schmerzen in eine andere Körperregion aus?</strong> (Ağrı başka bir vücut bölgesine yayılıyor mu?)</li>
+            </ul>
+
+            <h4>Kronik Hastalıklar ve İlaçlar (Vorerkrankungen & Medikamente)</h4>
+            <ul>
+                <li><strong>Leiden Sie unter chronischen Erkrankungen wie Diabetes oder Bluthochdruck?</strong> (Diyabet veya yüksek tansiyon gibi kronik hastalıklarınız var mı?)</li>
+                <li><strong>Nehmen Sie regelmäßig Medikamente ein?</strong> (Düzenli olarak ilaç kullanıyor musunuz?)</li>
+                <li><strong>Haben Sie einen aktuellen Medikamentenplan dabei?</strong> (Yanınızda güncel bir ilaç planı var mı?)</li>
+                <li><strong>Wurden Sie schon einmal operiert? Wenn ja, weswegen?</strong> (Daha önce hiç ameliyat oldunuz mu? Cevap evet ise neyden?)</li>
+            </ul>
+
+            <h4>Alerjiler ve İntolerans (Allergien)</h4>
+            <ul>
+                <li><strong>Sind Sie gegen etwas allergisch?</strong> (Bir şeye karşı alerjiniz var mı?)</li>
+                <li><strong>Haben Sie Unverträglichkeiten gegen bestimmte Lebensmittel?</strong> (Belirli gıdalara karşı intoleransınız/hassasiyetiniz var mı?)</li>
+            </ul>
+
+            <h4>Yaşam Tarzı ve Günlük Yaşam (Vegatative Anamnese & Pflegebedarf)</h4>
+            <ul>
+                <li><strong>Rauchen Sie oder trinken Sie regelmäßig Alkohol?</strong> (Sigara içiyor musunuz veya düzenli alkol tüketiyor musunuz?)</li>
+                <li><strong>Haben Sie in letzter Zeit ungewollt an Gewicht verloren oder zugenommen?</strong> (Son zamanlarda istem dışı kilo verdiniz mi veya aldınız mı?)</li>
+                <li><strong>Leiden Sie unter Atembeschwerden oder Kurzatmigkeit?</strong> (Solunum sıkıntısı veya nefes darlığı çekiyor musunuz?)</li>
+                <li><strong>Wie steht es mit Ihrem Stuhlgang und Wasserlassen? Alles normal?</strong> (Büyük ve küçük abdestiniz ne durumda? Her şey normal mi?)</li>
+                <li><strong>Benötigen Sie Hilfe im Alltag, zum Beispiel beim Aufstehen oder Waschen?</strong> (Günlük hayatta yardıma ihtiyacınız var mı?)</li>
+            </ul>
+
+            <h4>Kapanış ve Resmi Süreç</h4>
+            <ul>
+                <li><strong>Haben Sie eine Patientenverfügung oder eine Vorsorgevollmacht dabei?</strong> (Yanınızda hasta vasiyeti veya sağlık vekaletnamesi var mı?)</li>
+                <li><strong>Vielen Dank für Ihre Antworten. Ich leite die Informationen an den Stationsarzt weiter.</strong> (Cevaplarınız için çok teşekkürler. Bilgileri servis doktoruna ileteceğim.)</li>
+            </ul>
         </div>
     </div>
+
+    <div id="modal-goethe" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('modal-goethe')">&times;</span>
+            <h2>Goethe B1-B2 Pflege Sözlü Sınavı: Sunum ve Tartışma Tüyoları</h2>
+            
+            <h4>Sunum (Präsentation) Yapısı ve Kalıpları</h4>
+            <ul>
+                <li><strong>Einleitung (Giriş):</strong> Konuyu ve yapacağın sunumu tanıt.<br>
+                <em>"Ich möchte heute über das Thema [X] sprechen. Mein Vortrag besteht aus folgenden Teilen..."</em></li>
+                <li><strong>Eigene Erfahrung & Situation im Heimatland (Kendi Deneyimin ve Ülkendeki Durum):</strong> Türkiye'deki durumu Almanya ile kıyasla.<br>
+                <em>"In meinem Heimatland, der Türkei, ist die Situation so, dass..."</em></li>
+                <li><strong>Vor- und Nachteile (Avantaj ve Dezavantajlar):</strong> Konuya mesleki bir gözle bak.<br>
+                <em>"Ein großer Vorteil für die Pflegekräfte ist... Ein Nachteil hingegen könnte sein..."</em></li>
+                <li><strong>Fazit (Kapanış):</strong> Kendi profesyonel görüşünle bitir.<br>
+                <em>"Zusammenfassend lässt sich sagen, dass..."</em></li>
+            </ul>
+
+            <h4>Tartışma (Diskussion) Bölümü İçin Tüyolar</h4>
+            <ul>
+                <li><strong>Asla Sessiz Kalma:</strong> Kelimeyi hatırlayamazsan hemen <em>"Wie sagt man das auf Fachsprache..."</em> diyerek durumu tanımlamaya çalış.</li>
+                <li><strong>Katılırken:</strong> <em>"Ich stimme dir vollkommen zu. Das ist ein wichtiger Punkt für die Patientensicherheit."</em> (Sana tamamen katılıyorum. Bu, hasta güvenliği için önemli bir nokta.)</li>
+                <li><strong>Kibarca Karşı Çıkarken:</strong> <em>"Das sehe ich etwas anders, denn aus pflegerischer Sicht müssen wir bedenken, dass..."</em> (Bunu biraz farklı görüyorum, çünkü hemşirelik açısından düşünmeliyiz ki...)</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="modal-uroloji" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('modal-uroloji')">&times;</span>
+            <h2>Üroloji ve Genel Cerrahi Servislerinde Sık Kullanılan Terimler</h2>
+            
+            <h4>Üroloji Servisi (Urologie)</h4>
+            <ul>
+                <li><strong>der Dauerkatheter (DK):</strong> Kalıcı idrar sondası.<br><em>“Ich muss heute bei Herrn Müller einen Dauerkatheter legen.”</em></li>
+                <li><strong>der Einmalkatheter:</strong> Anlık idrar boşaltımı için kullanılan tek seferlik kateter.</li>
+                <li><strong>der Harnwegsinfekt (HWI):</strong> İdrar yolu enfeksiyonu (Klinikte hep kısaltması "HWI" kullanılır).</li>
+                <li><strong>die Hämaturie:</strong> Makroskopik veya mikroskopik idrarda kan görülmesi durumu.</li>
+                <li><strong>die Flüssigkeitsbilanzierung:</strong> Sıvı takibi (Giren-çıkan sıvı takibi, ürolojide hayati önem taşır).</li>
+                <li><strong>die Harnretention:</strong> İdrar retansiyonu (idrar yapamama durumu).</li>
+            </ul>
+
+            <h4>Genel Cerrahi Servisi (Allgemeinchirurgie)</h4>
+            <ul>
+                <li><strong>nüchtern sein:</strong> Aç olmak (Ameliyat öncesi kesin kural).<br><em>“Der Patient muss ab Mitternacht absolut nüchtern bleiben, auch kein Wasser.”</em></li>
+                <li><strong>präoperativ / postoperativ:</strong> Ameliyat öncesi / Ameliyat sonrası dönem.</li>
+                <li><strong>die Wundversorgung / der Verbandswechsel:</strong> Yara bakımı / Pansuman değişimi.</li>
+                <li><strong>die Drainage:</strong> Drenaj (Ameliyat bölgesindeki sıvıyı dışarı atan tüp).<br><em>“Bitte kontrollieren Sie die chirurgische Drainage und dokumentieren Sie die Fördermenge.”</em></li>
+                <li><strong>die Thromboseprophylaxe:</strong> Tomboz profaksisi (Genelde ameliyat sonrası Antithrombosestrümpfe yani varis çorabı giydirilir veya heparin iğnesi yapılır).</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- YENİ EKLENEN MODAL 4 -->
+    <div id="modal-ubergabe" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('modal-ubergabe')">&times;</span>
+            <h2>Almanya'da Kusursuz Vardiya Teslimi (Pflegeübergabe)</h2>
+            
+            <h4>ISBAR Metodu ile Teslim</h4>
+            <p style="color: var(--text-muted); line-height: 1.6;">Almanya'da vardiya teslimleri (Übergabe) genellikle ISBAR (Identifikation, Situation, Hintergrund, Assessment, Empfehlung) formatında yapılır. Bu, bilgi eksikliğini önler.</p>
+            <ul>
+                <li><strong>Identifikation (Kimlik):</strong> <em>"Ich übergebe dir Frau Schmidt aus Zimmer 12, 75 Jahre alt."</em> (Sana 12 numaralı odadan 75 yaşındaki Bayan Schmidt'i devrediyorum.)</li>
+                <li><strong>Situation (Durum):</strong> <em>"Sie wurde gestern mit Verdacht auf Pneumonie aufgenommen."</em> (Dün zatürre şüphesiyle yatışı yapıldı.)</li>
+                <li><strong>Hintergrund (Geçmiş):</strong> <em>"Sie hat Diabetes Typ 2 und ist sturzgefährdet."</em> (Tip 2 diyabeti var ve düşme riski taşıyor.)</li>
+                <li><strong>Assessment (Değerlendirme):</strong> <em>"Ihre Vitalwerte sind stabil, aber sie hat leichtes Fieber (38,2°C)."</em> (Hayati bulguları stabil ancak hafif ateşi var.)</li>
+                <li><strong>Empfehlung (Öneri/Yapılacaklar):</strong> <em>"Bitte kontrolliere den Blutzucker um 14 Uhr und gib ihr die Antibiotika-Infusion."</em> (Lütfen saat 14'te kan şekerini kontrol et ve antibiyotik infüzyonunu ver.)</li>
+            </ul>
+
+            <h4>Sık Kullanılan Übergabe Kısaltmaları</h4>
+            <ul>
+                <li><strong>Bedarfsmedikation:</strong> İhtiyaç halinde verilecek ilaç (Örn: Ağrı kesici).</li>
+                <li><strong>VZ (Vitalzeichen):</strong> Vital bulgular (Tansiyon, nabız, ateş vb.).</li>
+                <li><strong>Nüchtern:</strong> Aç (Ameliyat veya test öncesi).</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- YENİ EKLENEN MODAL 5 -->
+    <div id="modal-mulakat" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('modal-mulakat')">&times;</span>
+            <h2>Almanya Hemşirelik İş Görüşmesinde Çıkan 10 Soru</h2>
+            
+            <h4>Klasik Sorular ve Örnek Cevap Şablonları</h4>
+            <ul>
+                <li><strong>1. Warum möchten Sie in Deutschland als Pflegefachkraft arbeiten?</strong> (Neden Almanya'da hemşire olarak çalışmak istiyorsunuz?)<br>
+                <em>Cevap:</em> "Ich schätze das deutsche Gesundheitssystem und die beruflichen Weiterbildungsmöglichkeiten sehr. Zudem möchte ich mich fachlich und persönlich weiterentwickeln."</li>
+                <li><strong>2. Wie gehen Sie mit Stress und hoher Arbeitsbelastung um?</strong> (Stres ve yüksek iş yüküyle nasıl başa çıkarsınız?)<br>
+                <em>Cevap:</em> "In stressigen Situationen versuche ich, ruhig zu bleiben und meine Aufgaben zu priorisieren. Teamarbeit ist hierbei für mich der Schlüssel."</li>
+                <li><strong>3. Was sind Ihre Stärken und Schwächen?</strong> (Güçlü ve zayıf yönleriniz nelerdir?)<br>
+                <em>Cevap:</em> "Meine Stärke ist meine Empathie und Zuverlässigkeit. Eine Schwäche von mir ist vielleicht, dass ich manchmal zu perfektionistisch bin, aber ich lerne, Aufgaben effizienter abzuschließen."</li>
+                <li><strong>4. Haben Sie Erfahrung mit der Pflegedokumentation?</strong> (Hemşirelik dokümantasyonu konusunda tecrübeniz var mı?)<br>
+                <em>Cevap:</em> "Ja, in meinem Heimatland habe ich täglich Patientenakten geführt. Ich bin bereit, mich schnell in die deutschen Dokumentationssysteme einzuarbeiten."</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- YENİ EKLENEN MODAL 6 -->
+    <div id="modal-ilac" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('modal-ilac')">&times;</span>
+            <h2>İlaç Yönetimi ve Hastaya Açıklama (Medikamentenvergabe)</h2>
+            
+            <h4>Hastayı Bilgilendirme Kalıpları</h4>
+            <ul>
+                <li><strong>Tableti verirken:</strong> <em>"Frau Müller, das ist Ihre Tablette für den Blutdruck. Bitte nehmen Sie diese nach dem Frühstück mit einem großen Glas Wasser ein."</em> (Bayan Müller, bu tansiyon hapınız. Lütfen kahvaltıdan sonra büyük bir bardak su ile içiniz.)</li>
+                <li><strong>İnfüzyon (Serum) takarken:</strong> <em>"Ich werde Ihnen jetzt eine Infusion legen, um Ihren Flüssigkeitshaushalt auszugleichen. Es wird nur ein kleiner Piks sein."</em> (Sıvı dengenizi sağlamak için şimdi size bir infüzyon takacağım. Sadece küçük bir iğne batması hissedeceksiniz.)</li>
+                <li><strong>Enjeksiyon yaparken:</strong> <em>"Ich gebe Ihnen jetzt die Thrombosespritze in den Bauch. Atmen Sie tief ein."</em> (Şimdi karnınıza tromboz iğnesini yapacağım. Derin nefes alın.)</li>
+            </ul>
+
+            <h4>Önemli Fiiller ve Terimler</h4>
+            <ul>
+                <li><strong>verabreichen:</strong> (İlaç) vermek / uygulamak</li>
+                <li><strong>schlucken:</strong> Yutmak</li>
+                <li><strong>auflösen:</strong> (Suda) çözmek (Örn: Brausetablette - Efervesan tablet)</li>
+                <li><strong>die Nebenwirkung:</strong> Yan etki <em>("Wenn Sie Nebenwirkungen bemerken, sagen Sie mir bitte sofort Bescheid.")</em></li>
+            </ul>
+        </div>
+    </div>
+
+    <footer style="width: 100%; text-align: center; margin-bottom: 30px; font-size: 0.9rem; border-top: 1px solid var(--border-color); padding-top: 20px;">
+        <div style="margin-bottom: 15px;">
+            <a href="datenschutz.html" style="color: var(--text-muted); text-decoration: none; margin: 0 10px; font-weight: 600;" data-tr="Gizlilik Politikası" data-en="Privacy Policy">Datenschutzerklärung</a>
+            <span style="color: var(--border-color);">|</span>
+            <a href="impressum.html" style="color: var(--text-muted); text-decoration: none; margin: 0 10px; font-weight: 600;" data-tr="Künye (Impressum)" data-en="Legal Notice">Impressum</a>
+            <span style="color: var(--border-color);">|</span>
+            <a href="iletisim.html" style="color: var(--text-muted); text-decoration: none; margin: 0 10px; font-weight: 600;" data-tr="İletişim" data-en="Contact">Kontakt</a>
+        </div>
+        <div style="color: var(--text-muted); font-weight: 600;">
+            © 2026 <span data-tr="Oluşturan Azad | Tüm Hakları Saklıdır" data-en="Created by Azad | All Rights Reserved">Oluşturan Azad | Tüm Hakları Saklıdır</span>
+        </div>
+    </footer>
 
     <script>
+        // --- DİL GEÇİŞ MANTIĞI ---
         let currentLang = localStorage.getItem('medVokabeln_lang') || 'tr';
 
         function applyUILanguage() {
@@ -99,23 +343,29 @@
             applyUILanguage();
         }
 
-        function acceptDisclaimer() {
-            document.getElementById('disclaimerModal').style.display = 'none';
-            document.body.style.overflow = 'auto';
-            localStorage.setItem('medVokabeln_disclaimerAccepted', 'true');
-        }
-
         window.addEventListener('DOMContentLoaded', () => {
             document.getElementById('langToggle').innerText = currentLang.toUpperCase();
             applyUILanguage();
-            if (!localStorage.getItem('medVokabeln_disclaimerAccepted')) {
-                document.getElementById('disclaimerModal').style.display = 'flex';
-                document.body.style.overflow = 'hidden';
-            }
         });
 
-        function openModal(id) { document.getElementById(id).style.display = 'flex'; document.body.style.overflow = 'hidden'; }
-        function closeModal(id) { document.getElementById(id).style.display = 'none'; document.body.style.overflow = 'auto'; }
+        // --- MODAL MANTIĞI EKLENDİ ---
+        function openModal(id) {
+            document.getElementById(id).style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // Arka plan kaymasını engeller
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).style.display = 'none';
+            document.body.style.overflow = 'auto'; // Kaymayı tekrar açar
+        }
+
+        // Modal dışına tıklandığında pencereyi kapatma
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal-overlay')) {
+                event.target.style.display = "none";
+                document.body.style.overflow = 'auto';
+            }
+        }
     </script>
 </body>
 </html>
