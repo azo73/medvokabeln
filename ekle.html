@@ -72,11 +72,11 @@
         <div class="header-right">
             <nav class="main-nav">
                 <ul class="nav-links">
-                    <li><a href="pomodoro.html" data-tr="Sayaç ⏱️" data-en="Timer ⏱️">Sayaç ⏱️</a></li>
+                    <li><a href="pomodoro.html" data-tr="Sayaç " data-en="Timer ">Sayaç </a></li>
                     <li><a href="goethe.html" data-tr="Goethe Hazırlık" data-en="Goethe Prep">Goethe Hazırlık</a></li>
                     <li><a href="rehber.html" data-tr="Rehber" data-en="Guide">Rehber</a></li>
                     <li><a href="youtube.html" data-tr="Videolar" data-en="Videos">Videolar</a></li>
-                    <li><a href="ekle.html" class="active" style="color: #000; border: 1px solid var(--primary); background: var(--primary);" data-tr="Topluluk 🌍" data-en="Community 🌍">Topluluk 🌍</a></li>
+                    <li><a href="ekle.html" class="active" style="color: #000; border: 1px solid var(--primary); background: var(--primary);" data-tr="Topluluk " data-en="Community ">Topluluk </a></li>
                     <li><a href="iletisim.html" data-tr="İletişim" data-en="Contact">İletişim</a></li>
                     <li><button id="langToggle" onclick="toggleLanguage()" style="background:transparent; border:1px solid var(--border-color); color:var(--text-main); padding:8px 15px; border-radius:12px; cursor:pointer; font-weight:bold; transition:0.2s;">TR</button></li>
                 </ul>
@@ -99,7 +99,7 @@
 
         <div class="input-group">
             <label data-tr="Senin Nickin" data-en="Your Nickname">Senin Nickin</label>
-            <input type="text" id="newWordAuthor" data-tr-ph="Örn: Hemşire Azad..." data-en-ph="e.g., Nurse Azad..." placeholder="Örn: Hemşire Azad...">
+            <input type="text" id="newWordAuthor" data-tr-ph="Örn: Hemşire Ali..." data-en-ph="e.g., Nurse Ali..." placeholder="Örn: Hemşire Ali...">
         </div>
 
         <button onclick="saveWordToFirebase()" class="btn-submit" data-tr="Dünyaya Gönder 🚀" data-en="Publish to World 🚀">Dünyaya Gönder 🚀</button>
@@ -168,7 +168,7 @@
             const author = document.getElementById('newWordAuthor').value.trim() || (currentLang === 'en' ? "Secret Hero" : "Gizli Kahraman");
 
             if(!de || !tr) {
-                alert(currentLang === 'en' ? "🚨 Please fill in both German and Translation fields!" : "🚨 Lütfen Almanca ve Türkçe kısımlarını doldur!");
+                alert(currentLang === 'en' ? " Please fill in both German and Translation fields!" : " Lütfen Almanca ve Türkçe kısımlarını doldur!");
                 return;
             }
 
